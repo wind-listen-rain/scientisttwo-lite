@@ -32,6 +32,9 @@ removed together with every virtual row that depends on it (block Woodbury downd
     would reject them); that cell then becomes latent and takes the unseen-cell rule value.
 The ensemble step of S4 is kept, with rho as a new candidate dimension (common rho, or the
 per-tree argmin of R over (rho, kappa)); ties go to the smaller rho, then the smaller kappa.
+Round 2: the ensemble step uses S4's one-standard-error rule (SE_RULE = 1): among the
+candidates whose R is within one paired SE of the minimum, the one with the best in-sample
+fidelity to T(X_train) is taken.
 """
 
 import numpy as np
@@ -57,7 +60,13 @@ PRIORS = ("ridge", "lattice")
 LATTICE_RIDGE = 0.1        # ridge part of the lattice prior (edge weights have mean 1)
 RULES = ("zero", "harmonic")
 SHIFTS = np.arange(-5, 4)  # global shifts of the per-tree kappa index (ensemble step)
-SE_RULE = 0.0              # k-SE rule of the ensemble step (0 = plain argmin, as S4)
+# k-SE rule of the ensemble step (0 = plain argmin, as S4). E1 round 2: k = 1, the
+# conventional value (not tuned, no other k run). Among the candidates whose R is within
+# one paired standard error of the minimum, the one with the smallest in-sample residual
+# (label-free: T(X_train) and the decomposition only) is taken, so the statistically tied
+# part of the anchor's gain goes to in-sample fidelity instead of to the corner of the
+# (rho, kappa) grid that the plain argmin picked (rho = 1, kappa at its floor).
+SE_RULE = 1.0
 KEEP_PATH = False          # development only: keep the whole path after fitting
 HARD_ORTHO = True          # exact per-tree orthogonality
 # ---------------------------------------------------------------- E1 settings
@@ -67,7 +76,8 @@ RHOS = (0.0, 0.25, 1.0)    # anchor strength (virtual-to-real mass ratio); must 
 # (> 4x trigger), so rho > 0 is fitted for the lattice prior only (4 instead of 6
 # eigendecompositions per tree). The ridge prior keeps its rho = 0 (S4) member.
 ANCHOR_PRIORS = ("lattice",)
-BLOCK_CHUNK = 4e6          # max elements of a batched block temporary (memory bound)
+BLOCK_CHUNK = 3e5          # max elements of a batched block temporary (cache-sized chunks)
+BLOCK_EXACT = 32           # leave-out blocks up to this size are batched by exact size
 
 
 def variants() -> list[tuple[int, int]]:
@@ -82,6 +92,23 @@ def _first_min(risk: np.ndarray, axis: int = -1) -> np.ndarray:
     return np.argmax(risk <= lo * (1 + 1e-9) + 1e-300, axis=axis)
 
 
+def _se_select(sq: np.ndarray, fidelity: np.ndarray, k: float) -> tuple[int, int, int]:
+    """k-SE rule towards in-sample fidelity.
+
+    sq: squared ensemble leave-out residuals (candidates, n); fidelity: in-sample MSE per
+    candidate. Returns (argmin of the risk, selected candidate, number of tied candidates).
+    The paired standard error of each candidate's risk difference to the argmin defines
+    the tie; ties are broken by the smallest fidelity, then by the candidate order.
+    """
+    risks = np.mean(sq, axis=1)
+    i_min = int(_first_min(risks))
+    if k <= 0:
+        return i_min, i_min, 1
+    se = np.std(sq - sq[i_min], axis=1) / np.sqrt(sq.shape[1]) * k
+    tied = np.flatnonzero(risks <= risks[i_min] * (1 + 1e-9) + se)
+    return i_min, int(tied[_first_min(fidelity[tied])]), len(tied)
+
+
 def _nearest_cells(pos_a, pos_b, seen_u, seen_v, seen_cnt, query_u, query_v,
                    exclude=None):
     """Nearest observed pair cell (quantile coordinates) for each query cell."""
@@ -93,6 +120,29 @@ def _nearest_cells(pos_a, pos_b, seen_u, seen_v, seen_cnt, query_u, query_v,
     key = np.lexsort((np.broadcast_to(np.arange(len(seen_u)), dist.shape),
                       np.broadcast_to(-seen_cnt, dist.shape), dist), axis=1)
     return key[:, 0]
+
+
+def _unique_rows(M: np.ndarray) -> tuple:
+    """Unique rows of a non-negative integer matrix, with inverse and counts.
+
+    Same result as np.unique(M, axis=0, return_inverse=True, return_counts=True) up to the
+    order of the unique rows: rows are grouped by a 64-bit polynomial hash, the grouping is
+    verified exactly, and np.unique is used if any two different rows share a hash.
+    """
+    M = np.ascontiguousarray(M, dtype=np.int64)
+    key = np.zeros(M.shape[0], dtype=np.uint64)
+    mul = np.uint64(0x9E3779B97F4A7C15)
+    with np.errstate(over="ignore"):
+        for c in range(M.shape[1]):
+            key = key * mul + M[:, c].astype(np.uint64) + np.uint64(1)
+    _, first, inv, cnt = np.unique(key, return_index=True, return_inverse=True,
+                                   return_counts=True)
+    inv = inv.ravel()
+    U = M[first]
+    if not np.array_equal(U[inv], M):
+        U, inv, cnt = np.unique(M, axis=0, return_inverse=True, return_counts=True)
+        inv = inv.ravel()
+    return U, inv, cnt
 
 
 def _inv_sqrt(B: np.ndarray) -> np.ndarray:
@@ -393,10 +443,10 @@ class GTLocoTree:
         mr = T.shape[1]
         Zr = np.asarray(H[idx1] @ T)                          # (N1, m_red)
         er = resid[:, idx1]                                   # (G, N1)
-        Hn = va["Hv"][va["vneed"]]
+        Hn = va["Hn"]
         # Last row / column: the zero padding row (index -1 in the blocks).
         Zv = np.vstack([np.asarray(Hn @ T), np.zeros((1, mr))])            # (n_need+1, mr)
-        ev = np.hstack([(va["yv"][va["vneed"]][:, None] - Hn @ betas).T,
+        ev = np.hstack([(va["yn"][:, None] - Hn @ betas).T,
                         np.zeros((G, 1))])                                  # (G, n_need+1)
         rows, pts, funcs = orphans
         orph_of = np.full(len(idx1), -1, dtype=int)
@@ -413,8 +463,11 @@ class GTLocoTree:
                 # removed weights: real row 1/n, merged virtual rows wv * (dependent copies)
                 W = np.hstack([np.full((len(mm), 1), 1.0 / n),
                                wv * vmult[c0:c0 + step]])                    # (Nb, b)
-                Zb = np.concatenate([Zr[mm][:, None, :], Zv[vp]], axis=1)   # (Nb, b, mr)
-                Eb = np.concatenate([er[:, mm][:, :, None], ev[:, vp]], axis=2)  # (G,Nb,b)
+                if b == 1:
+                    Zb, Eb = Zr[mm][:, None, :], er[:, mm][:, :, None]
+                else:
+                    Zb = np.concatenate([Zr[mm][:, None, :], Zv[vp]], axis=1)  # (Nb, b, mr)
+                    Eb = np.concatenate([er[:, mm][:, :, None], ev[:, vp]], axis=2)  # (G,Nb,b)
                 if b == 1:   # rank-one PRESS
                     h = (D @ (Zb[:, 0, :] ** 2).T) / n                          # (G, Nb)
                     Em = Eb / np.maximum(1.0 - h, 1e-12)[:, :, None]
@@ -489,8 +542,7 @@ class GTLocoTree:
         yv = np.concatenate(ys) - self.eta0
         # Copies with the same cells (hence the same joint cell and the same tree output)
         # are merged into one row whose weight is w times their multiplicity.
-        Cu, uinv, ucnt = np.unique(Cv, axis=0, return_inverse=True, return_counts=True)
-        uinv = uinv.ravel()
+        Cu, uinv, ucnt = _unique_rows(Cv)
         nu = len(Cu)
         yu = np.bincount(uinv, weights=yv, minlength=nu) / ucnt
         self.merge_err = float(np.max(np.abs(yv - yu[uinv])))
@@ -525,11 +577,11 @@ class GTLocoTree:
         mult = np.concatenate([mult, [0]])
         cnt = np.bincount(a, minlength=len(idx1))
         start = np.concatenate([[0], np.cumsum(cnt)])
-        # Blocks are grouped by size (exact up to 8 rows incl. the real row, then rounded up
-        # to a multiple of 8) and padded with zero-weight rows, which leaves the downdate
-        # exact.
+        # Blocks are grouped by size (exact up to BLOCK_EXACT rows incl. the real row, then
+        # rounded up to a multiple of 8) and padded with zero-weight rows, which leaves the
+        # downdate exact.
         size = cnt + 1
-        bucket = np.where(size <= 8, size, 8 * np.ceil(size / 8)).astype(int)
+        bucket = np.where(size <= BLOCK_EXACT, size, 8 * np.ceil(size / 8)).astype(int)
         blocks = []
         for s in np.unique(bucket):
             mem = np.flatnonzero(bucket == s)
@@ -537,7 +589,7 @@ class GTLocoTree:
             take = np.where(j < cnt[mem][:, None], start[mem][:, None] + j, len(upos) - 1)
             blocks.append((mem, upos[take], mult[take]))
         return {"nv": nv, "nu": nu, "Hv": Hv, "yv": yu, "w": w, "A": A, "b": bvec,
-                "vneed": uneed, "blocks": blocks,
+                "vneed": uneed, "Hn": Hv[uneed], "yn": yu[uneed], "blocks": blocks,
                 "max_block": int(size.max()) if len(size) else 0}
 
     def _ortho_basis(self, n: int) -> None:
@@ -845,12 +897,9 @@ class GTLocoHFD(XGBTreeHFD):
         sq = np.array(loos) ** 2                             # (candidates, n)
         risks = np.mean(sq, axis=1)
         fidelity = np.mean(np.array(inss) ** 2, axis=1)       # in-sample MSE vs T(x)
-        i_min = int(_first_min(risks))
-        i_sel = i_min
-        if SE_RULE > 0:
-            se = np.std(sq - sq[i_min], axis=1) / np.sqrt(n) * SE_RULE
-            tied = np.flatnonzero(risks <= risks[i_min] * (1 + 1e-9) + se)
-            i_sel = int(tied[_first_min(fidelity[tied])])
+        i_min, i_sel, n_tied = _se_select(sq, fidelity, SE_RULE)
+        if KEEP_PATH:   # development only: per-point residuals of every candidate
+            diag["cand_loo"] = np.array(loos, dtype=np.float32)
         del sq, loos, inss
         cands = [(*c, float(r), float(f)) for c, r, f in zip(cands, risks, fidelity,
                                                             strict=True)]
@@ -871,7 +920,7 @@ class GTLocoHFD(XGBTreeHFD):
         var_t = float(np.var(tree_predictions.sum(axis=1)))
         rho_names = [f"rho={r:g}" for r in RHOS] + ["rho=per-tree"]
         diag.update({"selection": best, "selection_rho_mode": rho_names[rm],
-                     "candidates": cands, "min_risk": cands[i_min],
+                     "candidates": cands, "min_risk": cands[i_min], "n_tied": n_tied,
                      "risk_over_var": best[4] / var_t, "resid_in_over_var": best[5] / var_t,
                      "kappa_chosen": KAPPAS[np.array(chosen_g)],
                      "rho_chosen": np.array(RHOS)[np.array(chosen_r)],

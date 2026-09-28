@@ -1,10 +1,13 @@
 """Development check: anchored GT-LOCO fit, selection, and (diagnostic only) held-out metrics.
 
 usage: dev_e1.py <dataset|analytical[:rep]> [split=<s>] [rhos=0,0.25,1] [anchor_priors=ridge,lattice]
-                 [ablate]
-With 'ablate', also reports the best candidate restricted to each rho mode (fixed common rho
-0 / 0.25 / 1, per-tree rho), i.e. the fixed-rho ablation. Held-out numbers are printed for
-diagnosis only; the method never sees them and they are not used for selection.
+                 [se=<k>] [ablate] [ortho]
+Reports the selection (k-SE rule, SE_RULE of lib/agtloco.py unless se=<k>) and the plain argmin
+of R. With 'ablate', also reports, restricted to each rho mode (fixed common rho 0 / 0.25 / 1,
+per-tree rho), the best candidate by R and the k-SE choice, i.e. the fixed-rho ablation (the
+rho = 0 mode is S4). With 'ortho', reports orthogonality at a common kappa for rho = 0 / 0.25 / 1
+(same kappa in every tree, so only rho changes). Held-out numbers are printed for diagnosis
+only; the method never sees them and they are not used for selection.
 """
 import sys
 import time
@@ -24,6 +27,8 @@ if "rhos" in opts:
     agtloco.RHOS = tuple(float(r) for r in opts["rhos"].split(","))
 if "anchor_priors" in opts:
     agtloco.ANCHOR_PRIORS = tuple(opts["anchor_priors"].split(","))
+if "se" in opts:
+    agtloco.SE_RULE = float(opts["se"])
 VAR = agtloco.variants()
 name = sys.argv[1]
 if name.startswith("analytical"):
@@ -34,7 +39,8 @@ else:
 hfd = agtloco.GTLocoHFD(model)
 t0 = time.time()
 hfd.fit(Xtr)
-print(f"{name} split={opts.get('split', 0)} RHOS={agtloco.RHOS} fit {time.time() - t0:.2f}s")
+print(f"{name} split={opts.get('split', 0)} RHOS={agtloco.RHOS} SE_RULE={agtloco.SE_RULE:g} "
+      f"fit {time.time() - t0:.2f}s")
 d = hfd.diagnostics
 vtr, vte = np.var(model.predict(Xtr)), np.var(model.predict(Xte))
 NR = len(agtloco.RHOS)
@@ -77,7 +83,9 @@ def apply(c):
 
 sel = d["selection"]
 print("selection", label(sel), f"R/var={d['risk_over_var']:.5f} resid_in(est)/var="
-      f"{d['resid_in_over_var']:.5f}")
+      f"{d['resid_in_over_var']:.5f} tied={d['n_tied']}")
+print("argmin   ", label(d["min_risk"]), f"R/var={d['min_risk'][4] / d['var_t']:.5f} "
+      f"resid_in(est)/var={d['min_risk'][5] / d['var_t']:.5f}")
 print("N1/n mean", round(float(np.mean(d["n1_frac"])), 4), "m mean/max", np.mean(d["m"]),
       np.max(d["m"]), "virtual/n mean", round(float(np.mean(d["n_virtual"])) / len(Xtr), 3),
       "route_err max", f"{np.max(d['route_err']):.1e}")
@@ -90,15 +98,44 @@ print("per-tree joint argmin rho counts (selected variant)",
 r = evaluate()
 print(f"SELECTED resid_in={r['in']:.5f} resid_out={r['out']:.5f} ortho_in={r['oin']:.4f} "
       f"ortho_out={r['oout']:.4f} locvar_in={r['locvar']:.4g}")
+
+
+def fmt(tag, c, r):
+    return (f"  {tag:13s} {label(c)} R/var={c[4] / d['var_t']:.5f} "
+            f"resid_in={r['in']:.5f} resid_out={r['out']:.5f} ortho_in={r['oin']:.4f} "
+            f"ortho_out={r['oout']:.4f} locvar_in={r['locvar']:.4g}")
+
+
+cands = d["candidates"]
+if d["min_risk"][:4] != sel[:4]:
+    apply(d["min_risk"])
+    print("ARGMIN" + fmt("", d["min_risk"], evaluate())[15:])
+    apply(sel)
+else:
+    print("ARGMIN" + f" resid_in={r['in']:.5f} resid_out={r['out']:.5f} ortho_in={r['oin']:.4f} "
+          f"ortho_out={r['oout']:.4f} locvar_in={r['locvar']:.4g} (same as selection)")
 if "ablate" in sys.argv[2:]:
-    cands = d["candidates"]
-    print("rho-mode ablation: best candidate by R within each rho mode")
+    sq = d["cand_loo"].astype(float) ** 2
+    fid = np.array([c[5] for c in cands])
+    k = agtloco.SE_RULE if agtloco.SE_RULE > 0 else 1.0
+    print(f"rho-mode ablation: best candidate by R, and the {k:g}-SE choice, within each rho mode")
     for rm in range(NR + 1):
-        sub = [c for c in cands if c[2] == rm]
-        best = sub[int(agtloco._first_min(np.array([c[4] for c in sub])))]
+        idx = np.array([i for i, c in enumerate(cands) if c[2] == rm])
+        best = cands[idx[int(agtloco._first_min(np.array([cands[i][4] for i in idx])))]]
         apply(best)
-        r = evaluate()
-        print(f"  {RMN[rm]:13s} {label(best)} R/var={best[4] / d['var_t']:.5f} "
-              f"resid_in={r['in']:.5f} resid_out={r['out']:.5f} ortho_in={r['oin']:.4f} "
-              f"ortho_out={r['oout']:.4f} locvar_in={r['locvar']:.4g}")
+        print(fmt(RMN[rm], best, evaluate()))
+        _, i_se, _ = agtloco._se_select(sq[idx], fid[idx], k)
+        c = cands[idx[i_se]]
+        apply(c)
+        print(fmt(RMN[rm] + f"/se{k:g}", c, evaluate()))
+    apply(sel)
+if "ortho" in sys.argv[2:]:
+    v = sel[1]
+    print("orthogonality at a common kappa (selected variant), rho = 0 / 0.25 / 1")
+    for g in (0, 2, 4, 6):
+        for rm in range(NR):
+            c = next(c for c in cands if c[0] == "common" and c[1] == v and c[2] == rm
+                     and c[3] == g)
+            apply(c)
+            print(fmt(f"k={agtloco.KAPPAS[g]:g}", c, evaluate()))
     apply(sel)
