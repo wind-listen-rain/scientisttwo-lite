@@ -1,0 +1,68 @@
+=== airfoil split 0: N1/n mean 0.301
+  selected   resid_in=0.01235 resid_out=0.02247 ortho_in=0.0084 ortho_out=0.1116  shift lattice/harmonic -1 R/var=0.02730
+  per-tree   resid_in=0.01526 resid_out=0.02386 ortho_in=0.0072 ortho_out=0.1183  shift lattice/harmonic 0 R/var=0.02847
+  per-tree-v resid_in=0.01526 resid_out=0.02386 ortho_in=0.0072 ortho_out=0.1183  
+=== airfoil split 1: N1/n mean 0.260
+  selected   resid_in=0.00895 resid_out=0.02438 ortho_in=0.0277 ortho_out=0.2550  shift lattice/harmonic -2 R/var=0.02218
+  per-tree   resid_in=0.01250 resid_out=0.02566 ortho_in=0.0156 ortho_out=0.1633  shift lattice/harmonic 0 R/var=0.02325
+  per-tree-v resid_in=0.01250 resid_out=0.02566 ortho_in=0.0156 ortho_out=0.1633  
+=== airfoil split 2: N1/n mean 0.266
+  selected   resid_in=0.01083 resid_out=0.02529 ortho_in=0.0186 ortho_out=0.0440  shift lattice/harmonic -1 R/var=0.02383
+  per-tree   resid_in=0.01340 resid_out=0.02444 ortho_in=0.0165 ortho_out=0.0429  shift lattice/harmonic 0 R/var=0.02492
+  per-tree-v resid_in=0.01340 resid_out=0.02444 ortho_in=0.0165 ortho_out=0.0429  
+=== airfoil split 3: N1/n mean 0.275
+  selected   resid_in=0.01123 resid_out=0.02491 ortho_in=0.0193 ortho_out=0.1617  shift lattice/harmonic -1 R/var=0.02554
+  per-tree   resid_in=0.01363 resid_out=0.02553 ortho_in=0.0177 ortho_out=0.1573  shift lattice/harmonic 0 R/var=0.02630
+  per-tree-v resid_in=0.01363 resid_out=0.02553 ortho_in=0.0177 ortho_out=0.1573  
+=== airfoil split 4: N1/n mean 0.308
+  selected   resid_in=0.00854 resid_out=0.02117 ortho_in=0.0137 ortho_out=0.1047  shift lattice/harmonic -2 R/var=0.02514
+  per-tree   resid_in=0.01270 resid_out=0.02050 ortho_in=0.0145 ortho_out=0.1038  shift lattice/harmonic 0 R/var=0.02672
+  per-tree-v resid_in=0.01270 resid_out=0.02050 ortho_in=0.0145 ortho_out=0.1038  
+=== airfoil split 5: N1/n mean 0.324
+  selected   resid_in=0.01186 resid_out=0.02326 ortho_in=0.0185 ortho_out=0.1153  shift lattice/harmonic -1 R/var=0.02723
+  per-tree   resid_in=0.01479 resid_out=0.02404 ortho_in=0.0170 ortho_out=0.1163  shift lattice/harmonic 0 R/var=0.02832
+  per-tree-v resid_in=0.01479 resid_out=0.02404 ortho_in=0.0170 ortho_out=0.1163  
+=== airfoil split 6: N1/n mean 0.312
+  selected   resid_in=0.01009 resid_out=0.02201 ortho_in=0.0218 ortho_out=0.1381  shift lattice/harmonic -1 R/var=0.02470
+  per-tree   resid_in=0.01292 resid_out=0.02194 ortho_in=0.0212 ortho_out=0.1189  shift lattice/harmonic 0 R/var=0.02600
+  per-tree-v resid_in=0.01292 resid_out=0.02194 ortho_in=0.0212 ortho_out=0.1189  
+=== airfoil split 7: N1/n mean 0.317
+  selected   resid_in=0.01397 resid_out=0.02035 ortho_in=0.0132 ortho_out=0.1180  shift lattice/harmonic -1 R/var=0.03069
+  per-tree   resid_in=0.01708 resid_out=0.02141 ortho_in=0.0120 ortho_out=0.1169  shift lattice/harmonic 0 R/var=0.03168
+  per-tree-v resid_in=0.01708 resid_out=0.02141 ortho_in=0.0120 ortho_out=0.1169  
+=== summary: selected / per-tree ratios
+  in   : 0.810 0.716 0.808 0.824 0.673 0.802 0.781 0.818 | geo-mean 0.777
+  out  : 0.942 0.950 1.035 0.976 1.033 0.968 1.003 0.950 | geo-mean 0.981
+  oin  : 1.168 1.780 1.129 1.088 0.944 1.091 1.029 1.100 | geo-mean 1.146
+  oout : 0.944 1.561 1.026 1.028 1.009 0.991 1.162 1.009 | geo-mean 1.078
+=== airfoil split 0
+  argmin  shift lattice/harmonic -1  R/var=0.02730 fid/var=0.01235 | resid_in=0.01235 resid_out=0.02247 ortho_in=0.0084 ortho_out=0.1116
+  1se     shift lattice/harmonic -1  R/var=0.02730 fid/var=0.01235 | resid_in=0.01235 resid_out=0.02247 ortho_in=0.0084 ortho_out=0.1116
+=== airfoil split 1
+  argmin  shift lattice/harmonic -1  R/var=0.02196 fid/var=0.01008 | resid_in=0.01008 resid_out=0.02466 ortho_in=0.0149 ortho_out=0.1644
+  1se     shift lattice/harmonic -2  R/var=0.02218 fid/var=0.00895 | resid_in=0.00895 resid_out=0.02438 ortho_in=0.0277 ortho_out=0.2550
+=== airfoil split 2
+  argmin  shift lattice/harmonic -1  R/var=0.02383 fid/var=0.01083 | resid_in=0.01083 resid_out=0.02529 ortho_in=0.0186 ortho_out=0.0440
+  1se     shift lattice/harmonic -1  R/var=0.02383 fid/var=0.01083 | resid_in=0.01083 resid_out=0.02529 ortho_in=0.0186 ortho_out=0.0440
+=== airfoil split 3
+  argmin  shift lattice/harmonic -1  R/var=0.02554 fid/var=0.01123 | resid_in=0.01123 resid_out=0.02491 ortho_in=0.0193 ortho_out=0.1617
+  1se     shift lattice/harmonic -1  R/var=0.02554 fid/var=0.01123 | resid_in=0.01123 resid_out=0.02491 ortho_in=0.0193 ortho_out=0.1617
+=== airfoil split 4
+  argmin  shift lattice/harmonic -2  R/var=0.02514 fid/var=0.00854 | resid_in=0.00854 resid_out=0.02117 ortho_in=0.0137 ortho_out=0.1047
+  1se     shift lattice/harmonic -2  R/var=0.02514 fid/var=0.00854 | resid_in=0.00854 resid_out=0.02117 ortho_in=0.0137 ortho_out=0.1047
+=== airfoil split 5
+  argmin  shift lattice/harmonic -1  R/var=0.02723 fid/var=0.01186 | resid_in=0.01186 resid_out=0.02326 ortho_in=0.0185 ortho_out=0.1153
+  1se     shift lattice/harmonic -1  R/var=0.02723 fid/var=0.01186 | resid_in=0.01186 resid_out=0.02326 ortho_in=0.0185 ortho_out=0.1153
+=== airfoil split 6
+  argmin  shift lattice/harmonic -1  R/var=0.02470 fid/var=0.01009 | resid_in=0.01009 resid_out=0.02201 ortho_in=0.0218 ortho_out=0.1381
+  1se     shift lattice/harmonic -1  R/var=0.02470 fid/var=0.01009 | resid_in=0.01009 resid_out=0.02201 ortho_in=0.0218 ortho_out=0.1381
+=== airfoil split 7
+  argmin  shift lattice/harmonic -1  R/var=0.03069 fid/var=0.01397 | resid_in=0.01397 resid_out=0.02035 ortho_in=0.0132 ortho_out=0.1180
+  1se     shift lattice/harmonic -1  R/var=0.03069 fid/var=0.01397 | resid_in=0.01397 resid_out=0.02035 ortho_in=0.0132 ortho_out=0.1180
+=== 1se / argmin ratios
+  in   : 1.000 0.888 1.000 1.000 1.000 1.000 1.000 1.000 | geo-mean 0.985
+  oin  : 1.000 1.862 1.000 1.000 1.000 1.000 1.000 1.000 | geo-mean 1.081
+  out  : 1.000 0.989 1.000 1.000 1.000 1.000 1.000 1.000 | geo-mean 0.999
+  oout : 1.000 1.551 1.000 1.000 1.000 1.000 1.000 1.000 | geo-mean 1.056
+
+[exited with code 0]

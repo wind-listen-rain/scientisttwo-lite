@@ -1,0 +1,86 @@
+{
+ "method": "<ROOT>/bench/baseline_method.py",
+ "method_sha256": "291bb4f632ba36549722d64661437e3e414313ccd8202d077d879bc4503372f3",
+ "mode": "subset",
+ "protocol": {
+  "baseline_method.py": "291bb4f632ba36549722d64661437e3e414313ccd8202d077d879bc4503372f3",
+  "fetch_data.py": "a5b1c98740d31231525d1c80df5833e6bf7d8d74b7cb469f0e29e9f6ccd4f8c6",
+  "harness.py": "29edf403bd53a01bdadbb67ce83a7317a33b2606be5a51ca3668e441f562aa4a",
+  "runner.py": "378dfd6b265cb9c9d45ae55fb9a5eba3a379c3376858ed6d6a1becffd7277933",
+  "data/abalone.npz": "9f3f681a91bfc23fbe7251b66c0c53cb1b073ec6c26b7fbe28e6f4c419d20ac6",
+  "data/airfoil.npz": "a79fe8c851d46937ed3d464cac2a158695060df6af6e84e5b5cbd42e72aed827",
+  "data/bike.npz": "e30b5b5943529f5672f8f40ef7a6182d246dabec1ba9a6038cc588f5188e170e",
+  "data/concrete.npz": "2400d74a68d46c00e053cb59033b82d846855c838ed3342075881de33f25004f",
+  "data/housing.npz": "d04f95a46147555262bb5748d8450d43edb1780a392ac8c051d96c8fc3582706",
+  "data/nutrition.npz": "c02f0aad095eda777999e8f33020170efbdaddcb9c87951c85b4f22d0e0179f4",
+  "data/parkinson.npz": "21372677d2d87819f82776718081c3f69d6b44fb4e3ed1e559291d98c7c0fcf9",
+  "data/powerplant.npz": "4ecc969b5ceed556622cd9f9d0b2f0fd7f88b4acbaddf34d8f74e4fc7db1b489",
+  "data/superconduct.npz": "739a0acd2839467df32ce1f25ffa6e9648ba67208975ecc0ac69a7e5cffca8f4"
+ },
+ "errors": {},
+ "analytical": {
+  "mean": {
+   "mse_eta1": 0.028659006553348288,
+   "mse_eta2": 0.01976935785331307,
+   "mse_eta3": 0.016327689296307842,
+   "mse_eta4": 0.016602868677840655,
+   "mse_eta5": 0.0004970020378208725,
+   "mse_eta6": 0.00037352017624572793,
+   "mse_eta12": 0.035131265200461954,
+   "mse_eta34": 0.03202884399479436,
+   "mse_others": 0.002181275084649941,
+   "resid_out": 0.010323062735255224,
+   "fit_s": 11.204679012298584
+  },
+  "std": {
+   "mse_eta1": 0.00029441732422154333,
+   "mse_eta2": 0.005092160473223517,
+   "mse_eta3": 0.003399918664026295,
+   "mse_eta4": 0.004890618659710188,
+   "mse_eta5": 0.00010928250438584468,
+   "mse_eta6": 0.00029780050612731777,
+   "mse_eta12": 0.0031984359877715654,
+   "mse_eta34": 0.0010886194541979276,
+   "mse_others": 0.00021439949100485824,
+   "resid_out": 6.241484848540972e-05,
+   "fit_s": 0.6592396165168349
+  },
+  "reps": 3
+ },
+ "real": {
+  "airfoil": {
+   "n": 1503,
+   "p": 5,
+   "xgb_r2_test": 0.9402295658572855,
+   "resid_in": 0.009845138770012576,
+   "resid_out": 0.026390249975341694,
+   "ortho_in": 0.009670184627266732,
+   "ortho_out": 0.09873602087698198,
+   "locvar_in": 5.199021646400759e-05,
+   "fit_s": 1.8202130794525146
+  },
+  "concrete": {
+   "n": 1030,
+   "p": 8,
+   "xgb_r2_test": 0.9098943178589508,
+   "resid_in": 0.0015338142042800045,
+   "resid_out": 0.024999509345007744,
+   "ortho_in": 0.006360678953737788,
+   "ortho_out": 0.08217515306613624,
+   "locvar_in": 0.012494347432861881,
+   "fit_s": 3.2661640644073486
+  },
+  "abalone": {
+   "n": 4177,
+   "p": 9,
+   "xgb_r2_test": 0.5471054588481685,
+   "resid_in": 0.0045531666081998585,
+   "resid_out": 0.04061985659728624,
+   "ortho_in": 0.026798509388950575,
+   "ortho_out": 0.015088613157350756,
+   "locvar_in": 0.0027744770898119418,
+   "fit_s": 11.072732210159302
+  }
+ },
+ "wall_s": 73.60341668128967
+}

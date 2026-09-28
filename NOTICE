@@ -1,0 +1,9 @@
+本仓库自有代码与文档采用 MIT 许可（见 LICENSE）。以下内容来自第三方，保留各自的许可：
+
+1. TreeHFD（ThalesGroup/treehfd，提交 5ec6cca，Copyright Thales）— Apache License 2.0，全文见 third_party/treehfd-LICENSE.txt
+   - runs/*/ideas/*/lib/treehfd_mod/ 是 treehfd/src/treehfd 的修改副本：包名由 treehfd 改为 treehfd_mod，
+     并由自动化智能体按 runs/*/ideas/*/NOTES.md 所述继续修改；原始代码不随仓库分发，由 setup.sh 按固定提交克隆。
+2. AutoSOTA（tsinghua-fib-lab/AutoSOTA）— MIT License，Copyright (c) 2026 Ericccc02，全文见 third_party/autosota-LICENSE.txt
+   - tasks/treehfd-autosota/run_analytical.py 原样取自 improved-papers/paper-69-TreeHFD/，仅作对照参考（未被评测使用）。
+3. 数据集 — bench/data/*.npz，来源、DOI 与许可（8 个 UCI 数据集为 CC BY 4.0）见 bench/data/SOURCES.md。
+4. 论文 — TreeHFD 论文（arXiv 2510.24815）与 ScientistTwo 论文（arXiv 2609.19644）不随仓库分发，只引用。

@@ -1,0 +1,20 @@
+# 本机环境与第三方内容（由 setup.sh 重新获取）
+.conda/
+tasks/treehfd/
+tasks/treehfd_paper.pdf
+tasks/treehfd_paper.txt
+
+# 工作区自己的版本历史（发布时以 HISTORY.bundle 形式附带）
+.wsgit/
+
+# 空跑产物（假智能体，可随时用 --dry-run 重新生成）
+runs/dry/
+runs_dry.log
+
+# 缓存
+__pycache__/
+*.pyc
+*.prof
+tools/refcheck_cache.json
+verify_cache.json
+.DS_Store

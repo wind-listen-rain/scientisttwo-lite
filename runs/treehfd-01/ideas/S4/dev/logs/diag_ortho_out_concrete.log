@@ -1,0 +1,82 @@
+=== concrete split 0  (fit base 3.4s, gtloco 3.5s)  selection shift lattice/harmonic -2
+  baseline : resid_in=0.00153 resid_out=0.02519 ortho_in=0.0064 ortho_out=0.0823
+  gtloco   : resid_in=0.00216 resid_out=0.02104 ortho_in=0.0061 ortho_out=0.0716
+  same kappa ridge  /zero    : resid_in=0.00177 resid_out=0.02126 ortho_in=0.0063 ortho_out=0.0695
+  same kappa ridge  /harmonic: resid_in=0.00177 resid_out=0.02120 ortho_in=0.0063 ortho_out=0.0687
+  same kappa lattice/zero    : resid_in=0.00216 resid_out=0.02106 ortho_in=0.0061 ortho_out=0.0714
+  baseline test interactions >= 1%: (1, 7):0.016|0.082,0.060, (0, 7):0.013|0.022,0.026
+  gtloco test interactions >= 1%: (1, 7):0.014|0.072,0.064
+  bootstrap ortho_out: baseline 0.1517 +- 0.0590, gtloco nan +- nan, P(gtloco > baseline) = 0.30
+=== concrete split 1  (fit base 3.7s, gtloco 3.6s)  selection shift lattice/zero -2
+  baseline : resid_in=0.00188 resid_out=0.02723 ortho_in=0.0066 ortho_out=0.0173
+  gtloco   : resid_in=0.00288 resid_out=0.02339 ortho_in=0.0055 ortho_out=0.0208
+  same kappa ridge  /zero    : resid_in=0.00237 resid_out=0.02357 ortho_in=0.0057 ortho_out=0.0156
+  same kappa ridge  /harmonic: resid_in=0.00237 resid_out=0.02233 ortho_in=0.0057 ortho_out=0.0151
+  same kappa lattice/harmonic: resid_in=0.00288 resid_out=0.02226 ortho_in=0.0055 ortho_out=0.0183
+  baseline test interactions >= 1%: (1, 7):0.011|0.017,0.010
+  gtloco test interactions >= 1%: (1, 7):0.011|0.010,0.021
+  bootstrap ortho_out: baseline nan +- nan, gtloco nan +- nan, P(gtloco > baseline) = 0.41
+=== concrete split 2  (fit base 3.7s, gtloco 3.4s)  selection shift lattice/harmonic -1
+  baseline : resid_in=0.00200 resid_out=0.02363 ortho_in=nan ortho_out=0.1157
+  gtloco   : resid_in=0.00374 resid_out=0.01989 ortho_in=nan ortho_out=nan
+  same kappa ridge  /zero    : resid_in=0.00299 resid_out=0.02111 ortho_in=nan ortho_out=nan
+  same kappa ridge  /harmonic: resid_in=0.00299 resid_out=0.02107 ortho_in=nan ortho_out=nan
+  same kappa lattice/zero    : resid_in=0.00374 resid_out=0.01992 ortho_in=nan ortho_out=nan
+  baseline test interactions >= 1%: (1, 7):0.011|0.109,0.116
+  gtloco test interactions >= 1%: 
+  bootstrap ortho_out: baseline nan +- nan, gtloco nan +- nan, P(gtloco > baseline) = 0.19
+=== concrete split 3  (fit base 3.5s, gtloco 3.2s)  selection shift lattice/zero -2
+  baseline : resid_in=0.00156 resid_out=0.02609 ortho_in=0.0257 ortho_out=0.0930
+  gtloco   : resid_in=0.00225 resid_out=0.01900 ortho_in=0.0238 ortho_out=0.0976
+  same kappa ridge  /zero    : resid_in=0.00187 resid_out=0.02108 ortho_in=0.0243 ortho_out=0.0936
+  same kappa ridge  /harmonic: resid_in=0.00187 resid_out=0.02061 ortho_in=0.0243 ortho_out=0.0955
+  same kappa lattice/harmonic: resid_in=0.00225 resid_out=0.01866 ortho_in=0.0238 ortho_out=0.0985
+  baseline test interactions >= 1%: (1, 7):0.019|0.013,0.093, (0, 7):0.016|0.050,0.067
+  gtloco test interactions >= 1%: (1, 7):0.017|0.016,0.098, (0, 7):0.012|0.043,0.057
+  bootstrap ortho_out: baseline 0.1599 +- 0.0619, gtloco 0.1490 +- 0.0648, P(gtloco > baseline) = 0.43
+=== concrete split 4  (fit base 3.9s, gtloco 3.5s)  selection shift lattice/zero -1
+  baseline : resid_in=0.00195 resid_out=0.02054 ortho_in=0.0158 ortho_out=0.1342
+  gtloco   : resid_in=0.00413 resid_out=0.01612 ortho_in=0.0115 ortho_out=0.0870
+  same kappa ridge  /zero    : resid_in=0.00318 resid_out=0.01634 ortho_in=nan ortho_out=0.0950
+  same kappa ridge  /harmonic: resid_in=0.00318 resid_out=0.01635 ortho_in=nan ortho_out=0.0935
+  same kappa lattice/harmonic: resid_in=0.00413 resid_out=0.01608 ortho_in=0.0115 ortho_out=0.0864
+  baseline test interactions >= 1%: (1, 7):0.016|0.041,0.086, (0, 4):0.010|0.134,0.025
+  gtloco test interactions >= 1%: (1, 7):0.012|0.024,0.087
+  bootstrap ortho_out: baseline 0.1575 +- 0.0693, gtloco nan +- nan, P(gtloco > baseline) = 0.23
+=== concrete split 5  (fit base 3.5s, gtloco 3.5s)  selection shift lattice/harmonic -2
+  baseline : resid_in=0.00214 resid_out=0.02083 ortho_in=0.0055 ortho_out=0.0500
+  gtloco   : resid_in=0.00294 resid_out=0.01819 ortho_in=0.0058 ortho_out=0.0490
+  same kappa ridge  /zero    : resid_in=0.00253 resid_out=0.02026 ortho_in=0.0051 ortho_out=0.0571
+  same kappa ridge  /harmonic: resid_in=0.00253 resid_out=0.01964 ortho_in=0.0051 ortho_out=0.0505
+  same kappa lattice/zero    : resid_in=0.00294 resid_out=0.01878 ortho_in=0.0058 ortho_out=0.0561
+  baseline test interactions >= 1%: (1, 7):0.011|0.015,0.050
+  gtloco test interactions >= 1%: (1, 7):0.011|0.012,0.049
+  bootstrap ortho_out: baseline nan +- nan, gtloco nan +- nan, P(gtloco > baseline) = 0.22
+=== concrete split 6  (fit base 3.7s, gtloco 3.6s)  selection shift lattice/zero -2
+  baseline : resid_in=0.00205 resid_out=0.01626 ortho_in=0.0096 ortho_out=0.0837
+  gtloco   : resid_in=0.00281 resid_out=0.01472 ortho_in=0.0104 ortho_out=0.0875
+  same kappa ridge  /zero    : resid_in=0.00243 resid_out=0.01433 ortho_in=0.0104 ortho_out=0.0828
+  same kappa ridge  /harmonic: resid_in=0.00243 resid_out=0.01384 ortho_in=0.0104 ortho_out=0.0858
+  same kappa lattice/harmonic: resid_in=0.00281 resid_out=0.01432 ortho_in=0.0104 ortho_out=0.0908
+  baseline test interactions >= 1%: (1, 7):0.017|0.035,0.084
+  gtloco test interactions >= 1%: (1, 7):0.015|0.031,0.088
+  bootstrap ortho_out: baseline 0.1478 +- 0.0778, gtloco 0.1346 +- 0.0729, P(gtloco > baseline) = 0.46
+=== concrete split 7  (fit base 3.4s, gtloco 3.3s)  selection shift lattice/zero -2
+  baseline : resid_in=0.00169 resid_out=0.02685 ortho_in=0.0094 ortho_out=0.0750
+  gtloco   : resid_in=0.00240 resid_out=0.02274 ortho_in=0.0098 ortho_out=0.0784
+  same kappa ridge  /zero    : resid_in=0.00202 resid_out=0.02454 ortho_in=0.0091 ortho_out=0.0822
+  same kappa ridge  /harmonic: resid_in=0.00202 resid_out=0.02464 ortho_in=0.0091 ortho_out=0.0700
+  same kappa lattice/harmonic: resid_in=0.00240 resid_out=0.02267 ortho_in=0.0098 ortho_out=0.0676
+  baseline test interactions >= 1%: (1, 7):0.015|0.046,0.075
+  gtloco test interactions >= 1%: (1, 7):0.014|0.036,0.078
+  bootstrap ortho_out: baseline nan +- nan, gtloco nan +- nan, P(gtloco > baseline) = 0.50
+=== summary over splits (ratio gtloco / baseline)
+  resid_in : 1.41 1.53 1.87 1.44 2.11 1.37 1.37 1.42  | geo-mean 1.547
+  resid_out: 0.84 0.86 0.84 0.73 0.78 0.87 0.91 0.85  | geo-mean 0.833
+  ortho_in : 0.96 0.83 nan 0.93 0.73 1.06 1.09 1.05  | geo-mean nan
+  ortho_out: 0.87 1.20 nan 1.05 0.65 0.98 1.05 1.05  | geo-mean nan
+  ortho_out ratio, same kappa ridge/zero: 0.84 0.90 nan 1.01 0.71 1.14 0.99 1.10
+  ortho_out ratio, same kappa ridge/harmonic: 0.84 0.87 nan 1.03 0.70 1.01 1.03 0.93
+  ortho_out ratio, same kappa lattice/zero: 0.87 nan nan nan nan 1.12 nan nan
+
+[exited with code 0]

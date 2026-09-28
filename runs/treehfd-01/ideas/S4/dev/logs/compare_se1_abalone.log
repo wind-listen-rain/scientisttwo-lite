@@ -1,0 +1,68 @@
+=== abalone split 0: N1/n mean 0.162
+  selected   resid_in=0.00498 resid_out=0.02486 ortho_in=0.0264 ortho_out=0.0386  common ridge/harmonic 1 R/var=0.04720
+  per-tree   resid_in=0.02074 resid_out=0.02154 ortho_in=0.0106 ortho_out=0.0525  shift lattice/harmonic 0 R/var=0.05737
+  per-tree-v resid_in=0.01971 resid_out=0.02312 ortho_in=0.0106 ortho_out=0.0479  
+=== abalone split 1: N1/n mean 0.166
+  selected   resid_in=0.00553 resid_out=0.01939 ortho_in=0.0141 ortho_out=0.0594  shift lattice/harmonic -4 R/var=0.04791
+  per-tree   resid_in=0.02066 resid_out=0.01779 ortho_in=0.0119 ortho_out=0.0431  shift lattice/harmonic 0 R/var=0.05748
+  per-tree-v resid_in=0.02066 resid_out=0.01779 ortho_in=0.0119 ortho_out=0.0431  
+=== abalone split 2: N1/n mean 0.160
+  selected   resid_in=0.00609 resid_out=0.02168 ortho_in=0.0145 ortho_out=0.0413  shift ridge/harmonic -3 R/var=0.05030
+  per-tree   resid_in=0.02406 resid_out=0.02147 ortho_in=0.0130 ortho_out=0.0484  shift lattice/harmonic 0 R/var=0.05955
+  per-tree-v resid_in=0.02215 resid_out=0.02381 ortho_in=0.0135 ortho_out=0.0482  
+=== abalone split 3: N1/n mean 0.165
+  selected   resid_in=0.00614 resid_out=0.02222 ortho_in=0.0191 ortho_out=0.0612  shift ridge/harmonic -3 R/var=0.05573
+  per-tree   resid_in=0.02022 resid_out=0.02002 ortho_in=0.0117 ortho_out=0.0308  shift ridge/harmonic 0 R/var=0.06508
+  per-tree-v resid_in=0.02022 resid_out=0.02002 ortho_in=0.0117 ortho_out=0.0308  
+=== abalone split 4: N1/n mean 0.162
+  selected   resid_in=0.00633 resid_out=0.02475 ortho_in=0.0080 ortho_out=0.0827  shift ridge/harmonic -3 R/var=0.05350
+  per-tree   resid_in=0.02274 resid_out=0.02309 ortho_in=0.0104 ortho_out=0.0634  shift ridge/harmonic 0 R/var=0.06342
+  per-tree-v resid_in=0.02274 resid_out=0.02309 ortho_in=0.0104 ortho_out=0.0634  
+=== abalone split 5: N1/n mean 0.163
+  selected   resid_in=0.00632 resid_out=0.02402 ortho_in=0.0203 ortho_out=0.0514  shift ridge/harmonic -3 R/var=0.05226
+  per-tree   resid_in=0.02014 resid_out=0.02050 ortho_in=0.0057 ortho_out=0.0415  shift ridge/harmonic 0 R/var=0.06277
+  per-tree-v resid_in=0.02014 resid_out=0.02050 ortho_in=0.0057 ortho_out=0.0415  
+=== abalone split 6: N1/n mean 0.165
+  selected   resid_in=0.00608 resid_out=0.02388 ortho_in=0.0109 ortho_out=0.0666  shift ridge/harmonic -3 R/var=0.05273
+  per-tree   resid_in=0.02262 resid_out=0.02107 ortho_in=0.0097 ortho_out=0.0645  shift lattice/harmonic 0 R/var=0.06169
+  per-tree-v resid_in=0.02065 resid_out=0.02162 ortho_in=nan ortho_out=0.0696  
+=== abalone split 7: N1/n mean 0.151
+  selected   resid_in=0.00565 resid_out=0.02040 ortho_in=0.0279 ortho_out=0.1160  shift lattice/harmonic -4 R/var=0.04542
+  per-tree   resid_in=0.01789 resid_out=0.01947 ortho_in=0.0126 ortho_out=0.0791  shift ridge/harmonic 0 R/var=0.05381
+  per-tree-v resid_in=0.02031 resid_out=0.01834 ortho_in=0.0188 ortho_out=0.1154  
+=== summary: selected / per-tree ratios
+  in   : 0.240 0.268 0.253 0.304 0.278 0.314 0.269 0.316 | geo-mean 0.279
+  out  : 1.154 1.090 1.010 1.110 1.072 1.172 1.133 1.048 | geo-mean 1.097
+  oin  : 2.499 1.189 1.112 1.627 0.775 3.566 1.120 2.204 | geo-mean 1.569
+  oout : 0.736 1.378 0.852 1.988 1.305 1.237 1.034 1.467 | geo-mean 1.197
+=== abalone split 0
+  argmin  shift lattice/harmonic -3  R/var=0.04657 fid/var=0.00634 | resid_in=0.00634 resid_out=0.02094 ortho_in=0.0252 ortho_out=0.0412
+  1se     common ridge/harmonic +1  R/var=0.04720 fid/var=0.00498 | resid_in=0.00498 resid_out=0.02486 ortho_in=0.0264 ortho_out=0.0386
+=== abalone split 1
+  argmin  shift ridge/harmonic -3  R/var=0.04700 fid/var=0.00597 | resid_in=0.00597 resid_out=0.01841 ortho_in=0.0147 ortho_out=0.0564
+  1se     shift lattice/harmonic -4  R/var=0.04791 fid/var=0.00553 | resid_in=0.00553 resid_out=0.01939 ortho_in=0.0141 ortho_out=0.0594
+=== abalone split 2
+  argmin  shift lattice/harmonic -3  R/var=0.04978 fid/var=0.00698 | resid_in=0.00698 resid_out=0.02063 ortho_in=0.0127 ortho_out=0.0422
+  1se     shift ridge/harmonic -3  R/var=0.05030 fid/var=0.00609 | resid_in=0.00609 resid_out=0.02168 ortho_in=0.0145 ortho_out=0.0413
+=== abalone split 3
+  argmin  shift ridge/harmonic -2  R/var=0.05547 fid/var=0.00769 | resid_in=0.00769 resid_out=0.01996 ortho_in=0.0203 ortho_out=0.0629
+  1se     shift ridge/harmonic -3  R/var=0.05573 fid/var=0.00614 | resid_in=0.00614 resid_out=0.02222 ortho_in=0.0191 ortho_out=0.0612
+=== abalone split 4
+  argmin  shift ridge/harmonic -3  R/var=0.05350 fid/var=0.00633 | resid_in=0.00633 resid_out=0.02475 ortho_in=0.0080 ortho_out=0.0827
+  1se     shift ridge/harmonic -3  R/var=0.05350 fid/var=0.00633 | resid_in=0.00633 resid_out=0.02475 ortho_in=0.0080 ortho_out=0.0827
+=== abalone split 5
+  argmin  shift ridge/harmonic -3  R/var=0.05226 fid/var=0.00632 | resid_in=0.00632 resid_out=0.02402 ortho_in=0.0203 ortho_out=0.0514
+  1se     shift ridge/harmonic -3  R/var=0.05226 fid/var=0.00632 | resid_in=0.00632 resid_out=0.02402 ortho_in=0.0203 ortho_out=0.0514
+=== abalone split 6
+  argmin  shift ridge/harmonic -2  R/var=0.05241 fid/var=0.00775 | resid_in=0.00775 resid_out=0.02181 ortho_in=0.0092 ortho_out=0.0663
+  1se     shift ridge/harmonic -3  R/var=0.05273 fid/var=0.00608 | resid_in=0.00608 resid_out=0.02388 ortho_in=0.0109 ortho_out=0.0666
+=== abalone split 7
+  argmin  shift ridge/harmonic -3  R/var=0.04487 fid/var=0.00588 | resid_in=0.00588 resid_out=0.02044 ortho_in=0.0277 ortho_out=0.1152
+  1se     shift lattice/harmonic -4  R/var=0.04542 fid/var=0.00565 | resid_in=0.00565 resid_out=0.02040 ortho_in=0.0279 ortho_out=0.1160
+=== 1se / argmin ratios
+  in   : 0.786 0.925 0.872 0.799 1.000 1.000 0.785 0.961 | geo-mean 0.887
+  oin  : 1.046 0.963 1.144 0.942 1.000 1.000 1.191 1.007 | geo-mean 1.033
+  out  : 1.188 1.053 1.051 1.113 1.000 1.000 1.095 0.998 | geo-mean 1.060
+  oout : 0.939 1.052 0.978 0.974 1.000 1.000 1.004 1.007 | geo-mean 0.994
+
+[exited with code 0]

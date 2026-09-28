@@ -1,0 +1,82 @@
+=== abalone split 0  (fit base 11.4s, gtloco 6.3s)  selection shift lattice/harmonic -3
+  baseline : resid_in=0.00455 resid_out=0.04070 ortho_in=0.0268 ortho_out=0.0158
+  gtloco   : resid_in=0.00634 resid_out=0.02094 ortho_in=0.0252 ortho_out=0.0412
+  same kappa ridge  /zero    : resid_in=0.00546 resid_out=0.02760 ortho_in=0.0260 ortho_out=0.0504
+  same kappa ridge  /harmonic: resid_in=0.00546 resid_out=0.02259 ortho_in=0.0260 ortho_out=0.0435
+  same kappa lattice/zero    : resid_in=0.00634 resid_out=0.02544 ortho_in=0.0252 ortho_out=0.0497
+  baseline test interactions >= 1%: (4, 6):0.019|0.016,0.012, (3, 4):0.018|0.005,0.014
+  gtloco test interactions >= 1%: (4, 6):0.017|0.041,0.023, (3, 4):0.013|0.008,0.006
+  bootstrap ortho_out: baseline 0.0715 +- 0.0439, gtloco 0.0692 +- 0.0482, P(gtloco > baseline) = 0.54
+=== abalone split 1  (fit base 11.2s, gtloco 6.2s)  selection shift ridge/harmonic -3
+  baseline : resid_in=0.00479 resid_out=0.03617 ortho_in=0.0157 ortho_out=0.0587
+  gtloco   : resid_in=0.00597 resid_out=0.01841 ortho_in=0.0147 ortho_out=0.0564
+  same kappa ridge  /zero    : resid_in=0.00597 resid_out=0.01818 ortho_in=0.0147 ortho_out=0.0571
+  same kappa lattice/zero    : resid_in=0.00715 resid_out=0.01743 ortho_in=0.0151 ortho_out=0.0612
+  same kappa lattice/harmonic: resid_in=0.00715 resid_out=0.01773 ortho_in=0.0151 ortho_out=0.0615
+  baseline test interactions >= 1%: (4, 6):0.031|0.008,0.059, (4, 7):0.018|0.038,0.004, (3, 4):0.016|0.028,0.040
+  gtloco test interactions >= 1%: (4, 6):0.027|0.011,0.056, (4, 7):0.018|0.037,0.001, (3, 4):0.013|0.033,0.048
+  bootstrap ortho_out: baseline 0.0851 +- 0.0296, gtloco 0.0862 +- 0.0279, P(gtloco > baseline) = 0.54
+=== abalone split 2  (fit base 10.5s, gtloco 5.7s)  selection shift lattice/harmonic -3
+  baseline : resid_in=0.00443 resid_out=0.03688 ortho_in=0.0132 ortho_out=0.0395
+  gtloco   : resid_in=0.00698 resid_out=0.02063 ortho_in=0.0127 ortho_out=0.0422
+  same kappa ridge  /zero    : resid_in=0.00598 resid_out=0.02457 ortho_in=0.0131 ortho_out=0.0456
+  same kappa ridge  /harmonic: resid_in=0.00598 resid_out=0.02175 ortho_in=0.0131 ortho_out=0.0433
+  same kappa lattice/zero    : resid_in=0.00698 resid_out=0.02351 ortho_in=0.0127 ortho_out=0.0441
+  baseline test interactions >= 1%: (3, 4):0.021|0.039,0.013, (4, 6):0.017|0.013,0.002
+  gtloco test interactions >= 1%: (3, 4):0.018|0.042,0.010, (4, 6):0.014|0.033,0.012
+  bootstrap ortho_out: baseline 0.0629 +- 0.0258, gtloco 0.0668 +- 0.0260, P(gtloco > baseline) = 0.66
+=== abalone split 3  (fit base 10.7s, gtloco 5.9s)  selection shift ridge/harmonic -2
+  baseline : resid_in=0.00505 resid_out=0.03554 ortho_in=0.0155 ortho_out=0.0672
+  gtloco   : resid_in=0.00769 resid_out=0.01996 ortho_in=0.0203 ortho_out=0.0629
+  same kappa ridge  /zero    : resid_in=0.00769 resid_out=0.02296 ortho_in=0.0203 ortho_out=0.0669
+  same kappa lattice/zero    : resid_in=0.01016 resid_out=0.02242 ortho_in=0.0191 ortho_out=0.0682
+  same kappa lattice/harmonic: resid_in=0.01016 resid_out=0.01960 ortho_in=0.0191 ortho_out=0.0634
+  baseline test interactions >= 1%: (4, 6):0.030|0.006,0.056, (3, 4):0.020|0.067,0.044, (4, 7):0.017|0.013,0.039, (4, 5):0.011|0.027,0.062
+  gtloco test interactions >= 1%: (4, 6):0.024|0.006,0.041, (4, 7):0.015|0.011,0.042, (3, 4):0.013|0.063,0.040
+  bootstrap ortho_out: baseline 0.0950 +- 0.0270, gtloco 0.0863 +- 0.0276, P(gtloco > baseline) = 0.28
+=== abalone split 4  (fit base 11.7s, gtloco 7.4s)  selection shift ridge/harmonic -3
+  baseline : resid_in=0.00446 resid_out=0.05491 ortho_in=0.0208 ortho_out=0.0793
+  gtloco   : resid_in=0.00633 resid_out=0.02475 ortho_in=0.0080 ortho_out=0.0827
+  same kappa ridge  /zero    : resid_in=0.00633 resid_out=0.02520 ortho_in=0.0080 ortho_out=0.0828
+  same kappa lattice/zero    : resid_in=0.00791 resid_out=0.02395 ortho_in=0.0093 ortho_out=0.0837
+  same kappa lattice/harmonic: resid_in=0.00791 resid_out=0.02345 ortho_in=0.0093 ortho_out=0.0836
+  baseline test interactions >= 1%: (4, 6):0.020|0.070,0.045, (4, 7):0.018|0.079,0.024, (3, 4):0.013|0.031,0.007
+  gtloco test interactions >= 1%: (4, 7):0.018|0.083,0.024, (4, 6):0.018|0.054,0.046
+  bootstrap ortho_out: baseline 0.1013 +- 0.0279, gtloco 0.0958 +- 0.0301, P(gtloco > baseline) = 0.52
+=== abalone split 5  (fit base 10.9s, gtloco 6.0s)  selection shift ridge/harmonic -3
+  baseline : resid_in=0.00518 resid_out=0.03873 ortho_in=0.0206 ortho_out=0.0517
+  gtloco   : resid_in=0.00632 resid_out=0.02402 ortho_in=0.0203 ortho_out=0.0514
+  same kappa ridge  /zero    : resid_in=0.00632 resid_out=0.02847 ortho_in=0.0203 ortho_out=0.0536
+  same kappa lattice/zero    : resid_in=0.00736 resid_out=0.02776 ortho_in=0.0206 ortho_out=0.0579
+  same kappa lattice/harmonic: resid_in=0.00736 resid_out=0.02345 ortho_in=0.0206 ortho_out=0.0547
+  baseline test interactions >= 1%: (4, 6):0.019|0.004,0.016, (3, 4):0.016|0.046,0.052
+  gtloco test interactions >= 1%: (4, 6):0.015|0.004,0.005, (3, 4):0.013|0.049,0.051
+  bootstrap ortho_out: baseline 0.0731 +- 0.0291, gtloco 0.0668 +- 0.0264, P(gtloco > baseline) = 0.40
+=== abalone split 6  (fit base 10.9s, gtloco 5.9s)  selection shift ridge/harmonic -2
+  baseline : resid_in=0.00478 resid_out=0.03915 ortho_in=0.0506 ortho_out=0.0774
+  gtloco   : resid_in=0.00775 resid_out=0.02181 ortho_in=0.0092 ortho_out=0.0663
+  same kappa ridge  /zero    : resid_in=0.00775 resid_out=0.02284 ortho_in=0.0092 ortho_out=0.0628
+  same kappa lattice/zero    : resid_in=0.01026 resid_out=0.02156 ortho_in=0.0105 ortho_out=0.0529
+  same kappa lattice/harmonic: resid_in=0.01026 resid_out=0.02069 ortho_in=0.0105 ortho_out=0.0556
+  baseline test interactions >= 1%: (4, 7):0.025|0.026,0.051, (4, 6):0.014|0.043,0.070, (3, 4):0.014|0.061,0.077, (5, 6):0.012|0.017,0.049
+  gtloco test interactions >= 1%: (4, 7):0.019|0.023,0.052, (4, 6):0.013|0.041,0.066
+  bootstrap ortho_out: baseline 0.1001 +- 0.0243, gtloco 0.0839 +- 0.0285, P(gtloco > baseline) = 0.28
+=== abalone split 7  (fit base 9.6s, gtloco 5.2s)  selection shift ridge/harmonic -3
+  baseline : resid_in=0.00494 resid_out=0.03862 ortho_in=0.0307 ortho_out=0.1140
+  gtloco   : resid_in=0.00588 resid_out=0.02044 ortho_in=0.0277 ortho_out=0.1152
+  same kappa ridge  /zero    : resid_in=0.00588 resid_out=0.02131 ortho_in=0.0277 ortho_out=0.1152
+  same kappa lattice/zero    : resid_in=0.00681 resid_out=0.01918 ortho_in=0.0267 ortho_out=0.1172
+  same kappa lattice/harmonic: resid_in=0.00681 resid_out=0.01852 ortho_in=0.0267 ortho_out=0.1172
+  baseline test interactions >= 1%: (3, 4):0.019|0.009,0.007, (4, 6):0.018|0.067,0.100, (4, 7):0.014|0.114,0.069
+  gtloco test interactions >= 1%: (4, 6):0.018|0.058,0.104, (3, 4):0.014|0.013,0.000, (4, 7):0.014|0.115,0.070
+  bootstrap ortho_out: baseline 0.1353 +- 0.0316, gtloco 0.1368 +- 0.0319, P(gtloco > baseline) = 0.80
+=== summary over splits (ratio gtloco / baseline)
+  resid_in : 1.39 1.25 1.58 1.52 1.42 1.22 1.62 1.19  | geo-mean 1.389
+  resid_out: 0.51 0.51 0.56 0.56 0.45 0.62 0.56 0.53  | geo-mean 0.536
+  ortho_in : 0.94 0.94 0.96 1.31 0.39 0.98 0.18 0.90  | geo-mean 0.715
+  ortho_out: 2.61 0.96 1.07 0.94 1.04 0.99 0.86 1.01  | geo-mean 1.107
+  ortho_out ratio, same kappa ridge/zero: 3.19 0.97 1.16 1.00 1.04 1.04 0.81 1.01
+  ortho_out ratio, same kappa ridge/harmonic: 2.76 nan 1.10 nan nan nan nan nan
+  ortho_out ratio, same kappa lattice/zero: 3.15 1.04 1.12 1.01 1.05 1.12 0.68 1.03
+
+[exited with code 0]

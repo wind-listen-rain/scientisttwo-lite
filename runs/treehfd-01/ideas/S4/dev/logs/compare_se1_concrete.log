@@ -1,0 +1,68 @@
+=== concrete split 0: N1/n mean 0.346
+  selected   resid_in=0.00216 resid_out=0.02111 ortho_in=0.0063 ortho_out=0.0703  shift lattice/zero -2 R/var=0.02060
+  per-tree   resid_in=0.00586 resid_out=0.02195 ortho_in=nan ortho_out=0.0678  shift lattice/harmonic 0 R/var=0.02378
+  per-tree-v resid_in=0.00588 resid_out=0.02218 ortho_in=nan ortho_out=0.0645  
+=== concrete split 1: N1/n mean 0.369
+  selected   resid_in=0.00227 resid_out=0.02394 ortho_in=0.0055 ortho_out=0.0181  shift lattice/zero -3 R/var=0.02567
+  per-tree   resid_in=0.00827 resid_out=0.02285 ortho_in=nan ortho_out=nan  shift lattice/zero 0 R/var=0.02950
+  per-tree-v resid_in=0.00827 resid_out=0.02285 ortho_in=nan ortho_out=nan  
+=== concrete split 2: N1/n mean 0.357
+  selected   resid_in=0.00268 resid_out=0.02152 ortho_in=nan ortho_out=0.1229  shift lattice/zero -2 R/var=0.02166
+  per-tree   resid_in=0.00666 resid_out=0.01805 ortho_in=nan ortho_out=nan  shift lattice/harmonic 0 R/var=0.02396
+  per-tree-v resid_in=0.00659 resid_out=0.01809 ortho_in=nan ortho_out=nan  
+=== concrete split 3: N1/n mean 0.323
+  selected   resid_in=0.00180 resid_out=0.02086 ortho_in=0.0236 ortho_out=0.0995  shift lattice/zero -3 R/var=0.02106
+  per-tree   resid_in=0.00659 resid_out=0.01804 ortho_in=0.0165 ortho_out=0.0921  shift lattice/zero 0 R/var=0.02467
+  per-tree-v resid_in=0.00659 resid_out=0.01804 ortho_in=0.0165 ortho_out=0.0921  
+=== concrete split 4: N1/n mean 0.359
+  selected   resid_in=0.00258 resid_out=0.01673 ortho_in=0.0104 ortho_out=0.0933  shift ridge/zero -2 R/var=0.02398
+  per-tree   resid_in=0.00753 resid_out=0.01652 ortho_in=nan ortho_out=nan  shift lattice/zero 0 R/var=0.02579
+  per-tree-v resid_in=0.00707 resid_out=0.01748 ortho_in=nan ortho_out=nan  
+=== concrete split 5: N1/n mean 0.384
+  selected   resid_in=0.00294 resid_out=0.01819 ortho_in=0.0058 ortho_out=0.0490  shift lattice/harmonic -2 R/var=0.02304
+  per-tree   resid_in=0.00688 resid_out=0.01978 ortho_in=nan ortho_out=nan  shift lattice/harmonic 0 R/var=0.02573
+  per-tree-v resid_in=0.00688 resid_out=0.01978 ortho_in=nan ortho_out=nan  
+=== concrete split 6: N1/n mean 0.374
+  selected   resid_in=0.00279 resid_out=0.01419 ortho_in=0.0105 ortho_out=0.0904  shift lattice/harmonic -2 R/var=0.02097
+  per-tree   resid_in=0.00692 resid_out=0.01618 ortho_in=0.0114 ortho_out=0.0928  shift lattice/harmonic 0 R/var=0.02442
+  per-tree-v resid_in=0.00692 resid_out=0.01618 ortho_in=0.0114 ortho_out=0.0928  
+=== concrete split 7: N1/n mean 0.316
+  selected   resid_in=0.00240 resid_out=0.02274 ortho_in=0.0098 ortho_out=0.0784  shift lattice/zero -2 R/var=0.01889
+  per-tree   resid_in=0.00635 resid_out=0.02063 ortho_in=0.0092 ortho_out=0.0833  shift lattice/zero 0 R/var=0.02184
+  per-tree-v resid_in=0.00635 resid_out=0.02063 ortho_in=0.0092 ortho_out=0.0833  
+=== summary: selected / per-tree ratios
+  in   : 0.369 0.274 0.402 0.273 0.342 0.427 0.403 0.377 | geo-mean 0.354
+  out  : 0.962 1.048 1.193 1.156 1.012 0.920 0.877 1.102 | geo-mean 1.028
+  oin  : nan nan nan 1.429 nan nan 0.919 1.066 | geo-mean 1.119
+  oout : 1.037 nan nan 1.080 nan nan 0.975 0.941 | geo-mean 1.007
+=== concrete split 0
+  argmin  shift lattice/harmonic -2  R/var=0.02053 fid/var=0.00216 | resid_in=0.00216 resid_out=0.02104 ortho_in=0.0061 ortho_out=0.0716
+  1se     shift lattice/zero -2  R/var=0.02060 fid/var=0.00216 | resid_in=0.00216 resid_out=0.02111 ortho_in=0.0063 ortho_out=0.0703
+=== concrete split 1
+  argmin  shift lattice/zero -2  R/var=0.02541 fid/var=0.00288 | resid_in=0.00288 resid_out=0.02339 ortho_in=0.0055 ortho_out=0.0208
+  1se     shift lattice/zero -3  R/var=0.02567 fid/var=0.00227 | resid_in=0.00227 resid_out=0.02394 ortho_in=0.0055 ortho_out=0.0181
+=== concrete split 2
+  argmin  shift lattice/harmonic -1  R/var=0.02152 fid/var=0.00374 | resid_in=0.00374 resid_out=0.01989 ortho_in=nan ortho_out=nan
+  1se     shift lattice/zero -2  R/var=0.02166 fid/var=0.00268 | resid_in=0.00268 resid_out=0.02152 ortho_in=nan ortho_out=0.1229
+=== concrete split 3
+  argmin  shift lattice/zero -2  R/var=0.02080 fid/var=0.00225 | resid_in=0.00225 resid_out=0.01900 ortho_in=0.0238 ortho_out=0.0976
+  1se     shift lattice/zero -3  R/var=0.02106 fid/var=0.00180 | resid_in=0.00180 resid_out=0.02086 ortho_in=0.0236 ortho_out=0.0995
+=== concrete split 4
+  argmin  shift lattice/zero -1  R/var=0.02346 fid/var=0.00413 | resid_in=0.00413 resid_out=0.01612 ortho_in=0.0115 ortho_out=0.0870
+  1se     shift ridge/zero -2  R/var=0.02398 fid/var=0.00258 | resid_in=0.00258 resid_out=0.01673 ortho_in=0.0104 ortho_out=0.0933
+=== concrete split 5
+  argmin  shift lattice/harmonic -2  R/var=0.02304 fid/var=0.00294 | resid_in=0.00294 resid_out=0.01819 ortho_in=0.0058 ortho_out=0.0490
+  1se     shift lattice/harmonic -2  R/var=0.02304 fid/var=0.00294 | resid_in=0.00294 resid_out=0.01819 ortho_in=0.0058 ortho_out=0.0490
+=== concrete split 6
+  argmin  shift lattice/zero -2  R/var=0.02096 fid/var=0.00281 | resid_in=0.00281 resid_out=0.01472 ortho_in=0.0104 ortho_out=0.0875
+  1se     shift lattice/harmonic -2  R/var=0.02097 fid/var=0.00279 | resid_in=0.00279 resid_out=0.01419 ortho_in=0.0105 ortho_out=0.0904
+=== concrete split 7
+  argmin  shift lattice/zero -2  R/var=0.01889 fid/var=0.00240 | resid_in=0.00240 resid_out=0.02274 ortho_in=0.0098 ortho_out=0.0784
+  1se     shift lattice/zero -2  R/var=0.01889 fid/var=0.00240 | resid_in=0.00240 resid_out=0.02274 ortho_in=0.0098 ortho_out=0.0784
+=== 1se / argmin ratios
+  in   : 0.998 0.788 0.715 0.802 0.625 1.000 0.993 1.000 | geo-mean 0.853
+  oin  : 1.020 1.015 nan 0.991 0.906 1.000 1.002 1.000 | geo-mean 0.990
+  out  : 1.003 1.024 1.082 1.098 1.037 1.000 0.964 1.000 | geo-mean 1.025
+  oout : 0.982 0.871 nan 1.019 1.073 1.000 1.033 1.000 | geo-mean 0.995
+
+[exited with code 0]

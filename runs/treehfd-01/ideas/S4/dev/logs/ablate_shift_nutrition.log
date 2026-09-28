@@ -1,0 +1,39 @@
+=== nutrition split 0: N1/n mean 0.373
+  selected   resid_in=0.03009 resid_out=0.07253 ortho_in=0.0154 ortho_out=0.0817  shift lattice/zero -2 R/var=0.13628
+  per-tree   resid_in=0.06657 resid_out=0.06524 ortho_in=0.0149 ortho_out=0.0569  shift lattice/harmonic 0 R/var=0.15374
+  per-tree-v resid_in=0.06609 resid_out=0.06736 ortho_in=0.0150 ortho_out=0.0518  
+=== nutrition split 1: N1/n mean 0.429
+  selected   resid_in=0.02371 resid_out=0.08246 ortho_in=0.0139 ortho_out=0.1228  shift ridge/zero -2 R/var=0.13457
+  per-tree   resid_in=0.06153 resid_out=0.07628 ortho_in=0.0140 ortho_out=0.0745  shift lattice/zero 0 R/var=0.15317
+  per-tree-v resid_in=0.05863 resid_out=0.08274 ortho_in=0.0116 ortho_out=0.0867  
+=== nutrition split 2: N1/n mean 0.353
+  selected   resid_in=0.02642 resid_out=0.08664 ortho_in=0.0148 ortho_out=0.1059  shift lattice/zero -2 R/var=0.12834
+  per-tree   resid_in=0.05641 resid_out=0.08671 ortho_in=0.0130 ortho_out=0.1017  shift lattice/zero 0 R/var=0.14281
+  per-tree-v resid_in=0.05641 resid_out=0.08671 ortho_in=0.0130 ortho_out=0.1017  
+=== nutrition split 3: N1/n mean 0.397
+  selected   resid_in=0.02151 resid_out=0.07016 ortho_in=0.0129 ortho_out=0.1114  shift ridge/harmonic -3 R/var=0.12024
+  per-tree   resid_in=0.05960 resid_out=0.06015 ortho_in=0.0119 ortho_out=0.1365  shift lattice/harmonic 0 R/var=0.14276
+  per-tree-v resid_in=0.05388 resid_out=0.06318 ortho_in=0.0106 ortho_out=0.1350  
+=== nutrition split 4: N1/n mean 0.394
+  selected   resid_in=0.02126 resid_out=0.08437 ortho_in=0.0230 ortho_out=0.0769  shift ridge/zero -2 R/var=0.12598
+  per-tree   resid_in=0.05060 resid_out=0.08154 ortho_in=0.0230 ortho_out=0.0655  shift ridge/harmonic 0 R/var=0.14663
+  per-tree-v resid_in=0.05029 resid_out=0.08572 ortho_in=0.0229 ortho_out=0.0662  
+=== nutrition split 5: N1/n mean 0.423
+  selected   resid_in=0.02566 resid_out=0.06315 ortho_in=0.0191 ortho_out=0.1015  shift lattice/harmonic -2 R/var=0.12447
+  per-tree   resid_in=0.05789 resid_out=0.06417 ortho_in=0.0191 ortho_out=0.1135  shift lattice/harmonic 0 R/var=0.14295
+  per-tree-v resid_in=0.05789 resid_out=0.06417 ortho_in=0.0191 ortho_out=0.1135  
+=== nutrition split 6: N1/n mean 0.422
+  selected   resid_in=0.02011 resid_out=0.10537 ortho_in=0.0191 ortho_out=0.1868  shift ridge/zero -3 R/var=0.13362
+  per-tree   resid_in=0.06238 resid_out=0.09326 ortho_in=0.0217 ortho_out=0.1002  shift lattice/zero 0 R/var=0.15587
+  per-tree-v resid_in=0.05826 resid_out=0.09972 ortho_in=0.0160 ortho_out=0.1030  
+=== nutrition split 7: N1/n mean 0.416
+  selected   resid_in=0.02764 resid_out=0.07451 ortho_in=0.0139 ortho_out=0.1491  shift lattice/harmonic -2 R/var=0.13503
+  per-tree   resid_in=0.06275 resid_out=0.07126 ortho_in=0.0134 ortho_out=0.1226  shift lattice/harmonic 0 R/var=0.15051
+  per-tree-v resid_in=0.06275 resid_out=0.07126 ortho_in=0.0134 ortho_out=0.1226  
+=== summary: selected / per-tree ratios
+  in   : 0.452 0.385 0.468 0.361 0.420 0.443 0.322 0.440 | geo-mean 0.409
+  out  : 1.112 1.081 0.999 1.166 1.035 0.984 1.130 1.046 | geo-mean 1.067
+  oin  : 1.033 0.994 1.138 1.081 1.000 1.000 0.880 1.039 | geo-mean 1.018
+  oout : 1.436 1.649 1.042 0.816 1.174 0.894 1.864 1.216 | geo-mean 1.216
+
+[exited with code 0]
