@@ -1,0 +1,65 @@
+=== abalone split 0
+abalone split=0 RHOS=(0.0, 0.25, 1.0) SE_RULE=1 fit 41.32s
+selection common lattice harmonic rho=1         +0 R/var=0.03725 resid_in(est)/var=0.00627 tied=6
+argmin    common lattice harmonic rho=1         +0 R/var=0.03725 resid_in(est)/var=0.00627
+N1/n mean 0.1619 m mean/max 823.49 1672 virtual/n mean 1.735 route_err max 9.5e-07
+chosen kappa quantiles [0.01 0.01 0.01 0.01 0.01]
+chosen rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+per-tree joint argmin rho counts (selected variant) {0.0: 0, 0.25: 0, 1.0: 100}
+SELECTED resid_in=0.00627 resid_out=0.01931 ortho_in=0.0280 ortho_out=0.0445 locvar_in=0.002454
+ARGMIN resid_in=0.00627 resid_out=0.01931 ortho_in=0.0280 ortho_out=0.0445 locvar_in=0.002454 (same as selection)
+rho-mode ablation: best candidate by R, and the 1-SE choice, within each rho mode
+  rho=0         shift  lattice harmonic rho=0         -3 R/var=0.04657 resid_in=0.00634 resid_out=0.02094 ortho_in=0.0252 ortho_out=0.0412 locvar_in=0.00253
+  rho=0/se1     common ridge   harmonic rho=0         +1 R/var=0.04720 resid_in=0.00498 resid_out=0.02486 ortho_in=0.0264 ortho_out=0.0386 locvar_in=0.002495
+  rho=0.25      common lattice harmonic rho=0.25      +0 R/var=0.04056 resid_in=0.00545 resid_out=0.02106 ortho_in=0.0271 ortho_out=0.0417 locvar_in=0.002462
+  rho=0.25/se1  common lattice harmonic rho=0.25      +0 R/var=0.04056 resid_in=0.00545 resid_out=0.02106 ortho_in=0.0271 ortho_out=0.0417 locvar_in=0.002462
+  rho=1         common lattice harmonic rho=1         +0 R/var=0.03725 resid_in=0.00627 resid_out=0.01931 ortho_in=0.0280 ortho_out=0.0445 locvar_in=0.002454
+  rho=1/se1     common lattice harmonic rho=1         +0 R/var=0.03725 resid_in=0.00627 resid_out=0.01931 ortho_in=0.0280 ortho_out=0.0445 locvar_in=0.002454
+  rho=per-tree  common lattice harmonic rho=per-tree  +0 R/var=0.03725 resid_in=0.00627 resid_out=0.01931 ortho_in=0.0280 ortho_out=0.0445 locvar_in=0.002454
+  rho=per-tree/se1 common lattice harmonic rho=per-tree  +0 R/var=0.03725 resid_in=0.00627 resid_out=0.01931 ortho_in=0.0280 ortho_out=0.0445 locvar_in=0.002454
+orthogonality at a common kappa (selected variant), rho = 0 / 0.25 / 1
+  k=0.01        common lattice harmonic rho=0         +0 R/var=0.04757 resid_in=0.00496 resid_out=0.02437 ortho_in=0.0271 ortho_out=0.0370 locvar_in=0.002522
+  k=0.01        common lattice harmonic rho=0.25      +0 R/var=0.04056 resid_in=0.00545 resid_out=0.02106 ortho_in=0.0271 ortho_out=0.0417 locvar_in=0.002462
+  k=0.01        common lattice harmonic rho=1         +0 R/var=0.03725 resid_in=0.00627 resid_out=0.01931 ortho_in=0.0280 ortho_out=0.0445 locvar_in=0.002454
+  k=0.1         common lattice harmonic rho=0         +2 R/var=0.04822 resid_in=0.00714 resid_out=0.02138 ortho_in=0.0258 ortho_out=0.0417 locvar_in=0.002499
+  k=0.1         common lattice harmonic rho=0.25      +2 R/var=0.04497 resid_in=0.00746 resid_out=0.02024 ortho_in=0.0257 ortho_out=0.0430 locvar_in=0.00245
+  k=0.1         common lattice harmonic rho=1         +2 R/var=0.04131 resid_in=0.00805 resid_out=0.01896 ortho_in=0.0264 ortho_out=0.0446 locvar_in=0.002416
+  k=1           common lattice harmonic rho=0         +4 R/var=0.06065 resid_in=0.02001 resid_out=0.02483 ortho_in=0.0121 ortho_out=0.0494 locvar_in=0.002195
+  k=1           common lattice harmonic rho=0.25      +4 R/var=0.05880 resid_in=0.01987 resid_out=0.02445 ortho_in=0.0113 ortho_out=0.0493 locvar_in=0.002191
+  k=1           common lattice harmonic rho=1         +4 R/var=0.05551 resid_in=0.01950 resid_out=0.02352 ortho_in=0.0096 ortho_out=0.0491 locvar_in=0.002193
+  k=10          common lattice harmonic rho=0         +6 R/var=0.11525 resid_in=0.08290 resid_out=0.06508 ortho_in=nan ortho_out=nan locvar_in=0.001429
+  k=10          common lattice harmonic rho=0.25      +6 R/var=0.11295 resid_in=0.08127 resid_out=0.06342 ortho_in=nan ortho_out=nan locvar_in=0.00144
+  k=10          common lattice harmonic rho=1         +6 R/var=0.10759 resid_in=0.07718 resid_out=0.05938 ortho_in=nan ortho_out=nan locvar_in=0.001479
+=== abalone split 1
+abalone split=1 RHOS=(0.0, 0.25, 1.0) SE_RULE=1 fit 43.54s
+selection common lattice harmonic rho=1         +0 R/var=0.04052 resid_in(est)/var=0.00646 tied=4
+argmin    shift  lattice harmonic rho=1         -5 R/var=0.04051 resid_in(est)/var=0.00647
+N1/n mean 0.1661 m mean/max 810.22 1407 virtual/n mean 1.839 route_err max 9.1e-07
+chosen kappa quantiles [0.01 0.01 0.01 0.01 0.01]
+chosen rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+per-tree joint argmin rho counts (selected variant) {0.0: 0, 0.25: 0, 1.0: 100}
+SELECTED resid_in=0.00646 resid_out=0.01619 ortho_in=0.0130 ortho_out=0.0535 locvar_in=0.002026
+ARGMIN shift  lattice harmonic rho=1         -5 R/var=0.04051 resid_in=0.00647 resid_out=0.01617 ortho_in=0.0129 ortho_out=0.0536 locvar_in=0.002024
+rho-mode ablation: best candidate by R, and the 1-SE choice, within each rho mode
+  rho=0         shift  ridge   harmonic rho=0         -3 R/var=0.04700 resid_in=0.00597 resid_out=0.01841 ortho_in=0.0147 ortho_out=0.0564 locvar_in=0.00174
+  rho=0/se1     shift  lattice harmonic rho=0         -4 R/var=0.04791 resid_in=0.00553 resid_out=0.01939 ortho_in=0.0141 ortho_out=0.0594 locvar_in=0.001787
+  rho=0.25      common lattice harmonic rho=0.25      +0 R/var=0.04337 resid_in=0.00561 resid_out=0.01799 ortho_in=0.0128 ortho_out=0.0551 locvar_in=0.001965
+  rho=0.25/se1  common lattice harmonic rho=0.25      +0 R/var=0.04337 resid_in=0.00561 resid_out=0.01799 ortho_in=0.0128 ortho_out=0.0551 locvar_in=0.001965
+  rho=1         shift  lattice harmonic rho=1         -5 R/var=0.04051 resid_in=0.00647 resid_out=0.01617 ortho_in=0.0129 ortho_out=0.0536 locvar_in=0.002024
+  rho=1/se1     common lattice harmonic rho=1         +0 R/var=0.04052 resid_in=0.00646 resid_out=0.01619 ortho_in=0.0130 ortho_out=0.0535 locvar_in=0.002026
+  rho=per-tree  shift  lattice harmonic rho=per-tree  -5 R/var=0.04051 resid_in=0.00647 resid_out=0.01617 ortho_in=0.0129 ortho_out=0.0536 locvar_in=0.002024
+  rho=per-tree/se1 common lattice harmonic rho=per-tree  +0 R/var=0.04052 resid_in=0.00646 resid_out=0.01619 ortho_in=0.0130 ortho_out=0.0535 locvar_in=0.002026
+orthogonality at a common kappa (selected variant), rho = 0 / 0.25 / 1
+  k=0.01        common lattice harmonic rho=0         +0 R/var=0.04884 resid_in=0.00514 resid_out=0.02074 ortho_in=0.0129 ortho_out=0.0560 locvar_in=0.001821
+  k=0.01        common lattice harmonic rho=0.25      +0 R/var=0.04337 resid_in=0.00561 resid_out=0.01799 ortho_in=0.0128 ortho_out=0.0551 locvar_in=0.001965
+  k=0.01        common lattice harmonic rho=1         +0 R/var=0.04052 resid_in=0.00646 resid_out=0.01619 ortho_in=0.0130 ortho_out=0.0535 locvar_in=0.002026
+  k=0.1         common lattice harmonic rho=0         +2 R/var=0.04930 resid_in=0.00730 resid_out=0.01672 ortho_in=0.0148 ortho_out=0.0565 locvar_in=0.001812
+  k=0.1         common lattice harmonic rho=0.25      +2 R/var=0.04704 resid_in=0.00763 resid_out=0.01600 ortho_in=0.0142 ortho_out=0.0566 locvar_in=0.001867
+  k=0.1         common lattice harmonic rho=1         +2 R/var=0.04419 resid_in=0.00827 resid_out=0.01506 ortho_in=0.0129 ortho_out=0.0567 locvar_in=0.001953
+  k=1           common lattice harmonic rho=0         +4 R/var=0.06227 resid_in=0.02098 resid_out=0.01811 ortho_in=0.0127 ortho_out=0.0312 locvar_in=0.001397
+  k=1           common lattice harmonic rho=0.25      +4 R/var=0.06091 resid_in=0.02083 resid_out=0.01773 ortho_in=0.0128 ortho_out=0.0396 locvar_in=0.001426
+  k=1           common lattice harmonic rho=1         +4 R/var=0.05810 resid_in=0.02042 resid_out=0.01694 ortho_in=0.0130 ortho_out=0.0401 locvar_in=0.001502
+  k=10          common lattice harmonic rho=0         +6 R/var=0.12345 resid_in=0.08943 resid_out=0.06076 ortho_in=nan ortho_out=nan locvar_in=0.001136
+  k=10          common lattice harmonic rho=0.25      +6 R/var=0.12120 resid_in=0.08768 resid_out=0.05924 ortho_in=nan ortho_out=nan locvar_in=0.001148
+  k=10          common lattice harmonic rho=1         +6 R/var=0.11558 resid_in=0.08318 resid_out=0.05528 ortho_in=nan ortho_out=nan locvar_in=0.001178
+=== abalone split 2
