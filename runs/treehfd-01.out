@@ -63,3 +63,10 @@ RuntimeError: coder 没有返回可解析的 JSON：You've hit your session limi
 [checkpoint] 编排器退出：stopped → pushed
 [2026-09-28 17:20:07] autopilot 编排器正常结束（完成、预算用尽或按 STOP 停下），推送后退出
 [2026-09-28 17:20:12] autopilot 推送结果：pushed
+[2026-09-28 17:21:36] autopilot 启动编排器（star-of-wind）
+[2026-09-28 17:21:47] start  dry=False host=star-of-wind env=22b414443084 cfg={'lim_rounds': 3, 'n_seed': 4, 'max_rounds': 2, 'successes': 2, 'n_eng': 2, 'n_abl': 1, 'n_peer': 2, 'review_threshold': 8, 'n_meta': 1, 'max_hours': 12, 'max_calls': 110, 'agent_timeout': 3600}
+[2026-09-28 17:23:56] eval  subset <ROOT>/runs/treehfd-01/ideas/S4/method.py 128s errors=[]
+[2026-09-28 17:23:56] rebase  subset_env-22b414443084.json 重算用时 2.1 分钟，不计入预算
+[2026-09-28 17:23:56] rebase  S4 的全量结果来自评测环境 legacy，在本机环境 22b414443084 用同一份代码重跑（method.py 与原结果记录的哈希一致）
+[2026-09-28 17:37:13] eval  full <ROOT>/runs/treehfd-01/ideas/S4/method.py 798s errors=[]
+[2026-09-28 17:37:13] rebase  full_env-22b414443084.json 重算用时 13.3 分钟，不计入预算

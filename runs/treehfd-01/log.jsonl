@@ -39,3 +39,9 @@
 {"event": "eval", "msg": "full <ROOT>/bench/baseline_method.py 1108s errors=[]", "t": "2026-09-28 17:20:01"}
 {"event": "stop", "msg": "发现 STOP 文件，存档后停下", "t": "2026-09-28 17:20:01"}
 {"event": "summary", "msg": "调用 22 次，折算成本 $30.70，状态 stopped", "t": "2026-09-28 17:20:01"}
+{"event": "start", "msg": "dry=False host=star-of-wind env=22b414443084 cfg={'lim_rounds': 3, 'n_seed': 4, 'max_rounds': 2, 'successes': 2, 'n_eng': 2, 'n_abl': 1, 'n_peer': 2, 'review_threshold': 8, 'n_meta': 1, 'max_hours': 12, 'max_calls': 110, 'agent_timeout': 3600}", "t": "2026-09-28 17:21:47"}
+{"event": "eval", "msg": "subset <ROOT>/runs/treehfd-01/ideas/S4/method.py 128s errors=[]", "t": "2026-09-28 17:23:56"}
+{"event": "rebase", "msg": "subset_env-22b414443084.json 重算用时 2.1 分钟，不计入预算", "t": "2026-09-28 17:23:56"}
+{"event": "rebase", "msg": "S4 的全量结果来自评测环境 legacy，在本机环境 22b414443084 用同一份代码重跑（method.py 与原结果记录的哈希一致）", "t": "2026-09-28 17:23:56"}
+{"event": "eval", "msg": "full <ROOT>/runs/treehfd-01/ideas/S4/method.py 798s errors=[]", "t": "2026-09-28 17:37:13"}
+{"event": "rebase", "msg": "full_env-22b414443084.json 重算用时 13.3 分钟，不计入预算", "t": "2026-09-28 17:37:13"}

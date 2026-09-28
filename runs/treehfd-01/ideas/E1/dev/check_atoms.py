@@ -52,7 +52,7 @@ for t in range(nt):
                           for k, j in enumerate(tree.main_variables)])
     V = lb.shape[1]
     Hv = va["Hv"]
-    Cv = Hv.indices.reshape(va["nv"], -1)[:, :V] - tree.off_main[:-1]
+    Cv = Hv.indices.reshape(va["nu"], -1)[:, :V] - tree.off_main[:-1]
     y = Ttr[:, t] - tree.eta0
     key_r = {tuple(r): y[i] for i, r in enumerate(lb)}
     bad, cmp_ = 0, 0
@@ -61,8 +61,8 @@ for t in range(nt):
         if k in key_r:
             cmp_ += 1
             bad += abs(key_r[k] - yv) > 1e-5
-    sizes = [1 + vp.shape[1] for mem, vp in va["blocks"] for _ in mem]
-    print(f"tree {t}: route_err={tree.route_err:.2e} nv={va['nv']} ({va['nv'] / len(X):.2f}n) "
+    sizes = [1 + int(np.sum(r >= 0)) for mem, vp, _ in va["blocks"] for r in vp]
+    print(f"tree {t}: route_err={tree.route_err:.2e} nv={va["nv"]} nu={va["nu"]} merge_err={tree.merge_err:.1e} ({va['nv'] / len(X):.2f}n) "
           f"same-cell-as-real={cmp_} mismatched={bad} block size mean={np.mean(sizes):.2f} "
           f"max={max(sizes)}")
     tot_bad += bad

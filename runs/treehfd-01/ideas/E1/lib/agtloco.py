@@ -62,7 +62,11 @@ KEEP_PATH = False          # development only: keep the whole path after fitting
 HARD_ORTHO = True          # exact per-tree orthogonality
 # ---------------------------------------------------------------- E1 settings
 RHOS = (0.0, 0.25, 1.0)    # anchor strength (virtual-to-real mass ratio); must start at 0
-ANCHOR_PRIORS = ("ridge", "lattice")  # priors for which rho > 0 is fitted (compute fallback)
+# Priors for which rho > 0 is fitted. Pre-registered compute fallback (idea step 7e), applied:
+# with both priors powerplant took 7.2x the baseline fit time on the evaluation machine
+# (> 4x trigger), so rho > 0 is fitted for the lattice prior only (4 instead of 6
+# eigendecompositions per tree). The ridge prior keeps its rho = 0 (S4) member.
+ANCHOR_PRIORS = ("lattice",)
 BLOCK_CHUNK = 4e6          # max elements of a batched block temporary (memory bound)
 
 

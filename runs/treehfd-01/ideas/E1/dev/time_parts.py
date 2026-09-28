@@ -1,6 +1,6 @@
 """Timing breakdown of an anchored GT-LOCO fit (diagnostic).
 
-usage: time_parts.py <dataset|analytical> [n_trees]
+usage: time_parts.py <dataset|analytical> [n_trees] [anchor_priors=lattice]
 Reports, summed over trees: eigendecompositions, rho = 0 path, anchored path, virtual-atom
 construction, and the distribution of leave-out block sizes (incl. the real row).
 """
@@ -16,7 +16,11 @@ import agtloco  # noqa: E402
 from common import analytical, real  # noqa: E402
 
 name = sys.argv[1]
-nt = int(sys.argv[2]) if len(sys.argv) > 2 else 100
+pos = [a for a in sys.argv[2:] if "=" not in a]
+opts = dict(a.split("=") for a in sys.argv[2:] if "=" in a)
+nt = int(pos[0]) if pos else 100
+if "anchor_priors" in opts:
+    agtloco.ANCHOR_PRIORS = tuple(opts["anchor_priors"].split(","))
 model, Xtr, _ = analytical(0) if name == "analytical" else real(name)
 tim = {"eigh": 0.0, "path": 0.0, "path_anchor": 0.0, "virtual": 0.0, "tree_fit": 0.0}
 sizes = []
