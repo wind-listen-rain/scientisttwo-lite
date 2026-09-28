@@ -18,3 +18,6 @@ __pycache__/
 tools/refcheck_cache.json
 verify_cache.json
 .DS_Store
+
+# 本机控制文件：建了它编排器就会存档后停下（不同步到别的机器）
+runs/*/STOP
