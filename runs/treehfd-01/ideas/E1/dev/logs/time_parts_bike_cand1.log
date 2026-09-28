@@ -1,0 +1,3 @@
+bike: n=13903 trees=100 N1/n mean=0.360
+{'eigh': 23.32, 'path': 11.41, 'path_anchor': 119.63, 'virtual': 20.66, 'tree_fit': 194.16}
+block sizes: mean 7.63 quantiles [  8.  10.  11. 257.] sum b^2 31714898 count 501201
