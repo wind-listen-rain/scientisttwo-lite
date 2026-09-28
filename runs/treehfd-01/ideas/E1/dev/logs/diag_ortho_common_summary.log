@@ -1,0 +1,8 @@
+airfoil   ortho_in  E1/S4: harness 0.810 (n=8) | common pair set 0.810 (n=8) | median per-pair ratio 1.003 | pairs >=1%: S4 24 E1 24 | interaction variance share 1.018
+airfoil   ortho_out E1/S4: harness 1.177 (n=8) | common pair set 1.072 (n=8) | median per-pair ratio 0.974 | pairs >=1%: S4 24 E1 27 | interaction variance share 1.023
+concrete  ortho_in  E1/S4: harness 1.486 (n=7) | common pair set 1.043 (n=7) | median per-pair ratio 1.109 | pairs >=1%: S4 8 E1 10 | interaction variance share 1.208
+concrete  ortho_out E1/S4: harness 1.418 (n=7) | common pair set 1.046 (n=8) | median per-pair ratio 0.985 | pairs >=1%: S4 8 E1 13 | interaction variance share 1.211
+abalone   ortho_in  E1/S4: harness 1.039 (n=8) | common pair set 1.039 (n=8) | median per-pair ratio 0.988 | pairs >=1%: S4 19 E1 19 | interaction variance share 1.079
+abalone   ortho_out E1/S4: harness 0.952 (n=8) | common pair set 0.952 (n=8) | median per-pair ratio 1.050 | pairs >=1%: S4 19 E1 21 | interaction variance share 1.070
+nutrition ortho_in  E1/S4: harness 1.042 (n=8) | common pair set 1.042 (n=8) | median per-pair ratio 1.018 | pairs >=1%: S4 48 E1 48 | interaction variance share 1.068
+nutrition ortho_out E1/S4: harness 1.047 (n=8) | common pair set 1.047 (n=8) | median per-pair ratio 1.022 | pairs >=1%: S4 52 E1 50 | interaction variance share 1.049

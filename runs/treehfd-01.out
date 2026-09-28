@@ -82,3 +82,5 @@ RuntimeError: coder 没有返回可解析的 JSON：You've hit your session limi
 [checkpoint] 用量已到 100.0%（7 天窗口 23.0%），额度用尽前先存档 → pushed
 [2026-09-28 19:05:40] wait  订阅用量上限，等待 47 分钟后重试：You've hit your session limit · resets 7:50pm (Asia/Shanghai)
 [checkpoint] 撞到订阅用量上限，预计 09-28 19:53 重置 → pushed
+[checkpoint] 定时存档 → pushed
+[2026-09-28 20:13:09] restart_after_step 等步骤 idea_E1 完成后停下编排器并重启 autopilot（当前 autopilot 进程 20096）

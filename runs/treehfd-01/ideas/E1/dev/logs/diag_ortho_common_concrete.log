@@ -1,0 +1,16 @@
+concrete split 0 in : harness S4=0.0061 E1=0.0070 | common set (n=1) S4=0.0061 E1=0.0070 median pair ratio=1.135 | n_big S4=1 E1=1 | inter share S4=0.0603 E1=0.0696
+concrete split 0 out: harness S4=0.0716 E1=0.0674 | common set (n=2) S4=0.0716 E1=0.0674 median pair ratio=0.933 | n_big S4=1 E1=2 | inter share S4=0.0731 E1=0.0826
+concrete split 1 in : harness S4=0.0055 E1=0.0258 | common set (n=2) S4=0.0268 E1=0.0258 median pair ratio=1.109 | n_big S4=1 E1=2 | inter share S4=0.0626 E1=0.0787
+concrete split 1 out: harness S4=0.0208 E1=0.0841 | common set (n=2) S4=0.0795 E1=0.0841 median pair ratio=0.837 | n_big S4=1 E1=2 | inter share S4=0.0705 E1=0.0936
+concrete split 2 in : harness S4=nan E1=nan | common set (n=0) S4=nan E1=nan median pair ratio=nan | n_big S4=0 E1=0 | inter share S4=0.0562 E1=0.0653
+concrete split 2 out: harness S4=nan E1=0.1218 | common set (n=1) S4=0.1190 E1=0.1218 median pair ratio=1.024 | n_big S4=0 E1=1 | inter share S4=0.0680 E1=0.0789
+concrete split 3 in : harness S4=0.0238 E1=0.0240 | common set (n=2) S4=0.0238 E1=0.0240 median pair ratio=1.027 | n_big S4=2 E1=2 | inter share S4=0.0763 E1=0.0853
+concrete split 3 out: harness S4=0.0976 E1=0.1033 | common set (n=2) S4=0.0976 E1=0.1033 median pair ratio=0.955 | n_big S4=2 E1=2 | inter share S4=0.0744 E1=0.0824
+concrete split 4 in : harness S4=0.0115 E1=0.0132 | common set (n=1) S4=0.0115 E1=0.0132 median pair ratio=1.149 | n_big S4=1 E1=1 | inter share S4=0.0588 E1=0.0796
+concrete split 4 out: harness S4=0.0870 E1=0.0883 | common set (n=1) S4=0.0870 E1=0.0883 median pair ratio=1.015 | n_big S4=1 E1=1 | inter share S4=0.0633 E1=0.0852
+concrete split 5 in : harness S4=0.0058 E1=0.0050 | common set (n=1) S4=0.0058 E1=0.0050 median pair ratio=0.864 | n_big S4=1 E1=1 | inter share S4=0.0671 E1=0.0789
+concrete split 5 out: harness S4=0.0490 E1=0.0636 | common set (n=1) S4=0.0490 E1=0.0636 median pair ratio=1.298 | n_big S4=1 E1=1 | inter share S4=0.0752 E1=0.0890
+concrete split 6 in : harness S4=0.0104 E1=0.0233 | common set (n=2) S4=0.0254 E1=0.0233 median pair ratio=1.060 | n_big S4=1 E1=2 | inter share S4=0.0659 E1=0.0778
+concrete split 6 out: harness S4=0.0875 E1=0.2044 | common set (n=2) S4=0.1886 E1=0.2044 median pair ratio=1.020 | n_big S4=1 E1=2 | inter share S4=0.0630 E1=0.0757
+concrete split 7 in : harness S4=0.0098 E1=0.0130 | common set (n=1) S4=0.0098 E1=0.0130 median pair ratio=1.321 | n_big S4=1 E1=1 | inter share S4=0.0621 E1=0.0796
+concrete split 7 out: harness S4=0.0784 E1=0.0728 | common set (n=2) S4=0.0784 E1=0.0728 median pair ratio=0.800 | n_big S4=1 E1=2 | inter share S4=0.0704 E1=0.0881

@@ -1,0 +1,16 @@
+nutrition split 0 in : harness S4=0.0154 E1=0.0172 | common set (n=6) S4=0.0154 E1=0.0172 median pair ratio=0.881 | n_big S4=6 E1=6 | inter share S4=0.1481 E1=0.1637
+nutrition split 0 out: harness S4=0.0817 E1=0.0978 | common set (n=6) S4=0.0817 E1=0.0978 median pair ratio=1.403 | n_big S4=6 E1=6 | inter share S4=0.1551 E1=0.1687
+nutrition split 1 in : harness S4=0.0139 E1=0.0141 | common set (n=6) S4=0.0139 E1=0.0141 median pair ratio=0.944 | n_big S4=6 E1=6 | inter share S4=0.1441 E1=0.1642
+nutrition split 1 out: harness S4=0.1228 E1=0.1201 | common set (n=6) S4=0.1228 E1=0.1201 median pair ratio=0.999 | n_big S4=6 E1=6 | inter share S4=0.1692 E1=0.1889
+nutrition split 2 in : harness S4=0.0148 E1=0.0138 | common set (n=6) S4=0.0148 E1=0.0138 median pair ratio=1.015 | n_big S4=6 E1=6 | inter share S4=0.1485 E1=0.1573
+nutrition split 2 out: harness S4=0.1059 E1=0.1037 | common set (n=6) S4=0.1059 E1=0.1037 median pair ratio=1.093 | n_big S4=6 E1=6 | inter share S4=0.1732 E1=0.1816
+nutrition split 3 in : harness S4=0.0129 E1=0.0136 | common set (n=6) S4=0.0129 E1=0.0136 median pair ratio=1.111 | n_big S4=6 E1=6 | inter share S4=0.1578 E1=0.1568
+nutrition split 3 out: harness S4=0.1114 E1=0.1126 | common set (n=7) S4=0.1114 E1=0.1126 median pair ratio=1.017 | n_big S4=7 E1=6 | inter share S4=0.1823 E1=0.1689
+nutrition split 4 in : harness S4=0.0230 E1=0.0262 | common set (n=6) S4=0.0230 E1=0.0262 median pair ratio=0.924 | n_big S4=6 E1=6 | inter share S4=0.1622 E1=0.1854
+nutrition split 4 out: harness S4=0.0769 E1=0.0801 | common set (n=6) S4=0.0769 E1=0.0801 median pair ratio=1.221 | n_big S4=6 E1=6 | inter share S4=0.1940 E1=0.2187
+nutrition split 5 in : harness S4=0.0191 E1=0.0194 | common set (n=6) S4=0.0191 E1=0.0194 median pair ratio=1.029 | n_big S4=6 E1=6 | inter share S4=0.1559 E1=0.1685
+nutrition split 5 out: harness S4=0.1015 E1=0.1058 | common set (n=6) S4=0.1015 E1=0.1058 median pair ratio=1.013 | n_big S4=6 E1=6 | inter share S4=0.1825 E1=0.1871
+nutrition split 6 in : harness S4=0.0191 E1=0.0199 | common set (n=6) S4=0.0191 E1=0.0199 median pair ratio=1.022 | n_big S4=6 E1=6 | inter share S4=0.1681 E1=0.1644
+nutrition split 6 out: harness S4=0.1868 E1=0.1968 | common set (n=7) S4=0.1868 E1=0.1968 median pair ratio=0.849 | n_big S4=7 E1=7 | inter share S4=0.2202 E1=0.2215
+nutrition split 7 in : harness S4=0.0139 E1=0.0144 | common set (n=6) S4=0.0139 E1=0.0144 median pair ratio=1.061 | n_big S4=6 E1=6 | inter share S4=0.1447 E1=0.1528
+nutrition split 7 out: harness S4=0.1491 E1=0.1623 | common set (n=8) S4=0.1491 E1=0.1623 median pair ratio=1.027 | n_big S4=8 E1=7 | inter share S4=0.1774 E1=0.1892

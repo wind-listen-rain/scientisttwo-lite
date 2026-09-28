@@ -1,0 +1,18 @@
+== concrete split 0 S4 ('shift', 3, 0, -2)
+  in  ortho=0.0061 n_big=1 | (1,7) share=0.0121 corr=0.0061*; (0,7) share=0.0066 corr=0.0329; (0,4) share=0.0045 corr=0.0482; (6,7) share=0.0042 corr=0.0044; (3,7) share=0.0037 corr=0.0116; (0,3) share=0.0035 corr=0.0329
+  out ortho=0.0716 n_big=1 | (1,7) share=0.0143 corr=0.0716*; (0,7) share=0.0098 corr=0.0359; (0,4) share=0.0062 corr=0.1379; (6,7) share=0.0052 corr=0.1621; (4,6) share=0.0044 corr=0.0621; (3,7) share=0.0042 corr=0.0680
+== concrete split 0 E1 ('shift', 2, 2, -5)
+  in  ortho=0.0070 n_big=1 | (1,7) share=0.0128 corr=0.0070*; (0,7) share=0.0091 corr=0.0315; (3,7) share=0.0055 corr=0.0143; (4,7) share=0.0048 corr=0.0328; (0,4) share=0.0048 corr=0.0351; (6,7) share=0.0047 corr=0.0032
+  out ortho=0.0674 n_big=2 | (1,7) share=0.0149 corr=0.0674*; (0,7) share=0.0125 corr=0.0332*; (3,7) share=0.0061 corr=0.0988; (6,7) share=0.0061 corr=0.1565; (0,4) share=0.0060 corr=0.1327; (4,7) share=0.0059 corr=0.0485
+== concrete split 1 S4 ('shift', 2, 0, -2)
+  in  ortho=0.0055 n_big=1 | (1,7) share=0.0123 corr=0.0055*; (0,7) share=0.0083 corr=0.0268; (0,4) share=0.0052 corr=0.0281; (3,7) share=0.0044 corr=0.0175; (1,4) share=0.0043 corr=0.0271; (6,7) share=0.0043 corr=0.0131
+  out ortho=0.0208 n_big=1 | (1,7) share=0.0114 corr=0.0208*; (0,7) share=0.0092 corr=0.0795; (0,4) share=0.0077 corr=0.0430; (6,7) share=0.0051 corr=0.2203; (1,4) share=0.0050 corr=0.1467; (4,6) share=0.0043 corr=0.1708
+== concrete split 1 E1 ('common', 3, 3, 0)
+  in  ortho=0.0258 n_big=2 | (1,7) share=0.0145 corr=0.0069*; (0,7) share=0.0130 corr=0.0258*; (4,7) share=0.0066 corr=0.0176; (3,7) share=0.0060 corr=0.0175; (6,7) share=0.0050 corr=0.0116; (0,3) share=0.0048 corr=0.0228
+  out ortho=0.0841 n_big=2 | (0,7) share=0.0149 corr=0.0841*; (1,7) share=0.0138 corr=0.0128*; (4,7) share=0.0084 corr=0.1379; (0,4) share=0.0083 corr=0.0859; (0,3) share=0.0075 corr=0.1089; (3,7) share=0.0060 corr=0.1529
+== concrete split 6 S4 ('shift', 2, 0, -2)
+  in  ortho=0.0104 n_big=1 | (1,7) share=0.0159 corr=0.0104*; (0,7) share=0.0073 corr=0.0254; (0,4) share=0.0048 corr=0.0361; (4,7) share=0.0047 corr=0.0244; (6,7) share=0.0045 corr=0.0181; (3,7) share=0.0040 corr=0.0186
+  out ortho=0.0875 n_big=1 | (1,7) share=0.0155 corr=0.0875*; (0,7) share=0.0077 corr=0.1886; (4,7) share=0.0045 corr=0.1229; (0,4) share=0.0043 corr=0.1592; (6,7) share=0.0041 corr=0.0658; (0,3) share=0.0040 corr=0.1007
+== concrete split 6 E1 ('shift', 3, 3, -4)
+  in  ortho=0.0233 n_big=2 | (1,7) share=0.0163 corr=0.0126*; (0,7) share=0.0102 corr=0.0233*; (4,7) share=0.0064 corr=0.0262; (3,7) share=0.0060 corr=0.0158; (6,7) share=0.0052 corr=0.0199; (0,4) share=0.0051 corr=0.0390
+  out ortho=0.2044 n_big=2 | (1,7) share=0.0159 corr=0.0836*; (0,7) share=0.0108 corr=0.2044*; (4,7) share=0.0062 corr=0.0844; (0,3) share=0.0061 corr=0.0725; (3,7) share=0.0053 corr=0.0209; (6,7) share=0.0046 corr=0.0903

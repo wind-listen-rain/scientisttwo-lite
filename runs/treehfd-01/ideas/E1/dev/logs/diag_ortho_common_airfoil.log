@@ -1,0 +1,16 @@
+airfoil split 0 in : harness S4=0.0084 E1=0.0170 | common set (n=3) S4=0.0084 E1=0.0170 median pair ratio=1.576 | n_big S4=3 E1=3 | inter share S4=0.4114 E1=0.4142
+airfoil split 0 out: harness S4=0.1116 E1=0.1325 | common set (n=5) S4=0.1475 E1=0.1325 median pair ratio=0.899 | n_big S4=3 E1=5 | inter share S4=0.5273 E1=0.5389
+airfoil split 1 in : harness S4=0.0149 E1=0.0126 | common set (n=3) S4=0.0149 E1=0.0126 median pair ratio=0.852 | n_big S4=3 E1=3 | inter share S4=0.4174 E1=0.4263
+airfoil split 1 out: harness S4=0.1644 E1=0.1561 | common set (n=3) S4=0.1644 E1=0.1561 median pair ratio=0.976 | n_big S4=3 E1=3 | inter share S4=0.4201 E1=0.4244
+airfoil split 2 in : harness S4=0.0186 E1=0.0107 | common set (n=3) S4=0.0186 E1=0.0107 median pair ratio=0.988 | n_big S4=3 E1=3 | inter share S4=0.3929 E1=0.3997
+airfoil split 2 out: harness S4=0.0440 E1=0.0604 | common set (n=3) S4=0.0440 E1=0.0604 median pair ratio=1.372 | n_big S4=3 E1=3 | inter share S4=0.4933 E1=0.4947
+airfoil split 3 in : harness S4=0.0193 E1=0.0101 | common set (n=3) S4=0.0193 E1=0.0101 median pair ratio=0.773 | n_big S4=3 E1=3 | inter share S4=0.3972 E1=0.4017
+airfoil split 3 out: harness S4=0.1617 E1=0.1608 | common set (n=3) S4=0.1617 E1=0.1608 median pair ratio=0.787 | n_big S4=3 E1=3 | inter share S4=0.4550 E1=0.4670
+airfoil split 4 in : harness S4=0.0137 E1=0.0155 | common set (n=3) S4=0.0137 E1=0.0155 median pair ratio=0.898 | n_big S4=3 E1=3 | inter share S4=0.4174 E1=0.4227
+airfoil split 4 out: harness S4=0.1047 E1=0.1017 | common set (n=3) S4=0.1047 E1=0.1017 median pair ratio=0.971 | n_big S4=3 E1=3 | inter share S4=0.4783 E1=0.4930
+airfoil split 5 in : harness S4=0.0185 E1=0.0101 | common set (n=3) S4=0.0185 E1=0.0101 median pair ratio=1.029 | n_big S4=3 E1=3 | inter share S4=0.4222 E1=0.4342
+airfoil split 5 out: harness S4=0.1153 E1=0.1066 | common set (n=3) S4=0.1153 E1=0.1066 median pair ratio=0.925 | n_big S4=3 E1=3 | inter share S4=0.3530 E1=0.3615
+airfoil split 6 in : harness S4=0.0218 E1=0.0095 | common set (n=3) S4=0.0218 E1=0.0095 median pair ratio=1.020 | n_big S4=3 E1=3 | inter share S4=0.4003 E1=0.4249
+airfoil split 6 out: harness S4=0.1381 E1=0.2416 | common set (n=3) S4=0.1381 E1=0.2416 median pair ratio=1.072 | n_big S4=3 E1=3 | inter share S4=0.4765 E1=0.5049
+airfoil split 7 in : harness S4=0.0132 E1=0.0177 | common set (n=3) S4=0.0132 E1=0.0177 median pair ratio=1.018 | n_big S4=3 E1=3 | inter share S4=0.4319 E1=0.4266
+airfoil split 7 out: harness S4=0.1180 E1=0.1803 | common set (n=4) S4=0.1897 E1=0.1803 median pair ratio=0.996 | n_big S4=3 E1=4 | inter share S4=0.4946 E1=0.4998
