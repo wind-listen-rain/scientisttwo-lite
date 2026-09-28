@@ -1,6 +1,6 @@
 """Timing breakdown of an anchored GT-LOCO fit (diagnostic).
 
-usage: time_parts.py <dataset|analytical> [n_trees] [anchor_priors=lattice]
+usage: time_parts.py <dataset|analytical> [n_trees] [anchor_priors=lattice] [impl=<file.py>]
 Reports, summed over trees: eigendecompositions, rho = 0 path, anchored path, virtual-atom
 construction, and the distribution of leave-out block sizes (incl. the real row).
 """
@@ -12,13 +12,22 @@ import pandas as pd
 
 sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[5]) + "/runs/treehfd-01/ideas/E1/lib")
 sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[5]) + "/runs/treehfd-01/ideas/E1/dev")
-import agtloco  # noqa: E402
 from common import analytical, real  # noqa: E402
+
+_impl = [a.split("=", 1)[1] for a in sys.argv[2:] if a.startswith("impl=")]
+if _impl:  # alternative implementation file (e.g. a candidate speed-up)
+    import importlib.machinery, importlib.util
+    _ld = importlib.machinery.SourceFileLoader("agtloco", _impl[0])
+    agtloco = importlib.util.module_from_spec(importlib.util.spec_from_loader("agtloco", _ld))
+    _ld.exec_module(agtloco)
+else:
+    import agtloco  # noqa: E402
 
 name = sys.argv[1]
 pos = [a for a in sys.argv[2:] if "=" not in a]
 opts = dict(a.split("=") for a in sys.argv[2:] if "=" in a)
 nt = int(pos[0]) if pos else 100
+opts.pop("impl", None)
 if "anchor_priors" in opts:
     agtloco.ANCHOR_PRIORS = tuple(opts["anchor_priors"].split(","))
 model, Xtr, _ = analytical(0) if name == "analytical" else real(name)

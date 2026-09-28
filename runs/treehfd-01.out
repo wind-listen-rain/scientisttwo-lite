@@ -71,3 +71,7 @@ RuntimeError: coder 没有返回可解析的 JSON：You've hit your session limi
 [2026-09-28 17:37:13] eval  full <ROOT>/runs/treehfd-01/ideas/S4/method.py 798s errors=[]
 [2026-09-28 17:37:13] rebase  full_env-22b414443084.json 重算用时 13.3 分钟，不计入预算
 [checkpoint] 定时存档 → pushed
+[checkpoint] 定时存档 → pushed
+[2026-09-28 18:38:21] agent coder {"status": "implemented", "summary": "E1 (Anchored GT-LOCO) is implemented in lib/agtloco.py, starting from S4's GT-LOCO. Per tree it adds a model-anchored Gaussian prior: virtual atoms are neighbour-bin copies of X_train on the ensemble union-of-splits grid, kept only if they move a tree main bin a
+[2026-09-28 18:42:49] eval  subset <ROOT>/runs/treehfd-01/ideas/E1/method.py 268s errors=[]
+[2026-09-28 18:43:59] agent subset_critic {"decision": "refine", "feedback": "The subset table and the author's own NOTES.md are consistent, and the pre-registered checks (a)/(b) were largely carried through (rho=0 reproduces S4 bit-for-bit; brute-force LOO checks pass within ~5-10%), so there's no evidence of a red-line violation or a rigg

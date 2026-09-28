@@ -1,8 +1,11 @@
 # E1 — Anchored GT-LOCO TreeHFD (model-anchored Gaussian prior inside hard-orthogonal TreeHFD)
 
 ## Status
-**Implemented. The subset and full self-tests both run without errors** through the official harness on this
-machine (`22b414443084`).
+**Implemented, and the subset and full self-tests run without errors** through the official harness on this
+machine (`22b414443084`). **Unfinished: compute.** In full mode, bike (7.2×), nutrition (5.2×) and powerplant (5.1×)
+exceed the 5× fit-time guideline. The rule says > 5× must be justified and > 20× is unacceptable; none is near 20×. An
+exact speed-up of the anchored leave-out was written but **not validated**, so it is not in the submitted code (see
+"Compute: unfinished").
 
 This round completed an interrupted earlier attempt: code in `lib/agtloco.py`, checks (7a)/(7b) done on the old
 machine. In this round I:
@@ -137,7 +140,7 @@ rows (β = Q γ per pair). The method minimises
     ortho_out) as strings on **all 32 dataset-splits** (4 datasets × 8 splits of `S4/dev/logs/diag_ortho_out_*.log`).
   * It also equals `S4/subset_env-22b414443084.json` on the benchmark split (airfoil 0.01235 / 0.02247, concrete
     0.00216 / 0.02104, abalone 0.00634 / 0.02094).
-  * RESULT_7A_HARNESS
+  *   * I did not re-run `dev/method_rho0.py` through the harness on this machine (analytical case included) for lack of time.
 * **(b) Closed-form block leave-out vs brute-force refits.** `dev/check_loo.py` refits the tree on X₋ᵢ and rebuilds
   **everything** from X₋ᵢ: the partition, the union-bin medians, hence all virtual atoms. It prints
   mean-square(closed) / mean-square(brute):
@@ -187,7 +190,50 @@ rows (β = Q γ per pair). The method minimises
 | abalone locvar_in / fit_s | 0.00256 / 21.9 s | 0.988 / 0.65 | 0.959 / 1.58 | |
 
 ### Full mode (`full_selftest.json`), ratios to `baseline/env-22b414443084/full.json`
-FULL_TABLE
+| dataset | resid_in S4 / E1 | resid_out S4 / E1 | ortho_in S4 / E1 | ortho_out S4 / E1 | locvar_in S4 / E1 | fit_s base → E1 (S4, E1 ratio) |
+|---|---|---|---|---|---|---|
+| abalone | 1.392 / **1.377** | 0.511 / **0.471** | 0.942 / **1.044** | 2.646 / **2.857** | 0.988 / **0.959** | 17.3 → 32.8 (0.72, **1.90**) |
+| airfoil | 1.255 / **1.223** | 0.835 / **0.704** | 0.868 / **1.486** | 1.152 / **0.969** | 0.878 / **0.555** | 3.9 → 9.6 (0.99, **2.44**) |
+| bike | 1.005 / **1.005** | 0.998 / **0.998** | 1.000 / **1.000** | 1.000 / **1.000** | 0.946 / **0.946** | 46.4 → 335.4 (0.79, **7.23**) |
+| housing | 1.109 / **1.125** | 0.910 / **0.900** | 1.013 / **1.011** | 0.989 / **0.973** | 0.750 / **0.721** | 99.2 → 274.4 (1.13, **2.77**) |
+| concrete | 1.411 / **1.650** | 0.842 / **0.790** | 0.964 / **1.091** | 0.871 / **0.847** | 1.058 / **1.479** | 4.7 → 14.8 (1.34, **3.15**) |
+| nutrition | 1.685 / **1.521** | 0.750 / **0.675** | 0.949 / **1.044** | 0.769 / **0.828** | 0.970 / **1.009** | 6.6 → 34.1 (1.68, **5.20**) |
+| parkinson | 1.012 / **1.012** | 1.002 / **1.002** | 1.000 / **1.000** | 0.998 / **0.998** | 0.927 / **0.927** | 42.1 → 126.5 (0.94, **3.00**) |
+| powerplant | 1.058 / **1.122** | 0.965 / **0.938** | n/a / **n/a** | n/a / **n/a** | 0.989 / **0.982** | 12.1 → 62.2 (2.47, **5.14**) |
+| superconduct | 1.008 / **1.017** | 0.998 / **1.003** | n/a / **n/a** | n/a / **n/a** | 0.981 / **0.980** | 359.0 → 448.4 (0.47, **1.25**) |
+
+| analytical (10 reps) | baseline | S4 | E1 |
+|---|---|---|---|
+| mse_eta1 | 0.028398 | 0.028238 (0.994) | 0.028405 (**1.000**) |
+| mse_eta2 | 0.017909 | 0.017908 (1.000) | 0.017948 (**1.002**) |
+| mse_eta3 | 0.016593 | 0.016465 (0.992) | 0.016567 (**0.998**) |
+| mse_eta4 | 0.016181 | 0.016189 (1.001) | 0.016259 (**1.005**) |
+| mse_eta5 | 0.00030061 | 0.0002894 (0.963) | 0.00028571 (**0.950**) |
+| mse_eta6 | 0.00036652 | 0.0003626 (0.989) | 0.00035862 (**0.978**) |
+| mse_eta12 | 0.03118 | 0.030258 (0.970) | 0.029905 (**0.959**) |
+| mse_eta34 | 0.028205 | 0.027686 (0.982) | 0.027431 (**0.973**) |
+| mse_others | 0.0021245 | 0.0016481 (0.776) | 0.0017024 (**0.801**) |
+| resid_out | 0.01016 | 0.008371 (0.824) | 0.0080545 (**0.793**) |
+| fit_s | 17.316 | 30.883 (1.784) | 59.998 (**3.465**) |
+
+Official harness, full mode: **no errors**, wall time 2,008 s (`full_selftest.json` / `.log`; a copy is in
+`dev/full_run1_unoptimised.json`). Other processes (dev ablations, profiling) ran during part of this run, so
+fit_s may be inflated by roughly 10–20%. Summary:
+* **resid_out vs S4:** better on abalone, airfoil, housing, concrete, nutrition and powerplant. Identical on bike and
+  parkinson: the selection there reproduces S4's metrics to the printed digits. Superconduct is +0.5% (1.003×
+  baseline vs S4 0.998×).
+* **Analytical (10 reps):**
+  * resid_out 0.79× baseline (S4 0.82×);
+  * mse_eta12 / mse_eta34 0.959 / 0.973 (S4 0.970 / 0.982), i.e. a ~1% extra gain, not the hoped-for 5–6%;
+  * mse_others 0.80× (S4 0.78×, slightly worse);
+  * mse_eta1..6 within 0.95–1.005.
+* **resid_in vs S4:** better on nutrition (1.52× vs 1.69× baseline), airfoil and abalone (slightly). Worse on
+  concrete (1.65× vs 1.41×), powerplant (1.12× vs 1.06×), housing and superconduct (+1%).
+* **Fit time: THREE DATASETS EXCEED 5× BASELINE:**
+  * bike 7.2× (335 s vs 46 s);
+  * nutrition 5.2×;
+  * powerplant 5.1×.
+  All others are 1.25–3.5×. See "Compute: unfinished" below.
 
 ## (d) Fixed-ρ ablation over S4's 8 diagnostic splits (`dev/ablate_rho.sh`, `dev/summarize_ablation.py`)
 Split s is a `default_rng(s)` 80/20 permutation with the XGBoost model refit under the benchmark settings; split 0 is
@@ -264,7 +310,7 @@ What the selection does, on all 32 fits:
   anchored thin cells give noisier main effects there, like S2's concrete, though smaller. Airfoil is smoother
   (0.56×).
 * **Compute.**
-  * With the fallback, fit_s is 1.6–3.5× baseline on the subset (analytical 3.49×, the largest) and FULL_FIT_RANGE
+  * With the fallback, fit_s is 1.6–3.5× baseline on the subset (analytical 3.49×, the largest) and 1.25–7.2× in full mode (bike 7.2×, nutrition 5.2×, powerplant 5.1× exceed 5×)
     in full mode.
   * The cost is inherent to the design: 2 extra eigendecompositions of dimension m_red per tree, plus the block
     downdates.
@@ -272,6 +318,30 @@ What the selection does, on all 32 fits:
     the pipeline). Run-to-run variation of ±10–20% is plausible.
 * **Held-out numbers seen during development.** The dev scripts print held-out residuals next to R. No choice in this
   round was made from them. The only change this round, the fallback, was triggered by a pre-registered compute rule.
+
+## Compute: unfinished (state at the end of this round)
+* **Where the time goes.**
+  * On bike, the block leave-out takes 263 of 351 s in `dev/time_parts.py bike` (`dev/logs/time_parts_bike.log`).
+    Bike has ~5,000 Good-Turing singletons per tree, and their blocks have mean size 7.6 (max 257), versus the
+    "usually 0–2" copies the idea assumed.
+  * K = Z_B Λ⁻¹ Z_B' costs ~b² × m_red × 12 per block.
+  * On nutrition, the leave-out and the eigendecompositions take about 13 s each. On powerplant, the 4
+    eigendecompositions per tree take ~35 s.
+* **Justification for > 5×.** The extra cost is the honest block leave-out that the selection needs, plus one more
+  eigendecomposition per ρ. Bike and parkinson pay it without any metric change (their selection ends up equal to
+  S4's).
+* **Exact speed-ups found but not validated end to end.** The submitted `lib/agtloco.py` does NOT contain them;
+  the patched file is `dev/agtloco_speedup_untested.py.txt`:
+  * cache-sized chunks: BLOCK_CHUNK 4e6 → 3e5. Measured 1.6× on the bike leave-out (8.7 → 5.3 s on 3 heavy trees),
+    with outputs equal to 1.8e-15;
+  * exact size buckets up to 32 instead of 8: padding currently adds 54% to Σb²;
+  * a hashed row-unique in `_virtual_atoms`: np.unique(axis=0) is 40% of the 0.3 s per tree there;
+  * a rank-one fast path.
+
+  The comparison run of that patch was interrupted by the session end, so its equality of outputs and its end-to-end
+  timing are unverified.
+* **Not done.** A second harness run with the speed-ups. `dev/method_rho0.py` through the harness on this machine
+  (check 7a is covered by the 32 dataset-splits instead).
 
 ## Files
 * `method.py`: benchmark interface.
@@ -285,5 +355,8 @@ What the selection does, on all 32 fits:
   * `method_rho0.py`, `subset_rho0.json`: check (7a).
   * `time_parts.py` (option `anchor_priors=`, added this round), `time_anchor.py`, `profile_fit.py`,
     `profile_trees.py`, `bench_eigh.py`: compute diagnostics.
-  * `common.py`, `compare.py`, `run_log.py`: helpers.
+  * `common.py`, `compare.py`, `run_log.py`, `full_table.py`: helpers.
+  * `bench_anchor.py`, `time_anchor.py`: leave-out benchmarks.
+  * `agtloco_before_speedup.py.txt`: identical to the submitted `lib/agtloco.py`.
+  * `agtloco_speedup_untested.py.txt`: the unvalidated speed-up.
   * `logs/`: check and ablation logs.
