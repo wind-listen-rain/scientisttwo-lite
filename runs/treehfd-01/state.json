@@ -298,7 +298,7 @@
   "tasks/treehfd/src/treehfd/tree_structure.py": "9a5b00d7158d73f95e85deb2aa7aca5343653236b0253760e967d6978b8eeeec",
   "tasks/treehfd/src/treehfd/validation.py": "02f3e3713accc2fd0c43c23850643128b1a9a88a77426c5ddac01f3e3fa4677f"
  },
- "waited_s": 63048.28916954994,
+ "waited_s": 65888.54089951515,
  "protocol_changes": [
   {
    "t": "2026-09-28 11:01:33",

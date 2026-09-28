@@ -80,3 +80,5 @@ RuntimeError: coder 没有返回可解析的 JSON：You've hit your session limi
 [checkpoint] 用量已到 91.0%（7 天窗口 23.0%），额度用尽前先存档 → pushed
 [checkpoint] 用量已到 95.0%（7 天窗口 23.0%），额度用尽前先存档 → pushed
 [checkpoint] 用量已到 100.0%（7 天窗口 23.0%），额度用尽前先存档 → pushed
+[2026-09-28 19:05:40] wait  订阅用量上限，等待 47 分钟后重试：You've hit your session limit · resets 7:50pm (Asia/Shanghai)
+[checkpoint] 撞到订阅用量上限，预计 09-28 19:53 重置 → pushed

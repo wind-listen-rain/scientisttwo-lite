@@ -1,0 +1,364 @@
+##### airfoil: splits [0, 1, 2, 3, 4, 5, 6, 7]
+-- split 0: E1-se1 [shift  lattice harmonic rho=1         -3] tied=6 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [1.e-02 1.e-02 1.e-02 1.e-02 1.e+02]
+   S4            resid_in=0.01235(1.25) resid_out=0.02247(0.85) ortho_in=0.0084(0.87) ortho_out=0.1116(1.14) locvar=4.567e-05
+   S4/se1        resid_in=0.01235(1.25) resid_out=0.02247(0.85) ortho_in=0.0084(0.87) ortho_out=0.1116(1.14) locvar=4.567e-05
+   E1-argmin     resid_in=0.01204(1.22) resid_out=0.01895(0.71) ortho_in=0.0144(1.48) ortho_out=0.0939(0.96) locvar=2.888e-05
+   E1-se1        resid_in=0.01126(1.14) resid_out=0.01882(0.71) ortho_in=0.017(1.75) ortho_out=0.1325(1.35) locvar=3.019e-05
+   rho=0.25      resid_in=0.01211(1.23) resid_out=0.02101(0.79) ortho_in=0.0066(0.68) ortho_out=0.104(1.06) locvar=3.072e-05
+   rho=0.25/se1  resid_in=0.01211(1.23) resid_out=0.02101(0.79) ortho_in=0.0066(0.68) ortho_out=0.104(1.06) locvar=3.072e-05
+   rho=1         resid_in=0.01204(1.22) resid_out=0.01895(0.71) ortho_in=0.0144(1.48) ortho_out=0.0939(0.96) locvar=2.888e-05
+   rho=1/se1     resid_in=0.01126(1.14) resid_out=0.01882(0.71) ortho_in=0.017(1.75) ortho_out=0.1325(1.35) locvar=3.019e-05
+-- split 1: E1-se1 [shift  lattice harmonic rho=1         -4] tied=12 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.01008(1.24) resid_out=0.02466(0.92) ortho_in=0.0149(0.47) ortho_out=0.1644(0.64) locvar=6.973e-05
+   S4/se1        resid_in=0.00895(1.10) resid_out=0.02438(0.91) ortho_in=0.0277(0.87) ortho_out=0.255(0.99) locvar=7.252e-05
+   E1-argmin     resid_in=0.00963(1.19) resid_out=0.01977(0.74) ortho_in=0.0126(0.39) ortho_out=0.1556(0.61) locvar=5.495e-05
+   E1-se1        resid_in=0.00943(1.16) resid_out=0.01997(0.75) ortho_in=0.0126(0.39) ortho_out=0.1561(0.61) locvar=5.506e-05
+   rho=0.25      resid_in=0.00986(1.21) resid_out=0.02247(0.84) ortho_in=0.0121(0.38) ortho_out=0.1562(0.61) locvar=5.184e-05
+   rho=0.25/se1  resid_in=0.00908(1.12) resid_out=0.02225(0.83) ortho_in=0.033(1.03) ortho_out=0.2757(1.07) locvar=5.341e-05
+   rho=1         resid_in=0.00963(1.19) resid_out=0.01977(0.74) ortho_in=0.0126(0.39) ortho_out=0.1556(0.61) locvar=5.495e-05
+   rho=1/se1     resid_in=0.00943(1.16) resid_out=0.01997(0.75) ortho_in=0.0126(0.39) ortho_out=0.1561(0.61) locvar=5.506e-05
+-- split 2: E1-se1 [common lattice harmonic rho=per-tree  +0] tied=12 rho {0.0: 0, 0.25: 1, 1.0: 99} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.01083(1.30) resid_out=0.02529(0.78) ortho_in=0.0186(1.03) ortho_out=0.044(1.15) locvar=6.038e-05
+   S4/se1        resid_in=0.01083(1.30) resid_out=0.02529(0.78) ortho_in=0.0186(1.03) ortho_out=0.044(1.15) locvar=6.038e-05
+   E1-argmin     resid_in=0.01005(1.21) resid_out=0.02344(0.72) ortho_in=0.0114(0.63) ortho_out=0.0592(1.54) locvar=4.391e-05
+   E1-se1        resid_in=0.00961(1.15) resid_out=0.02403(0.74) ortho_in=0.0107(0.59) ortho_out=0.0604(1.57) locvar=4.432e-05
+   rho=0.25      resid_in=0.01076(1.29) resid_out=0.02417(0.74) ortho_in=0.0165(0.92) ortho_out=0.0491(1.28) locvar=4.517e-05
+   rho=0.25/se1  resid_in=0.0097(1.16) resid_out=0.02542(0.78) ortho_in=0.0155(0.86) ortho_out=0.1156(3.01) locvar=4.381e-05
+   rho=1         resid_in=0.01005(1.21) resid_out=0.02344(0.72) ortho_in=0.0114(0.63) ortho_out=0.0592(1.54) locvar=4.391e-05
+   rho=1/se1     resid_in=0.00961(1.15) resid_out=0.02405(0.74) ortho_in=0.0107(0.59) ortho_out=0.0604(1.57) locvar=4.431e-05
+-- split 3: E1-se1 [shift  lattice harmonic rho=1         -1] tied=2 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.03 0.03 0.1  3.  ]
+   S4            resid_in=0.01123(1.28) resid_out=0.02491(0.87) ortho_in=0.0193(1.13) ortho_out=0.1617(0.95) locvar=0.0002777
+   S4/se1        resid_in=0.01123(1.28) resid_out=0.02491(0.87) ortho_in=0.0193(1.13) ortho_out=0.1617(0.95) locvar=0.0002777
+   E1-argmin     resid_in=0.01121(1.28) resid_out=0.02161(0.76) ortho_in=0.0101(0.59) ortho_out=0.1608(0.94) locvar=0.0002015
+   E1-se1        resid_in=0.01121(1.28) resid_out=0.02161(0.76) ortho_in=0.0101(0.59) ortho_out=0.1608(0.94) locvar=0.0002015
+   rho=0.25      resid_in=0.01103(1.26) resid_out=0.02374(0.83) ortho_in=0.0094(0.55) ortho_out=0.1629(0.95) locvar=0.0001944
+   rho=0.25/se1  resid_in=0.01103(1.26) resid_out=0.02374(0.83) ortho_in=0.0094(0.55) ortho_out=0.1629(0.95) locvar=0.0001944
+   rho=1         resid_in=0.01121(1.28) resid_out=0.02161(0.76) ortho_in=0.0101(0.59) ortho_out=0.1608(0.94) locvar=0.0002015
+   rho=1/se1     resid_in=0.01121(1.28) resid_out=0.02161(0.76) ortho_in=0.0101(0.59) ortho_out=0.1608(0.94) locvar=0.0002015
+-- split 4: E1-se1 [common lattice harmonic rho=per-tree  +0] tied=8 rho {0.0: 0, 0.25: 3, 1.0: 97} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.00854(1.18) resid_out=0.02117(0.86) ortho_in=0.0137(1.17) ortho_out=0.1047(0.97) locvar=8.598e-05
+   S4/se1        resid_in=0.00854(1.18) resid_out=0.02117(0.86) ortho_in=0.0137(1.17) ortho_out=0.1047(0.97) locvar=8.598e-05
+   E1-argmin     resid_in=0.00875(1.21) resid_out=0.01752(0.71) ortho_in=0.0155(1.32) ortho_out=0.1016(0.94) locvar=7.362e-05
+   E1-se1        resid_in=0.00873(1.20) resid_out=0.0175(0.71) ortho_in=0.0155(1.32) ortho_out=0.1017(0.94) locvar=7.362e-05
+   rho=0.25      resid_in=0.00806(1.11) resid_out=0.02025(0.82) ortho_in=0.0147(1.26) ortho_out=0.1038(0.96) locvar=7.086e-05
+   rho=0.25/se1  resid_in=0.00797(1.10) resid_out=0.02018(0.82) ortho_in=0.0147(1.26) ortho_out=0.104(0.96) locvar=7.089e-05
+   rho=1         resid_in=0.00876(1.21) resid_out=0.01753(0.71) ortho_in=0.0156(1.33) ortho_out=0.1017(0.94) locvar=7.351e-05
+   rho=1/se1     resid_in=0.00873(1.20) resid_out=0.01751(0.71) ortho_in=0.0156(1.33) ortho_out=0.1017(0.94) locvar=7.35e-05
+-- split 5: E1-se1 [common lattice harmonic rho=1         +0] tied=12 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.01186(1.30) resid_out=0.02326(0.93) ortho_in=0.0185(1.02) ortho_out=0.1153(0.92) locvar=0.0002365
+   S4/se1        resid_in=0.01186(1.30) resid_out=0.02326(0.93) ortho_in=0.0185(1.02) ortho_out=0.1153(0.92) locvar=0.0002365
+   E1-argmin     resid_in=0.01146(1.26) resid_out=0.0199(0.80) ortho_in=0.0115(0.63) ortho_out=0.1092(0.87) locvar=0.0001462
+   E1-se1        resid_in=0.01045(1.15) resid_out=0.02011(0.80) ortho_in=0.0101(0.55) ortho_out=0.1066(0.85) locvar=0.0001491
+   rho=0.25      resid_in=0.01142(1.25) resid_out=0.02167(0.87) ortho_in=0.0165(0.91) ortho_out=0.1136(0.91) locvar=0.0001495
+   rho=0.25/se1  resid_in=0.01033(1.13) resid_out=0.02161(0.86) ortho_in=0.0134(0.74) ortho_out=0.1118(0.89) locvar=0.0001469
+   rho=1         resid_in=0.01146(1.26) resid_out=0.0199(0.80) ortho_in=0.0115(0.63) ortho_out=0.1092(0.87) locvar=0.0001462
+   rho=1/se1     resid_in=0.01045(1.15) resid_out=0.02011(0.80) ortho_in=0.0101(0.55) ortho_out=0.1066(0.85) locvar=0.0001491
+-- split 6: E1-se1 [shift  lattice harmonic rho=1         -3] tied=6 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.3 ]
+   S4            resid_in=0.01009(1.31) resid_out=0.02201(0.79) ortho_in=0.0218(1.16) ortho_out=0.1381(0.90) locvar=0.0001682
+   S4/se1        resid_in=0.01009(1.31) resid_out=0.02201(0.79) ortho_in=0.0218(1.16) ortho_out=0.1381(0.90) locvar=0.0001682
+   E1-argmin     resid_in=0.00985(1.28) resid_out=0.01893(0.68) ortho_in=0.0092(0.49) ortho_out=0.2407(1.57) locvar=9.313e-05
+   E1-se1        resid_in=0.00906(1.18) resid_out=0.01961(0.71) ortho_in=0.0095(0.51) ortho_out=0.2416(1.57) locvar=9.48e-05
+   rho=0.25      resid_in=0.00967(1.25) resid_out=0.02088(0.75) ortho_in=0.012(0.64) ortho_out=0.1963(1.28) locvar=9.211e-05
+   rho=0.25/se1  resid_in=0.00875(1.13) resid_out=0.02144(0.77) ortho_in=0.0089(0.47) ortho_out=0.2013(1.31) locvar=9.349e-05
+   rho=1         resid_in=0.00985(1.28) resid_out=0.01893(0.68) ortho_in=0.0092(0.49) ortho_out=0.2407(1.57) locvar=9.313e-05
+   rho=1/se1     resid_in=0.00906(1.18) resid_out=0.01961(0.71) ortho_in=0.0095(0.51) ortho_out=0.2416(1.57) locvar=9.48e-05
+-- split 7: E1-se1 [shift  lattice harmonic rho=1         -1] tied=2 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.03 0.1  3.  ]
+   S4            resid_in=0.01397(1.24) resid_out=0.02035(0.88) ortho_in=0.0132(1.10) ortho_out=0.118(0.62) locvar=0.0001407
+   S4/se1        resid_in=0.01397(1.24) resid_out=0.02035(0.88) ortho_in=0.0132(1.10) ortho_out=0.118(0.62) locvar=0.0001407
+   E1-argmin     resid_in=0.01384(1.22) resid_out=0.01737(0.75) ortho_in=0.0177(1.48) ortho_out=0.1803(0.95) locvar=5.867e-05
+   E1-se1        resid_in=0.01384(1.22) resid_out=0.01737(0.75) ortho_in=0.0177(1.48) ortho_out=0.1803(0.95) locvar=5.867e-05
+   rho=0.25      resid_in=0.01374(1.22) resid_out=0.01907(0.83) ortho_in=0.0163(1.36) ortho_out=0.1837(0.97) locvar=6.052e-05
+   rho=0.25/se1  resid_in=0.01374(1.22) resid_out=0.01907(0.83) ortho_in=0.0163(1.36) ortho_out=0.1837(0.97) locvar=6.052e-05
+   rho=1         resid_in=0.01384(1.22) resid_out=0.01737(0.75) ortho_in=0.0177(1.48) ortho_out=0.1803(0.95) locvar=5.867e-05
+   rho=1/se1     resid_in=0.01384(1.22) resid_out=0.01737(0.75) ortho_in=0.0177(1.48) ortho_out=0.1803(0.95) locvar=5.867e-05
+   geo-mean ratio to baseline over splits:
+   S4            resid_in=1.262(n=8) resid_out=0.858(n=8) ortho_in=0.959(n=8) ortho_out=0.889(n=8)
+   S4/se1        resid_in=1.243(n=8) resid_out=0.857(n=8) ortho_in=1.036(n=8) ortho_out=0.940(n=8)
+   E1-argmin     resid_in=1.232(n=8) resid_out=0.733(n=8) ortho_in=0.777(n=8) ortho_out=1.003(n=8)
+   E1-se1        resid_in=1.185(n=8) resid_out=0.739(n=8) ortho_in=0.777(n=8) ortho_out=1.047(n=8)
+   rho=0.25      resid_in=1.228(n=8) resid_out=0.808(n=8) ortho_in=0.774(n=8) ortho_out=0.979(n=8)
+   rho=0.25/se1  resid_in=1.168(n=8) resid_out=0.814(n=8) ortho_in=0.817(n=8) ortho_out=1.171(n=8)
+   rho=1         resid_in=1.232(n=8) resid_out=0.733(n=8) ortho_in=0.777(n=8) ortho_out=1.003(n=8)
+   rho=1/se1     resid_in=1.185(n=8) resid_out=0.740(n=8) ortho_in=0.778(n=8) ortho_out=1.047(n=8)
+   E1-se1 / S4:            resid_in=0.939(n=8) resid_out=0.862(n=8) ortho_in=0.810(n=8) ortho_out=1.177(n=8) locvar_in=0.658(n=8)
+   E1-argmin / S4:         resid_in=0.976(n=8) resid_out=0.854(n=8) ortho_in=0.810(n=8) ortho_out=1.127(n=8) locvar_in=0.651(n=8)
+   E1-se1 / E1-argmin:     resid_in=0.962(n=8) resid_out=1.009(n=8) ortho_in=1.001(n=8) ortho_out=1.044(n=8) locvar_in=1.012(n=8)
+   S4/se1 / S4:            resid_in=0.985(n=8) resid_out=0.999(n=8) ortho_in=1.081(n=8) ortho_out=1.056(n=8) locvar_in=1.005(n=8)
+   fixed common kappa, ratio to rho = 0 at the same kappa (geo-mean over splits):
+   kappa=0.01   rho=0.25: resid_in=1.041 resid_out=0.909 ortho_in=0.854 ortho_out=1.039 | rho=1: resid_in=1.124 resid_out=0.808 ortho_in=0.748 ortho_out=0.902
+   kappa=0.1    rho=0.25: resid_in=1.020 resid_out=0.940 ortho_in=0.909 ortho_out=1.090 | rho=1: resid_in=1.062 resid_out=0.854 ortho_in=0.843 ortho_out=1.116
+   kappa=1      rho=0.25: resid_in=0.979 resid_out=0.949 ortho_in=1.057 ortho_out=1.013 | rho=1: resid_in=0.934 resid_out=0.856 ortho_in=1.106 ortho_out=1.048
+   kappa=10     rho=0.25: resid_in=0.946 resid_out=0.936 ortho_in=1.006 ortho_out=0.996 | rho=1: resid_in=0.822 resid_out=0.794 ortho_in=1.035 ortho_out=0.990
+##### concrete: splits [0, 1, 2, 3, 4, 5, 6, 7]
+-- split 0: E1-se1 [shift  lattice zero     rho=1         -5] tied=24 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.00216(1.41) resid_out=0.02104(0.84) ortho_in=0.0061(0.95) ortho_out=0.0716(0.87) locvar=0.01321
+   S4/se1        resid_in=0.00216(1.41) resid_out=0.02111(0.84) ortho_in=0.0063(0.98) ortho_out=0.0703(0.85) locvar=0.01325
+   E1-argmin     resid_in=0.00253(1.65) resid_out=0.01975(0.78) ortho_in=0.0069(1.08) ortho_out=0.0696(0.85) locvar=0.01848
+   E1-se1        resid_in=0.00244(1.59) resid_out=0.02005(0.80) ortho_in=0.007(1.09) ortho_out=0.0674(0.82) locvar=0.02116
+   rho=0.25      resid_in=0.00236(1.54) resid_out=0.01974(0.78) ortho_in=0.0065(1.02) ortho_out=0.0716(0.87) locvar=0.01347
+   rho=0.25/se1  resid_in=0.00192(1.25) resid_out=0.02062(0.82) ortho_in=0.0059(0.92) ortho_out=0.0702(0.85) locvar=0.01926
+   rho=1         resid_in=0.00253(1.65) resid_out=0.01975(0.78) ortho_in=0.0069(1.08) ortho_out=0.0696(0.85) locvar=0.01848
+   rho=1/se1     resid_in=0.00244(1.59) resid_out=0.02005(0.80) ortho_in=0.007(1.09) ortho_out=0.0674(0.82) locvar=0.02116
+-- split 1: E1-se1 [common lattice harmonic rho=per-tree  +0] tied=18 rho {0.0: 0, 0.25: 3, 1.0: 97} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.00288(1.53) resid_out=0.02339(0.86) ortho_in=0.0055(0.83) ortho_out=0.0208(1.20) locvar=0.008163
+   S4/se1        resid_in=0.00227(1.21) resid_out=0.02394(0.88) ortho_in=0.0055(0.83) ortho_out=0.0181(1.05) locvar=0.007414
+   E1-argmin     resid_in=0.00296(1.57) resid_out=0.0209(0.77) ortho_in=0.0259(3.92) ortho_out=0.0839(4.85) locvar=0.008756
+   E1-se1        resid_in=0.00293(1.56) resid_out=0.02099(0.77) ortho_in=0.0258(3.91) ortho_out=0.0841(4.86) locvar=0.009093
+   rho=0.25      resid_in=0.00312(1.66) resid_out=0.02078(0.76) ortho_in=0.0279(4.23) ortho_out=0.0836(4.83) locvar=0.007053
+   rho=0.25/se1  resid_in=0.00236(1.26) resid_out=0.02353(0.86) ortho_in=0.0253(3.83) ortho_out=0.09(5.20) locvar=0.007722
+   rho=1         resid_in=0.00296(1.57) resid_out=0.0209(0.77) ortho_in=0.0259(3.92) ortho_out=0.0839(4.85) locvar=0.008756
+   rho=1/se1     resid_in=0.00293(1.56) resid_out=0.02245(0.82) ortho_in=0.0258(3.91) ortho_out=0.0837(4.84) locvar=0.009073
+-- split 2: E1-se1 [shift  lattice harmonic rho=per-tree  -2] tied=5 rho {0.0: 1, 0.25: 1, 1.0: 98} kappa q [0.01 0.01 0.03 0.1  0.3 ]
+   S4            resid_in=0.00374(1.87) resid_out=0.01989(0.84) ortho_in=nan( nan) ortho_out=nan( nan) locvar=0.00782
+   S4/se1        resid_in=0.00268(1.34) resid_out=0.02152(0.91) ortho_in=nan( nan) ortho_out=0.1229(1.06) locvar=0.008311
+   E1-argmin     resid_in=0.00324(1.62) resid_out=0.01692(0.72) ortho_in=nan( nan) ortho_out=0.1218(1.05) locvar=0.009356
+   E1-se1        resid_in=0.00324(1.62) resid_out=0.01692(0.72) ortho_in=nan( nan) ortho_out=0.1218(1.05) locvar=0.009356
+   rho=0.25      resid_in=0.00283(1.42) resid_out=0.01917(0.81) ortho_in=nan( nan) ortho_out=0.1175(1.02) locvar=0.008428
+   rho=0.25/se1  resid_in=0.00283(1.42) resid_out=0.01917(0.81) ortho_in=nan( nan) ortho_out=0.1175(1.02) locvar=0.008428
+   rho=1         resid_in=0.0033(1.65) resid_out=0.01683(0.71) ortho_in=nan( nan) ortho_out=0.1211(1.05) locvar=0.009348
+   rho=1/se1     resid_in=0.0033(1.65) resid_out=0.01683(0.71) ortho_in=nan( nan) ortho_out=0.1211(1.05) locvar=0.009348
+-- split 3: E1-se1 [shift  lattice zero     rho=per-tree  -3] tied=6 rho {0.0: 1, 0.25: 0, 1.0: 99} kappa q [0.01 0.01 0.01 0.03 0.3 ]
+   S4            resid_in=0.00225(1.44) resid_out=0.019(0.73) ortho_in=0.0238(0.93) ortho_out=0.0976(1.05) locvar=0.01261
+   S4/se1        resid_in=0.0018(1.15) resid_out=0.02086(0.80) ortho_in=0.0236(0.92) ortho_out=0.0995(1.07) locvar=0.01315
+   E1-argmin     resid_in=0.00259(1.66) resid_out=0.01913(0.73) ortho_in=0.024(0.93) ortho_out=0.1033(1.11) locvar=0.01587
+   E1-se1        resid_in=0.00259(1.66) resid_out=0.01913(0.73) ortho_in=0.024(0.93) ortho_out=0.1033(1.11) locvar=0.01587
+   rho=0.25      resid_in=0.00245(1.57) resid_out=0.01876(0.72) ortho_in=0.025(0.97) ortho_out=0.1001(1.08) locvar=0.01335
+   rho=0.25/se1  resid_in=0.00208(1.33) resid_out=0.02026(0.78) ortho_in=0.0243(0.95) ortho_out=0.1029(1.11) locvar=0.01414
+   rho=1         resid_in=0.00259(1.66) resid_out=0.01913(0.73) ortho_in=0.024(0.93) ortho_out=0.1033(1.11) locvar=0.01586
+   rho=1/se1     resid_in=0.00259(1.66) resid_out=0.01913(0.73) ortho_in=0.024(0.93) ortho_out=0.1033(1.11) locvar=0.01586
+-- split 4: E1-se1 [shift  lattice zero     rho=1         -5] tied=14 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.00413(2.12) resid_out=0.01612(0.78) ortho_in=0.0115(0.73) ortho_out=0.087(0.65) locvar=0.007235
+   S4/se1        resid_in=0.00258(1.32) resid_out=0.01673(0.81) ortho_in=0.0104(0.66) ortho_out=0.0933(0.70) locvar=0.006348
+   E1-argmin     resid_in=0.00299(1.53) resid_out=0.0148(0.72) ortho_in=0.0132(0.84) ortho_out=0.0883(0.66) locvar=0.01064
+   E1-se1        resid_in=0.00299(1.53) resid_out=0.0148(0.72) ortho_in=0.0132(0.84) ortho_out=0.0883(0.66) locvar=0.01064
+   rho=0.25      resid_in=0.0024(1.23) resid_out=0.01624(0.79) ortho_in=0.0132(0.84) ortho_out=0.0896(0.67) locvar=0.01131
+   rho=0.25/se1  resid_in=0.0024(1.23) resid_out=0.01624(0.79) ortho_in=0.0132(0.84) ortho_out=0.0896(0.67) locvar=0.01131
+   rho=1         resid_in=0.00299(1.53) resid_out=0.0148(0.72) ortho_in=0.0132(0.84) ortho_out=0.0883(0.66) locvar=0.01064
+   rho=1/se1     resid_in=0.00299(1.53) resid_out=0.0148(0.72) ortho_in=0.0132(0.84) ortho_out=0.0883(0.66) locvar=0.01064
+-- split 5: E1-se1 [common lattice zero     rho=per-tree  +0] tied=21 rho {0.0: 1, 0.25: 0, 1.0: 99} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.00294(1.37) resid_out=0.01819(0.87) ortho_in=0.0058(1.05) ortho_out=0.049(0.98) locvar=0.01299
+   S4/se1        resid_in=0.00294(1.37) resid_out=0.01819(0.87) ortho_in=0.0058(1.05) ortho_out=0.049(0.98) locvar=0.01299
+   E1-argmin     resid_in=0.00323(1.51) resid_out=0.01424(0.68) ortho_in=nan( nan) ortho_out=0.0548(1.10) locvar=0.01052
+   E1-se1        resid_in=0.00309(1.44) resid_out=0.01532(0.74) ortho_in=0.005(0.91) ortho_out=0.0636(1.27) locvar=0.009465
+   rho=0.25      resid_in=0.00312(1.46) resid_out=0.01615(0.78) ortho_in=0.0057(1.04) ortho_out=0.0503(1.01) locvar=0.01704
+   rho=0.25/se1  resid_in=0.00255(1.19) resid_out=0.01567(0.75) ortho_in=0.0058(1.05) ortho_out=0.0526(1.05) locvar=0.01058
+   rho=1         resid_in=0.00323(1.51) resid_out=0.01424(0.68) ortho_in=nan( nan) ortho_out=0.0548(1.10) locvar=0.01052
+   rho=1/se1     resid_in=0.00309(1.44) resid_out=0.01532(0.74) ortho_in=0.005(0.91) ortho_out=0.0636(1.27) locvar=0.00946
+-- split 6: E1-se1 [shift  lattice harmonic rho=per-tree  -4] tied=16 rho {0.0: 0, 0.25: 2, 1.0: 98} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.00281(1.37) resid_out=0.01472(0.91) ortho_in=0.0104(1.08) ortho_out=0.0875(1.05) locvar=0.01346
+   S4/se1        resid_in=0.00279(1.36) resid_out=0.01419(0.87) ortho_in=0.0105(1.09) ortho_out=0.0904(1.08) locvar=0.01293
+   E1-argmin     resid_in=0.0031(1.51) resid_out=0.01243(0.76) ortho_in=0.024(2.50) ortho_out=0.2051(2.45) locvar=0.01628
+   E1-se1        resid_in=0.00296(1.44) resid_out=0.01214(0.75) ortho_in=0.0233(2.43) ortho_out=0.2044(2.44) locvar=0.01553
+   rho=0.25      resid_in=0.00248(1.21) resid_out=0.01287(0.79) ortho_in=0.0116(1.21) ortho_out=0.1984(2.37) locvar=0.0164
+   rho=0.25/se1  resid_in=0.00247(1.20) resid_out=0.01351(0.83) ortho_in=0.0116(1.21) ortho_out=0.0819(0.98) locvar=0.01625
+   rho=1         resid_in=0.0031(1.51) resid_out=0.01243(0.76) ortho_in=0.024(2.50) ortho_out=0.2051(2.45) locvar=0.01628
+   rho=1/se1     resid_in=0.00301(1.47) resid_out=0.01283(0.79) ortho_in=0.0233(2.43) ortho_out=0.2049(2.45) locvar=0.01576
+-- split 7: E1-se1 [shift  lattice zero     rho=per-tree  -4] tied=1 rho {0.0: 2, 0.25: 3, 1.0: 95} kappa q [0.01 0.01 0.01 0.01 0.1 ]
+   S4            resid_in=0.0024(1.42) resid_out=0.02274(0.85) ortho_in=0.0098(1.04) ortho_out=0.0784(1.05) locvar=0.01271
+   S4/se1        resid_in=0.0024(1.42) resid_out=0.02274(0.85) ortho_in=0.0098(1.04) ortho_out=0.0784(1.05) locvar=0.01271
+   E1-argmin     resid_in=0.00241(1.43) resid_out=0.02272(0.85) ortho_in=0.013(1.38) ortho_out=0.0728(0.97) locvar=0.01353
+   E1-se1        resid_in=0.00241(1.43) resid_out=0.02272(0.85) ortho_in=0.013(1.38) ortho_out=0.0728(0.97) locvar=0.01353
+   rho=0.25      resid_in=0.00249(1.47) resid_out=0.02225(0.83) ortho_in=0.0107(1.14) ortho_out=0.0765(1.02) locvar=0.01398
+   rho=0.25/se1  resid_in=0.002(1.18) resid_out=0.0239(0.89) ortho_in=0.0116(1.23) ortho_out=0.075(1.00) locvar=0.01245
+   rho=1         resid_in=0.00241(1.43) resid_out=0.02269(0.85) ortho_in=0.013(1.38) ortho_out=0.073(0.97) locvar=0.01325
+   rho=1/se1     resid_in=0.00241(1.43) resid_out=0.02269(0.85) ortho_in=0.013(1.38) ortho_out=0.073(0.97) locvar=0.01325
+   geo-mean ratio to baseline over splits:
+   S4            resid_in=1.548(n=8) resid_out=0.833(n=8) ortho_in=0.938(n=7) ortho_out=0.962(n=7)
+   S4/se1        resid_in=1.321(n=8) resid_out=0.854(n=8) ortho_in=0.929(n=7) ortho_out=0.970(n=8)
+   E1-argmin     resid_in=1.559(n=8) resid_out=0.751(n=8) ortho_in=1.500(n=6) ortho_out=1.301(n=8)
+   E1-se1        resid_in=1.533(n=8) resid_out=0.757(n=8) ortho_in=1.393(n=7) ortho_out=1.320(n=8)
+   rho=0.25      resid_in=1.437(n=8) resid_out=0.782(n=8) ortho_in=1.258(n=7) ortho_out=1.286(n=8)
+   rho=0.25/se1  resid_in=1.257(n=8) resid_out=0.816(n=8) ortho_in=1.235(n=7) ortho_out=1.166(n=8)
+   rho=1         resid_in=1.563(n=8) resid_out=0.750(n=8) ortho_in=1.500(n=6) ortho_out=1.301(n=8)
+   rho=1/se1     resid_in=1.540(n=8) resid_out=0.768(n=8) ortho_in=1.393(n=7) ortho_out=1.319(n=8)
+   E1-se1 / S4:            resid_in=0.990(n=8) resid_out=0.909(n=8) ortho_in=1.486(n=7) ortho_out=1.418(n=7) locvar_in=1.171(n=8)
+   E1-argmin / S4:         resid_in=1.007(n=8) resid_out=0.901(n=8) ortho_in=1.632(n=6) ortho_out=1.394(n=7) locvar_in=1.168(n=8)
+   E1-se1 / E1-argmin:     resid_in=0.983(n=8) resid_out=1.009(n=8) ortho_in=0.997(n=6) ortho_out=1.015(n=8) locvar_in=1.003(n=8)
+   S4/se1 / S4:            resid_in=0.853(n=8) resid_out=1.025(n=8) ortho_in=0.990(n=7) ortho_out=0.995(n=7) locvar_in=0.980(n=8)
+   fixed common kappa, ratio to rho = 0 at the same kappa (geo-mean over splits):
+   kappa=0.01   rho=0.25: resid_in=1.158 resid_out=0.888 ortho_in=1.353 ortho_out=1.387 | rho=1: resid_in=1.431 resid_out=0.829 ortho_in=1.526 ortho_out=1.379
+   kappa=0.1    rho=0.25: resid_in=1.110 resid_out=0.941 ortho_in=1.310 ortho_out=1.200 | rho=1: resid_in=1.313 resid_out=0.882 ortho_in=1.439 ortho_out=1.375
+   kappa=1      rho=0.25: resid_in=1.027 resid_out=0.973 ortho_in=1.044 ortho_out=0.991 | rho=1: resid_in=1.084 resid_out=0.932 ortho_in=1.110 ortho_out=0.975
+   kappa=10     rho=0.25: resid_in=0.990 resid_out=0.984 ortho_in=nan ortho_out=nan | rho=1: resid_in=0.965 resid_out=0.945 ortho_in=nan ortho_out=nan
+##### abalone: splits [0, 1, 2, 3, 4, 5, 6, 7]
+-- split 0: E1-se1 [common lattice harmonic rho=1         +0] tied=6 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.00634(1.39) resid_out=0.02094(0.51) ortho_in=0.0252(0.94) ortho_out=0.0412(2.61) locvar=0.00253
+   S4/se1        resid_in=0.00498(1.09) resid_out=0.02486(0.61) ortho_in=0.0264(0.99) ortho_out=0.0386(2.44) locvar=0.002495
+   E1-argmin     resid_in=0.00627(1.38) resid_out=0.01931(0.47) ortho_in=0.028(1.04) ortho_out=0.0445(2.82) locvar=0.002454
+   E1-se1        resid_in=0.00627(1.38) resid_out=0.01931(0.47) ortho_in=0.028(1.04) ortho_out=0.0445(2.82) locvar=0.002454
+   rho=0.25      resid_in=0.00545(1.20) resid_out=0.02106(0.52) ortho_in=0.0271(1.01) ortho_out=0.0417(2.64) locvar=0.002462
+   rho=0.25/se1  resid_in=0.00545(1.20) resid_out=0.02106(0.52) ortho_in=0.0271(1.01) ortho_out=0.0417(2.64) locvar=0.002462
+   rho=1         resid_in=0.00627(1.38) resid_out=0.01931(0.47) ortho_in=0.028(1.04) ortho_out=0.0445(2.82) locvar=0.002454
+   rho=1/se1     resid_in=0.00627(1.38) resid_out=0.01931(0.47) ortho_in=0.028(1.04) ortho_out=0.0445(2.82) locvar=0.002454
+-- split 1: E1-se1 [common lattice harmonic rho=1         +0] tied=4 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.00597(1.25) resid_out=0.01841(0.51) ortho_in=0.0147(0.94) ortho_out=0.0564(0.96) locvar=0.00174
+   S4/se1        resid_in=0.00553(1.15) resid_out=0.01939(0.54) ortho_in=0.0141(0.90) ortho_out=0.0594(1.01) locvar=0.001787
+   E1-argmin     resid_in=0.00647(1.35) resid_out=0.01617(0.45) ortho_in=0.0129(0.82) ortho_out=0.0536(0.91) locvar=0.002024
+   E1-se1        resid_in=0.00646(1.35) resid_out=0.01619(0.45) ortho_in=0.013(0.83) ortho_out=0.0535(0.91) locvar=0.002026
+   rho=0.25      resid_in=0.00561(1.17) resid_out=0.01799(0.50) ortho_in=0.0128(0.82) ortho_out=0.0551(0.94) locvar=0.001965
+   rho=0.25/se1  resid_in=0.00561(1.17) resid_out=0.01799(0.50) ortho_in=0.0128(0.82) ortho_out=0.0551(0.94) locvar=0.001965
+   rho=1         resid_in=0.00647(1.35) resid_out=0.01617(0.45) ortho_in=0.0129(0.82) ortho_out=0.0536(0.91) locvar=0.002024
+   rho=1/se1     resid_in=0.00646(1.35) resid_out=0.01619(0.45) ortho_in=0.013(0.83) ortho_out=0.0535(0.91) locvar=0.002026
+-- split 2: E1-se1 [common lattice harmonic rho=1         +0] tied=4 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.00698(1.58) resid_out=0.02063(0.56) ortho_in=0.0127(0.96) ortho_out=0.0422(1.07) locvar=0.004328
+   S4/se1        resid_in=0.00609(1.37) resid_out=0.02168(0.59) ortho_in=0.0145(1.10) ortho_out=0.0413(1.05) locvar=0.004306
+   E1-argmin     resid_in=0.00623(1.41) resid_out=0.02045(0.55) ortho_in=0.012(0.91) ortho_out=0.0457(1.16) locvar=0.004841
+   E1-se1        resid_in=0.00623(1.41) resid_out=0.02045(0.55) ortho_in=0.012(0.91) ortho_out=0.0457(1.16) locvar=0.004841
+   rho=0.25      resid_in=0.00533(1.20) resid_out=0.02167(0.59) ortho_in=0.0126(0.95) ortho_out=0.0448(1.13) locvar=0.004902
+   rho=0.25/se1  resid_in=0.00533(1.20) resid_out=0.02167(0.59) ortho_in=0.0126(0.95) ortho_out=0.0448(1.13) locvar=0.004902
+   rho=1         resid_in=0.00623(1.41) resid_out=0.02045(0.55) ortho_in=0.012(0.91) ortho_out=0.0457(1.16) locvar=0.004841
+   rho=1/se1     resid_in=0.00623(1.41) resid_out=0.02045(0.55) ortho_in=0.012(0.91) ortho_out=0.0457(1.16) locvar=0.004841
+-- split 3: E1-se1 [common lattice harmonic rho=1         +0] tied=2 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.00769(1.52) resid_out=0.01996(0.56) ortho_in=0.0203(1.31) ortho_out=0.0629(0.94) locvar=0.001527
+   S4/se1        resid_in=0.00614(1.22) resid_out=0.02222(0.63) ortho_in=0.0191(1.23) ortho_out=0.0612(0.91) locvar=0.001591
+   E1-argmin     resid_in=0.00678(1.34) resid_out=0.01881(0.53) ortho_in=0.0169(1.09) ortho_out=0.0497(0.74) locvar=0.001998
+   E1-se1        resid_in=0.00678(1.34) resid_out=0.01881(0.53) ortho_in=0.0169(1.09) ortho_out=0.0497(0.74) locvar=0.001998
+   rho=0.25      resid_in=0.00592(1.17) resid_out=0.02093(0.59) ortho_in=0.0167(1.08) ortho_out=0.0562(0.84) locvar=0.001993
+   rho=0.25/se1  resid_in=0.00592(1.17) resid_out=0.02093(0.59) ortho_in=0.0167(1.08) ortho_out=0.0562(0.84) locvar=0.001993
+   rho=1         resid_in=0.00678(1.34) resid_out=0.01881(0.53) ortho_in=0.0169(1.09) ortho_out=0.0497(0.74) locvar=0.001998
+   rho=1/se1     resid_in=0.00678(1.34) resid_out=0.01881(0.53) ortho_in=0.0169(1.09) ortho_out=0.0497(0.74) locvar=0.001998
+-- split 4: E1-se1 [common lattice harmonic rho=1         +0] tied=6 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.00633(1.42) resid_out=0.02475(0.45) ortho_in=0.008(0.38) ortho_out=0.0827(1.04) locvar=0.002162
+   S4/se1        resid_in=0.00633(1.42) resid_out=0.02475(0.45) ortho_in=0.008(0.38) ortho_out=0.0827(1.04) locvar=0.002162
+   E1-argmin     resid_in=0.00646(1.45) resid_out=0.02252(0.41) ortho_in=0.0098(0.47) ortho_out=0.0806(1.02) locvar=0.002272
+   E1-se1        resid_in=0.00646(1.45) resid_out=0.02252(0.41) ortho_in=0.0098(0.47) ortho_out=0.0806(1.02) locvar=0.002272
+   rho=0.25      resid_in=0.0055(1.23) resid_out=0.02487(0.45) ortho_in=0.0107(0.51) ortho_out=0.0813(1.03) locvar=0.00224
+   rho=0.25/se1  resid_in=0.0055(1.23) resid_out=0.02487(0.45) ortho_in=0.0107(0.51) ortho_out=0.0813(1.03) locvar=0.00224
+   rho=1         resid_in=0.00646(1.45) resid_out=0.02252(0.41) ortho_in=0.0098(0.47) ortho_out=0.0806(1.02) locvar=0.002272
+   rho=1/se1     resid_in=0.00646(1.45) resid_out=0.02252(0.41) ortho_in=0.0098(0.47) ortho_out=0.0806(1.02) locvar=0.002272
+-- split 5: E1-se1 [shift  lattice harmonic rho=1         -5] tied=4 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.03]
+   S4            resid_in=0.00632(1.22) resid_out=0.02402(0.62) ortho_in=0.0203(0.99) ortho_out=0.0514(0.99) locvar=0.00479
+   S4/se1        resid_in=0.00632(1.22) resid_out=0.02402(0.62) ortho_in=0.0203(0.99) ortho_out=0.0514(0.99) locvar=0.00479
+   E1-argmin     resid_in=0.00679(1.31) resid_out=0.02327(0.60) ortho_in=0.0224(1.09) ortho_out=0.0442(0.85) locvar=0.004915
+   E1-se1        resid_in=0.00679(1.31) resid_out=0.02327(0.60) ortho_in=0.0224(1.09) ortho_out=0.0442(0.85) locvar=0.004915
+   rho=0.25      resid_in=0.00621(1.20) resid_out=0.02464(0.64) ortho_in=0.0223(1.08) ortho_out=0.0499(0.97) locvar=0.004959
+   rho=0.25/se1  resid_in=0.00598(1.15) resid_out=0.0256(0.66) ortho_in=0.0229(1.11) ortho_out=0.0493(0.95) locvar=0.004928
+   rho=1         resid_in=0.00679(1.31) resid_out=0.02327(0.60) ortho_in=0.0224(1.09) ortho_out=0.0442(0.85) locvar=0.004915
+   rho=1/se1     resid_in=0.00679(1.31) resid_out=0.02327(0.60) ortho_in=0.0224(1.09) ortho_out=0.0442(0.85) locvar=0.004915
+-- split 6: E1-se1 [common lattice harmonic rho=1         +0] tied=6 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.00775(1.62) resid_out=0.02181(0.56) ortho_in=0.0092(0.18) ortho_out=0.0663(0.86) locvar=0.002435
+   S4/se1        resid_in=0.00608(1.27) resid_out=0.02388(0.61) ortho_in=0.0109(0.22) ortho_out=0.0666(0.86) locvar=0.002519
+   E1-argmin     resid_in=0.00676(1.41) resid_out=0.01904(0.49) ortho_in=0.014(0.28) ortho_out=0.0574(0.74) locvar=0.002787
+   E1-se1        resid_in=0.00674(1.41) resid_out=0.01907(0.49) ortho_in=0.0139(0.27) ortho_out=0.0575(0.74) locvar=0.002785
+   rho=0.25      resid_in=0.00576(1.21) resid_out=0.02139(0.55) ortho_in=0.0157(0.31) ortho_out=0.0612(0.79) locvar=0.002763
+   rho=0.25/se1  resid_in=0.00576(1.21) resid_out=0.02139(0.55) ortho_in=0.0157(0.31) ortho_out=0.0612(0.79) locvar=0.002763
+   rho=1         resid_in=0.00676(1.41) resid_out=0.01904(0.49) ortho_in=0.014(0.28) ortho_out=0.0574(0.74) locvar=0.002787
+   rho=1/se1     resid_in=0.00674(1.41) resid_out=0.01907(0.49) ortho_in=0.0139(0.27) ortho_out=0.0575(0.74) locvar=0.002785
+-- split 7: E1-se1 [shift  lattice harmonic rho=1         -5] tied=2 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.1 ]
+   S4            resid_in=0.00588(1.19) resid_out=0.02044(0.53) ortho_in=0.0277(0.90) ortho_out=0.1152(1.01) locvar=0.002647
+   S4/se1        resid_in=0.00565(1.14) resid_out=0.0204(0.53) ortho_in=0.0279(0.91) ortho_out=0.116(1.02) locvar=0.003019
+   E1-argmin     resid_in=0.00646(1.31) resid_out=0.01678(0.43) ortho_in=0.0238(0.78) ortho_out=0.122(1.07) locvar=0.003044
+   E1-se1        resid_in=0.00646(1.31) resid_out=0.01678(0.43) ortho_in=0.0238(0.78) ortho_out=0.122(1.07) locvar=0.003044
+   rho=0.25      resid_in=0.00575(1.16) resid_out=0.01876(0.49) ortho_in=0.0261(0.85) ortho_out=0.1196(1.05) locvar=0.003079
+   rho=0.25/se1  resid_in=0.00575(1.16) resid_out=0.01876(0.49) ortho_in=0.0261(0.85) ortho_out=0.1196(1.05) locvar=0.003079
+   rho=1         resid_in=0.00646(1.31) resid_out=0.01678(0.43) ortho_in=0.0238(0.78) ortho_out=0.122(1.07) locvar=0.003044
+   rho=1/se1     resid_in=0.00646(1.31) resid_out=0.01678(0.43) ortho_in=0.0238(0.78) ortho_out=0.122(1.07) locvar=0.003044
+   geo-mean ratio to baseline over splits:
+   S4            resid_in=1.390(n=8) resid_out=0.536(n=8) ortho_in=0.716(n=8) ortho_out=1.107(n=8)
+   S4/se1        resid_in=1.232(n=8) resid_out=0.568(n=8) ortho_in=0.739(n=8) ortho_out=1.100(n=8)
+   E1-argmin     resid_in=1.369(n=8) resid_out=0.488(n=8) ortho_in=0.744(n=8) ortho_out=1.054(n=8)
+   E1-se1        resid_in=1.368(n=8) resid_out=0.489(n=8) ortho_in=0.744(n=8) ortho_out=1.054(n=8)
+   rho=0.25      resid_in=1.193(n=8) resid_out=0.536(n=8) ortho_in=0.771(n=8) ortho_out=1.086(n=8)
+   rho=0.25/se1  resid_in=1.187(n=8) resid_out=0.539(n=8) ortho_in=0.773(n=8) ortho_out=1.084(n=8)
+   rho=1         resid_in=1.369(n=8) resid_out=0.488(n=8) ortho_in=0.744(n=8) ortho_out=1.054(n=8)
+   rho=1/se1     resid_in=1.368(n=8) resid_out=0.489(n=8) ortho_in=0.744(n=8) ortho_out=1.054(n=8)
+   E1-se1 / S4:            resid_in=0.984(n=8) resid_out=0.912(n=8) ortho_in=1.039(n=8) ortho_out=0.952(n=8) locvar_in=1.112(n=8)
+   E1-argmin / S4:         resid_in=0.985(n=8) resid_out=0.912(n=8) ortho_in=1.039(n=8) ortho_out=0.952(n=8) locvar_in=1.112(n=8)
+   E1-se1 / E1-argmin:     resid_in=0.999(n=8) resid_out=1.000(n=8) ortho_in=1.000(n=8) ortho_out=1.000(n=8) locvar_in=1.000(n=8)
+   S4/se1 / S4:            resid_in=0.887(n=8) resid_out=1.060(n=8) ortho_in=1.032(n=8) ortho_out=0.994(n=8) locvar_in=1.027(n=8)
+   fixed common kappa, ratio to rho = 0 at the same kappa (geo-mean over splits):
+   kappa=0.01   rho=0.25: resid_in=1.094 resid_out=0.856 ortho_in=0.903 ortho_out=0.982 | rho=1: resid_in=1.262 resid_out=0.776 ortho_in=0.868 ortho_out=0.952
+   kappa=0.1    rho=0.25: resid_in=1.044 resid_out=0.943 ortho_in=0.976 ortho_out=0.992 | rho=1: resid_in=1.132 resid_out=0.880 ortho_in=0.941 ortho_out=0.981
+   kappa=1      rho=0.25: resid_in=0.994 resid_out=0.976 ortho_in=0.971 ortho_out=1.042 | rho=1: resid_in=0.978 resid_out=0.929 ortho_in=0.908 ortho_out=1.046
+   kappa=10     rho=0.25: resid_in=0.981 resid_out=0.974 ortho_in=nan ortho_out=nan | rho=1: resid_in=0.933 resid_out=0.909 ortho_in=nan ortho_out=nan
+##### nutrition: splits [0, 1, 2, 3, 4, 5, 6, 7]
+-- split 0: E1-se1 [shift  lattice zero     rho=per-tree  -5] tied=16 rho {0.0: 0, 0.25: 2, 1.0: 98} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.03009(1.68) resid_out=0.07253(0.75) ortho_in=0.0154(0.95) ortho_out=0.0817(0.71) locvar=0.002733
+   S4/se1        resid_in=0.0236(1.32) resid_out=0.07752(0.80) ortho_in=0.015(0.93) ortho_out=0.0802(0.70) locvar=0.002812
+   E1-argmin     resid_in=0.02716(1.52) resid_out=0.06522(0.67) ortho_in=0.0169(1.04) ortho_out=0.0879(0.77) locvar=0.002843
+   E1-se1        resid_in=0.02486(1.39) resid_out=0.06692(0.69) ortho_in=0.0172(1.06) ortho_out=0.0978(0.86) locvar=0.002879
+   rho=0.25      resid_in=0.025(1.40) resid_out=0.07006(0.72) ortho_in=0.0165(1.02) ortho_out=0.0852(0.75) locvar=0.002828
+   rho=0.25/se1  resid_in=0.02237(1.25) resid_out=0.07229(0.75) ortho_in=0.0166(1.02) ortho_out=0.0971(0.85) locvar=0.002864
+   rho=1         resid_in=0.02716(1.52) resid_out=0.06525(0.67) ortho_in=0.017(1.05) ortho_out=0.0879(0.77) locvar=0.002843
+   rho=1/se1     resid_in=0.02487(1.39) resid_out=0.06694(0.69) ortho_in=0.0172(1.06) ortho_out=0.0979(0.86) locvar=0.00288
+-- split 1: E1-se1 [shift  lattice zero     rho=1         -5] tied=3 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.02371(1.47) resid_out=0.08246(0.82) ortho_in=0.0139(1.02) ortho_out=0.1228(1.17) locvar=0.002789
+   S4/se1        resid_in=0.01916(1.19) resid_out=0.08686(0.86) ortho_in=0.0138(1.01) ortho_out=0.117(1.12) locvar=0.002881
+   E1-argmin     resid_in=0.02317(1.44) resid_out=0.0753(0.75) ortho_in=0.0141(1.04) ortho_out=0.1228(1.17) locvar=0.002912
+   E1-se1        resid_in=0.02281(1.42) resid_out=0.07557(0.75) ortho_in=0.0141(1.04) ortho_out=0.1201(1.15) locvar=0.002912
+   rho=0.25      resid_in=0.02007(1.25) resid_out=0.08248(0.82) ortho_in=0.0143(1.05) ortho_out=0.1219(1.16) locvar=0.002963
+   rho=0.25/se1  resid_in=0.02007(1.25) resid_out=0.08248(0.82) ortho_in=0.0143(1.05) ortho_out=0.1219(1.16) locvar=0.002963
+   rho=1         resid_in=0.02317(1.44) resid_out=0.0753(0.75) ortho_in=0.0141(1.04) ortho_out=0.1228(1.17) locvar=0.002912
+   rho=1/se1     resid_in=0.02281(1.42) resid_out=0.07557(0.75) ortho_in=0.0141(1.04) ortho_out=0.1201(1.15) locvar=0.002912
+-- split 2: E1-se1 [shift  lattice zero     rho=1         -5] tied=18 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.02642(1.60) resid_out=0.08664(0.86) ortho_in=0.0148(1.13) ortho_out=0.1059(1.02) locvar=0.002322
+   S4/se1        resid_in=0.02236(1.36) resid_out=0.08588(0.85) ortho_in=0.0145(1.11) ortho_out=0.0923(0.89) locvar=0.002278
+   E1-argmin     resid_in=0.02429(1.47) resid_out=0.07809(0.77) ortho_in=0.0138(1.05) ortho_out=0.1092(1.05) locvar=0.002329
+   E1-se1        resid_in=0.02257(1.37) resid_out=0.0792(0.79) ortho_in=0.0138(1.05) ortho_out=0.1037(1.00) locvar=0.002345
+   rho=0.25      resid_in=0.02207(1.34) resid_out=0.08296(0.82) ortho_in=0.0138(1.05) ortho_out=0.107(1.03) locvar=0.002351
+   rho=0.25/se1  resid_in=0.02207(1.34) resid_out=0.08296(0.82) ortho_in=0.0138(1.05) ortho_out=0.107(1.03) locvar=0.002351
+   rho=1         resid_in=0.02429(1.47) resid_out=0.07809(0.77) ortho_in=0.0138(1.05) ortho_out=0.1092(1.05) locvar=0.002329
+   rho=1/se1     resid_in=0.02257(1.37) resid_out=0.0792(0.79) ortho_in=0.0138(1.05) ortho_out=0.1037(1.00) locvar=0.002345
+-- split 3: E1-se1 [common lattice zero     rho=1         +0] tied=14 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.02151(1.11) resid_out=0.07016(0.83) ortho_in=0.0129(0.94) ortho_out=0.1114(0.95) locvar=0.002445
+   S4/se1        resid_in=0.02148(1.11) resid_out=0.07192(0.85) ortho_in=0.0129(0.94) ortho_out=0.1133(0.97) locvar=0.002445
+   E1-argmin     resid_in=0.02521(1.30) resid_out=0.06369(0.75) ortho_in=0.0136(0.99) ortho_out=0.1173(1.00) locvar=0.002578
+   E1-se1        resid_in=0.02521(1.30) resid_out=0.06501(0.77) ortho_in=0.0136(0.99) ortho_out=0.1126(0.96) locvar=0.002578
+   rho=0.25      resid_in=0.02224(1.15) resid_out=0.06996(0.82) ortho_in=0.0133(0.97) ortho_out=0.1239(1.06) locvar=0.002581
+   rho=0.25/se1  resid_in=0.02223(1.15) resid_out=0.06993(0.82) ortho_in=0.0133(0.97) ortho_out=0.1238(1.06) locvar=0.002582
+   rho=1         resid_in=0.02521(1.30) resid_out=0.06369(0.75) ortho_in=0.0136(0.99) ortho_out=0.1173(1.00) locvar=0.002578
+   rho=1/se1     resid_in=0.02521(1.30) resid_out=0.06501(0.77) ortho_in=0.0136(0.99) ortho_out=0.1126(0.96) locvar=0.002578
+-- split 4: E1-se1 [common lattice zero     rho=per-tree  +0] tied=10 rho {0.0: 3, 0.25: 0, 1.0: 97} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.02126(1.40) resid_out=0.08437(0.92) ortho_in=0.023(0.93) ortho_out=0.0769(0.99) locvar=0.002173
+   S4/se1        resid_in=0.01765(1.16) resid_out=0.08769(0.95) ortho_in=0.0233(0.95) ortho_out=0.0797(1.03) locvar=0.002271
+   E1-argmin     resid_in=0.02169(1.42) resid_out=0.0808(0.88) ortho_in=0.0263(1.07) ortho_out=0.0815(1.05) locvar=0.002297
+   E1-se1        resid_in=0.02142(1.41) resid_out=0.08105(0.88) ortho_in=0.0262(1.07) ortho_out=0.0801(1.03) locvar=0.0023
+   rho=0.25      resid_in=0.0185(1.21) resid_out=0.08471(0.92) ortho_in=0.0249(1.01) ortho_out=0.0841(1.09) locvar=0.002323
+   rho=0.25/se1  resid_in=0.0185(1.21) resid_out=0.08471(0.92) ortho_in=0.0249(1.01) ortho_out=0.0841(1.09) locvar=0.002323
+   rho=1         resid_in=0.02179(1.43) resid_out=0.08002(0.87) ortho_in=0.0264(1.07) ortho_out=0.0804(1.04) locvar=0.002297
+   rho=1/se1     resid_in=0.02152(1.41) resid_out=0.08026(0.87) ortho_in=0.0263(1.07) ortho_out=0.0791(1.02) locvar=0.002301
+-- split 5: E1-se1 [shift  lattice zero     rho=per-tree  -5] tied=14 rho {0.0: 1, 0.25: 2, 1.0: 97} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.02566(1.59) resid_out=0.06315(0.78) ortho_in=0.0191(1.02) ortho_out=0.1015(1.09) locvar=0.002411
+   S4/se1        resid_in=0.01778(1.10) resid_out=0.07385(0.91) ortho_in=0.0185(0.98) ortho_out=0.1005(1.07) locvar=0.002551
+   E1-argmin     resid_in=0.02242(1.39) resid_out=0.0568(0.70) ortho_in=0.0194(1.03) ortho_out=0.1018(1.09) locvar=0.002567
+   E1-se1        resid_in=0.02237(1.39) resid_out=0.05887(0.73) ortho_in=0.0194(1.03) ortho_out=0.1058(1.13) locvar=0.002561
+   rho=0.25      resid_in=0.01928(1.19) resid_out=0.06302(0.78) ortho_in=0.0193(1.03) ortho_out=0.0971(1.04) locvar=0.00255
+   rho=0.25/se1  resid_in=0.01928(1.19) resid_out=0.06503(0.80) ortho_in=0.0193(1.03) ortho_out=0.1024(1.10) locvar=0.00255
+   rho=1         resid_in=0.02242(1.39) resid_out=0.0568(0.70) ortho_in=0.0194(1.03) ortho_out=0.1018(1.09) locvar=0.002567
+   rho=1/se1     resid_in=0.02242(1.39) resid_out=0.05907(0.73) ortho_in=0.0194(1.03) ortho_out=0.1045(1.12) locvar=0.002567
+-- split 6: E1-se1 [shift  lattice zero     rho=1         -5] tied=8 rho {0.0: 0, 0.25: 0, 1.0: 100} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.02011(1.17) resid_out=0.10537(0.81) ortho_in=0.0191(1.07) ortho_out=0.1868(1.07) locvar=0.003901
+   S4/se1        resid_in=0.02011(1.17) resid_out=0.10537(0.81) ortho_in=0.0191(1.07) ortho_out=0.1868(1.07) locvar=0.003901
+   E1-argmin     resid_in=0.02471(1.43) resid_out=0.0919(0.71) ortho_in=0.0199(1.11) ortho_out=0.1968(1.13) locvar=0.003954
+   E1-se1        resid_in=0.02471(1.43) resid_out=0.0919(0.71) ortho_in=0.0199(1.11) ortho_out=0.1968(1.13) locvar=0.003954
+   rho=0.25      resid_in=0.02317(1.34) resid_out=0.09821(0.76) ortho_in=0.02(1.12) ortho_out=0.19(1.09) locvar=0.004
+   rho=0.25/se1  resid_in=0.02091(1.21) resid_out=0.1012(0.78) ortho_in=0.0198(1.11) ortho_out=0.1956(1.13) locvar=0.004023
+   rho=1         resid_in=0.02471(1.43) resid_out=0.0919(0.71) ortho_in=0.0199(1.11) ortho_out=0.1968(1.13) locvar=0.003954
+   rho=1/se1     resid_in=0.02471(1.43) resid_out=0.0919(0.71) ortho_in=0.0199(1.11) ortho_out=0.1968(1.13) locvar=0.003954
+-- split 7: E1-se1 [common lattice harmonic rho=per-tree  +0] tied=18 rho {0.0: 1, 0.25: 0, 1.0: 99} kappa q [0.01 0.01 0.01 0.01 0.01]
+   S4            resid_in=0.02764(1.77) resid_out=0.07451(0.75) ortho_in=0.0139(1.03) ortho_out=0.1491(1.06) locvar=0.002479
+   S4/se1        resid_in=0.02135(1.37) resid_out=0.08118(0.81) ortho_in=0.0136(1.01) ortho_out=0.1321(0.94) locvar=0.002671
+   E1-argmin     resid_in=0.02495(1.60) resid_out=0.07208(0.72) ortho_in=0.0147(1.09) ortho_out=0.1637(1.17) locvar=0.00279
+   E1-se1        resid_in=0.02256(1.45) resid_out=0.07426(0.74) ortho_in=0.0144(1.07) ortho_out=0.1623(1.16) locvar=0.002814
+   rho=0.25      resid_in=0.02216(1.42) resid_out=0.07554(0.76) ortho_in=0.0138(1.02) ortho_out=0.1635(1.16) locvar=0.00278
+   rho=0.25/se1  resid_in=0.01909(1.22) resid_out=0.08209(0.82) ortho_in=0.014(1.04) ortho_out=0.1411(1.00) locvar=0.002822
+   rho=1         resid_in=0.02495(1.60) resid_out=0.07199(0.72) ortho_in=0.0147(1.09) ortho_out=0.1637(1.17) locvar=0.002784
+   rho=1/se1     resid_in=0.02256(1.45) resid_out=0.07683(0.77) ortho_in=0.0144(1.07) ortho_out=0.1415(1.01) locvar=0.002808
+   geo-mean ratio to baseline over splits:
+   S4            resid_in=1.456(n=8) resid_out=0.811(n=8) ortho_in=1.010(n=8) ortho_out=1.001(n=8)
+   S4/se1        resid_in=1.217(n=8) resid_out=0.854(n=8) ortho_in=0.998(n=8) ortho_out=0.966(n=8)
+   E1-argmin     resid_in=1.445(n=8) resid_out=0.741(n=8) ortho_in=1.053(n=8) ortho_out=1.047(n=8)
+   E1-se1        resid_in=1.393(n=8) resid_out=0.754(n=8) ortho_in=1.052(n=8) ortho_out=1.047(n=8)
+   rho=0.25      resid_in=1.285(n=8) resid_out=0.797(n=8) ortho_in=1.033(n=8) ortho_out=1.040(n=8)
+   rho=0.25/se1  resid_in=1.228(n=8) resid_out=0.815(n=8) ortho_in=1.035(n=8) ortho_out=1.048(n=8)
+   rho=1         resid_in=1.446(n=8) resid_out=0.740(n=8) ortho_in=1.054(n=8) ortho_out=1.045(n=8)
+   rho=1/se1     resid_in=1.394(n=8) resid_out=0.756(n=8) ortho_in=1.053(n=8) ortho_out=1.027(n=8)
+   E1-se1 / S4:            resid_in=0.957(n=8) resid_out=0.930(n=8) ortho_in=1.042(n=8) ortho_out=1.047(n=8) locvar_in=1.053(n=8)
+   E1-argmin / S4:         resid_in=0.992(n=8) resid_out=0.914(n=8) ortho_in=1.043(n=8) ortho_out=1.046(n=8) locvar_in=1.050(n=8)
+   E1-se1 / E1-argmin:     resid_in=0.964(n=8) resid_out=1.017(n=8) ortho_in=0.999(n=8) ortho_out=1.001(n=8) locvar_in=1.003(n=8)
+   S4/se1 / S4:            resid_in=0.836(n=8) resid_out=1.053(n=8) ortho_in=0.988(n=8) ortho_out=0.965(n=8) locvar_in=1.027(n=8)
+   fixed common kappa, ratio to rho = 0 at the same kappa (geo-mean over splits):
+   kappa=0.01   rho=0.25: resid_in=1.119 resid_out=0.881 ortho_in=1.022 ortho_out=1.018 | rho=1: resid_in=1.300 resid_out=0.813 ortho_in=1.040 ortho_out=1.001
+   kappa=0.1    rho=0.25: resid_in=1.065 resid_out=0.939 ortho_in=1.022 ortho_out=0.996 | rho=1: resid_in=1.163 resid_out=0.883 ortho_in=1.036 ortho_out=0.988
+   kappa=1      rho=0.25: resid_in=1.007 resid_out=0.972 ortho_in=1.011 ortho_out=1.004 | rho=1: resid_in=1.005 resid_out=0.933 ortho_in=1.020 ortho_out=1.028
+   kappa=10     rho=0.25: resid_in=0.983 resid_out=0.975 ortho_in=nan ortho_out=0.987 | rho=1: resid_in=0.944 resid_out=0.926 ortho_in=nan ortho_out=1.242
