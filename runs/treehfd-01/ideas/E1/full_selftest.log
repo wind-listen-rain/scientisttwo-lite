@@ -1,4 +1,4 @@
-[harness] full 模式评测 D:\scientisttwo-lite\runs\treehfd-01\ideas\E1\method.py
+[harness] full 模式评测 <ROOT>\runs\treehfd-01\ideas\E1\method.py
   analytical rep 1/10: eta12=0.0323 eta1=0.0279
   analytical rep 2/10: eta12=0.0314 eta1=0.0270
   analytical rep 3/10: eta12=0.0330 eta1=0.0258
@@ -12,3 +12,10 @@
   abalone: resid_in=0.0063 resid_out=0.0193 ortho_in=0.02798184594334564 locvar=0.002454 fit=29.3s
   airfoil: resid_in=0.0113 resid_out=0.0188 ortho_in=0.016990829792339426 locvar=3.019e-05 fit=8.3s
   bike: resid_in=0.0214 resid_out=0.0246 ortho_in=0.013359422632117757 locvar=0.0003359 fit=189.0s
+  housing: resid_in=0.0106 resid_out=0.0141 ortho_in=0.028021037322518934 locvar=0.001334 fit=262.2s
+  concrete: resid_in=0.0024 resid_out=0.0200 ortho_in=0.006956269105026589 locvar=0.02116 fit=13.7s
+  nutrition: resid_in=0.0249 resid_out=0.0669 ortho_in=0.017191355430177007 locvar=0.002879 fit=28.5s
+  parkinson: resid_in=0.0072 resid_out=0.0095 ortho_in=0.08209480562809705 locvar=0.004414 fit=106.7s
+  powerplant: resid_in=0.0007 resid_out=0.0010 ortho_in=None locvar=0.0005193 fit=58.1s
+  superconduct: resid_in=0.0101 resid_out=0.0091 ortho_in=None locvar=0.0006508 fit=403.2s
+[harness] 完成，用时 1746s，错误 []

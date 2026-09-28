@@ -1,20 +1,11 @@
 {
  "host": "star-of-wind",
- "pid": 25184,
- "status": "running",
- "last_alive": 1790598241.6313908,
- "last_alive_local": "2026-09-28 20:24:01",
+ "pid": null,
+ "status": "stopped",
+ "last_alive": 1790598962.0228038,
+ "last_alive_local": "2026-09-28 20:36:02",
  "env": "22b414443084",
- "usage": {
-  "five_hour": {
-   "pct": 26.0,
-   "resets_at": "2026-09-28T16:50:00.490236+00:00"
-  },
-  "seven_day": {
-   "pct": 26.0,
-   "resets_at": "2026-09-29T20:00:00.490257+00:00"
-  }
- },
- "budget_hours_used": 5.59,
- "calls": 25
+ "note": "应用户要求暂停（2026-09-28 20:35）：E1 第 1 次工程改进做到一半，半成品已提交快照；续跑时这段停机时长自动扣出预算",
+ "calls": 25,
+ "budget_hours_used": 5.79
 }
