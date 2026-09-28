@@ -24,6 +24,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import gitsync  # noqa: E402
 
+# 所有子进程都用 UTF-8（中文 Windows 默认按 GBK 读文件，state.json 里有中文就会读崩）
+os.environ.update(PYTHONUTF8="1", PYTHONIOENCODING="utf-8")
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -54,12 +57,12 @@ def main():
         chk = subprocess.run([sys.executable, str(ROOT / "tools" / "check_protocol.py"), str(run_dir / "state.json")],
                              capture_output=True, text=True, encoding="utf-8", errors="replace")
         if chk.returncode != 0:
-            say(f"评测协议不一致，不续跑：{chk.stdout.strip()[-800:]}")
+            say(f"评测协议核对没通过，不续跑：{(chk.stdout + chk.stderr).strip()[-800:]}")
             return 1
         say(f"启动编排器（{gitsync.HOST}）")
         with out.open("a", encoding="utf-8", newline="\n") as f:
             p = subprocess.run([sys.executable, "-u", str(ROOT / "orchestrator.py"), "--run", a.run], cwd=ROOT,
-                               stdout=f, stderr=subprocess.STDOUT, env={**os.environ, "PYTHONUTF8": "1"})
+                               stdout=f, stderr=subprocess.STDOUT)
         if p.returncode == 0:
             say("编排器正常结束（完成、预算用尽或按 STOP 停下），推送后退出")
             say(f"推送结果：{gitsync.checkpoint('autopilot 结束')}")

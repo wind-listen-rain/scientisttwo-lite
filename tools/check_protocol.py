@@ -17,7 +17,7 @@ def main():
     spec = importlib.util.spec_from_file_location("orchestrator", ROOT / "orchestrator.py")
     orch = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(orch)
-    want = json.loads(state.read_text())["manifest"]
+    want = json.loads(state.read_text(encoding="utf-8"))["manifest"]
     have = orch.protocol_manifest()
     bad = sorted(k for k in set(want) | set(have) if want.get(k) != have.get(k))
     if not bad:
