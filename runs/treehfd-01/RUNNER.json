@@ -1,0 +1,8 @@
+{
+ "host": "原来的 Mac（macOS arm64）",
+ "pid": null,
+ "status": "stopped",
+ "last_alive": 1790556540.0,
+ "last_alive_local": "2026-09-28 08:49:00",
+ "note": "应用户要求暂停（STOPPED.md）；续跑时这段停机时长自动扣出预算"
+}

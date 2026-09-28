@@ -2,9 +2,17 @@
 
 用法:
   python orchestrator.py --run <run_id> [--dry-run]
+  无人值守（推荐）：python tools/autopilot.py --run <run_id>（同步 GitHub → 跑本脚本 → 存档推送，出错自动重启）
 每个角色是一次独立的 `claude -p` 调用（提示词在 prompts/），审查员总在干净上下文里运行。
 官方评测由本脚本调用只读的 bench/harness.py 完成，智能体自测的结果不作数。
 所有中间状态存于 runs/<run_id>/state.json，中断后重跑同一命令会从断点继续。
+
+2026-09-28 起的改动（详见 docs/JOURNAL.md）：
+- 能在 Windows 上跑（解释器路径、claude.exe、提示词走标准输入、UTF-8、正斜杠路径、防休眠）；
+- 评测环境指纹（tools/env_fingerprint.py）：换了机器、合成数据或近邻不同时，基线和要比较的旧结果在本机重算，只在同一环境内比较；
+- 存档与同步（tools/gitsync.py）：完成步骤、每 30 分钟、用量到 90%、撞到上限等待前都推送到 GitHub；
+  额度重置后先查 GitHub，有别处推的新进度就退出（退出码 75），由 tools/autopilot.py 同步后按新进度重启；
+- 撞到用量上限后用 --resume 接着被打断的会话做，不从头来；停机时长自动扣除，不占 12 小时预算。
 """
 import argparse
 import hashlib
@@ -14,12 +22,18 @@ import re
 import shutil
 import subprocess
 import sys
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-PY = ROOT / ".conda" / "bin" / "python"
+sys.path.insert(0, str(ROOT / "tools"))
+import gitsync  # noqa: E402  存档/同步、用量查询、路径可移植
+
+WIN = os.name == "nt"
+PY = ROOT / ".conda" / ("python.exe" if WIN else "bin/python")
+ROOT_S, PY_S = ROOT.as_posix(), PY.as_posix()  # 写进提示词、状态和日志的路径一律用正斜杠（Git Bash 与 JSON 都能直接用）
 PROMPTS = ROOT / "prompts"
 VERIFY = ROOT / "tools" / "verify_refs.py"
 
@@ -34,19 +48,45 @@ CFG = {
     "n_peer": 2,              # 模拟审稿-补实验轮数（2）
     "review_threshold": 8,    # 审稿分达标线（8）
     "n_meta": 1,              # 元审稿后返工次数（1）
-    "max_hours": 12,          # 全局墙钟上限
+    "max_hours": 12,          # 全局墙钟上限（只算真正在工作的时间）
     "max_calls": 110,         # 全局智能体调用上限
     "agent_timeout": 3600,    # 单次智能体调用超时秒数
 }
 FAST, STRONG = "sonnet", "opus"  # 对应原文 Gemini 3.6 Flash / Claude Code + Opus 4.8
 READ = ["Read", "Glob", "Grep"]
-CODE = READ + ["Write", "Edit", f"Bash({PY}:*)", "Bash(python:*)", "Bash(ls:*)", "Bash(cat:*)", "Bash(head:*)", "Bash(tail:*)",
-               "Bash(wc:*)", "Bash(mkdir:*)", "Bash(cp:*)", "Bash(diff:*)"]
+CODE = READ + ["Write", "Edit", f"Bash({PY_S}:*)", "Bash(python:*)", "Bash(ls:*)", "Bash(cat:*)", "Bash(head:*)", "Bash(tail:*)",
+               "Bash(wc:*)", "Bash(mkdir:*)", "Bash(cp:*)", "Bash(diff:*)"] + ([f"PowerShell({PY_S}:*)"] if WIN else [])
 WEB = ["WebSearch", "WebFetch"]
+
+
+def rtext(p):
+    return Path(p).read_text(encoding="utf-8")
+
+
+def wtext(p, s):
+    Path(p).write_text(s, encoding="utf-8", newline="\n")
+
+
+def child_env(agent=False):
+    """子进程环境：UTF-8；BLAS 单线程（24 核混合架构上默认 24 线程反而慢 2 倍多，结果逐位不变）；
+    不继承用户级的子智能体模型和推理强度设置（与原版运行保持默认一致，也省额度）。"""
+    env = {k: v for k, v in os.environ.items() if k not in ("CLAUDE_CODE_SUBAGENT_MODEL", "CLAUDE_CODE_EFFORT_LEVEL")}
+    env.update(PYTHONUTF8="1", PYTHONIOENCODING="utf-8", OPENBLAS_NUM_THREADS="1")
+    if agent:
+        env["PATH"] = f"{PY.parent}{os.pathsep}{env.get('PATH', '')}"
+    return env
 
 
 class BudgetExceeded(Exception):
     pass
+
+
+class RemoteProgress(Exception):
+    """GitHub 上出现了别处推送的新进度，按用户要求改按新进度继续。"""
+
+
+class StopRequested(Exception):
+    """runs/<运行>/STOP 存在：存档后停下。"""
 
 
 class Run:
@@ -54,35 +94,44 @@ class Run:
         self.dir = ROOT / "runs" / run_id
         self.dir.mkdir(parents=True, exist_ok=True)
         self.dry = dry
+        self.lock = threading.RLock()
+        self.status, self.usage, self.remote_flag = "running", None, False
         self.state_path = self.dir / "state.json"
         if self.state_path.exists():
-            raw = self.state_path.read_text()
+            raw = rtext(self.state_path)
             old_root = json.loads(raw).get("root", "<ROOT>")
-            raw = raw.replace(json.dumps(old_root)[1:-1], json.dumps(str(ROOT))[1:-1]).replace("<ROOT>", str(ROOT))
+            esc = lambda s: json.dumps(s)[1:-1]  # noqa: E731
+            raw = raw.replace(esc(old_root), esc(ROOT_S)).replace("<ROOT>", esc(ROOT_S))
             self.state = json.loads(raw)
         else:
             self.state = {"started": time.time(), "calls": 0, "cost_usd": 0.0, "steps": {}, "integrity": []}
-        self.state["root"] = str(ROOT)
+        self.state["root"] = ROOT_S
         self.log_path = self.dir / "log.jsonl"
-        self.common = (PROMPTS / "_common.md").read_text()
+        self.common = rtext(PROMPTS / "_common.md")
         self.manifest = protocol_manifest()
         if "manifest" not in self.state:
             self.state["manifest"] = self.manifest
             self.save()
         elif self.state["manifest"] != self.manifest:
             raise SystemExit("评测协议文件与本次运行开始时不一致，拒绝继续")
+        self.account_downtime()
+        self.env = self.detect_env()
+        if not dry:
+            threading.Thread(target=self._watch, daemon=True).start()
 
     # ---------- 状态与日志 ----------
     def save(self):
-        tmp = self.state_path.with_suffix(".tmp")
-        tmp.write_text(json.dumps(self.state, indent=1, ensure_ascii=False))
-        tmp.replace(self.state_path)
+        with self.lock:
+            txt = gitsync.portable(json.dumps(self.state, indent=1, ensure_ascii=False))
+            tmp = self.state_path.with_suffix(".tmp")
+            wtext(tmp, txt)
+            tmp.replace(self.state_path)
 
     def log(self, **kw):
         kw["t"] = time.strftime("%Y-%m-%d %H:%M:%S")
-        with self.log_path.open("a") as f:
-            f.write(json.dumps(kw, ensure_ascii=False) + "\n")
-        print(f"[{kw['t']}] {kw.get('event', '')} {kw.get('role', '')} {kw.get('msg', '')}", flush=True)
+        with self.lock, self.log_path.open("a", encoding="utf-8", newline="\n") as f:
+            f.write(gitsync.portable(json.dumps(kw, ensure_ascii=False)) + "\n")
+        print(gitsync.portable(f"[{kw['t']}] {kw.get('event', '')} {kw.get('role', '')} {kw.get('msg', '')}"), flush=True)
 
     def step(self, name, fn):
         """已完成的步骤直接复用结果，保证断点续跑。"""
@@ -91,24 +140,118 @@ class Run:
         val = fn()
         self.state["steps"][name] = val
         self.save()
+        self.checkpoint(f"完成 {name}")
+        self.check_flags()
         return val
 
-    def on_wait(self, secs, text):
-        self.state["waited_s"] = self.state.get("waited_s", 0) + secs
-        self.save()
-        self.log(event="wait", msg=f"订阅用量上限，等待 {secs / 60:.0f} 分钟后重试：{text.strip()[:120]}")
+    def account_downtime(self):
+        """上次停下（停机、暂停、关机）到这次启动之间的时间不计入 12 小时预算（原来要按 HANDOFF 手工补进 waited_s）。"""
+        r = gitsync.read_runner(self.dir)
+        last = r and r.get("last_alive")
+        if last and time.time() - last > 120:
+            gap = time.time() - last
+            self.state["waited_s"] = self.state.get("waited_s", 0) + gap
+            self.state.setdefault("downtime", []).append({"from": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(last)),
+                                                          "to": time.strftime("%Y-%m-%d %H:%M:%S"), "secs": round(gap),
+                                                          "host_before": r.get("host"), "host_now": gitsync.HOST})
+            self.save()
+            self.log(event="downtime", msg=f"上次心跳在 {gap / 3600:.1f} 小时前（{r.get('host')}，{r.get('status')}），这段时间不计入预算")
+        if not self.dry:
+            gitsync.write_runner(self.dir, self.status)
+
+    def detect_env(self):
+        """评测环境指纹。指纹不同，官方结果就不能直接比较（2026-09-28 从 Mac 换到 Windows 时发现，见 docs/JOURNAL.md）。
+        2026-09-28 之前的所有结果（baseline/*.json、S4、S2）来自原来的 Mac，记为 "legacy"。"""
+        r = subprocess.run([str(PY), str(ROOT / "tools" / "env_fingerprint.py")], capture_output=True, text=True,
+                           encoding="utf-8", errors="replace", env=child_env(), timeout=3600)
+        if r.returncode != 0:
+            raise SystemExit(f"算不出评测环境指纹：{r.stderr[-1000:]}")
+        info = json.loads(r.stdout.strip().splitlines()[-1])
+        envs = self.state.setdefault("envs", {"legacy": {"platform": "macOS arm64（Apple M4）",
+                                                         "note": "2026-09-28 暂停前的全部官方结果：baseline/*.json、S4、S2"}})
+        if info["fp"] not in envs:
+            envs[info["fp"]] = {**info, "host": gitsync.HOST, "first_seen": time.strftime("%Y-%m-%d %H:%M:%S")}
+            self.save()
+        return info["fp"]
+
+    def active_hours(self):
+        hours = (time.time() - self.state["started"] - self.state.get("waited_s", 0)) / 3600
+        return hours
 
     def check_budget(self):
-        hours = (time.time() - self.state["started"] - self.state.get("waited_s", 0)) / 3600
+        hours = self.active_hours()
         if hours > CFG["max_hours"] or self.state["calls"] >= CFG["max_calls"]:
             raise BudgetExceeded(f"预算用尽：{hours:.1f} 小时，{self.state['calls']} 次调用")
+
+    def check_flags(self):
+        if (self.dir / "STOP").exists():
+            raise StopRequested()
+        if self.remote_flag:
+            raise RemoteProgress()
+
+    # ---------- 存档、用量与同步 ----------
+    def checkpoint(self, msg):
+        if self.dry:
+            return
+        with self.lock:
+            gitsync.write_runner(self.dir, self.status, env=self.env, usage=self.usage,
+                                 budget_hours_used=round(self.active_hours(), 2), calls=self.state["calls"])
+        res = gitsync.checkpoint(msg)
+        print(f"[checkpoint] {msg} → {res}", flush=True)
+        if res == "remote_ahead":
+            self.remote_flag = True
+
+    def _watch(self):
+        """看门狗：每 3 分钟更新心跳、查用量；用量到 90%（7 天窗口 97%）时先存档一次；运行中每 30 分钟存档一次。"""
+        last_save, saved_window = time.time(), None
+        while True:
+            time.sleep(180)
+            try:
+                self.usage = gitsync.usage() or self.usage
+                with self.lock:
+                    gitsync.write_runner(self.dir, self.status, env=self.env, usage=self.usage,
+                                         budget_hours_used=round(self.active_hours(), 2), calls=self.state["calls"])
+                if self.status != "running":
+                    continue
+                fh, sd = (self.usage or {}).get("five_hour") or {}, (self.usage or {}).get("seven_day") or {}
+                if (fh.get("pct", 0) >= 90 or sd.get("pct", 0) >= 97) and saved_window != fh.get("resets_at"):
+                    saved_window = fh.get("resets_at")
+                    self.checkpoint(f"用量已到 {fh.get('pct')}%（7 天窗口 {sd.get('pct')}%），额度用尽前先存档")
+                    last_save = time.time()
+                elif time.time() - last_save > 1800:
+                    self.checkpoint("定时存档")
+                    last_save = time.time()
+            except Exception as e:  # noqa: BLE001 — 看门狗出错不能拖垮主流程
+                print(f"[watchdog] {e!r}", flush=True)
+
+    def wait_for_quota(self, text):
+        """撞到订阅用量上限：存档推送 → 睡到重置（这段时间不计入预算）→ 先看 GitHub 上有没有新进度。"""
+        secs = gitsync.reset_wait(text) + 180
+        self.log(event="wait", msg=f"订阅用量上限，等待 {secs / 60:.0f} 分钟后重试：{text.strip()[:120]}")
+        self.status = "waiting_for_quota"
+        self.checkpoint(f"撞到订阅用量上限，预计 {time.strftime('%m-%d %H:%M', time.localtime(time.time() + secs))} 重置")
+        end = time.time() + secs
+        while time.time() < end:
+            if (self.dir / "STOP").exists():
+                break
+            t0 = time.time()
+            time.sleep(min(60, max(0.0, end - time.time())))
+            with self.lock:
+                self.state["waited_s"] = self.state.get("waited_s", 0) + (time.time() - t0)
+        self.status = "running"
+        self.save()
+        self.check_flags()
+        if gitsync.remote_news():
+            self.log(event="remote", msg="额度恢复后查 GitHub：有别处推送的新进度，退出并按新进度继续")
+            raise RemoteProgress()
 
     # ---------- 智能体调用 ----------
     def agent(self, role, cwd, model, tools, **vars_):
         self.check_budget()
-        body = (PROMPTS / f"{role}.md").read_text()
+        self.check_flags()
+        body = rtext(PROMPTS / f"{role}.md")
         prompt = self.common + "\n\n" + body
-        vars_ = {"ROOT": str(ROOT), "PY": str(PY), "WORKDIR": str(cwd), **vars_}
+        vars_ = {"ROOT": ROOT_S, "PY": PY_S, "WORKDIR": Path(cwd).as_posix(), **vars_}
         for k, v in vars_.items():
             prompt = prompt.replace("{{" + k + "}}", v if isinstance(v, str) else json.dumps(v, ensure_ascii=False, indent=1))
         left = re.findall(r"\{\{\w+\}\}", prompt)
@@ -121,16 +264,17 @@ class Run:
         if self.dry:
             reply, meta = mock_agent(role, Path(cwd), vars_, self.state["calls"]), {"total_cost_usd": 0.0, "num_turns": 0}
         else:
-            reply, meta = call_claude(prompt, cwd, model, tools, CFG["agent_timeout"], on_wait=self.on_wait)
+            reply, meta = call_claude(prompt, cwd, model, tools, CFG["agent_timeout"], waiter=self.wait_for_quota)
         self.state["cost_usd"] += meta.get("total_cost_usd") or 0.0
         self.integrity_check(role)
         parsed = parse_json(reply)
-        self.log(event="agent", role=role, model=model, cwd=str(cwd), secs=round(time.time() - t0),
+        self.log(event="agent", role=role, model=model, cwd=Path(cwd).as_posix(), secs=round(time.time() - t0),
                  cost=meta.get("total_cost_usd"), turns=meta.get("num_turns"), session=meta.get("session_id"),
-                 ok=parsed is not None, msg=(json.dumps(parsed, ensure_ascii=False)[:300] if parsed else reply[-300:]))
+                 resumed=meta.get("resumed"), ok=parsed is not None,
+                 msg=(json.dumps(parsed, ensure_ascii=False)[:300] if parsed else reply[-300:]))
         (self.dir / "transcripts").mkdir(exist_ok=True)
-        (self.dir / "transcripts" / f"{self.state['calls']:03d}_{role}.md").write_text(
-            f"# {role} ({model})\n\n## Prompt\n\n{prompt}\n\n## Reply\n\n{reply}\n")
+        wtext(self.dir / "transcripts" / f"{self.state['calls']:03d}_{role}.md",
+              gitsync.portable(f"# {role} ({model})\n\n## Prompt\n\n{prompt}\n\n## Reply\n\n{reply}\n"))
         if parsed is None:
             raise RuntimeError(f"{role} 没有返回可解析的 JSON：{reply[-500:]}")
         return parsed
@@ -145,74 +289,122 @@ class Run:
 
     # ---------- 官方评测 ----------
     def evaluate(self, method, mode, out):
+        """官方评测。结果文件里记下评测环境（eval_env）；已有结果只在同一环境下复用。"""
         out = Path(out)
         if out.exists():
-            return json.loads(out.read_text())
+            res = json.loads(rtext(out))
+            env = res.get("eval_env", "legacy")
+            if env == self.env or self.dry:
+                return res
+            stale = out.with_name(f"{out.stem}.env-{env}{out.suffix}")
+            out.replace(stale)
+            self.log(event="eval", msg=f"{out.name} 是在评测环境 {env} 下算的，改名为 {stale.name}，在本机环境 {self.env} 重跑")
         if self.dry:
             mode = "subset"  # 空跑只用子集，节省时间
         t0 = time.time()
         r = subprocess.run([str(PY), str(ROOT / "bench" / "harness.py"), "--method", str(method), "--mode", mode,
-                            "--out", str(out)], capture_output=True, text=True, timeout=4 * 3600)
-        (out.with_suffix(".log")).write_text(r.stdout + r.stderr)
+                            "--out", str(out)], capture_output=True, text=True, encoding="utf-8", errors="replace",
+                           timeout=4 * 3600, env=child_env())
+        wtext(out.with_suffix(".log"), gitsync.portable(r.stdout + r.stderr))
         if r.returncode != 0 or not out.exists():
             res = {"errors": {"harness": (r.stderr or r.stdout)[-3000:]}, "real": {}}
-            out.write_text(json.dumps(res))
-        res = json.loads(out.read_text())
-        self.log(event="eval", msg=f"{mode} {method} {time.time() - t0:.0f}s errors={list(res.get('errors', {}))}")
+        else:
+            res = json.loads(rtext(out))
+        res["method"] = gitsync.portable(Path(res.get("method") or method).as_posix())
+        res["eval_env"] = self.env
+        wtext(out, json.dumps(res, indent=1, ensure_ascii=False))
+        self.log(event="eval", msg=f"{mode} {Path(method).as_posix()} {time.time() - t0:.0f}s errors={list(res.get('errors', {}))}")
         return res
+
+    def baseline(self, mode):
+        """当前评测环境下的原版 TreeHFD 结果。legacy 环境用 baseline/*.json；其他环境第一次用时在本机跑一遍，
+        存到 baseline/env-<指纹>/（原版的留出集指标本身带随机性，见 HANDOFF 已知问题，和原来一样只跑一次）。"""
+        p = ROOT / "baseline" / (f"{mode}.json" if self.env == "legacy" else f"env-{self.env}/{mode}.json")
+        if not p.exists():
+            p.parent.mkdir(parents=True, exist_ok=True)
+            self.log(event="baseline", msg=f"评测环境 {self.env} 还没有基线，先在本机跑原版 TreeHFD（{mode}）")
+            self.evaluate(ROOT / "bench" / "baseline_method.py", mode, p)
+        return json.loads(rtext(p))
+
+    def full_result(self, trace):
+        """某个想法在当前评测环境下的全量结果文件：原结果是别的环境算的，就在本机重跑同一份 method.py（结果另存）。"""
+        if trace.get("env", "legacy") == self.env or self.dry:
+            return trace["full_result"]
+        ws = Path(trace["workspace"])
+        out = ws / f"full_env-{self.env}.json"
+        if not out.exists():
+            orig = json.loads(rtext(trace["full_result"]))
+            same = orig.get("method_sha256") == hashlib.sha256((ws / "method.py").read_bytes()).hexdigest()
+            self.log(event="rebase", msg=f"{trace['idea']['id']} 的全量结果来自评测环境 {trace.get('env', 'legacy')}，"
+                                         f"在本机环境 {self.env} 用同一份代码重跑（method.py 与原结果记录的哈希{'一致' if same else '不一致！'}）")
+        self.evaluate(ws / "method.py", "full", out)
+        return out.as_posix()
 
 
 def protocol_manifest():
     files = sorted((ROOT / "bench").glob("*.py")) + sorted((ROOT / "bench").glob("*.md")) + \
         sorted((ROOT / "bench" / "data").glob("*.npz")) + sorted((ROOT / "tasks" / "treehfd" / "src" / "treehfd").glob("*.py"))
-    return {str(f.relative_to(ROOT)): hashlib.sha256(f.read_bytes()).hexdigest() for f in files}
+    return {f.relative_to(ROOT).as_posix(): hashlib.sha256(f.read_bytes()).hexdigest() for f in files}
 
 
-LIMIT_RE = re.compile(r"(hit your \w+ limit|usage limit|limit reached|rate.?limit)", re.I)
+LIMIT_RE = re.compile(r"(hit your [\w ]{0,30}limit|usage limit|limit reached|rate.?limit|out of (?:extra )?usage)", re.I)
+RESUME_PROMPT = ("Your previous turn was cut off by a usage limit before you finished. Continue the same task from where you "
+                 "stopped (your partial work is in the working directory), then finish with the JSON reply your role asks for.")
+INTERRUPTED_NOTE = ("\n\nNote: a previous attempt at this exact task was cut off before it finished; its partial files may be in "
+                    "the working directory. Review them, then complete or redo the task.")
 
 
-def seconds_until_reset(text):
-    """从 "resets 10:40pm" 这类提示里算出还要等多少秒；解析不了返回 None。"""
-    m = re.search(r"resets\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)", text or "", re.I)
-    if not m:
-        return None
-    h, mi = int(m.group(1)) % 12 + (12 if m.group(3).lower() == "pm" else 0), int(m.group(2) or 0)
-    now = time.localtime()
-    target = time.mktime((now.tm_year, now.tm_mon, now.tm_mday, h, mi, 0, 0, 0, -1))
-    if target <= time.time():
-        target += 86400
-    return target - time.time()
+def claude_bin():
+    """claude 可执行文件。Windows 上 npm 装的是 claude.cmd 转发脚本，直接找它背后的 claude.exe（子进程调不了 .cmd）。"""
+    exe = os.environ.get("CLAUDE_BIN") or shutil.which("claude") or "claude"
+    if WIN and not exe.lower().endswith(".exe"):
+        cand = Path(exe).parent / "node_modules" / "@anthropic-ai" / "claude-code" / "bin" / "claude.exe"
+        if cand.exists():
+            exe = str(cand)
+    return exe
 
 
-def call_claude(prompt, cwd, model, tools, timeout, on_wait=None):
-    env = os.environ.copy()
-    env["PATH"] = f"{PY.parent}:{env['PATH']}"
-    cmd = ["claude", "-p", prompt, "--model", model, "--output-format", "json", "--allowedTools", *tools]
-    bad_json = 0
-    waited = 0
+def call_claude(prompt, cwd, model, tools, timeout, waiter=None):
+    """一次 `claude -p` 调用。提示词走标准输入（Windows 命令行最长 32767 个字符）。
+    撞到用量上限：waiter 负责存档和等待；之后用 --resume 接着原会话做，拿不到会话号就带着"上次被打断"的说明重新开始。
+    费用按所有尝试累加（原来被打断的那部分费用会丢）。"""
+    base = [claude_bin(), "-p", "--model", model, "--output-format", "json", "--allowedTools", *tools]
+    cmd, stdin, resumed = base, prompt, False
+    cost, errors, waited, sid = 0.0, 0, 0.0, None
     while True:
         try:
-            r = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout, env=env)
+            r = subprocess.run(cmd, input=stdin, cwd=cwd, capture_output=True, text=True, encoding="utf-8",
+                               errors="replace", timeout=timeout, env=child_env(agent=True))
         except subprocess.TimeoutExpired:
-            return "智能体调用超时", {}
+            return "智能体调用超时", {"total_cost_usd": cost}
         try:
             data = json.loads(r.stdout)
             text = data.get("result") or ""
         except json.JSONDecodeError:
             data, text = {}, (r.stdout + r.stderr)[-3000:]
-        if LIMIT_RE.search(text) and len(text) < 400 and waited < 24 * 3600:
-            wait = (seconds_until_reset(text) or 1800) + 180
-            if on_wait:
-                on_wait(wait, text)
-            time.sleep(wait)
-            waited += wait
+        cost += data.get("total_cost_usd") or 0.0
+        sid = data.get("session_id") or sid
+        if LIMIT_RE.search(text) and len(text) < 400 and waited < 8 * 86400:
+            t0 = time.time()
+            if waiter:
+                waiter(text)
+            else:
+                time.sleep((gitsync.seconds_until_reset(text) or 1800) + 180)
+            waited += time.time() - t0
+            cmd, stdin, resumed = (base + ["--resume", sid], RESUME_PROMPT, True) if sid else (base, prompt + INTERRUPTED_NOTE, False)
             continue
-        if data:
+        if data and not data.get("is_error"):
+            data["total_cost_usd"] = cost
+            data["resumed"] = resumed
             return text, data
-        bad_json += 1
-        if bad_json >= 2:
-            return text, {}
-        time.sleep(30)
+        errors += 1  # 续接失败、API 临时错误、输出不是 JSON：最多再试 3 次
+        if errors > 3:
+            return text, {**data, "total_cost_usd": cost}
+        time.sleep(30 * errors)
+        if resumed and re.search(r"no conversation|not found|session", text, re.I):
+            cmd, stdin, resumed = base, prompt + INTERRUPTED_NOTE, False
+        elif sid and data:
+            cmd, stdin, resumed = base + ["--resume", sid], RESUME_PROMPT, True
 
 
 def parse_json(text):
@@ -293,6 +485,7 @@ def predict(state, X):
 
 RESULT_FILES = ("subset_*.json", "full_*.json", "*selftest*.json", "audit_*.json", "*.log", ".git", ".wsgit",
                 "HISTORY.bundle", "__pycache__")
+OFFICIAL_RE = re.compile(r"(subset|full)_\d+\.json")
 
 
 def new_workspace(path, from_ws=None):
@@ -306,8 +499,8 @@ def new_workspace(path, from_ws=None):
         shutil.copytree(ROOT / "tasks" / "treehfd" / "src" / "treehfd", lib, ignore=shutil.ignore_patterns("__pycache__"))
         for f in lib.glob("*.py"):
             f.chmod(0o644)
-            f.write_text(f.read_text().replace("from treehfd.", "from treehfd_mod."))
-        (path / "method.py").write_text(METHOD_TEMPLATE)
+            wtext(f, rtext(f).replace("from treehfd.", "from treehfd_mod."))
+        wtext(path / "method.py", METHOD_TEMPLATE)
     init_ws_git(path)
     commit(path, "workspace created")
     return path
@@ -317,17 +510,19 @@ def git(path, *args):
     """工作区自己的版本历史放在 <工作区>/.wsgit（不用嵌套 .git，外层仓库才能正常收录工作区文件）。"""
     path = Path(path)
     return subprocess.run(["git", f"--git-dir={path / '.wsgit'}", f"--work-tree={path}", *args],
-                          cwd=path, capture_output=True, text=True).stdout
+                          cwd=path, capture_output=True, text=True, encoding="utf-8", errors="replace").stdout
 
 
 def init_ws_git(path):
     git(path, "init", "-q")
+    git(path, "config", "core.autocrlf", "false")
     excl = Path(path) / ".wsgit" / "info" / "exclude"
     excl.parent.mkdir(parents=True, exist_ok=True)
-    excl.write_text(".wsgit/\nHISTORY.bundle\n__pycache__/\n")
+    wtext(excl, ".wsgit/\nHISTORY.bundle\n__pycache__/\n")
 
 
 def commit(path, msg):
+    gitsync.sanitize_tree(path)  # 智能体刚写完的文件里的本机路径 → 可移植写法（此时没有智能体在这个目录里工作）
     git(path, "add", "-A")
     git(path, "-c", "user.name=pipeline", "-c", "user.email=pipeline@local", "commit", "-q", "-m", msg, "--allow-empty")
 
@@ -371,7 +566,13 @@ def implement_idea(run, idea, base_sub, base_full):
     ws = new_workspace(run.dir / "ideas" / iid)
 
     def go():
-        trace = {"idea": idea, "workspace": str(ws), "history": []}
+        trace = {"idea": idea, "workspace": ws.as_posix(), "env": run.env, "history": []}
+        # 这个步骤从写代码重新开始，之前留下的官方评测结果（如果有）对应的是旧代码，不能复用
+        for f in sorted(ws.iterdir()):
+            if OFFICIAL_RE.fullmatch(f.name):
+                stale = f.with_name(f"{f.stem}.stale-{time.strftime('%Y%m%d%H%M%S')}{f.suffix}")
+                f.replace(stale)
+                run.log(event="stale", msg=f"{iid}：{f.name} 属于上次没做完的尝试，改名为 {stale.name}")
         dirty = git(ws, "status", "--porcelain").strip()
         last = git(ws, "log", "-1", "--format=%s")
         dirty = dirty or any(w in last for w in ("interrupted", "stopped"))
@@ -387,7 +588,7 @@ def implement_idea(run, idea, base_sub, base_full):
                 res = run.evaluate(ws / "method.py", phase, ws / f"{phase}_{e}.json")
                 table = compare_table(base, [(iid, res)])
                 v = run.agent(critic, ws, FAST, READ, IDEA=idea, TABLE=table)
-                trace["history"].append({"phase": phase, "iter": e, "result": str(ws / f"{phase}_{e}.json"),
+                trace["history"].append({"phase": phase, "iter": e, "result": (ws / f"{phase}_{e}.json").as_posix(),
                                          "decision": v.get("decision"), "feedback": v.get("feedback")})
                 if v.get("decision") in ("good", "bad"):
                     break
@@ -434,7 +635,7 @@ def stage_select(run, good, base_full):
     if len(good) == 1:
         return good[0]["idea"]["id"]
     cands = [{"id": t["idea"]["id"], "title": t["idea"]["title"], "workspace": t["workspace"],
-              "full_table": compare_table(base_full, [(t["idea"]["id"], json.loads(Path(t["full_result"]).read_text()))])}
+              "full_table": compare_table(base_full, [(t["idea"]["id"], json.loads(rtext(run.full_result(t))))])}
              for t in good]
     return run.step("select", lambda: run.agent("selector", run.dir / "work", FAST, READ, CANDIDATES=cands)["best"])
 
@@ -447,7 +648,7 @@ def stage_ablation(run, trace, base_full, tag):
         plan = run.agent("ablation_planner", ws, FAST, READ, IDEA=idea)
         run.agent("ablation_coder", ws, STRONG, CODE, PLAN=plan)
         commit(ws, "ablations")
-        full = json.loads(Path(trace["full_result"]).read_text())
+        full = json.loads(rtext(run.full_result(trace)))
         cols = [("full_method", full)]
         todo = [a["name"] for a in plan.get("ablations", []) if (ws / "ablations" / f"method_{a['name']}.py").exists()]
         # 分解是单线程的，消融变体并行评测以节省墙钟时间
@@ -457,9 +658,9 @@ def stage_ablation(run, trace, base_full, tag):
             for n in todo:
                 cols.append((f"w/o_{n}", futs[n].result()))
         table = compare_table(base_full, cols)
-        (ws / "ablation_table.md").write_text(table)
+        wtext(ws / "ablation_table.md", table)
         v = run.agent("ablation_critic", ws, FAST, READ, IDEA=idea, TABLE=table)
-        return {"plan": plan, "table": table, "verdict": v}
+        return {"plan": plan, "table": table, "verdict": v, "env": run.env}
     return run.step(f"ablation_{tag}", go)
 
 
@@ -473,18 +674,19 @@ def stage_ablation_refine(run, trace, base_full):
 
         def go():
             ws2 = new_workspace(run.dir / "ideas" / new_id, from_ws=trace["workspace"])
-            full = json.loads(Path(trace["full_result"]).read_text())
+            full = json.loads(rtext(run.full_result(trace)))
             run.agent("engineer", ws2, STRONG, CODE, IDEA=trace["idea"], TABLE=abl["table"],
                       FEEDBACK=abl["verdict"].get("feedback", ""), MODE="full")
             commit(ws2, "ablation-driven refinement")
             res2 = run.evaluate(ws2 / "method.py", "full", ws2 / "full_0.json")
             cmp = run.agent("result_comparator", run.dir / "work", FAST, READ,
                             A=compare_table(base_full, [("A", full)]), B=compare_table(base_full, [("B", res2)]))
-            return {"ws": str(ws2), "result": str(ws2 / "full_0.json"), "prefer": cmp.get("prefer")}
+            return {"ws": ws2.as_posix(), "result": (ws2 / "full_0.json").as_posix(), "prefer": cmp.get("prefer"), "env": run.env}
         r = run.step(f"ablation_refine_{new_id}", go)
         if r["prefer"] != "B":
             break
-        trace = {**trace, "idea": {**trace["idea"], "id": new_id}, "workspace": r["ws"], "full_result": r["result"]}
+        trace = {**trace, "idea": {**trace["idea"], "id": new_id}, "workspace": r["ws"], "full_result": r["result"],
+                 "env": r.get("env", "legacy")}
         abl = stage_ablation(run, trace, base_full, new_id)
     return trace, abl
 
@@ -495,11 +697,11 @@ def build_paper_dir(run, trace, abl, base_full, tag):
         ws = Path(trace["workspace"])
         shutil.copytree(ws, pdir / "method", ignore=shutil.ignore_patterns(*RESULT_FILES))
         (pdir / "results").mkdir(parents=True)
-        shutil.copy(trace["full_result"], pdir / "results" / "method_full.json")
-        shutil.copy(ROOT / "baseline" / "full.json", pdir / "results" / "baseline_full.json")
+        shutil.copy(run.full_result(trace), pdir / "results" / "method_full.json")
+        wtext(pdir / "results" / "baseline_full.json", json.dumps(base_full, indent=1, ensure_ascii=False))  # 与方法结果同一评测环境
         for f in (ws / "ablations").glob("*_full.json"):
             shutil.copy(f, pdir / "results" / f"ablation_{f.stem.replace('_full', '')}.json")
-        (pdir / "results" / "ablation_table.md").write_text(abl["table"])
+        wtext(pdir / "results" / "ablation_table.md", abl["table"])
         shutil.copy(ws / "NOTES.md", pdir / "NOTES.md") if (ws / "NOTES.md").exists() else None
         init_ws_git(pdir)
         commit(pdir, "paper workspace")
@@ -516,7 +718,7 @@ def stage_paper(run, trace, abl, base_full, tag):
         for r in range(CFG["n_peer"] + 1):
             rv = run.agent("reviewer", pdir, FAST, READ)
             reviews.append(rv)
-            (pdir / f"review_{r}.json").write_text(json.dumps(rv, indent=1, ensure_ascii=False))
+            wtext(pdir / f"review_{r}.json", json.dumps(rv, indent=1, ensure_ascii=False))
             if rv.get("score", 0) >= CFG["review_threshold"] or r == CFG["n_peer"]:
                 break
             plan = run.agent("rebuttal_planner", pdir, FAST, READ, REVIEW=rv)
@@ -524,7 +726,7 @@ def stage_paper(run, trace, abl, base_full, tag):
             run.agent("enhancer", pdir, STRONG, CODE, REVIEW=rv)
             commit(pdir, f"rebuttal round {r + 1}")
         meta = run.agent("meta_reviewer", pdir, FAST, READ, REVIEWS=reviews)
-        return {"dir": str(pdir), "scores": [x.get("score") for x in reviews], "meta": meta}
+        return {"dir": pdir.as_posix(), "scores": [x.get("score") for x in reviews], "meta": meta}
     return run.step(f"paper_{tag}", go)
 
 
@@ -533,18 +735,18 @@ def stage_audit(run, paper, trace):
 
     def go():
         rerun = run.evaluate(pdir / "method" / "method.py", "full", pdir / "audit_rerun_full.json")
-        orig = json.loads(Path(trace["full_result"]).read_text())
+        orig = json.loads(rtext(run.full_result(trace)))
         drift = compare_table(orig, [("rerun", rerun)])
-        (pdir / "audit_rerun_vs_original.md").write_text(drift)
+        wtext(pdir / "audit_rerun_vs_original.md", drift)
         report = {}
         for attempt in range(2):
-            report["score"] = run.agent("claim_auditor", pdir, FAST, READ, RERUN=str(pdir / "audit_rerun_full.json"))
+            report["score"] = run.agent("claim_auditor", pdir, FAST, READ, RERUN=(pdir / "audit_rerun_full.json").as_posix())
             report["spec"] = run.agent("spec_auditor", pdir, FAST, READ, INTEGRITY=run.state["integrity"] or "no changes")
             report["refs"] = verify_refs(pdir)
             report["method_code"] = run.agent("method_code_auditor", pdir, FAST, READ)
             bad = (report["score"].get("mismatches") or report["spec"].get("violations") or report["refs"]["problems"]
                    or report["method_code"].get("discrepancies"))
-            (pdir / f"audit_{attempt}.json").write_text(json.dumps(report, indent=1, ensure_ascii=False))
+            wtext(pdir / f"audit_{attempt}.json", json.dumps(report, indent=1, ensure_ascii=False))
             if not bad or attempt == 1:
                 break
             run.agent("audit_fixer", pdir, STRONG, CODE, AUDIT=report)
@@ -557,7 +759,8 @@ def verify_refs(pdir):
     refs = pdir / "refs.json"
     if not refs.exists():
         return {"problems": ["refs.json missing"], "summary": None}
-    r = subprocess.run([sys.executable, str(VERIFY), str(refs)], capture_output=True, text=True, timeout=3600)
+    r = subprocess.run([sys.executable, str(VERIFY), str(refs)], capture_output=True, text=True, encoding="utf-8",
+                       errors="replace", timeout=3600, env=child_env())
     try:
         out = json.loads(r.stdout)
     except json.JSONDecodeError:
@@ -568,7 +771,7 @@ def verify_refs(pdir):
 
 # ---------- 空跑用的假智能体 ----------
 def mock_agent(role, cwd, v, n):
-    j = lambda d: "```json\n" + json.dumps(d) + "\n```"
+    j = lambda d: "```json\n" + json.dumps(d) + "\n```"  # noqa: E731
     if role == "limitation_extractor":
         return j({"limitations": [{"title": f"mock limitation {n}", "evidence": "x", "kind": "estimator", "why_actionable": "y"}]})
     if role == "limitation_verifier":
@@ -579,9 +782,9 @@ def mock_agent(role, cwd, v, n):
     if role == "novelty_checker":
         return j({"novelty": n % 7 + 3, "closest": [], "rationale": "mock"})
     if role in ("coder", "engineer"):
-        m = (cwd / "method.py").read_text()
-        (cwd / "method.py").write_text(m + f"\n# mock edit {n}\n")
-        (cwd / "NOTES.md").write_text("mock notes\n")
+        m = rtext(cwd / "method.py")
+        wtext(cwd / "method.py", m + f"\n# mock edit {n}\n")
+        wtext(cwd / "NOTES.md", "mock notes\n")
         return j({"status": "implemented", "summary": "mock", "selftest": "n/a", "changes": "mock"})
     if role == "subset_critic":
         return j({"decision": "refine" if "S" in str(cwd.name) and n % 2 else "good", "feedback": "mock feedback"})
@@ -594,18 +797,18 @@ def mock_agent(role, cwd, v, n):
     if role == "ablation_coder":
         (cwd / "ablations").mkdir(exist_ok=True)
         shutil.copy(cwd / "method.py", cwd / "ablations" / "method_no_component_a.py")
-        src = (cwd / "ablations" / "method_no_component_a.py").read_text().replace('parent / "lib"', 'parent.parent / "lib"')
-        (cwd / "ablations" / "method_no_component_a.py").write_text(src)
+        src = rtext(cwd / "ablations" / "method_no_component_a.py").replace('parent / "lib"', 'parent.parent / "lib"')
+        wtext(cwd / "ablations" / "method_no_component_a.py", src)
         return j({"status": "done", "files": [], "notes": ""})
     if role == "ablation_critic":
         return j({"decision": "refine", "feedback": "mock: drop component a"})
     if role == "result_comparator":
         return j({"prefer": "B", "rationale": "mock"})
     if role == "drafter":
-        (cwd / "paper.md").write_text("# Mock paper\n\nResult: 0.0327\n")
-        (cwd / "refs.json").write_text(json.dumps([{"id": 1, "title": "Temporal difference learning of N-tuple networks for the game 2048",
-                                                    "authors": ["Marcin Szubert"], "year": 2014, "venue": "CIG",
-                                                    "doi": "10.1109/CIG.2014.6932907", "arxiv": None, "url": None}]))
+        wtext(cwd / "paper.md", "# Mock paper\n\nResult: 0.0327\n")
+        wtext(cwd / "refs.json", json.dumps([{"id": 1, "title": "Temporal difference learning of N-tuple networks for the game 2048",
+                                              "authors": ["Marcin Szubert"], "year": 2014, "venue": "CIG",
+                                              "doi": "10.1109/CIG.2014.6932907", "arxiv": None, "url": None}]))
         return j({"status": "done", "notes": ""})
     if role == "reviewer":
         return j({"summary": "s", "strengths": [], "weaknesses": ["w"], "questions": [], "score": 5 + 2 * (n % 2), "confidence": 3})
@@ -624,23 +827,36 @@ def mock_agent(role, cwd, v, n):
     raise KeyError(role)
 
 
+def keep_awake():
+    """Windows 上阻止系统空闲睡眠（相当于 macOS 的 caffeinate -i），进程退出后自动失效。"""
+    if WIN:
+        import ctypes
+        ctypes.windll.kernel32.SetThreadExecutionState(0x80000000 | 0x00000001)  # ES_CONTINUOUS | ES_SYSTEM_REQUIRED
+
+
 # ---------- 主流程 ----------
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", required=True)
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
+    keep_awake()
     run = Run(a.run, a.dry_run)
-    base_sub = json.loads((ROOT / "baseline" / "subset.json").read_text())
-    base_full = json.loads((ROOT / "baseline" / ("subset.json" if a.dry_run else "full.json")).read_text())
-    run.log(event="start", msg=f"dry={a.dry_run} cfg={CFG}")
+    rc, status = 0, "stopped"
+    run.log(event="start", msg=f"dry={a.dry_run} host={gitsync.HOST} env={run.env} cfg={CFG}")
     try:
+        if a.dry_run:
+            base_sub = json.loads(rtext(ROOT / "baseline" / "subset.json"))
+            base_full = base_sub
+        else:
+            base_sub, base_full = run.baseline("subset"), run.baseline("full")
         lims = stage_limitations(run)
         seeds = stage_seed_ideas(run, lims)
         traces = stage_idea_loop(run, seeds, base_sub, base_full)
         good = [t for t in traces if t["decision"] == "good"]
         if not good:
             run.log(event="stop", msg="没有想法在全量基准上超过基线，按论文 3.3 终止")
+            status = "done"
             return
         best_id = stage_select(run, good, base_full)
         best = next(t for t in good if t["idea"]["id"] == best_id)
@@ -653,29 +869,44 @@ def main():
 
             def meta_refine():
                 ws2 = new_workspace(run.dir / "ideas" / tag, from_ws=best["workspace"])
-                full = json.loads(Path(best["full_result"]).read_text())
+                full = json.loads(rtext(run.full_result(best)))
                 run.agent("engineer", ws2, STRONG, CODE, IDEA=best["idea"], TABLE=compare_table(base_full, [("current", full)]),
                           FEEDBACK=paper["meta"].get("method_change", ""), MODE="full")
                 commit(ws2, "meta-review refinement")
                 res2 = run.evaluate(ws2 / "method.py", "full", ws2 / "full_0.json")
                 cmp = run.agent("result_comparator", run.dir / "work", FAST, READ,
                                 A=compare_table(base_full, [("A", full)]), B=compare_table(base_full, [("B", res2)]))
-                return {"ws": str(ws2), "result": str(ws2 / "full_0.json"), "prefer": cmp.get("prefer")}
+                return {"ws": ws2.as_posix(), "result": (ws2 / "full_0.json").as_posix(), "prefer": cmp.get("prefer"), "env": run.env}
             r = run.step(f"meta_refine_{tag}", meta_refine)
             if r["prefer"] != "B":
                 run.log(event="meta", msg="元审稿返工没有更好，保留原版本")
                 break
-            best = {**best, "idea": {**best["idea"], "id": tag}, "workspace": r["ws"], "full_result": r["result"]}
+            best = {**best, "idea": {**best["idea"], "id": tag}, "workspace": r["ws"], "full_result": r["result"],
+                    "env": r.get("env", "legacy")}
             abl = stage_ablation(run, best, base_full, tag)
             paper = stage_paper(run, best, abl, base_full, tag)
         audit = stage_audit(run, paper, best)
-        run.state["final"] = {"idea": best["idea"]["id"], "paper": paper, "audit_passed": audit["passed"]}
+        run.state["final"] = {"idea": best["idea"]["id"], "paper": paper, "audit_passed": audit["passed"], "env": run.env}
         run.save()
         run.log(event="done", msg=f"最终想法 {best['idea']['id']}，审稿分 {paper['scores']}，审计通过={audit['passed']}")
+        status = "done"
     except BudgetExceeded as e:
         run.log(event="budget", msg=str(e))
+        status = "budget_exhausted"
+    except RemoteProgress:
+        rc, status = gitsync.REMOTE_EXIT, "yielded_to_remote"
+    except StopRequested:
+        run.log(event="stop", msg="发现 STOP 文件，存档后停下")
+        status = "stopped"
+    except BaseException:
+        status = "crashed"
+        raise
     finally:
-        run.log(event="summary", msg=f"调用 {run.state['calls']} 次，折算成本 ${run.state['cost_usd']:.2f}")
+        run.status = status
+        run.log(event="summary", msg=f"调用 {run.state['calls']} 次，折算成本 ${run.state['cost_usd']:.2f}，状态 {status}")
+        if rc != gitsync.REMOTE_EXIT:  # 让位给 GitHub 上的新进度时不再推送本机状态（本机提交会被 autopilot 存到 backup 分支）
+            run.checkpoint(f"编排器退出：{status}")
+    sys.exit(rc)
 
 
 if __name__ == "__main__":

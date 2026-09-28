@@ -1,0 +1,8 @@
+# 仓库里一律用 LF。评测协议文件的 SHA-256 是按 LF 记录的；Windows 上 git 默认 core.autocrlf=true 会在检出时把换行符改成 CRLF，
+# 协议校验就会失败（2026-09-28 实际遇到过，见 docs/JOURNAL.md）。
+* text=auto eol=lf
+*.npz binary
+*.npy binary
+*.bundle binary
+*.pdf binary
+*.png binary
