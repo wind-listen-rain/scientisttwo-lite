@@ -5,29 +5,38 @@
 
 ## 1. 准备环境
 
-- 需要：macOS 或 Linux，conda（Miniconda 即可）、git、curl，以及登录好的 Claude Code CLI（`claude --version` 能跑）。
-  流水线每个角色都是一次 `claude -p` 调用，花的是你自己账号的额度。
+- 需要：macOS、Linux 或 Windows（在 Git Bash 里运行脚本），conda（Miniconda 即可）、git、curl，以及登录好的 Claude Code CLI
+  （`claude --version` 能跑）。流水线每个角色都是一次 `claude -p` 调用，花的是你自己账号的额度。
 - 运行 `bash setup.sh`。它会：建 `.conda` 环境 → 按固定提交克隆 TreeHFD → 装锁定版本的依赖 → 下载并抽取论文文本 →
   从 `HISTORY.bundle` 还原各工作区的版本历史 → **核对评测协议** → 把协议文件设为只读。
+  下文的 `.conda/bin/python` 在 Windows 上是 `.conda/python.exe`。
 - 最后一步如果提示"评测协议不一致"，说明你的数据、评测脚本或 TreeHFD 源码和运行开始时不同，这时不要续跑，先查
   `python tools/check_protocol.py` 列出的文件。
 - 建议先空跑一遍，确认环境没问题：`.conda/bin/python orchestrator.py --run dry --dry-run`（约 20 分钟，不花额度）。
 
 ## 2. 从断点续跑 treehfd-01
 
+**先看 GitHub 上的最新进度**：`git pull`。2026-09-28 16:59 起这个运行在一台 Windows 笔记本上续跑，
+进度会不断推到 GitHub；`runs/treehfd-01/RUNNER.json` 写着哪台机器在跑、状态和最后一次心跳。
+心跳在 45 分钟内、状态是 running，说明那台机器还在跑，不要同时再开一个。
+
 ```bash
-# 1) 把暂停的时长补进 waited_s，不然会占用 12 小时的预算（编排器只统计真正在工作的时间）
-.conda/bin/python - <<'PY'
-import json, time
-p = "runs/treehfd-01/state.json"; s = json.load(open(p))
-paused_since = time.mktime(time.strptime("2026-09-28 08:49:00", "%Y-%m-%d %H:%M:%S"))  # STOPPED.md 里的暂停时间
-s["waited_s"] = s.get("waited_s", 0) + (time.time() - paused_since)
-json.dump(s, open(p, "w"), indent=1, ensure_ascii=False)
-PY
-# 2) 续跑（macOS 上加 caffeinate -i 防止休眠；需要插电，拔电后系统降频会让评测慢好几倍）
-nohup caffeinate -i .conda/bin/python orchestrator.py --run treehfd-01 >> runs/treehfd-01.out 2>&1 &
+# 无人值守续跑（推荐）：同步 GitHub → 核对协议 → 跑编排器 → 自动存档推送；撞到额度上限会自己等，出错自动重启（连续 3 次就停）
+nohup caffeinate -i .conda/bin/python -u tools/autopilot.py --run treehfd-01 &    # macOS（需要插电）
+#   Windows（PowerShell）：Start-Process .conda\python.exe -ArgumentList "-u","tools\autopilot.py","--run","treehfd-01" -WindowStyle Minimized
 tail -f runs/treehfd-01.out
+# 让它停下：在 runs/treehfd-01/ 下建一个名为 STOP 的空文件（下一次智能体调用前、或等额度时存档并退出）
 ```
+
+停机时长现在自动扣出预算（按 RUNNER.json 的心跳），不用再手工改 `waited_s`。
+
+**存档与同步**（tools/gitsync.py）：完成步骤、每 30 分钟、订阅用量到 90%、撞到上限准备等待之前，都会提交并推到 GitHub；
+额度重置后先看 GitHub，有别处推的新进度就按新进度来（能快进就快进，两边都有新提交时本机提交存到 `backup/` 分支）。
+订阅用量从 `~/.claude/.credentials.json` 的登录令牌查（Windows/Linux 有这个文件；macOS 的令牌在钥匙串里，查不到时退回解析提示文字）。
+
+**换机器续跑要注意评测环境**：同样的评测脚本，在不同机器上合成数据和近邻取舍可能不同（2026-09-28 实测 Mac 与 Windows 就不同，
+见 JOURNAL）。编排器启动时算评测环境指纹（tools/env_fingerprint.py），新环境会先在本机重建基线（`baseline/env-<指纹>/`，
+全量约 20–30 分钟），要比较的旧结果也在本机重跑，所以换机器后第一次启动会多花些时间，这是为了只在同一环境内比较。
 
 **断点续跑是怎么实现的**：`state.json` 的 `steps` 里存着每个已完成步骤的返回值；再跑同一条命令时，已完成的步骤直接取结果，
 不会再调用智能体。评测结果文件已存在的也不会重跑。正在进行中的步骤会从头再做。E1 写到一半的代码已经提交为快照，
@@ -41,14 +50,15 @@ tail -f runs/treehfd-01.out
 - `calls`、`cost_usd`、`waited_s`、`integrity`（完整性违规记录，目前为空）
 - 文件里的 `<ROOT>` 在读取时会自动换成你本机的仓库路径
 
-**用量上限**：碰到"You've hit your session limit · resets …"时，编排器会自动等到重置时间再重试，并在日志里写一条 `wait`，
-不需要人来管。
+**用量上限**：碰到"You've hit your session limit · resets …"时，编排器先存档推送，再等到重置时间（优先用用量接口给的精确时间），
+然后用 `--resume` 接着被打断的会话做，并在日志里写一条 `wait`，不需要人来管。
 
 ## 3. 未完成的任务
 
 按执行顺序排列。前 6 项由编排器自动完成，续跑就会依次做完。
 
 - [ ] **E1 实现与审查**：子集 → 工程改进（最多 2 次）→ 全量 → 审查。半成品在 `runs/treehfd-01/ideas/E1/`。
+  （2026-09-28 17:00 起在 Windows 上续跑中；先在本机重建基线，再由写代码智能体接着半成品做。）
   它要解决的问题是 S4 训练集残差变差；目前的子集结果表明这个问题还没解决。
 - [ ] 如果 E1 失败：第 2 轮还有一个名额，给下一个种子想法 S1（`max_rounds=2`）。
 - [ ] **选择最优想法**：只有 S4 一个成功时直接选 S4。
@@ -96,3 +106,9 @@ Balanced Active Inference。每道题都要按原论文重建只读评测（参�
 - 工作区的版本历史在 `<工作区>/.wsgit`（不进外层仓库），查看方法：`git --git-dir=<工作区>/.wsgit --work-tree=<工作区> log`。
 - **原版 TreeHFD 的测试点预测带随机性**：`tasks/treehfd/src/treehfd/cartesian_partition.py:215` 在遇到训练时没见过的交互格子时，用不设种子的 `np.random.default_rng().choice` 随机挑一个邻居格子的值。所以基线在留出集和合成数据测试点上的指标每次重跑会有波动（实测：留出集正交性最多 ±5%，留出集残差 ±1–2%；训练集指标完全不变）。这就是流水线找出的局限 L1。S4 换成了确定性规则，重跑逐位一致。比较留出集指标时要把这个噪声考虑进去。
 - Superconductivity 用基线跑一次要 12 分钟，是全量评测里最慢的一环。
+- **跨机器的结果不能直接比**：`bench/harness.py` 的合成数据用 `multivariate_normal` 采样，等相关协方差的特征值有 5 重，
+  SVD 特征基由 LAPACK 决定，所以同一个种子在不同机器上会抽出不同样本；locvar_in 的一维近邻遇到并列值时的取舍也跟实现有关。
+  编排器已按评测环境指纹处理（见第 2 节）。以后开新的运行时，可以考虑在协议里改用 Cholesky 采样、给近邻加确定性的并列规则，
+  这会改评测协议，只能在新的运行里做。
+- Windows：git 要关掉 autocrlf（仓库的 .gitattributes 已强制 LF）；Python 要用 UTF-8（`PYTHONUTF8=1`，autopilot 已设好）；
+  numpy 的 OpenBLAS 在多核混合架构 CPU 上默认线程太多反而慢，评测固定 `OPENBLAS_NUM_THREADS=1`（编排器已设好，结果逐位不变）。

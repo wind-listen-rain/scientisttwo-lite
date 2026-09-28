@@ -23,7 +23,7 @@
 - 选了 ScientistTwo 公开题目中的 **TreeHFD**（树模型可解释性，NeurIPS 2025）：CPU 就能跑，
   而且 ScientistTwo 和 AutoSOTA 都公开了它们在这道题上的结果，可以三方对比
 
-## 当前状态（2026-09-28 暂停）
+## 当前状态（2026-09-28 17:00 起在 Windows 上续跑）
 
 | 阶段 | 状态 |
 |---|---|
@@ -31,11 +31,13 @@
 | 编排器 + 24 个角色提示词，空跑全流程（52 次假调用） | ✅ 完成 |
 | 找局限（5 条）→ 生成并查新 4 个种子想法 | ✅ 完成 |
 | 第 1 轮：S4 通过全量审查；S2 改 3 次未达标被剪枝 | ✅ 完成 |
-| 第 2 轮：进化想法 E1 | ⏸ 写代码中途暂停（半成品已存档） |
+| 第 2 轮：进化想法 E1 | ▶ 续跑中（09-28 在 Mac 上写到一半暂停；17:00 起在 Windows 上由 autopilot 无人值守接着做，进度自动推到本仓库） |
 | 选择 → 消融 → 写稿 → 模拟审稿/补实验 → 元审稿 → 诚信审计 | ⬜ 未开始 |
 | 对 S4 的独立复核（新随机种子配对检验） | ✅ 完成 |
 
-接手请看 **[docs/HANDOFF.md](docs/HANDOFF.md)**（环境、断点续跑、未完成任务清单、整体规划）。
+接手请看 **[docs/HANDOFF.md](docs/HANDOFF.md)**（环境、断点续跑、未完成任务清单、整体规划）。实时进度看 `runs/treehfd-01/RUNNER.json`（哪台机器、什么状态、最后心跳）和 `runs/treehfd-01.out`。
+
+> 换到 Windows 续跑时发现：同一份评测脚本，合成数据和 locvar 的近邻取舍在 Mac 与 Windows 上不同（真实数据上的模型和 S4 结果逐位一致）。所以现在按“评测环境指纹”管理结果，只在同一台机器的结果之间比较，详见 [docs/JOURNAL.md](docs/JOURNAL.md)。
 
 ## 主要结果（详见 [docs/RESULTS.md](docs/RESULTS.md)）
 
@@ -85,9 +87,10 @@ setup.sh               一键准备环境
 
 ```bash
 git clone <本仓库地址> scientisttwo-lite && cd scientisttwo-lite
-bash setup.sh                                             # 建环境、取 TreeHFD 源码和论文、核对评测协议
+bash setup.sh                                             # 建环境、取 TreeHFD 源码和论文、核对评测协议（Windows 在 Git Bash 里跑）
 .conda/bin/python orchestrator.py --run dry --dry-run     # 空跑：假智能体、真评测，约 20 分钟，不花额度
 .conda/bin/python verify/independent_check.py             # 复现独立复核（约 25 分钟）
+.conda/bin/python -u tools/autopilot.py --run treehfd-01  # 无人值守续跑（同步 GitHub、自动存档；Windows 用 .conda/python.exe）
 ```
 
 续跑 `treehfd-01` 之前务必先读 [docs/HANDOFF.md](docs/HANDOFF.md)。

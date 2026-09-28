@@ -1,0 +1,87 @@
+{
+ "method": "<ROOT>/bench/baseline_method.py",
+ "method_sha256": "291bb4f632ba36549722d64661437e3e414313ccd8202d077d879bc4503372f3",
+ "mode": "subset",
+ "protocol": {
+  "baseline_method.py": "291bb4f632ba36549722d64661437e3e414313ccd8202d077d879bc4503372f3",
+  "fetch_data.py": "a5b1c98740d31231525d1c80df5833e6bf7d8d74b7cb469f0e29e9f6ccd4f8c6",
+  "harness.py": "29edf403bd53a01bdadbb67ce83a7317a33b2606be5a51ca3668e441f562aa4a",
+  "runner.py": "378dfd6b265cb9c9d45ae55fb9a5eba3a379c3376858ed6d6a1becffd7277933",
+  "data\\abalone.npz": "9f3f681a91bfc23fbe7251b66c0c53cb1b073ec6c26b7fbe28e6f4c419d20ac6",
+  "data\\airfoil.npz": "a79fe8c851d46937ed3d464cac2a158695060df6af6e84e5b5cbd42e72aed827",
+  "data\\bike.npz": "e30b5b5943529f5672f8f40ef7a6182d246dabec1ba9a6038cc588f5188e170e",
+  "data\\concrete.npz": "2400d74a68d46c00e053cb59033b82d846855c838ed3342075881de33f25004f",
+  "data\\housing.npz": "d04f95a46147555262bb5748d8450d43edb1780a392ac8c051d96c8fc3582706",
+  "data\\nutrition.npz": "c02f0aad095eda777999e8f33020170efbdaddcb9c87951c85b4f22d0e0179f4",
+  "data\\parkinson.npz": "21372677d2d87819f82776718081c3f69d6b44fb4e3ed1e559291d98c7c0fcf9",
+  "data\\powerplant.npz": "4ecc969b5ceed556622cd9f9d0b2f0fd7f88b4acbaddf34d8f74e4fc7db1b489",
+  "data\\superconduct.npz": "739a0acd2839467df32ce1f25ffa6e9648ba67208975ecc0ac69a7e5cffca8f4"
+ },
+ "errors": {},
+ "analytical": {
+  "mean": {
+   "mse_eta1": 0.027045372346909933,
+   "mse_eta2": 0.018183186077548055,
+   "mse_eta3": 0.017368539463405323,
+   "mse_eta4": 0.01769413596592889,
+   "mse_eta5": 0.00032773591348137936,
+   "mse_eta6": 0.000544473627364355,
+   "mse_eta12": 0.03386295179493474,
+   "mse_eta34": 0.03163060177052983,
+   "mse_others": 0.002146840783992948,
+   "resid_out": 0.010217022371692834,
+   "fit_s": 19.921959161758423
+  },
+  "std": {
+   "mse_eta1": 0.0008232087413910405,
+   "mse_eta2": 0.0024862453224581095,
+   "mse_eta3": 0.0030655120179670747,
+   "mse_eta4": 0.004513840238292158,
+   "mse_eta5": 0.00011736191125778393,
+   "mse_eta6": 0.0001720182945948201,
+   "mse_eta12": 0.00028145395140766183,
+   "mse_eta34": 0.0038215698322581213,
+   "mse_others": 8.581687555779047e-05,
+   "resid_out": 0.0013611350157022772,
+   "fit_s": 0.2773522793098559
+  },
+  "reps": 3
+ },
+ "real": {
+  "airfoil": {
+   "n": 1503,
+   "p": 5,
+   "xgb_r2_test": 0.9402295658572855,
+   "resid_in": 0.009845148266768218,
+   "resid_out": 0.02649392409929843,
+   "ortho_in": 0.009668581126244455,
+   "ortho_out": 0.0996050634470803,
+   "locvar_in": 5.1990879662263016e-05,
+   "fit_s": 3.634357452392578
+  },
+  "concrete": {
+   "n": 1030,
+   "p": 8,
+   "xgb_r2_test": 0.9098943178589508,
+   "resid_in": 0.0015338152112402224,
+   "resid_out": 0.02497673176303754,
+   "ortho_in": 0.006358770793211985,
+   "ortho_out": 0.081815618975496,
+   "locvar_in": 0.012492535799173567,
+   "fit_s": 5.934354543685913
+  },
+  "abalone": {
+   "n": 4177,
+   "p": 9,
+   "xgb_r2_test": 0.5471054588481685,
+   "resid_in": 0.004553156791075111,
+   "resid_out": 0.04101893016976687,
+   "ortho_in": 0.026804009670223346,
+   "ortho_out": 0.014768487785225383,
+   "locvar_in": 0.002559665954498851,
+   "fit_s": 17.999463081359863
+  }
+ },
+ "wall_s": 144.21447229385376,
+ "note": "2026-09-28 16:40 在 Windows（i9-14900HX）上手工跑的官方子集评测，用来和 Mac 上的记录逐项比对；两次评测同时跑、BLAS 用默认 24 线程，fit_s 不可比，其余指标可比"
+}
