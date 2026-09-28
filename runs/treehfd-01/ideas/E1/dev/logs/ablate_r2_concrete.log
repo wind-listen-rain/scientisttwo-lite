@@ -127,3 +127,35 @@ orthogonality at a common kappa (selected variant), rho = 0 / 0.25 / 1
   k=10          common lattice zero     rho=0.25      +6 R/var=0.05855 resid_in=0.03961 resid_out=0.04157 ortho_in=nan ortho_out=nan locvar_in=0.00261
   k=10          common lattice zero     rho=1         +6 R/var=0.05682 resid_in=0.03861 resid_out=0.04013 ortho_in=nan ortho_out=nan locvar_in=0.002728
 === concrete split 4
+concrete split=4 RHOS=(0.0, 0.25, 1.0) SE_RULE=1 fit 20.91s
+selection shift  lattice zero     rho=1         -5 R/var=0.02073 resid_in(est)/var=0.00299 tied=14
+argmin    shift  lattice zero     rho=1         -5 R/var=0.02073 resid_in(est)/var=0.00299
+N1/n mean 0.3587 m mean/max 679.03 1317 virtual/n mean 1.602 route_err max 3.7e-06
+chosen kappa quantiles [0.01 0.01 0.01 0.01 0.01]
+chosen rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+per-tree joint argmin rho counts (selected variant) {0.0: 0, 0.25: 0, 1.0: 100}
+SELECTED resid_in=0.00299 resid_out=0.01480 ortho_in=0.0132 ortho_out=0.0883 locvar_in=0.01064
+ARGMIN resid_in=0.00299 resid_out=0.01480 ortho_in=0.0132 ortho_out=0.0883 locvar_in=0.01064 (same as selection)
+rho-mode ablation: best candidate by R, and the 1-SE choice, within each rho mode
+  rho=0         shift  lattice zero     rho=0         -1 R/var=0.02346 resid_in=0.00413 resid_out=0.01612 ortho_in=0.0115 ortho_out=0.0870 locvar_in=0.007235
+  rho=0/se1     shift  ridge   zero     rho=0         -2 R/var=0.02398 resid_in=0.00258 resid_out=0.01673 ortho_in=0.0104 ortho_out=0.0933 locvar_in=0.006348
+  rho=0.25      shift  lattice zero     rho=0.25      -5 R/var=0.02249 resid_in=0.00240 resid_out=0.01624 ortho_in=0.0132 ortho_out=0.0896 locvar_in=0.01131
+  rho=0.25/se1  shift  lattice zero     rho=0.25      -5 R/var=0.02249 resid_in=0.00240 resid_out=0.01624 ortho_in=0.0132 ortho_out=0.0896 locvar_in=0.01131
+  rho=1         shift  lattice zero     rho=1         -5 R/var=0.02073 resid_in=0.00299 resid_out=0.01480 ortho_in=0.0132 ortho_out=0.0883 locvar_in=0.01064
+  rho=1/se1     shift  lattice zero     rho=1         -5 R/var=0.02073 resid_in=0.00299 resid_out=0.01480 ortho_in=0.0132 ortho_out=0.0883 locvar_in=0.01064
+  rho=per-tree  shift  lattice zero     rho=per-tree  -5 R/var=0.02073 resid_in=0.00299 resid_out=0.01480 ortho_in=0.0132 ortho_out=0.0883 locvar_in=0.01064
+  rho=per-tree/se1 shift  lattice zero     rho=per-tree  -5 R/var=0.02073 resid_in=0.00299 resid_out=0.01480 ortho_in=0.0132 ortho_out=0.0883 locvar_in=0.01064
+orthogonality at a common kappa (selected variant), rho = 0 / 0.25 / 1
+  k=0.01        common lattice zero     rho=0         +0 R/var=0.02531 resid_in=0.00206 resid_out=0.01996 ortho_in=0.0125 ortho_out=0.0864 locvar_in=0.009778
+  k=0.01        common lattice zero     rho=0.25      +0 R/var=0.02249 resid_in=0.00240 resid_out=0.01624 ortho_in=0.0132 ortho_out=0.0896 locvar_in=0.01131
+  k=0.01        common lattice zero     rho=1         +0 R/var=0.02073 resid_in=0.00299 resid_out=0.01480 ortho_in=0.0132 ortho_out=0.0883 locvar_in=0.01064
+  k=0.1         common lattice zero     rho=0         +2 R/var=0.02371 resid_in=0.00272 resid_out=0.01754 ortho_in=0.0117 ortho_out=0.0880 locvar_in=0.00888
+  k=0.1         common lattice zero     rho=0.25      +2 R/var=0.02275 resid_in=0.00303 resid_out=0.01619 ortho_in=0.0127 ortho_out=0.0907 locvar_in=0.01006
+  k=0.1         common lattice zero     rho=1         +2 R/var=0.02157 resid_in=0.00359 resid_out=0.01507 ortho_in=0.0129 ortho_out=0.0909 locvar_in=0.01009
+  k=1           common lattice zero     rho=0         +4 R/var=0.02589 resid_in=0.00704 resid_out=0.01645 ortho_in=nan ortho_out=nan locvar_in=0.005334
+  k=1           common lattice zero     rho=0.25      +4 R/var=0.02551 resid_in=0.00723 resid_out=0.01623 ortho_in=nan ortho_out=nan locvar_in=0.005348
+  k=1           common lattice zero     rho=1         +4 R/var=0.02480 resid_in=0.00762 resid_out=0.01585 ortho_in=nan ortho_out=nan locvar_in=0.005377
+  k=10          common lattice zero     rho=0         +6 R/var=0.05471 resid_in=0.03667 resid_out=0.03683 ortho_in=nan ortho_out=nan locvar_in=0.002416
+  k=10          common lattice zero     rho=0.25      +6 R/var=0.05397 resid_in=0.03629 resid_out=0.03623 ortho_in=nan ortho_out=nan locvar_in=0.002423
+  k=10          common lattice zero     rho=1         +6 R/var=0.05214 resid_in=0.03530 resid_out=0.03472 ortho_in=nan ortho_out=nan locvar_in=0.002456
+=== concrete split 5

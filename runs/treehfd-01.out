@@ -79,3 +79,4 @@ RuntimeError: coder 没有返回可解析的 JSON：You've hit your session limi
 [checkpoint] 用量已到 90.0%（7 天窗口 23.0%），额度用尽前先存档 → pushed
 [checkpoint] 用量已到 91.0%（7 天窗口 23.0%），额度用尽前先存档 → pushed
 [checkpoint] 用量已到 95.0%（7 天窗口 23.0%），额度用尽前先存档 → pushed
+[checkpoint] 用量已到 100.0%（7 天窗口 23.0%），额度用尽前先存档 → pushed
