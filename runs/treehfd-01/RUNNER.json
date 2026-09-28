@@ -1,8 +1,20 @@
 {
- "host": "原来的 Mac（macOS arm64）",
- "pid": null,
+ "host": "star-of-wind",
+ "pid": 44088,
  "status": "stopped",
- "last_alive": 1790556540.0,
- "last_alive_local": "2026-09-28 08:49:00",
- "note": "应用户要求暂停（STOPPED.md）；续跑时这段停机时长自动扣出预算"
+ "last_alive": 1790587201.5850723,
+ "last_alive_local": "2026-09-28 17:20:01",
+ "env": "22b414443084",
+ "usage": {
+  "five_hour": {
+   "pct": 38.0,
+   "resets_at": "2026-09-28T11:49:59.721474+00:00"
+  },
+  "seven_day": {
+   "pct": 18.0,
+   "resets_at": "2026-09-29T19:59:59.721497+00:00"
+  }
+ },
+ "budget_hours_used": 3.91,
+ "calls": 22
 }

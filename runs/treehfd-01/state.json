@@ -298,7 +298,7 @@
   "tasks/treehfd/src/treehfd/tree_structure.py": "9a5b00d7158d73f95e85deb2aa7aca5343653236b0253760e967d6978b8eeeec",
   "tasks/treehfd/src/treehfd/validation.py": "02f3e3713accc2fd0c43c23850643128b1a9a88a77426c5ddac01f3e3fa4677f"
  },
- "waited_s": 31471.745402097702,
+ "waited_s": 60874.62475895882,
  "protocol_changes": [
   {
    "t": "2026-09-28 11:01:33",
@@ -308,5 +308,36 @@
    "reason": "发布前把自测命令里的本机绝对路径换成 <ROOT>；不影响评测逻辑与数据"
   }
  ],
- "root": "<ROOT>"
+ "root": "<ROOT>",
+ "downtime": [
+  {
+   "from": "2026-09-28 08:49:00",
+   "to": "2026-09-28 16:59:02",
+   "secs": 29403,
+   "host_before": "原来的 Mac（macOS arm64）",
+   "host_now": "star-of-wind"
+  }
+ ],
+ "envs": {
+  "legacy": {
+   "platform": "macOS arm64（Apple M4）",
+   "note": "2026-09-28 暂停前的全部官方结果：baseline/*.json、S4、S2"
+  },
+  "22b414443084": {
+   "fp": "22b414443084",
+   "parts": {
+    "analytical_data": "4ab36db438c7b62cf3f0f090c6218f5a8375c808d45318a93e4a55da81723442",
+    "analytical_models": "327145285e0dee3d2ea6a2d333b60d84b1e9192028b84e703b560ae49f8e9d6e",
+    "real_models": "9d4d8cce68aa046b197e2f0cb4711a7d06736da8b6a89654dd6fd6051cc8ca01",
+    "knn": "658f94c2adf5ba5ea1f3cab3852b7810cd159bc3a4b1b4189edde6eb6a4ec732"
+   },
+   "platform": "Windows-AMD64",
+   "python": "3.13.15",
+   "numpy": "2.5.3",
+   "xgboost": "3.4.1",
+   "sklearn": "1.9.1",
+   "host": "star-of-wind",
+   "first_seen": "2026-09-28 16:59:12"
+  }
+ }
 }

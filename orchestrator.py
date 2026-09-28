@@ -24,6 +24,7 @@ import subprocess
 import sys
 import threading
 import time
+import uuid
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -251,7 +252,9 @@ class Run:
         self.check_flags()
         body = rtext(PROMPTS / f"{role}.md")
         prompt = self.common + "\n\n" + body
-        vars_ = {"ROOT": ROOT_S, "PY": PY_S, "WORKDIR": Path(cwd).as_posix(), **vars_}
+        vars_ = {"ROOT": ROOT_S, "PY": PY_S, "WORKDIR": Path(cwd).as_posix(), "ENV": self.env,
+                 "BASELINE_DIR": (ROOT / "baseline" / ("" if self.env == "legacy" else f"env-{self.env}")).as_posix().rstrip("/"),
+                 "SHELL": "Git Bash on Windows" if WIN else "a POSIX shell", **vars_}
         for k, v in vars_.items():
             prompt = prompt.replace("{{" + k + "}}", v if isinstance(v, str) else json.dumps(v, ensure_ascii=False, indent=1))
         left = re.findall(r"\{\{\w+\}\}", prompt)
@@ -270,7 +273,7 @@ class Run:
         parsed = parse_json(reply)
         self.log(event="agent", role=role, model=model, cwd=Path(cwd).as_posix(), secs=round(time.time() - t0),
                  cost=meta.get("total_cost_usd"), turns=meta.get("num_turns"), session=meta.get("session_id"),
-                 resumed=meta.get("resumed"), ok=parsed is not None,
+                 resumed=meta.get("resumed"), timed_out=meta.get("timed_out"), ok=parsed is not None,
                  msg=(json.dumps(parsed, ensure_ascii=False)[:300] if parsed else reply[-300:]))
         (self.dir / "transcripts").mkdir(exist_ok=True)
         wtext(self.dir / "transcripts" / f"{self.state['calls']:03d}_{role}.md",
@@ -323,8 +326,20 @@ class Run:
         if not p.exists():
             p.parent.mkdir(parents=True, exist_ok=True)
             self.log(event="baseline", msg=f"评测环境 {self.env} 还没有基线，先在本机跑原版 TreeHFD（{mode}）")
-            self.evaluate(ROOT / "bench" / "baseline_method.py", mode, p)
+            self.rebase_eval(ROOT / "bench" / "baseline_method.py", mode, p)
         return json.loads(rtext(p))
+
+    def rebase_eval(self, method, mode, out):
+        """换评测环境带来的重算（基线、旧结果）：这是换机器的额外开销，不是研究过程，用时不计入 12 小时预算，单独记账。"""
+        t0 = time.time()
+        res = self.evaluate(method, mode, out)
+        dt = time.time() - t0
+        with self.lock:
+            self.state["waited_s"] = self.state.get("waited_s", 0) + dt
+            self.state["rebaseline_s"] = self.state.get("rebaseline_s", 0) + dt
+        self.save()
+        self.log(event="rebase", msg=f"{Path(out).name} 重算用时 {dt / 60:.1f} 分钟，不计入预算")
+        return res
 
     def full_result(self, trace):
         """某个想法在当前评测环境下的全量结果文件：原结果是别的环境算的，就在本机重跑同一份 method.py（结果另存）。"""
@@ -337,8 +352,20 @@ class Run:
             same = orig.get("method_sha256") == hashlib.sha256((ws / "method.py").read_bytes()).hexdigest()
             self.log(event="rebase", msg=f"{trace['idea']['id']} 的全量结果来自评测环境 {trace.get('env', 'legacy')}，"
                                          f"在本机环境 {self.env} 用同一份代码重跑（method.py 与原结果记录的哈希{'一致' if same else '不一致！'}）")
-        self.evaluate(ws / "method.py", "full", out)
+            self.rebase_eval(ws / "method.py", "full", out)
         return out.as_posix()
+
+
+def rebase_refs(run):
+    """换了评测环境时，把本次运行里已通过全量审查的想法在本机重跑（子集 + 全量），给之后的智能体和审查员当同环境参照
+    （写在 prompts/_common.md 的执行环境说明里）。用时不计入预算。"""
+    for name, t in list(run.state["steps"].items()):
+        if name.startswith("idea_") and t.get("decision") == "good" and t.get("env", "legacy") != run.env:
+            ws = Path(t["workspace"])
+            out = ws / f"subset_env-{run.env}.json"
+            if not out.exists():
+                run.rebase_eval(ws / "method.py", "subset", out)
+            run.full_result(t)
 
 
 def protocol_manifest():
@@ -348,10 +375,29 @@ def protocol_manifest():
 
 
 LIMIT_RE = re.compile(r"(hit your [\w ]{0,30}limit|usage limit|limit reached|rate.?limit|out of (?:extra )?usage)", re.I)
-RESUME_PROMPT = ("Your previous turn was cut off by a usage limit before you finished. Continue the same task from where you "
-                 "stopped (your partial work is in the working directory), then finish with the JSON reply your role asks for.")
+RESUME_PROMPT = ("Your previous turn was cut off (usage limit or a temporary error) before you finished. Continue the same task "
+                 "from where you stopped (your partial work is in the working directory), then finish with the JSON reply your "
+                 "role asks for.")
 INTERRUPTED_NOTE = ("\n\nNote: a previous attempt at this exact task was cut off before it finished; its partial files may be in "
                     "the working directory. Review them, then complete or redo the task.")
+WRAPUP_PROMPT = ("You have used up the time allowed for this task. Do not start anything new: make sure what you have is "
+                 "consistent and runs, record the state in NOTES.md if your role keeps notes, then reply now with the JSON your "
+                 "role asks for, stating honestly what is unfinished.")
+
+
+def run_proc(cmd, stdin, cwd, timeout, env):
+    """带超时地运行子进程；超时时连同它启动的子进程一起结束（Windows 上只杀父进程会留下智能体启动的自测进程，拖慢之后的官方计时）。"""
+    p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=cwd, env=env,
+                         text=True, encoding="utf-8", errors="replace")
+    try:
+        out, err = p.communicate(stdin, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        if WIN:
+            subprocess.run(["taskkill", "/T", "/F", "/PID", str(p.pid)], capture_output=True)
+        p.kill()
+        p.communicate()
+        raise
+    return subprocess.CompletedProcess(cmd, p.returncode, out, err)
 
 
 def claude_bin():
@@ -365,18 +411,24 @@ def claude_bin():
 
 
 def call_claude(prompt, cwd, model, tools, timeout, waiter=None):
-    """一次 `claude -p` 调用。提示词走标准输入（Windows 命令行最长 32767 个字符）。
-    撞到用量上限：waiter 负责存档和等待；之后用 --resume 接着原会话做，拿不到会话号就带着"上次被打断"的说明重新开始。
-    费用按所有尝试累加（原来被打断的那部分费用会丢）。"""
+    """一次 `claude -p` 调用。提示词走标准输入（Windows 命令行最长 32767 个字符）。会话号事先指定，任何时候都能续接：
+    - 撞到用量上限：waiter 负责存档和等待，之后用 --resume 接着原会话做；
+    - 超过单次时限：原来直接算失败（整个步骤从写代码重来），现在续接一次、给 20 分钟收尾并如实交代没做完的部分，再超时才算失败；
+    - 续接失败、API 临时错误、输出不是 JSON：最多再试 3 次；会话续不上就换新会话，带着"上次被打断"的说明重来。
+    费用按所有尝试累加（原来被打断的那部分费用会丢；被强行结束的那次拿不到费用）。"""
     base = [claude_bin(), "-p", "--model", model, "--output-format", "json", "--allowedTools", *tools]
-    cmd, stdin, resumed = base, prompt, False
-    cost, errors, waited, sid = 0.0, 0, 0.0, None
+    sid = str(uuid.uuid4())
+    cmd, stdin, resumed, limit = base + ["--session-id", sid], prompt, False, timeout
+    cost, errors, waited, timeouts = 0.0, 0, 0.0, 0
     while True:
         try:
-            r = subprocess.run(cmd, input=stdin, cwd=cwd, capture_output=True, text=True, encoding="utf-8",
-                               errors="replace", timeout=timeout, env=child_env(agent=True))
+            r = run_proc(cmd, stdin, cwd, limit, child_env(agent=True))
         except subprocess.TimeoutExpired:
-            return "智能体调用超时", {"total_cost_usd": cost}
+            timeouts += 1
+            if timeouts > 1:
+                return "智能体调用超时", {"total_cost_usd": cost, "session_id": sid}
+            cmd, stdin, resumed, limit = base + ["--resume", sid], WRAPUP_PROMPT, True, min(1200, timeout)
+            continue
         try:
             data = json.loads(r.stdout)
             text = data.get("result") or ""
@@ -391,19 +443,21 @@ def call_claude(prompt, cwd, model, tools, timeout, waiter=None):
             else:
                 time.sleep((gitsync.seconds_until_reset(text) or 1800) + 180)
             waited += time.time() - t0
-            cmd, stdin, resumed = (base + ["--resume", sid], RESUME_PROMPT, True) if sid else (base, prompt + INTERRUPTED_NOTE, False)
+            cmd, stdin, resumed = base + ["--resume", sid], RESUME_PROMPT, True
             continue
         if data and not data.get("is_error"):
             data["total_cost_usd"] = cost
-            data["resumed"] = resumed
+            data["resumed"] = resumed or timeouts > 0
+            data["timed_out"] = timeouts > 0
             return text, data
-        errors += 1  # 续接失败、API 临时错误、输出不是 JSON：最多再试 3 次
+        errors += 1
         if errors > 3:
-            return text, {**data, "total_cost_usd": cost}
+            return text, {**data, "total_cost_usd": cost, "session_id": sid}
         time.sleep(30 * errors)
-        if resumed and re.search(r"no conversation|not found|session", text, re.I):
-            cmd, stdin, resumed = base, prompt + INTERRUPTED_NOTE, False
-        elif sid and data:
+        if resumed and re.search(r"no conversation|not found", text, re.I):
+            sid = str(uuid.uuid4())
+            cmd, stdin, resumed = base + ["--session-id", sid], prompt + INTERRUPTED_NOTE, False
+        else:
             cmd, stdin, resumed = base + ["--resume", sid], RESUME_PROMPT, True
 
 
@@ -840,6 +894,8 @@ def main():
     ap.add_argument("--run", required=True)
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
+    if WIN:
+        sys.stdout.reconfigure(newline="\n")  # 输出日志统一 LF
     keep_awake()
     run = Run(a.run, a.dry_run)
     rc, status = 0, "stopped"
@@ -850,6 +906,7 @@ def main():
             base_full = base_sub
         else:
             base_sub, base_full = run.baseline("subset"), run.baseline("full")
+            rebase_refs(run)
         lims = stage_limitations(run)
         seeds = stage_seed_ideas(run, lims)
         traces = stage_idea_loop(run, seeds, base_sub, base_full)

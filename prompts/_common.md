@@ -8,9 +8,18 @@ Improve on the human state-of-the-art method **TreeHFD** (Bénard, NeurIPS 2025,
 - Original source code (READ ONLY, installed as package `treehfd`): {{ROOT}}/tasks/treehfd/src/treehfd/
 - Benchmark description (READ ONLY): {{ROOT}}/bench/BENCHMARK.md
 - Benchmark harness (READ ONLY): {{ROOT}}/bench/harness.py
-- Baseline results: {{ROOT}}/baseline/subset.json and {{ROOT}}/baseline/full.json
+- Baseline results (this machine): {{BASELINE_DIR}}/subset.json and {{BASELINE_DIR}}/full.json
 - Python interpreter: always call `{{PY}}` by its absolute path (a conda env with numpy, scipy, scikit-learn,
   xgboost, pandas, matplotlib, treehfd); a bare `python` may resolve to a different environment.
+
+## Execution environment (note added when this run moved to another machine)
+- Numbers are only comparable within one evaluation environment (this machine: `{{ENV}}`). The benchmark files are
+  identical everywhere, but the analytical-case samples and the locvar_in nearest-neighbour ties differ between machines
+  (real-data models and deterministic real-data metrics do not). Official result files record their environment in the
+  field "eval_env"; files without it come from an earlier machine and must not be compared number-for-number with new
+  results. Methods validated earlier in this run were re-run here as `subset_env-{{ENV}}.json` / `full_env-{{ENV}}.json`
+  next to their original result files; use those as references.
+- Shell commands run in {{SHELL}}. Use absolute paths with forward slashes and call `{{PY}}` explicitly.
 
 ## Red lines (any violation makes the work invalid)
 1. Never modify anything under {{ROOT}}/bench/ or {{ROOT}}/tasks/. Work only inside your own working directory.

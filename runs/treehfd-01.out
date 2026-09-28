@@ -50,3 +50,11 @@ RuntimeError: coder 没有返回可解析的 JSON：You've hit your session limi
 [2026-09-28 04:29:22] agent subset_critic {"decision": "refine", "feedback": "Legit, well-engineered work (verified: no y/X_test leakage, tree targets read directly from the fixed booster's trees_to_dataframe, deterministic, fit_s well within the 5x budget, istop checked with fallback). resid_out is the headline win and it is real and large
 [2026-09-28 04:34:19] agent idea_evolver {"ideas": [{"title": "Anchored GT-LOCO: a model-anchored Gaussian prior (the fixed tree's exact outputs on neighbour-bin virtual atoms) inside hard-orthogonal TreeHFD, with the prior strength chosen by the Good-Turing leave-one-out risk", "addresses": ["S4: resid_in rises by +25% to +69% on airfoil,
 [2026-09-28 04:53:49] wait  订阅用量上限，等待 229 分钟后重试：You've hit your session limit · resets 8:40am (Asia/Shanghai)
+[2026-09-28 16:57:52] autopilot 评测协议不一致，不续跑：
+[2026-09-28 16:59:02] autopilot 启动编排器（star-of-wind）
+[2026-09-28 16:59:02] downtime  上次心跳在 8.2 小时前（原来的 Mac（macOS arm64），stopped），这段时间不计入预算
+[2026-09-28 16:59:12] start  dry=False host=star-of-wind env=22b414443084 cfg={'lim_rounds': 3, 'n_seed': 4, 'max_rounds': 2, 'successes': 2, 'n_eng': 2, 'n_abl': 1, 'n_peer': 2, 'review_threshold': 8, 'n_meta': 1, 'max_hours': 12, 'max_calls': 110, 'agent_timeout': 3600}
+[2026-09-28 16:59:12] baseline  评测环境 22b414443084 还没有基线，先在本机跑原版 TreeHFD（subset）
+[2026-09-28 17:01:32] eval  subset <ROOT>/bench/baseline_method.py 140s errors=[]
+[2026-09-28 17:01:32] baseline  评测环境 22b414443084 还没有基线，先在本机跑原版 TreeHFD（full）
+[2026-09-28 17:20:01] eval  full <ROOT>/bench/baseline_method.py 1108s errors=[]

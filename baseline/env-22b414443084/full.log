@@ -1,0 +1,21 @@
+[harness] full 模式评测 <ROOT>\bench\baseline_method.py
+  analytical rep 1/10: eta12=0.0345 eta1=0.0281
+  analytical rep 2/10: eta12=0.0334 eta1=0.0270
+  analytical rep 3/10: eta12=0.0337 eta1=0.0261
+  analytical rep 4/10: eta12=0.0280 eta1=0.0344
+  analytical rep 5/10: eta12=0.0290 eta1=0.0227
+  analytical rep 6/10: eta12=0.0310 eta1=0.0402
+  analytical rep 7/10: eta12=0.0359 eta1=0.0214
+  analytical rep 8/10: eta12=0.0261 eta1=0.0276
+  analytical rep 9/10: eta12=0.0284 eta1=0.0310
+  analytical rep 10/10: eta12=0.0319 eta1=0.0255
+  abalone: resid_in=0.0046 resid_out=0.0410 ortho_in=0.026804009670223346 locvar=0.00256 fit=17.3s
+  airfoil: resid_in=0.0098 resid_out=0.0269 ortho_in=0.009668581126244455 locvar=5.199e-05 fit=3.9s
+  bike: resid_in=0.0213 resid_out=0.0246 ortho_in=0.013374760789686161 locvar=0.0003446 fit=46.4s
+  housing: resid_in=0.0100 resid_out=0.0154 ortho_in=0.027975901033211792 locvar=0.001796 fit=99.2s
+  concrete: resid_in=0.0015 resid_out=0.0250 ortho_in=0.006358770793211985 locvar=0.01249 fit=4.7s
+  nutrition: resid_in=0.0179 resid_out=0.0966 ortho_in=0.01622310523659369 locvar=0.002818 fit=6.6s
+  parkinson: resid_in=0.0072 resid_out=0.0095 ortho_in=0.08200709666235434 locvar=0.00469 fit=42.1s
+  powerplant: resid_in=0.0006 resid_out=0.0011 ortho_in=None locvar=0.0005291 fit=12.1s
+  superconduct: resid_in=0.0101 resid_out=0.0091 ortho_in=None locvar=0.0006625 fit=359.0s
+[harness] 完成，用时 1107s，错误 []

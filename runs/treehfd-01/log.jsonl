@@ -31,3 +31,11 @@
 {"event": "agent", "role": "idea_evolver", "model": "opus", "cwd": "<ROOT>/runs/treehfd-01/work/ideas", "secs": 297, "cost": 1.2400242000000001, "turns": 10, "session": "e4994d66-cbc1-471c-b60c-4598ae50139e", "ok": true, "msg": "{\"ideas\": [{\"title\": \"Anchored GT-LOCO: a model-anchored Gaussian prior (the fixed tree's exact outputs on neighbour-bin virtual atoms) inside hard-orthogonal TreeHFD, with the prior strength chosen by the Good-Turing leave-one-out risk\", \"addresses\": [\"S4: resid_in rises by +25% to +69% on airfoil,", "t": "2026-09-28 04:34:19"}
 {"event": "wait", "msg": "订阅用量上限，等待 229 分钟后重试：You've hit your session limit · resets 8:40am (Asia/Shanghai)", "t": "2026-09-28 04:53:49"}
 {"event": "stopped", "msg": "用户要求保存进度并停止；E1 写代码中途被停，半成品已提交快照", "t": "2026-09-28 08:49:54"}
+{"event": "downtime", "msg": "上次心跳在 8.2 小时前（原来的 Mac（macOS arm64），stopped），这段时间不计入预算", "t": "2026-09-28 16:59:02"}
+{"event": "start", "msg": "dry=False host=star-of-wind env=22b414443084 cfg={'lim_rounds': 3, 'n_seed': 4, 'max_rounds': 2, 'successes': 2, 'n_eng': 2, 'n_abl': 1, 'n_peer': 2, 'review_threshold': 8, 'n_meta': 1, 'max_hours': 12, 'max_calls': 110, 'agent_timeout': 3600}", "t": "2026-09-28 16:59:12"}
+{"event": "baseline", "msg": "评测环境 22b414443084 还没有基线，先在本机跑原版 TreeHFD（subset）", "t": "2026-09-28 16:59:12"}
+{"event": "eval", "msg": "subset <ROOT>/bench/baseline_method.py 140s errors=[]", "t": "2026-09-28 17:01:32"}
+{"event": "baseline", "msg": "评测环境 22b414443084 还没有基线，先在本机跑原版 TreeHFD（full）", "t": "2026-09-28 17:01:32"}
+{"event": "eval", "msg": "full <ROOT>/bench/baseline_method.py 1108s errors=[]", "t": "2026-09-28 17:20:01"}
+{"event": "stop", "msg": "发现 STOP 文件，存档后停下", "t": "2026-09-28 17:20:01"}
+{"event": "summary", "msg": "调用 22 次，折算成本 $30.70，状态 stopped", "t": "2026-09-28 17:20:01"}
