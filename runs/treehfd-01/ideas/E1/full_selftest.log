@@ -1,0 +1,14 @@
+[harness] full 模式评测 D:\scientisttwo-lite\runs\treehfd-01\ideas\E1\method.py
+  analytical rep 1/10: eta12=0.0323 eta1=0.0279
+  analytical rep 2/10: eta12=0.0309 eta1=0.0270
+  analytical rep 3/10: eta12=0.0331 eta1=0.0257
+  analytical rep 4/10: eta12=0.0270 eta1=0.0343
+  analytical rep 5/10: eta12=0.0273 eta1=0.0227
+  analytical rep 6/10: eta12=0.0299 eta1=0.0405
+  analytical rep 7/10: eta12=0.0347 eta1=0.0215
+  analytical rep 8/10: eta12=0.0259 eta1=0.0277
+  analytical rep 9/10: eta12=0.0275 eta1=0.0310
+  analytical rep 10/10: eta12=0.0305 eta1=0.0258
+  abalone: resid_in=0.0063 resid_out=0.0193 ortho_in=0.027981845943132196 locvar=0.002454 fit=32.8s
+  airfoil: resid_in=0.0120 resid_out=0.0190 ortho_in=0.014371537538527733 locvar=2.888e-05 fit=9.6s
+  bike: resid_in=0.0214 resid_out=0.0246 ortho_in=0.013378675840855322 locvar=0.0003258 fit=335.4s

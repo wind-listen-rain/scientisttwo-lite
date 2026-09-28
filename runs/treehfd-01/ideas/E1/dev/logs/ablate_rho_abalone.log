@@ -1,0 +1,105 @@
+=== abalone split 0
+abalone split=0 RHOS=(0.0, 0.25, 1.0) fit 45.46s
+selection common lattice harmonic rho=1         +0 R/var=0.03725 resid_in(est)/var=0.00627
+N1/n mean 0.1619 m mean/max 823.49 1672 virtual/n mean 1.735 route_err max 9.5e-07
+chosen kappa quantiles [0.01 0.01 0.01 0.01 0.01]
+chosen rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+per-tree joint argmin rho counts (selected variant) {0.0: 0, 0.25: 0, 1.0: 100}
+SELECTED resid_in=0.00627 resid_out=0.01931 ortho_in=0.0280 ortho_out=0.0445 locvar_in=0.002454
+rho-mode ablation: best candidate by R within each rho mode
+  rho=0         shift  lattice harmonic rho=0         -3 R/var=0.04657 resid_in=0.00634 resid_out=0.02094 ortho_in=0.0252 ortho_out=0.0412 locvar_in=0.00253
+  rho=0.25      common lattice harmonic rho=0.25      +0 R/var=0.04056 resid_in=0.00545 resid_out=0.02106 ortho_in=0.0271 ortho_out=0.0417 locvar_in=0.002462
+  rho=1         common lattice harmonic rho=1         +0 R/var=0.03725 resid_in=0.00627 resid_out=0.01931 ortho_in=0.0280 ortho_out=0.0445 locvar_in=0.002454
+  rho=per-tree  common lattice harmonic rho=per-tree  +0 R/var=0.03725 resid_in=0.00627 resid_out=0.01931 ortho_in=0.0280 ortho_out=0.0445 locvar_in=0.002454
+=== abalone split 1
+abalone split=1 RHOS=(0.0, 0.25, 1.0) fit 41.72s
+selection shift  lattice harmonic rho=1         -5 R/var=0.04051 resid_in(est)/var=0.00647
+N1/n mean 0.1661 m mean/max 810.22 1407 virtual/n mean 1.839 route_err max 9.1e-07
+chosen kappa quantiles [0.01 0.01 0.01 0.01 0.03]
+chosen rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+per-tree joint argmin rho counts (selected variant) {0.0: 0, 0.25: 0, 1.0: 100}
+SELECTED resid_in=0.00647 resid_out=0.01617 ortho_in=0.0129 ortho_out=0.0536 locvar_in=0.002024
+rho-mode ablation: best candidate by R within each rho mode
+  rho=0         shift  ridge   harmonic rho=0         -3 R/var=0.04700 resid_in=0.00597 resid_out=0.01841 ortho_in=0.0147 ortho_out=0.0564 locvar_in=0.00174
+  rho=0.25      common lattice harmonic rho=0.25      +0 R/var=0.04337 resid_in=0.00561 resid_out=0.01799 ortho_in=0.0128 ortho_out=0.0551 locvar_in=0.001965
+  rho=1         shift  lattice harmonic rho=1         -5 R/var=0.04051 resid_in=0.00647 resid_out=0.01617 ortho_in=0.0129 ortho_out=0.0536 locvar_in=0.002024
+  rho=per-tree  shift  lattice harmonic rho=per-tree  -5 R/var=0.04051 resid_in=0.00647 resid_out=0.01617 ortho_in=0.0129 ortho_out=0.0536 locvar_in=0.002024
+=== abalone split 2
+abalone split=2 RHOS=(0.0, 0.25, 1.0) fit 41.78s
+selection common lattice harmonic rho=1         +0 R/var=0.04213 resid_in(est)/var=0.00623
+N1/n mean 0.1601 m mean/max 794.22 1379 virtual/n mean 1.8 route_err max 9.5e-07
+chosen kappa quantiles [0.01 0.01 0.01 0.01 0.01]
+chosen rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+per-tree joint argmin rho counts (selected variant) {0.0: 0, 0.25: 0, 1.0: 100}
+SELECTED resid_in=0.00623 resid_out=0.02045 ortho_in=0.0120 ortho_out=0.0457 locvar_in=0.004841
+rho-mode ablation: best candidate by R within each rho mode
+  rho=0         shift  lattice harmonic rho=0         -3 R/var=0.04978 resid_in=0.00698 resid_out=0.02063 ortho_in=0.0127 ortho_out=0.0422 locvar_in=0.004328
+  rho=0.25      common lattice harmonic rho=0.25      +0 R/var=0.04552 resid_in=0.00533 resid_out=0.02167 ortho_in=0.0126 ortho_out=0.0448 locvar_in=0.004902
+  rho=1         common lattice harmonic rho=1         +0 R/var=0.04213 resid_in=0.00623 resid_out=0.02045 ortho_in=0.0120 ortho_out=0.0457 locvar_in=0.004841
+  rho=per-tree  common lattice harmonic rho=per-tree  +0 R/var=0.04213 resid_in=0.00623 resid_out=0.02045 ortho_in=0.0120 ortho_out=0.0457 locvar_in=0.004841
+=== abalone split 3
+abalone split=3 RHOS=(0.0, 0.25, 1.0) fit 40.93s
+selection common lattice harmonic rho=1         +0 R/var=0.04712 resid_in(est)/var=0.00678
+N1/n mean 0.1653 m mean/max 818.47 1386 virtual/n mean 1.722 route_err max 9.4e-07
+chosen kappa quantiles [0.01 0.01 0.01 0.01 0.01]
+chosen rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+per-tree joint argmin rho counts (selected variant) {0.0: 0, 0.25: 0, 1.0: 100}
+SELECTED resid_in=0.00678 resid_out=0.01881 ortho_in=0.0169 ortho_out=0.0497 locvar_in=0.001998
+rho-mode ablation: best candidate by R within each rho mode
+  rho=0         shift  ridge   harmonic rho=0         -2 R/var=0.05547 resid_in=0.00769 resid_out=0.01996 ortho_in=0.0203 ortho_out=0.0629 locvar_in=0.001527
+  rho=0.25      common lattice harmonic rho=0.25      +0 R/var=0.05120 resid_in=0.00592 resid_out=0.02093 ortho_in=0.0167 ortho_out=0.0562 locvar_in=0.001993
+  rho=1         common lattice harmonic rho=1         +0 R/var=0.04712 resid_in=0.00678 resid_out=0.01881 ortho_in=0.0169 ortho_out=0.0497 locvar_in=0.001998
+  rho=per-tree  common lattice harmonic rho=per-tree  +0 R/var=0.04712 resid_in=0.00678 resid_out=0.01881 ortho_in=0.0169 ortho_out=0.0497 locvar_in=0.001998
+=== abalone split 4
+abalone split=4 RHOS=(0.0, 0.25, 1.0) fit 37.82s
+selection common lattice harmonic rho=1         +0 R/var=0.04771 resid_in(est)/var=0.00646
+N1/n mean 0.1623 m mean/max 809.43 1501 virtual/n mean 1.629 route_err max 9.4e-07
+chosen kappa quantiles [0.01 0.01 0.01 0.01 0.01]
+chosen rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+per-tree joint argmin rho counts (selected variant) {0.0: 0, 0.25: 0, 1.0: 100}
+SELECTED resid_in=0.00646 resid_out=0.02252 ortho_in=0.0098 ortho_out=0.0806 locvar_in=0.002272
+rho-mode ablation: best candidate by R within each rho mode
+  rho=0         shift  ridge   harmonic rho=0         -3 R/var=0.05350 resid_in=0.00633 resid_out=0.02475 ortho_in=0.0080 ortho_out=0.0827 locvar_in=0.002162
+  rho=0.25      common lattice harmonic rho=0.25      +0 R/var=0.05135 resid_in=0.00550 resid_out=0.02487 ortho_in=0.0107 ortho_out=0.0813 locvar_in=0.00224
+  rho=1         common lattice harmonic rho=1         +0 R/var=0.04771 resid_in=0.00646 resid_out=0.02252 ortho_in=0.0098 ortho_out=0.0806 locvar_in=0.002272
+  rho=per-tree  common lattice harmonic rho=per-tree  +0 R/var=0.04771 resid_in=0.00646 resid_out=0.02252 ortho_in=0.0098 ortho_out=0.0806 locvar_in=0.002272
+=== abalone split 5
+abalone split=5 RHOS=(0.0, 0.25, 1.0) fit 32.53s
+selection shift  lattice harmonic rho=1         -5 R/var=0.04536 resid_in(est)/var=0.00679
+N1/n mean 0.1626 m mean/max 762.42 1323 virtual/n mean 1.702 route_err max 9.4e-07
+chosen kappa quantiles [0.01 0.01 0.01 0.01 0.03]
+chosen rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+per-tree joint argmin rho counts (selected variant) {0.0: 0, 0.25: 0, 1.0: 100}
+SELECTED resid_in=0.00679 resid_out=0.02327 ortho_in=0.0224 ortho_out=0.0442 locvar_in=0.004915
+rho-mode ablation: best candidate by R within each rho mode
+  rho=0         shift  ridge   harmonic rho=0         -3 R/var=0.05226 resid_in=0.00632 resid_out=0.02402 ortho_in=0.0203 ortho_out=0.0514 locvar_in=0.00479
+  rho=0.25      shift  lattice harmonic rho=0.25      -4 R/var=0.04903 resid_in=0.00621 resid_out=0.02464 ortho_in=0.0223 ortho_out=0.0499 locvar_in=0.004959
+  rho=1         shift  lattice harmonic rho=1         -5 R/var=0.04536 resid_in=0.00679 resid_out=0.02327 ortho_in=0.0224 ortho_out=0.0442 locvar_in=0.004915
+  rho=per-tree  shift  lattice harmonic rho=per-tree  -5 R/var=0.04536 resid_in=0.00679 resid_out=0.02327 ortho_in=0.0224 ortho_out=0.0442 locvar_in=0.004915
+=== abalone split 6
+abalone split=6 RHOS=(0.0, 0.25, 1.0) fit 35.98s
+selection shift  lattice harmonic rho=1         -5 R/var=0.04495 resid_in(est)/var=0.00676
+N1/n mean 0.165 m mean/max 810.36 1460 virtual/n mean 1.672 route_err max 9.3e-07
+chosen kappa quantiles [0.01 0.01 0.01 0.01 0.1 ]
+chosen rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+per-tree joint argmin rho counts (selected variant) {0.0: 0, 0.25: 0, 1.0: 100}
+SELECTED resid_in=0.00676 resid_out=0.01904 ortho_in=0.0140 ortho_out=0.0574 locvar_in=0.002787
+rho-mode ablation: best candidate by R within each rho mode
+  rho=0         shift  ridge   harmonic rho=0         -2 R/var=0.05241 resid_in=0.00775 resid_out=0.02181 ortho_in=0.0092 ortho_out=0.0663 locvar_in=0.002435
+  rho=0.25      common lattice harmonic rho=0.25      +0 R/var=0.04880 resid_in=0.00576 resid_out=0.02139 ortho_in=0.0157 ortho_out=0.0612 locvar_in=0.002763
+  rho=1         shift  lattice harmonic rho=1         -5 R/var=0.04495 resid_in=0.00676 resid_out=0.01904 ortho_in=0.0140 ortho_out=0.0574 locvar_in=0.002787
+  rho=per-tree  shift  lattice harmonic rho=per-tree  -5 R/var=0.04495 resid_in=0.00676 resid_out=0.01904 ortho_in=0.0140 ortho_out=0.0574 locvar_in=0.002787
+=== abalone split 7
+abalone split=7 RHOS=(0.0, 0.25, 1.0) fit 29.39s
+selection shift  lattice harmonic rho=1         -5 R/var=0.03914 resid_in(est)/var=0.00646
+N1/n mean 0.1514 m mean/max 735.07 1571 virtual/n mean 1.647 route_err max 9.5e-07
+chosen kappa quantiles [0.01 0.01 0.01 0.01 0.1 ]
+chosen rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+per-tree joint argmin rho counts (selected variant) {0.0: 0, 0.25: 0, 1.0: 100}
+SELECTED resid_in=0.00646 resid_out=0.01678 ortho_in=0.0238 ortho_out=0.1220 locvar_in=0.003044
+rho-mode ablation: best candidate by R within each rho mode
+  rho=0         shift  ridge   harmonic rho=0         -3 R/var=0.04487 resid_in=0.00588 resid_out=0.02044 ortho_in=0.0277 ortho_out=0.1152 locvar_in=0.002647
+  rho=0.25      shift  lattice harmonic rho=0.25      -5 R/var=0.04204 resid_in=0.00575 resid_out=0.01876 ortho_in=0.0261 ortho_out=0.1196 locvar_in=0.003079
+  rho=1         shift  lattice harmonic rho=1         -5 R/var=0.03914 resid_in=0.00646 resid_out=0.01678 ortho_in=0.0238 ortho_out=0.1220 locvar_in=0.003044
+  rho=per-tree  shift  lattice harmonic rho=per-tree  -5 R/var=0.03914 resid_in=0.00646 resid_out=0.01678 ortho_in=0.0238 ortho_out=0.1220 locvar_in=0.003044
+done

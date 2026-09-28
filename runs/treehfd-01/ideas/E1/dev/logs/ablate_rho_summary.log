@@ -1,0 +1,256 @@
+##### airfoil: splits [0, 1, 2, 3, 4, 5, 6, 7]
+-- split 0: selection [shift  lattice harmonic rho=1         -1] R/var=0.02337 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00985(1.00) resid_out=0.02651(1.00) ortho_in=0.00970(1.00) ortho_out=0.09830(1.00) locvar=nan
+   selected     resid_in=0.01204(1.22) resid_out=0.01895(0.71) ortho_in=0.01440(1.48) ortho_out=0.09390(0.96) locvar=2.89e-05
+   rho=0        resid_in=0.01235(1.25) resid_out=0.02247(0.85) ortho_in=0.00840(0.87) ortho_out=0.11160(1.14) locvar=4.57e-05 R/var=0.02730 [rho=0         shift  lattice harmonic rho=0         -1]
+   rho=0.25     resid_in=0.01211(1.23) resid_out=0.02101(0.79) ortho_in=0.00660(0.68) ortho_out=0.10400(1.06) locvar=3.07e-05 R/var=0.02570 [rho=0.25      shift  lattice harmonic rho=0.25      -1]
+   rho=1        resid_in=0.01204(1.22) resid_out=0.01895(0.71) ortho_in=0.01440(1.48) ortho_out=0.09390(0.96) locvar=2.89e-05 R/var=0.02337 [rho=1         shift  lattice harmonic rho=1         -1]
+   rho=per-tree resid_in=0.01204(1.22) resid_out=0.01895(0.71) ortho_in=0.01440(1.48) ortho_out=0.09390(0.96) locvar=2.89e-05 R/var=0.02337 [rho=per-tree  shift  lattice harmonic rho=per-tree  -1]
+-- split 1: selection [shift  lattice harmonic rho=1         -2] R/var=0.01894 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00812(1.00) resid_out=0.02680(1.00) ortho_in=0.03190(1.00) ortho_out=0.25650(1.00) locvar=nan
+   selected     resid_in=0.00963(1.19) resid_out=0.01977(0.74) ortho_in=0.01260(0.39) ortho_out=0.15560(0.61) locvar=5.5e-05
+   rho=0        resid_in=0.01008(1.24) resid_out=0.02466(0.92) ortho_in=0.01490(0.47) ortho_out=0.16440(0.64) locvar=6.97e-05 R/var=0.02196 [rho=0         shift  lattice harmonic rho=0         -1]
+   rho=0.25     resid_in=0.00986(1.21) resid_out=0.02247(0.84) ortho_in=0.01210(0.38) ortho_out=0.15620(0.61) locvar=5.18e-05 R/var=0.02054 [rho=0.25      shift  lattice harmonic rho=0.25      -1]
+   rho=1        resid_in=0.00963(1.19) resid_out=0.01977(0.74) ortho_in=0.01260(0.39) ortho_out=0.15560(0.61) locvar=5.5e-05 R/var=0.01894 [rho=1         shift  lattice harmonic rho=1         -2]
+   rho=per-tree resid_in=0.00963(1.19) resid_out=0.01977(0.74) ortho_in=0.01260(0.39) ortho_out=0.15560(0.61) locvar=5.5e-05 R/var=0.01894 [rho=per-tree  shift  lattice harmonic rho=per-tree  -2]
+-- split 2: selection [shift  lattice harmonic rho=1         -2] R/var=0.02070 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00834(1.00) resid_out=0.03261(1.00) ortho_in=0.01800(1.00) ortho_out=0.03840(1.00) locvar=nan
+   selected     resid_in=0.01005(1.21) resid_out=0.02344(0.72) ortho_in=0.01140(0.63) ortho_out=0.05920(1.54) locvar=4.39e-05
+   rho=0        resid_in=0.01083(1.30) resid_out=0.02529(0.78) ortho_in=0.01860(1.03) ortho_out=0.04400(1.15) locvar=6.04e-05 R/var=0.02383 [rho=0         shift  lattice harmonic rho=0         -1]
+   rho=0.25     resid_in=0.01076(1.29) resid_out=0.02417(0.74) ortho_in=0.01650(0.92) ortho_out=0.04910(1.28) locvar=4.52e-05 R/var=0.02262 [rho=0.25      shift  lattice harmonic rho=0.25      -1]
+   rho=1        resid_in=0.01005(1.21) resid_out=0.02344(0.72) ortho_in=0.01140(0.63) ortho_out=0.05920(1.54) locvar=4.39e-05 R/var=0.02070 [rho=1         shift  lattice harmonic rho=1         -2]
+   rho=per-tree resid_in=0.01005(1.21) resid_out=0.02343(0.72) ortho_in=0.01140(0.63) ortho_out=0.05920(1.54) locvar=4.4e-05 R/var=0.02070 [rho=per-tree  shift  lattice harmonic rho=per-tree  -2]
+-- split 3: selection [shift  lattice harmonic rho=1         -1] R/var=0.02231 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00875(1.00) resid_out=0.02853(1.00) ortho_in=0.01710(1.00) ortho_out=0.17080(1.00) locvar=nan
+   selected     resid_in=0.01121(1.28) resid_out=0.02161(0.76) ortho_in=0.01010(0.59) ortho_out=0.16080(0.94) locvar=0.000201
+   rho=0        resid_in=0.01123(1.28) resid_out=0.02491(0.87) ortho_in=0.01930(1.13) ortho_out=0.16170(0.95) locvar=0.000278 R/var=0.02554 [rho=0         shift  lattice harmonic rho=0         -1]
+   rho=0.25     resid_in=0.01103(1.26) resid_out=0.02374(0.83) ortho_in=0.00940(0.55) ortho_out=0.16290(0.95) locvar=0.000194 R/var=0.02425 [rho=0.25      shift  lattice harmonic rho=0.25      -1]
+   rho=1        resid_in=0.01121(1.28) resid_out=0.02161(0.76) ortho_in=0.01010(0.59) ortho_out=0.16080(0.94) locvar=0.000201 R/var=0.02231 [rho=1         shift  lattice harmonic rho=1         -1]
+   rho=per-tree resid_in=0.01121(1.28) resid_out=0.02161(0.76) ortho_in=0.01010(0.59) ortho_out=0.16080(0.94) locvar=0.000201 R/var=0.02231 [rho=per-tree  shift  lattice harmonic rho=per-tree  -1]
+-- split 4: selection [shift  lattice harmonic rho=per-tree  -5] R/var=0.02065 rho counts {0.0: 0, 0.25: 3, 1.0: 97}
+   baseline     resid_in=0.00725(1.00) resid_out=0.02467(1.00) ortho_in=0.01170(1.00) ortho_out=0.10810(1.00) locvar=nan
+   selected     resid_in=0.00875(1.21) resid_out=0.01752(0.71) ortho_in=0.01550(1.32) ortho_out=0.10160(0.94) locvar=7.36e-05
+   rho=0        resid_in=0.00854(1.18) resid_out=0.02117(0.86) ortho_in=0.01370(1.17) ortho_out=0.10470(0.97) locvar=8.6e-05 R/var=0.02514 [rho=0         shift  lattice harmonic rho=0         -2]
+   rho=0.25     resid_in=0.00806(1.11) resid_out=0.02025(0.82) ortho_in=0.01470(1.26) ortho_out=0.10380(0.96) locvar=7.09e-05 R/var=0.02306 [rho=0.25      shift  lattice harmonic rho=0.25      -4]
+   rho=1        resid_in=0.00876(1.21) resid_out=0.01753(0.71) ortho_in=0.01560(1.33) ortho_out=0.10170(0.94) locvar=7.35e-05 R/var=0.02065 [rho=1         shift  lattice harmonic rho=1         -5]
+   rho=per-tree resid_in=0.00875(1.21) resid_out=0.01752(0.71) ortho_in=0.01550(1.32) ortho_out=0.10160(0.94) locvar=7.36e-05 R/var=0.02065 [rho=per-tree  shift  lattice harmonic rho=per-tree  -5]
+-- split 5: selection [shift  lattice harmonic rho=1         -1] R/var=0.02339 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00912(1.00) resid_out=0.02499(1.00) ortho_in=0.01820(1.00) ortho_out=0.12550(1.00) locvar=nan
+   selected     resid_in=0.01146(1.26) resid_out=0.01990(0.80) ortho_in=0.01150(0.63) ortho_out=0.10920(0.87) locvar=0.000146
+   rho=0        resid_in=0.01186(1.30) resid_out=0.02326(0.93) ortho_in=0.01850(1.02) ortho_out=0.11530(0.92) locvar=0.000237 R/var=0.02723 [rho=0         shift  lattice harmonic rho=0         -1]
+   rho=0.25     resid_in=0.01142(1.25) resid_out=0.02167(0.87) ortho_in=0.01650(0.91) ortho_out=0.11360(0.91) locvar=0.00015 R/var=0.02581 [rho=0.25      shift  lattice harmonic rho=0.25      -1]
+   rho=1        resid_in=0.01146(1.26) resid_out=0.01990(0.80) ortho_in=0.01150(0.63) ortho_out=0.10920(0.87) locvar=0.000146 R/var=0.02339 [rho=1         shift  lattice harmonic rho=1         -1]
+   rho=per-tree resid_in=0.01146(1.26) resid_out=0.01990(0.80) ortho_in=0.01150(0.63) ortho_out=0.10920(0.87) locvar=0.000146 R/var=0.02339 [rho=per-tree  shift  lattice harmonic rho=per-tree  -1]
+-- split 6: selection [shift  lattice harmonic rho=1         -1] R/var=0.02124 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00771(1.00) resid_out=0.02779(1.00) ortho_in=0.01880(1.00) ortho_out=0.15370(1.00) locvar=nan
+   selected     resid_in=0.00985(1.28) resid_out=0.01893(0.68) ortho_in=0.00920(0.49) ortho_out=0.24070(1.57) locvar=9.31e-05
+   rho=0        resid_in=0.01009(1.31) resid_out=0.02201(0.79) ortho_in=0.02180(1.16) ortho_out=0.13810(0.90) locvar=0.000168 R/var=0.02470 [rho=0         shift  lattice harmonic rho=0         -1]
+   rho=0.25     resid_in=0.00967(1.25) resid_out=0.02088(0.75) ortho_in=0.01200(0.64) ortho_out=0.19630(1.28) locvar=9.21e-05 R/var=0.02336 [rho=0.25      shift  lattice harmonic rho=0.25      -1]
+   rho=1        resid_in=0.00985(1.28) resid_out=0.01893(0.68) ortho_in=0.00920(0.49) ortho_out=0.24070(1.57) locvar=9.31e-05 R/var=0.02124 [rho=1         shift  lattice harmonic rho=1         -1]
+   rho=per-tree resid_in=0.00985(1.28) resid_out=0.01893(0.68) ortho_in=0.00920(0.49) ortho_out=0.24070(1.57) locvar=9.31e-05 R/var=0.02124 [rho=per-tree  shift  lattice harmonic rho=per-tree  -1]
+-- split 7: selection [shift  lattice harmonic rho=1         -1] R/var=0.02641 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.01130(1.00) resid_out=0.02310(1.00) ortho_in=0.01200(1.00) ortho_out=0.19020(1.00) locvar=nan
+   selected     resid_in=0.01384(1.22) resid_out=0.01737(0.75) ortho_in=0.01770(1.48) ortho_out=0.18030(0.95) locvar=5.87e-05
+   rho=0        resid_in=0.01397(1.24) resid_out=0.02035(0.88) ortho_in=0.01320(1.10) ortho_out=0.11800(0.62) locvar=0.000141 R/var=0.03069 [rho=0         shift  lattice harmonic rho=0         -1]
+   rho=0.25     resid_in=0.01374(1.22) resid_out=0.01907(0.83) ortho_in=0.01630(1.36) ortho_out=0.18370(0.97) locvar=6.05e-05 R/var=0.02892 [rho=0.25      shift  lattice harmonic rho=0.25      -1]
+   rho=1        resid_in=0.01384(1.22) resid_out=0.01737(0.75) ortho_in=0.01770(1.48) ortho_out=0.18030(0.95) locvar=5.87e-05 R/var=0.02641 [rho=1         shift  lattice harmonic rho=1         -1]
+   rho=per-tree resid_in=0.01384(1.22) resid_out=0.01737(0.75) ortho_in=0.01770(1.48) ortho_out=0.18030(0.95) locvar=5.87e-05 R/var=0.02641 [rho=per-tree  shift  lattice harmonic rho=per-tree  -1]
+   geo-mean ratio to baseline over splits (n = splits where both are defined)
+   selected     resid_in=1.232(n=8) resid_out=0.733(n=8) ortho_in=0.777(n=8) ortho_out=1.003(n=8)
+   rho=0        resid_in=1.262(n=8) resid_out=0.858(n=8) ortho_in=0.959(n=8) ortho_out=0.889(n=8)
+   rho=0.25     resid_in=1.228(n=8) resid_out=0.808(n=8) ortho_in=0.774(n=8) ortho_out=0.979(n=8)
+   rho=1        resid_in=1.232(n=8) resid_out=0.733(n=8) ortho_in=0.777(n=8) ortho_out=1.003(n=8)
+   rho=per-tree resid_in=1.232(n=8) resid_out=0.733(n=8) ortho_in=0.777(n=8) ortho_out=1.003(n=8)
+   selected / rho=0 (S4): resid_in=0.976(n=8) resid_out=0.854(n=8) ortho_in=0.810(n=8) ortho_out=1.127(n=8) locvar_in=0.651(n=8)
+##### concrete: splits [0, 1, 2, 3, 4, 5, 6, 7]
+-- split 0: selection [shift  lattice harmonic rho=1         -3] R/var=0.01770 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00153(1.00) resid_out=0.02519(1.00) ortho_in=0.00640(1.00) ortho_out=0.08230(1.00) locvar=nan
+   selected     resid_in=0.00253(1.65) resid_out=0.01975(0.78) ortho_in=0.00690(1.08) ortho_out=0.06960(0.85) locvar=0.0185
+   rho=0        resid_in=0.00216(1.41) resid_out=0.02104(0.84) ortho_in=0.00610(0.95) ortho_out=0.07160(0.87) locvar=0.0132 R/var=0.02053 [rho=0         shift  lattice harmonic rho=0         -2]
+   rho=0.25     resid_in=0.00236(1.54) resid_out=0.01974(0.78) ortho_in=0.00650(1.02) ortho_out=0.07160(0.87) locvar=0.0135 R/var=0.01887 [rho=0.25      shift  lattice harmonic rho=0.25      -2]
+   rho=1        resid_in=0.00253(1.65) resid_out=0.01975(0.78) ortho_in=0.00690(1.08) ortho_out=0.06960(0.85) locvar=0.0185 R/var=0.01770 [rho=1         shift  lattice harmonic rho=1         -3]
+   rho=per-tree resid_in=0.00253(1.65) resid_out=0.01975(0.78) ortho_in=0.00690(1.08) ortho_out=0.06960(0.85) locvar=0.0185 R/var=0.01770 [rho=per-tree  shift  lattice harmonic rho=per-tree  -3]
+-- split 1: selection [shift  lattice harmonic rho=1         -4] R/var=0.02331 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00188(1.00) resid_out=0.02723(1.00) ortho_in=0.00660(1.00) ortho_out=0.01730(1.00) locvar=nan
+   selected     resid_in=0.00296(1.57) resid_out=0.02090(0.77) ortho_in=0.02590(3.92) ortho_out=0.08390(4.85) locvar=0.00876
+   rho=0        resid_in=0.00288(1.53) resid_out=0.02339(0.86) ortho_in=0.00550(0.83) ortho_out=0.02080(1.20) locvar=0.00816 R/var=0.02541 [rho=0         shift  lattice zero     rho=0         -2]
+   rho=0.25     resid_in=0.00312(1.66) resid_out=0.02078(0.76) ortho_in=0.02790(4.23) ortho_out=0.08360(4.83) locvar=0.00705 R/var=0.02480 [rho=0.25      shift  lattice harmonic rho=0.25      -2]
+   rho=1        resid_in=0.00296(1.57) resid_out=0.02090(0.77) ortho_in=0.02590(3.92) ortho_out=0.08390(4.85) locvar=0.00876 R/var=0.02331 [rho=1         shift  lattice harmonic rho=1         -4]
+   rho=per-tree resid_in=0.00295(1.57) resid_out=0.02093(0.77) ortho_in=0.02590(3.92) ortho_out=0.08410(4.86) locvar=0.00878 R/var=0.02334 [rho=per-tree  shift  lattice harmonic rho=per-tree  -4]
+-- split 2: selection [shift  lattice harmonic rho=per-tree  -2] R/var=0.01965 rho counts {0.0: 1, 0.25: 1, 1.0: 98}
+   baseline     resid_in=0.00200(1.00) resid_out=0.02363(1.00) ortho_in=nan( nan) ortho_out=0.11570(1.00) locvar=nan
+   selected     resid_in=0.00324(1.62) resid_out=0.01692(0.72) ortho_in=nan( nan) ortho_out=0.12180(1.05) locvar=0.00936
+   rho=0        resid_in=0.00374(1.87) resid_out=0.01989(0.84) ortho_in=nan( nan) ortho_out=nan( nan) locvar=0.00782 R/var=0.02152 [rho=0         shift  lattice harmonic rho=0         -1]
+   rho=0.25     resid_in=0.00283(1.42) resid_out=0.01917(0.81) ortho_in=nan( nan) ortho_out=0.11750(1.02) locvar=0.00843 R/var=0.02041 [rho=0.25      shift  lattice harmonic rho=0.25      -2]
+   rho=1        resid_in=0.00330(1.65) resid_out=0.01683(0.71) ortho_in=nan( nan) ortho_out=0.12110(1.05) locvar=0.00935 R/var=0.01966 [rho=1         shift  lattice harmonic rho=1         -2]
+   rho=per-tree resid_in=0.00324(1.62) resid_out=0.01692(0.72) ortho_in=nan( nan) ortho_out=0.12180(1.05) locvar=0.00936 R/var=0.01965 [rho=per-tree  shift  lattice harmonic rho=per-tree  -2]
+-- split 3: selection [shift  lattice zero     rho=per-tree  -3] R/var=0.01920 rho counts {0.0: 1, 0.25: 0, 1.0: 99}
+   baseline     resid_in=0.00156(1.00) resid_out=0.02609(1.00) ortho_in=0.02570(1.00) ortho_out=0.09300(1.00) locvar=nan
+   selected     resid_in=0.00259(1.66) resid_out=0.01913(0.73) ortho_in=0.02400(0.93) ortho_out=0.10330(1.11) locvar=0.0159
+   rho=0        resid_in=0.00225(1.44) resid_out=0.01900(0.73) ortho_in=0.02380(0.93) ortho_out=0.09760(1.05) locvar=0.0126 R/var=0.02080 [rho=0         shift  lattice zero     rho=0         -2]
+   rho=0.25     resid_in=0.00245(1.57) resid_out=0.01876(0.72) ortho_in=0.02500(0.97) ortho_out=0.10010(1.08) locvar=0.0134 R/var=0.01990 [rho=0.25      shift  lattice zero     rho=0.25      -2]
+   rho=1        resid_in=0.00259(1.66) resid_out=0.01913(0.73) ortho_in=0.02400(0.93) ortho_out=0.10330(1.11) locvar=0.0159 R/var=0.01920 [rho=1         shift  lattice zero     rho=1         -3]
+   rho=per-tree resid_in=0.00259(1.66) resid_out=0.01913(0.73) ortho_in=0.02400(0.93) ortho_out=0.10330(1.11) locvar=0.0159 R/var=0.01920 [rho=per-tree  shift  lattice zero     rho=per-tree  -3]
+-- split 4: selection [shift  lattice zero     rho=1         -5] R/var=0.02073 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00195(1.00) resid_out=0.02054(1.00) ortho_in=0.01580(1.00) ortho_out=0.13420(1.00) locvar=nan
+   selected     resid_in=0.00299(1.53) resid_out=0.01480(0.72) ortho_in=0.01320(0.84) ortho_out=0.08830(0.66) locvar=0.0106
+   rho=0        resid_in=0.00413(2.12) resid_out=0.01612(0.78) ortho_in=0.01150(0.73) ortho_out=0.08700(0.65) locvar=0.00724 R/var=0.02346 [rho=0         shift  lattice zero     rho=0         -1]
+   rho=0.25     resid_in=0.00240(1.23) resid_out=0.01624(0.79) ortho_in=0.01320(0.84) ortho_out=0.08960(0.67) locvar=0.0113 R/var=0.02249 [rho=0.25      shift  lattice zero     rho=0.25      -5]
+   rho=1        resid_in=0.00299(1.53) resid_out=0.01480(0.72) ortho_in=0.01320(0.84) ortho_out=0.08830(0.66) locvar=0.0106 R/var=0.02073 [rho=1         shift  lattice zero     rho=1         -5]
+   rho=per-tree resid_in=0.00299(1.53) resid_out=0.01480(0.72) ortho_in=0.01320(0.84) ortho_out=0.08830(0.66) locvar=0.0106 R/var=0.02073 [rho=per-tree  shift  lattice zero     rho=per-tree  -5]
+-- split 5: selection [shift  lattice harmonic rho=1         -3] R/var=0.02115 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00214(1.00) resid_out=0.02083(1.00) ortho_in=0.00550(1.00) ortho_out=0.05000(1.00) locvar=nan
+   selected     resid_in=0.00323(1.51) resid_out=0.01424(0.68) ortho_in=nan( nan) ortho_out=0.05480(1.10) locvar=0.0105
+   rho=0        resid_in=0.00294(1.37) resid_out=0.01819(0.87) ortho_in=0.00580(1.05) ortho_out=0.04900(0.98) locvar=0.013 R/var=0.02304 [rho=0         shift  lattice harmonic rho=0         -2]
+   rho=0.25     resid_in=0.00312(1.46) resid_out=0.01615(0.78) ortho_in=0.00570(1.04) ortho_out=0.05030(1.01) locvar=0.017 R/var=0.02226 [rho=0.25      shift  lattice harmonic rho=0.25      -2]
+   rho=1        resid_in=0.00323(1.51) resid_out=0.01424(0.68) ortho_in=nan( nan) ortho_out=0.05480(1.10) locvar=0.0105 R/var=0.02115 [rho=1         shift  lattice harmonic rho=1         -3]
+   rho=per-tree resid_in=0.00323(1.51) resid_out=0.01424(0.68) ortho_in=nan( nan) ortho_out=0.05490(1.10) locvar=0.0105 R/var=0.02115 [rho=per-tree  shift  lattice harmonic rho=per-tree  -3]
+-- split 6: selection [shift  lattice harmonic rho=1         -3] R/var=0.01868 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00205(1.00) resid_out=0.01626(1.00) ortho_in=0.00960(1.00) ortho_out=0.08370(1.00) locvar=nan
+   selected     resid_in=0.00310(1.51) resid_out=0.01243(0.76) ortho_in=0.02400(2.50) ortho_out=0.20510(2.45) locvar=0.0163
+   rho=0        resid_in=0.00281(1.37) resid_out=0.01472(0.91) ortho_in=0.01040(1.08) ortho_out=0.08750(1.05) locvar=0.0135 R/var=0.02096 [rho=0         shift  lattice zero     rho=0         -2]
+   rho=0.25     resid_in=0.00248(1.21) resid_out=0.01287(0.79) ortho_in=0.01160(1.21) ortho_out=0.19840(2.37) locvar=0.0164 R/var=0.01967 [rho=0.25      shift  lattice harmonic rho=0.25      -4]
+   rho=1        resid_in=0.00310(1.51) resid_out=0.01243(0.76) ortho_in=0.02400(2.50) ortho_out=0.20510(2.45) locvar=0.0163 R/var=0.01868 [rho=1         shift  lattice harmonic rho=1         -3]
+   rho=per-tree resid_in=0.00306(1.49) resid_out=0.01235(0.76) ortho_in=0.01260(1.31) ortho_out=0.20450(2.44) locvar=0.0161 R/var=0.01869 [rho=per-tree  shift  lattice harmonic rho=per-tree  -3]
+-- split 7: selection [shift  lattice zero     rho=per-tree  -4] R/var=0.01604 rho counts {0.0: 2, 0.25: 3, 1.0: 95}
+   baseline     resid_in=0.00169(1.00) resid_out=0.02685(1.00) ortho_in=0.00940(1.00) ortho_out=0.07500(1.00) locvar=nan
+   selected     resid_in=0.00241(1.43) resid_out=0.02272(0.85) ortho_in=0.01300(1.38) ortho_out=0.07280(0.97) locvar=0.0135
+   rho=0        resid_in=0.00240(1.42) resid_out=0.02274(0.85) ortho_in=0.00980(1.04) ortho_out=0.07840(1.05) locvar=0.0127 R/var=0.01889 [rho=0         shift  lattice zero     rho=0         -2]
+   rho=0.25     resid_in=0.00249(1.47) resid_out=0.02225(0.83) ortho_in=0.01070(1.14) ortho_out=0.07650(1.02) locvar=0.014 R/var=0.01774 [rho=0.25      shift  lattice zero     rho=0.25      -2]
+   rho=1        resid_in=0.00241(1.43) resid_out=0.02269(0.85) ortho_in=0.01300(1.38) ortho_out=0.07300(0.97) locvar=0.0132 R/var=0.01608 [rho=1         shift  lattice zero     rho=1         -4]
+   rho=per-tree resid_in=0.00241(1.43) resid_out=0.02272(0.85) ortho_in=0.01300(1.38) ortho_out=0.07280(0.97) locvar=0.0135 R/var=0.01604 [rho=per-tree  shift  lattice zero     rho=per-tree  -4]
+   geo-mean ratio to baseline over splits (n = splits where both are defined)
+   selected     resid_in=1.559(n=8) resid_out=0.751(n=8) ortho_in=1.500(n=6) ortho_out=1.301(n=8)
+   rho=0        resid_in=1.548(n=8) resid_out=0.833(n=8) ortho_in=0.938(n=7) ortho_out=0.962(n=7)
+   rho=0.25     resid_in=1.437(n=8) resid_out=0.782(n=8) ortho_in=1.258(n=7) ortho_out=1.286(n=8)
+   rho=1        resid_in=1.563(n=8) resid_out=0.750(n=8) ortho_in=1.500(n=6) ortho_out=1.301(n=8)
+   rho=per-tree resid_in=1.556(n=8) resid_out=0.750(n=8) ortho_in=1.348(n=6) ortho_out=1.302(n=8)
+   selected / rho=0 (S4): resid_in=1.007(n=8) resid_out=0.901(n=8) ortho_in=1.632(n=6) ortho_out=1.394(n=7) locvar_in=1.168(n=8)
+##### abalone: splits [0, 1, 2, 3, 4, 5, 6, 7]
+-- split 0: selection [common lattice harmonic rho=1         +0] R/var=0.03725 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00455(1.00) resid_out=0.04070(1.00) ortho_in=0.02680(1.00) ortho_out=0.01580(1.00) locvar=nan
+   selected     resid_in=0.00627(1.38) resid_out=0.01931(0.47) ortho_in=0.02800(1.04) ortho_out=0.04450(2.82) locvar=0.00245
+   rho=0        resid_in=0.00634(1.39) resid_out=0.02094(0.51) ortho_in=0.02520(0.94) ortho_out=0.04120(2.61) locvar=0.00253 R/var=0.04657 [rho=0         shift  lattice harmonic rho=0         -3]
+   rho=0.25     resid_in=0.00545(1.20) resid_out=0.02106(0.52) ortho_in=0.02710(1.01) ortho_out=0.04170(2.64) locvar=0.00246 R/var=0.04056 [rho=0.25      common lattice harmonic rho=0.25      +0]
+   rho=1        resid_in=0.00627(1.38) resid_out=0.01931(0.47) ortho_in=0.02800(1.04) ortho_out=0.04450(2.82) locvar=0.00245 R/var=0.03725 [rho=1         common lattice harmonic rho=1         +0]
+   rho=per-tree resid_in=0.00627(1.38) resid_out=0.01931(0.47) ortho_in=0.02800(1.04) ortho_out=0.04450(2.82) locvar=0.00245 R/var=0.03725 [rho=per-tree  common lattice harmonic rho=per-tree  +0]
+-- split 1: selection [shift  lattice harmonic rho=1         -5] R/var=0.04051 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00479(1.00) resid_out=0.03617(1.00) ortho_in=0.01570(1.00) ortho_out=0.05870(1.00) locvar=nan
+   selected     resid_in=0.00647(1.35) resid_out=0.01617(0.45) ortho_in=0.01290(0.82) ortho_out=0.05360(0.91) locvar=0.00202
+   rho=0        resid_in=0.00597(1.25) resid_out=0.01841(0.51) ortho_in=0.01470(0.94) ortho_out=0.05640(0.96) locvar=0.00174 R/var=0.04700 [rho=0         shift  ridge   harmonic rho=0         -3]
+   rho=0.25     resid_in=0.00561(1.17) resid_out=0.01799(0.50) ortho_in=0.01280(0.82) ortho_out=0.05510(0.94) locvar=0.00197 R/var=0.04337 [rho=0.25      common lattice harmonic rho=0.25      +0]
+   rho=1        resid_in=0.00647(1.35) resid_out=0.01617(0.45) ortho_in=0.01290(0.82) ortho_out=0.05360(0.91) locvar=0.00202 R/var=0.04051 [rho=1         shift  lattice harmonic rho=1         -5]
+   rho=per-tree resid_in=0.00647(1.35) resid_out=0.01617(0.45) ortho_in=0.01290(0.82) ortho_out=0.05360(0.91) locvar=0.00202 R/var=0.04051 [rho=per-tree  shift  lattice harmonic rho=per-tree  -5]
+-- split 2: selection [common lattice harmonic rho=1         +0] R/var=0.04213 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00443(1.00) resid_out=0.03688(1.00) ortho_in=0.01320(1.00) ortho_out=0.03950(1.00) locvar=nan
+   selected     resid_in=0.00623(1.41) resid_out=0.02045(0.55) ortho_in=0.01200(0.91) ortho_out=0.04570(1.16) locvar=0.00484
+   rho=0        resid_in=0.00698(1.58) resid_out=0.02063(0.56) ortho_in=0.01270(0.96) ortho_out=0.04220(1.07) locvar=0.00433 R/var=0.04978 [rho=0         shift  lattice harmonic rho=0         -3]
+   rho=0.25     resid_in=0.00533(1.20) resid_out=0.02167(0.59) ortho_in=0.01260(0.95) ortho_out=0.04480(1.13) locvar=0.0049 R/var=0.04552 [rho=0.25      common lattice harmonic rho=0.25      +0]
+   rho=1        resid_in=0.00623(1.41) resid_out=0.02045(0.55) ortho_in=0.01200(0.91) ortho_out=0.04570(1.16) locvar=0.00484 R/var=0.04213 [rho=1         common lattice harmonic rho=1         +0]
+   rho=per-tree resid_in=0.00623(1.41) resid_out=0.02045(0.55) ortho_in=0.01200(0.91) ortho_out=0.04570(1.16) locvar=0.00484 R/var=0.04213 [rho=per-tree  common lattice harmonic rho=per-tree  +0]
+-- split 3: selection [common lattice harmonic rho=1         +0] R/var=0.04712 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00505(1.00) resid_out=0.03554(1.00) ortho_in=0.01550(1.00) ortho_out=0.06720(1.00) locvar=nan
+   selected     resid_in=0.00678(1.34) resid_out=0.01881(0.53) ortho_in=0.01690(1.09) ortho_out=0.04970(0.74) locvar=0.002
+   rho=0        resid_in=0.00769(1.52) resid_out=0.01996(0.56) ortho_in=0.02030(1.31) ortho_out=0.06290(0.94) locvar=0.00153 R/var=0.05547 [rho=0         shift  ridge   harmonic rho=0         -2]
+   rho=0.25     resid_in=0.00592(1.17) resid_out=0.02093(0.59) ortho_in=0.01670(1.08) ortho_out=0.05620(0.84) locvar=0.00199 R/var=0.05120 [rho=0.25      common lattice harmonic rho=0.25      +0]
+   rho=1        resid_in=0.00678(1.34) resid_out=0.01881(0.53) ortho_in=0.01690(1.09) ortho_out=0.04970(0.74) locvar=0.002 R/var=0.04712 [rho=1         common lattice harmonic rho=1         +0]
+   rho=per-tree resid_in=0.00678(1.34) resid_out=0.01881(0.53) ortho_in=0.01690(1.09) ortho_out=0.04970(0.74) locvar=0.002 R/var=0.04712 [rho=per-tree  common lattice harmonic rho=per-tree  +0]
+-- split 4: selection [common lattice harmonic rho=1         +0] R/var=0.04771 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00446(1.00) resid_out=0.05491(1.00) ortho_in=0.02080(1.00) ortho_out=0.07930(1.00) locvar=nan
+   selected     resid_in=0.00646(1.45) resid_out=0.02252(0.41) ortho_in=0.00980(0.47) ortho_out=0.08060(1.02) locvar=0.00227
+   rho=0        resid_in=0.00633(1.42) resid_out=0.02475(0.45) ortho_in=0.00800(0.38) ortho_out=0.08270(1.04) locvar=0.00216 R/var=0.05350 [rho=0         shift  ridge   harmonic rho=0         -3]
+   rho=0.25     resid_in=0.00550(1.23) resid_out=0.02487(0.45) ortho_in=0.01070(0.51) ortho_out=0.08130(1.03) locvar=0.00224 R/var=0.05135 [rho=0.25      common lattice harmonic rho=0.25      +0]
+   rho=1        resid_in=0.00646(1.45) resid_out=0.02252(0.41) ortho_in=0.00980(0.47) ortho_out=0.08060(1.02) locvar=0.00227 R/var=0.04771 [rho=1         common lattice harmonic rho=1         +0]
+   rho=per-tree resid_in=0.00646(1.45) resid_out=0.02252(0.41) ortho_in=0.00980(0.47) ortho_out=0.08060(1.02) locvar=0.00227 R/var=0.04771 [rho=per-tree  common lattice harmonic rho=per-tree  +0]
+-- split 5: selection [shift  lattice harmonic rho=1         -5] R/var=0.04536 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00518(1.00) resid_out=0.03873(1.00) ortho_in=0.02060(1.00) ortho_out=0.05170(1.00) locvar=nan
+   selected     resid_in=0.00679(1.31) resid_out=0.02327(0.60) ortho_in=0.02240(1.09) ortho_out=0.04420(0.85) locvar=0.00492
+   rho=0        resid_in=0.00632(1.22) resid_out=0.02402(0.62) ortho_in=0.02030(0.99) ortho_out=0.05140(0.99) locvar=0.00479 R/var=0.05226 [rho=0         shift  ridge   harmonic rho=0         -3]
+   rho=0.25     resid_in=0.00621(1.20) resid_out=0.02464(0.64) ortho_in=0.02230(1.08) ortho_out=0.04990(0.97) locvar=0.00496 R/var=0.04903 [rho=0.25      shift  lattice harmonic rho=0.25      -4]
+   rho=1        resid_in=0.00679(1.31) resid_out=0.02327(0.60) ortho_in=0.02240(1.09) ortho_out=0.04420(0.85) locvar=0.00492 R/var=0.04536 [rho=1         shift  lattice harmonic rho=1         -5]
+   rho=per-tree resid_in=0.00679(1.31) resid_out=0.02327(0.60) ortho_in=0.02240(1.09) ortho_out=0.04420(0.85) locvar=0.00492 R/var=0.04536 [rho=per-tree  shift  lattice harmonic rho=per-tree  -5]
+-- split 6: selection [shift  lattice harmonic rho=1         -5] R/var=0.04495 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00478(1.00) resid_out=0.03915(1.00) ortho_in=0.05060(1.00) ortho_out=0.07740(1.00) locvar=nan
+   selected     resid_in=0.00676(1.41) resid_out=0.01904(0.49) ortho_in=0.01400(0.28) ortho_out=0.05740(0.74) locvar=0.00279
+   rho=0        resid_in=0.00775(1.62) resid_out=0.02181(0.56) ortho_in=0.00920(0.18) ortho_out=0.06630(0.86) locvar=0.00244 R/var=0.05241 [rho=0         shift  ridge   harmonic rho=0         -2]
+   rho=0.25     resid_in=0.00576(1.21) resid_out=0.02139(0.55) ortho_in=0.01570(0.31) ortho_out=0.06120(0.79) locvar=0.00276 R/var=0.04880 [rho=0.25      common lattice harmonic rho=0.25      +0]
+   rho=1        resid_in=0.00676(1.41) resid_out=0.01904(0.49) ortho_in=0.01400(0.28) ortho_out=0.05740(0.74) locvar=0.00279 R/var=0.04495 [rho=1         shift  lattice harmonic rho=1         -5]
+   rho=per-tree resid_in=0.00676(1.41) resid_out=0.01904(0.49) ortho_in=0.01400(0.28) ortho_out=0.05740(0.74) locvar=0.00279 R/var=0.04495 [rho=per-tree  shift  lattice harmonic rho=per-tree  -5]
+-- split 7: selection [shift  lattice harmonic rho=1         -5] R/var=0.03914 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.00494(1.00) resid_out=0.03862(1.00) ortho_in=0.03070(1.00) ortho_out=0.11400(1.00) locvar=nan
+   selected     resid_in=0.00646(1.31) resid_out=0.01678(0.43) ortho_in=0.02380(0.78) ortho_out=0.12200(1.07) locvar=0.00304
+   rho=0        resid_in=0.00588(1.19) resid_out=0.02044(0.53) ortho_in=0.02770(0.90) ortho_out=0.11520(1.01) locvar=0.00265 R/var=0.04487 [rho=0         shift  ridge   harmonic rho=0         -3]
+   rho=0.25     resid_in=0.00575(1.16) resid_out=0.01876(0.49) ortho_in=0.02610(0.85) ortho_out=0.11960(1.05) locvar=0.00308 R/var=0.04204 [rho=0.25      shift  lattice harmonic rho=0.25      -5]
+   rho=1        resid_in=0.00646(1.31) resid_out=0.01678(0.43) ortho_in=0.02380(0.78) ortho_out=0.12200(1.07) locvar=0.00304 R/var=0.03914 [rho=1         shift  lattice harmonic rho=1         -5]
+   rho=per-tree resid_in=0.00646(1.31) resid_out=0.01678(0.43) ortho_in=0.02380(0.78) ortho_out=0.12200(1.07) locvar=0.00304 R/var=0.03914 [rho=per-tree  shift  lattice harmonic rho=per-tree  -5]
+   geo-mean ratio to baseline over splits (n = splits where both are defined)
+   selected     resid_in=1.369(n=8) resid_out=0.488(n=8) ortho_in=0.744(n=8) ortho_out=1.054(n=8)
+   rho=0        resid_in=1.390(n=8) resid_out=0.536(n=8) ortho_in=0.716(n=8) ortho_out=1.107(n=8)
+   rho=0.25     resid_in=1.193(n=8) resid_out=0.536(n=8) ortho_in=0.771(n=8) ortho_out=1.086(n=8)
+   rho=1        resid_in=1.369(n=8) resid_out=0.488(n=8) ortho_in=0.744(n=8) ortho_out=1.054(n=8)
+   rho=per-tree resid_in=1.369(n=8) resid_out=0.488(n=8) ortho_in=0.744(n=8) ortho_out=1.054(n=8)
+   selected / rho=0 (S4): resid_in=0.985(n=8) resid_out=0.912(n=8) ortho_in=1.039(n=8) ortho_out=0.952(n=8) locvar_in=1.112(n=8)
+##### nutrition: splits [0, 1, 2, 3, 4, 5, 6, 7]
+-- split 0: selection [shift  lattice zero     rho=per-tree  -3] R/var=0.12128 rho counts {0.0: 0, 0.25: 2, 1.0: 98}
+   baseline     resid_in=0.01786(1.00) resid_out=0.09695(1.00) ortho_in=0.01620(1.00) ortho_out=0.11430(1.00) locvar=nan
+   selected     resid_in=0.02716(1.52) resid_out=0.06522(0.67) ortho_in=0.01690(1.04) ortho_out=0.08790(0.77) locvar=0.00284
+   rho=0        resid_in=0.03009(1.68) resid_out=0.07253(0.75) ortho_in=0.01540(0.95) ortho_out=0.08170(0.71) locvar=0.00273 R/var=0.13628 [rho=0         shift  lattice zero     rho=0         -2]
+   rho=0.25     resid_in=0.02500(1.40) resid_out=0.07006(0.72) ortho_in=0.01650(1.02) ortho_out=0.08520(0.75) locvar=0.00283 R/var=0.12956 [rho=0.25      shift  lattice zero     rho=0.25      -3]
+   rho=1        resid_in=0.02716(1.52) resid_out=0.06525(0.67) ortho_in=0.01700(1.05) ortho_out=0.08790(0.77) locvar=0.00284 R/var=0.12129 [rho=1         shift  lattice zero     rho=1         -3]
+   rho=per-tree resid_in=0.02716(1.52) resid_out=0.06522(0.67) ortho_in=0.01690(1.04) ortho_out=0.08790(0.77) locvar=0.00284 R/var=0.12128 [rho=per-tree  shift  lattice zero     rho=per-tree  -3]
+-- split 1: selection [shift  lattice zero     rho=1         -4] R/var=0.11805 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.01612(1.00) resid_out=0.10092(1.00) ortho_in=0.01360(1.00) ortho_out=0.10470(1.00) locvar=nan
+   selected     resid_in=0.02317(1.44) resid_out=0.07530(0.75) ortho_in=0.01410(1.04) ortho_out=0.12280(1.17) locvar=0.00291
+   rho=0        resid_in=0.02371(1.47) resid_out=0.08246(0.82) ortho_in=0.01390(1.02) ortho_out=0.12280(1.17) locvar=0.00279 R/var=0.13457 [rho=0         shift  ridge   zero     rho=0         -2]
+   rho=0.25     resid_in=0.02007(1.25) resid_out=0.08248(0.82) ortho_in=0.01430(1.05) ortho_out=0.12190(1.16) locvar=0.00296 R/var=0.12550 [rho=0.25      shift  lattice zero     rho=0.25      -4]
+   rho=1        resid_in=0.02317(1.44) resid_out=0.07530(0.75) ortho_in=0.01410(1.04) ortho_out=0.12280(1.17) locvar=0.00291 R/var=0.11805 [rho=1         shift  lattice zero     rho=1         -4]
+   rho=per-tree resid_in=0.02312(1.43) resid_out=0.07580(0.75) ortho_in=0.01410(1.04) ortho_out=0.12300(1.17) locvar=0.00291 R/var=0.11833 [rho=per-tree  shift  lattice zero     rho=per-tree  -4]
+-- split 2: selection [shift  lattice zero     rho=1         -3] R/var=0.11353 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.01647(1.00) resid_out=0.10083(1.00) ortho_in=0.01310(1.00) ortho_out=0.10370(1.00) locvar=nan
+   selected     resid_in=0.02429(1.47) resid_out=0.07809(0.77) ortho_in=0.01380(1.05) ortho_out=0.10920(1.05) locvar=0.00233
+   rho=0        resid_in=0.02642(1.60) resid_out=0.08664(0.86) ortho_in=0.01480(1.13) ortho_out=0.10590(1.02) locvar=0.00232 R/var=0.12834 [rho=0         shift  lattice zero     rho=0         -2]
+   rho=0.25     resid_in=0.02207(1.34) resid_out=0.08296(0.82) ortho_in=0.01380(1.05) ortho_out=0.10700(1.03) locvar=0.00235 R/var=0.12115 [rho=0.25      shift  lattice zero     rho=0.25      -3]
+   rho=1        resid_in=0.02429(1.47) resid_out=0.07809(0.77) ortho_in=0.01380(1.05) ortho_out=0.10920(1.05) locvar=0.00233 R/var=0.11353 [rho=1         shift  lattice zero     rho=1         -3]
+   rho=per-tree resid_in=0.02429(1.47) resid_out=0.07809(0.77) ortho_in=0.01380(1.05) ortho_out=0.10920(1.05) locvar=0.00233 R/var=0.11353 [rho=per-tree  shift  lattice zero     rho=per-tree  -3]
+-- split 3: selection [common lattice harmonic rho=1         +0] R/var=0.10732 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.01933(1.00) resid_out=0.08495(1.00) ortho_in=0.01370(1.00) ortho_out=0.11690(1.00) locvar=nan
+   selected     resid_in=0.02521(1.30) resid_out=0.06369(0.75) ortho_in=0.01360(0.99) ortho_out=0.11730(1.00) locvar=0.00258
+   rho=0        resid_in=0.02151(1.11) resid_out=0.07016(0.83) ortho_in=0.01290(0.94) ortho_out=0.11140(0.95) locvar=0.00245 R/var=0.12024 [rho=0         shift  ridge   harmonic rho=0         -3]
+   rho=0.25     resid_in=0.02224(1.15) resid_out=0.06996(0.82) ortho_in=0.01330(0.97) ortho_out=0.12390(1.06) locvar=0.00258 R/var=0.11371 [rho=0.25      shift  lattice zero     rho=0.25      -5]
+   rho=1        resid_in=0.02521(1.30) resid_out=0.06369(0.75) ortho_in=0.01360(0.99) ortho_out=0.11730(1.00) locvar=0.00258 R/var=0.10732 [rho=1         common lattice harmonic rho=1         +0]
+   rho=per-tree resid_in=0.02521(1.30) resid_out=0.06369(0.75) ortho_in=0.01360(0.99) ortho_out=0.11730(1.00) locvar=0.00258 R/var=0.10732 [rho=per-tree  common lattice harmonic rho=per-tree  +0]
+-- split 4: selection [shift  lattice zero     rho=per-tree  -4] R/var=0.10774 rho counts {0.0: 3, 0.25: 0, 1.0: 97}
+   baseline     resid_in=0.01523(1.00) resid_out=0.09212(1.00) ortho_in=0.02460(1.00) ortho_out=0.07740(1.00) locvar=nan
+   selected     resid_in=0.02169(1.42) resid_out=0.08080(0.88) ortho_in=0.02630(1.07) ortho_out=0.08150(1.05) locvar=0.0023
+   rho=0        resid_in=0.02126(1.40) resid_out=0.08437(0.92) ortho_in=0.02300(0.93) ortho_out=0.07690(0.99) locvar=0.00217 R/var=0.12598 [rho=0         shift  ridge   zero     rho=0         -2]
+   rho=0.25     resid_in=0.01850(1.21) resid_out=0.08471(0.92) ortho_in=0.02490(1.01) ortho_out=0.08410(1.09) locvar=0.00232 R/var=0.11511 [rho=0.25      common lattice zero     rho=0.25      +0]
+   rho=1        resid_in=0.02179(1.43) resid_out=0.08002(0.87) ortho_in=0.02640(1.07) ortho_out=0.08040(1.04) locvar=0.0023 R/var=0.10794 [rho=1         shift  lattice zero     rho=1         -4]
+   rho=per-tree resid_in=0.02169(1.42) resid_out=0.08080(0.88) ortho_in=0.02630(1.07) ortho_out=0.08150(1.05) locvar=0.0023 R/var=0.10774 [rho=per-tree  shift  lattice zero     rho=per-tree  -4]
+-- split 5: selection [shift  lattice harmonic rho=1         -5] R/var=0.10704 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.01615(1.00) resid_out=0.08102(1.00) ortho_in=0.01880(1.00) ortho_out=0.09350(1.00) locvar=nan
+   selected     resid_in=0.02242(1.39) resid_out=0.05680(0.70) ortho_in=0.01940(1.03) ortho_out=0.10180(1.09) locvar=0.00257
+   rho=0        resid_in=0.02566(1.59) resid_out=0.06315(0.78) ortho_in=0.01910(1.02) ortho_out=0.10150(1.09) locvar=0.00241 R/var=0.12447 [rho=0         shift  lattice harmonic rho=0         -2]
+   rho=0.25     resid_in=0.01928(1.19) resid_out=0.06302(0.78) ortho_in=0.01930(1.03) ortho_out=0.09710(1.04) locvar=0.00255 R/var=0.11473 [rho=0.25      common lattice harmonic rho=0.25      +0]
+   rho=1        resid_in=0.02242(1.39) resid_out=0.05680(0.70) ortho_in=0.01940(1.03) ortho_out=0.10180(1.09) locvar=0.00257 R/var=0.10704 [rho=1         shift  lattice harmonic rho=1         -5]
+   rho=per-tree resid_in=0.02237(1.39) resid_out=0.05690(0.70) ortho_in=0.01940(1.03) ortho_out=0.10240(1.10) locvar=0.00257 R/var=0.10714 [rho=per-tree  shift  lattice harmonic rho=per-tree  -5]
+-- split 6: selection [shift  lattice zero     rho=1         -5] R/var=0.11667 rho counts {0.0: 0, 0.25: 0, 1.0: 100}
+   baseline     resid_in=0.01726(1.00) resid_out=0.13000(1.00) ortho_in=0.01790(1.00) ortho_out=0.17380(1.00) locvar=nan
+   selected     resid_in=0.02471(1.43) resid_out=0.09190(0.71) ortho_in=0.01990(1.11) ortho_out=0.19680(1.13) locvar=0.00395
+   rho=0        resid_in=0.02011(1.17) resid_out=0.10537(0.81) ortho_in=0.01910(1.07) ortho_out=0.18680(1.07) locvar=0.0039 R/var=0.13362 [rho=0         shift  ridge   zero     rho=0         -3]
+   rho=0.25     resid_in=0.02317(1.34) resid_out=0.09821(0.76) ortho_in=0.02000(1.12) ortho_out=0.19000(1.09) locvar=0.004 R/var=0.12318 [rho=0.25      shift  lattice zero     rho=0.25      -3]
+   rho=1        resid_in=0.02471(1.43) resid_out=0.09190(0.71) ortho_in=0.01990(1.11) ortho_out=0.19680(1.13) locvar=0.00395 R/var=0.11667 [rho=1         shift  lattice zero     rho=1         -5]
+   rho=per-tree resid_in=0.02471(1.43) resid_out=0.09190(0.71) ortho_in=0.01990(1.11) ortho_out=0.19680(1.13) locvar=0.00395 R/var=0.11667 [rho=per-tree  shift  lattice zero     rho=per-tree  -5]
+-- split 7: selection [shift  lattice harmonic rho=per-tree  -3] R/var=0.11506 rho counts {0.0: 1, 0.25: 0, 1.0: 99}
+   baseline     resid_in=0.01561(1.00) resid_out=0.10001(1.00) ortho_in=0.01350(1.00) ortho_out=0.14040(1.00) locvar=nan
+   selected     resid_in=0.02495(1.60) resid_out=0.07208(0.72) ortho_in=0.01470(1.09) ortho_out=0.16370(1.17) locvar=0.00279
+   rho=0        resid_in=0.02764(1.77) resid_out=0.07451(0.75) ortho_in=0.01390(1.03) ortho_out=0.14910(1.06) locvar=0.00248 R/var=0.13503 [rho=0         shift  lattice harmonic rho=0         -2]
+   rho=0.25     resid_in=0.02216(1.42) resid_out=0.07554(0.76) ortho_in=0.01380(1.02) ortho_out=0.16350(1.16) locvar=0.00278 R/var=0.12319 [rho=0.25      shift  lattice harmonic rho=0.25      -3]
+   rho=1        resid_in=0.02495(1.60) resid_out=0.07199(0.72) ortho_in=0.01470(1.09) ortho_out=0.16370(1.17) locvar=0.00278 R/var=0.11512 [rho=1         shift  lattice harmonic rho=1         -3]
+   rho=per-tree resid_in=0.02495(1.60) resid_out=0.07208(0.72) ortho_in=0.01470(1.09) ortho_out=0.16370(1.17) locvar=0.00279 R/var=0.11506 [rho=per-tree  shift  lattice harmonic rho=per-tree  -3]
+   geo-mean ratio to baseline over splits (n = splits where both are defined)
+   selected     resid_in=1.445(n=8) resid_out=0.741(n=8) ortho_in=1.053(n=8) ortho_out=1.047(n=8)
+   rho=0        resid_in=1.456(n=8) resid_out=0.811(n=8) ortho_in=1.010(n=8) ortho_out=1.001(n=8)
+   rho=0.25     resid_in=1.285(n=8) resid_out=0.797(n=8) ortho_in=1.033(n=8) ortho_out=1.040(n=8)
+   rho=1        resid_in=1.446(n=8) resid_out=0.740(n=8) ortho_in=1.054(n=8) ortho_out=1.045(n=8)
+   rho=per-tree resid_in=1.444(n=8) resid_out=0.742(n=8) ortho_in=1.053(n=8) ortho_out=1.048(n=8)
+   selected / rho=0 (S4): resid_in=0.992(n=8) resid_out=0.914(n=8) ortho_in=1.043(n=8) ortho_out=1.046(n=8) locvar_in=1.050(n=8)

@@ -1,5 +1,5 @@
 {
- "method": "<ROOT>/runs/treehfd-01/ideas/E1/method.py",
+ "method": "D:\\scientisttwo-lite\\runs\\treehfd-01\\ideas\\E1\\method.py",
  "method_sha256": "689745252472e7ac782a4139d0b08df9a91acc319b1cabfad6b6a292bc1d407d",
  "mode": "subset",
  "protocol": {
@@ -7,43 +7,43 @@
   "fetch_data.py": "a5b1c98740d31231525d1c80df5833e6bf7d8d74b7cb469f0e29e9f6ccd4f8c6",
   "harness.py": "29edf403bd53a01bdadbb67ce83a7317a33b2606be5a51ca3668e441f562aa4a",
   "runner.py": "378dfd6b265cb9c9d45ae55fb9a5eba3a379c3376858ed6d6a1becffd7277933",
-  "data/abalone.npz": "9f3f681a91bfc23fbe7251b66c0c53cb1b073ec6c26b7fbe28e6f4c419d20ac6",
-  "data/airfoil.npz": "a79fe8c851d46937ed3d464cac2a158695060df6af6e84e5b5cbd42e72aed827",
-  "data/bike.npz": "e30b5b5943529f5672f8f40ef7a6182d246dabec1ba9a6038cc588f5188e170e",
-  "data/concrete.npz": "2400d74a68d46c00e053cb59033b82d846855c838ed3342075881de33f25004f",
-  "data/housing.npz": "d04f95a46147555262bb5748d8450d43edb1780a392ac8c051d96c8fc3582706",
-  "data/nutrition.npz": "c02f0aad095eda777999e8f33020170efbdaddcb9c87951c85b4f22d0e0179f4",
-  "data/parkinson.npz": "21372677d2d87819f82776718081c3f69d6b44fb4e3ed1e559291d98c7c0fcf9",
-  "data/powerplant.npz": "4ecc969b5ceed556622cd9f9d0b2f0fd7f88b4acbaddf34d8f74e4fc7db1b489",
-  "data/superconduct.npz": "739a0acd2839467df32ce1f25ffa6e9648ba67208975ecc0ac69a7e5cffca8f4"
+  "data\\abalone.npz": "9f3f681a91bfc23fbe7251b66c0c53cb1b073ec6c26b7fbe28e6f4c419d20ac6",
+  "data\\airfoil.npz": "a79fe8c851d46937ed3d464cac2a158695060df6af6e84e5b5cbd42e72aed827",
+  "data\\bike.npz": "e30b5b5943529f5672f8f40ef7a6182d246dabec1ba9a6038cc588f5188e170e",
+  "data\\concrete.npz": "2400d74a68d46c00e053cb59033b82d846855c838ed3342075881de33f25004f",
+  "data\\housing.npz": "d04f95a46147555262bb5748d8450d43edb1780a392ac8c051d96c8fc3582706",
+  "data\\nutrition.npz": "c02f0aad095eda777999e8f33020170efbdaddcb9c87951c85b4f22d0e0179f4",
+  "data\\parkinson.npz": "21372677d2d87819f82776718081c3f69d6b44fb4e3ed1e559291d98c7c0fcf9",
+  "data\\powerplant.npz": "4ecc969b5ceed556622cd9f9d0b2f0fd7f88b4acbaddf34d8f74e4fc7db1b489",
+  "data\\superconduct.npz": "739a0acd2839467df32ce1f25ffa6e9648ba67208975ecc0ac69a7e5cffca8f4"
  },
  "errors": {},
  "analytical": {
   "mean": {
-   "mse_eta1": 0.028210903736303323,
-   "mse_eta2": 0.019854100554481266,
-   "mse_eta3": 0.01644503344164269,
-   "mse_eta4": 0.0168122923029576,
-   "mse_eta5": 0.0004868918160317889,
-   "mse_eta6": 0.00038517029424088995,
-   "mse_eta12": 0.03415310414629374,
-   "mse_eta34": 0.030863297888006246,
-   "mse_others": 0.0017250758036176043,
-   "resid_out": 0.00817783856925032,
-   "fit_s": 43.75585103034973
+   "mse_eta1": 0.026887946594244178,
+   "mse_eta2": 0.01833188541545429,
+   "mse_eta3": 0.01712057193780363,
+   "mse_eta4": 0.01764975953259371,
+   "mse_eta5": 0.000301912313049168,
+   "mse_eta6": 0.0005138422129280304,
+   "mse_eta12": 0.03209721591361734,
+   "mse_eta34": 0.030304259639310955,
+   "mse_others": 0.0016022293204355994,
+   "resid_out": 0.007681630558029353,
+   "fit_s": 66.58624696731567
   },
   "std": {
-   "mse_eta1": 0.0007574292744686011,
-   "mse_eta2": 0.005116692715881424,
-   "mse_eta3": 0.0036245398981574603,
-   "mse_eta4": 0.004669911324622172,
-   "mse_eta5": 0.00010679163139594237,
-   "mse_eta6": 0.00030974848106320765,
-   "mse_eta12": 0.0025120351637178983,
-   "mse_eta34": 0.0007512281796952505,
-   "mse_others": 0.00013015777352060157,
-   "resid_out": 0.0003511069167390174,
-   "fit_s": 5.420628016631635
+   "mse_eta1": 0.0009090470834213745,
+   "mse_eta2": 0.002869110920261794,
+   "mse_eta3": 0.0028445023752951782,
+   "mse_eta4": 0.004653967492593202,
+   "mse_eta5": 0.00012921208053356083,
+   "mse_eta6": 0.00019306351140844363,
+   "mse_eta12": 0.0008752631687980071,
+   "mse_eta34": 0.0036573247206293483,
+   "mse_others": 0.00016307813638157255,
+   "resid_out": 0.0010246598068608835,
+   "fit_s": 2.4212812861045574
   },
   "reps": 3
  },
@@ -52,35 +52,35 @@
    "n": 1503,
    "p": 5,
    "xgb_r2_test": 0.9402295658572855,
-   "resid_in": 0.01203887707174302,
+   "resid_in": 0.012038877071743195,
    "resid_out": 0.018953371734040714,
-   "ortho_in": 0.014371537538422373,
-   "ortho_out": 0.09391517644213028,
-   "locvar_in": 2.8876276214323186e-05,
-   "fit_s": 11.128561973571777
+   "ortho_in": 0.014371537538527733,
+   "ortho_out": 0.09391517644212588,
+   "locvar_in": 2.8876276214307156e-05,
+   "fit_s": 9.852252006530762
   },
   "concrete": {
    "n": 1030,
    "p": 8,
    "xgb_r2_test": 0.9098943178589508,
-   "resid_in": 0.0025309033189515875,
-   "resid_out": 0.019747071330578233,
-   "ortho_in": 0.006938958399090186,
-   "ortho_out": 0.06964650174225964,
-   "locvar_in": 0.018479619539767653,
-   "fit_s": 12.673608779907227
+   "resid_in": 0.002530903318951437,
+   "resid_out": 0.01974707133056555,
+   "ortho_in": 0.006938958399089292,
+   "ortho_out": 0.06964650174216641,
+   "locvar_in": 0.01847894900799807,
+   "fit_s": 14.422168731689453
   },
   "abalone": {
    "n": 4177,
    "p": 9,
    "xgb_r2_test": 0.5471054588481685,
-   "resid_in": 0.0061396252943990495,
-   "resid_out": 0.01991205887321567,
-   "ortho_in": 0.027964289944020244,
-   "ortho_out": 0.04268993375470363,
-   "locvar_in": 0.00260757023607921,
-   "fit_s": 31.605283975601196
+   "resid_in": 0.006270337023636445,
+   "resid_out": 0.01930715977755649,
+   "ortho_in": 0.027981845943132196,
+   "ortho_out": 0.04447022239485082,
+   "locvar_in": 0.002453688175041349,
+   "fit_s": 34.785157680511475
   }
  },
- "wall_s": 192.17037796974182
+ "wall_s": 272.5547847747803
 }
