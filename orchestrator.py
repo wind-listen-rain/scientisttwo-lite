@@ -204,7 +204,7 @@ class Run:
 
     def _watch(self):
         """看门狗：每 3 分钟更新心跳、查用量；用量到 90%（7 天窗口 97%）时先存档一次；运行中每 30 分钟存档一次。"""
-        last_save, saved_window = time.time(), None
+        last_save, last_hot = time.time(), 0.0
         while True:
             time.sleep(180)
             try:
@@ -215,8 +215,9 @@ class Run:
                 if self.status != "running":
                     continue
                 fh, sd = (self.usage or {}).get("five_hour") or {}, (self.usage or {}).get("seven_day") or {}
-                if (fh.get("pct", 0) >= 90 or sd.get("pct", 0) >= 97) and saved_window != fh.get("resets_at"):
-                    saved_window = fh.get("resets_at")
+                # 高用量存档 30 分钟内只做一次（重置时间每次查询有亚秒级抖动，不能拿它判断是不是同一个窗口）
+                if (fh.get("pct", 0) >= 90 or sd.get("pct", 0) >= 97) and time.time() - last_hot > 1800:
+                    last_hot = time.time()
                     self.checkpoint(f"用量已到 {fh.get('pct')}%（7 天窗口 {sd.get('pct')}%），额度用尽前先存档")
                     last_save = time.time()
                 elif time.time() - last_save > 1800:
