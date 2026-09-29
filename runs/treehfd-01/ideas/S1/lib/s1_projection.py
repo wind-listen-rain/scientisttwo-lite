@@ -32,8 +32,10 @@ RIDGE = 1e-8        # numerical ridge on the normal equations, in units of rows
 # thin bins are pooled with their neighbours. tau = inf forces g_j, g_k constant, i.e. no transfer for the pair.
 TAU_GRID = (0.0, 1.0, 3.0, 10.0, 30.0, 100.0, 300.0, 1e3, 1e4, np.inf)
 SE_RULE = 2.0       # step 1: paired "z standard errors" rule (0 = plain argmin of the held-out error)
+STEP1 = False       # step 1 (union-bin transfer); off by default since this revision (ablation only, see NOTES.md)
 CLOSE = True        # step 2 (closing step on the final main effects)
-CLOSE_Z = 0.0       # step 2: >0 moves a pair only if its leak is significant at |N(0,1)| > CLOSE_Z (ablation)
+SHRINK = "pair_eb"  # step 2: empirical-Bayes shrinkage of each pair's transfer (see _close); "none" = move all
+CLOSE_Z = 2.0       # step 2 with shrink="pair_gate" only (ablation): Wald gate at |N(0,1)| > CLOSE_Z
 SCALE_BOUNDS = (0.5, 2.0)  # step 2 is skipped for a variable whose main effect would be rescaled outside these bounds
 DIRECTIONS = False  # step 1: add the parents' main effects as unpenalised columns (ablation only, see NOTES.md)
 
@@ -196,21 +198,32 @@ def _choose(loss, leak, criterion, se_rule):
     return t_min
 
 
-def _close(main, inter, il, cols, z=CLOSE_Z, bounds=SCALE_BOUNDS):
+def _close(main, inter, il, cols, z=CLOSE_Z, bounds=SCALE_BOUNDS, shrink=SHRINK):
     """Step 2: per pair, least squares of eta_jk on its parents' main effects; returns (coef (K, 2), scale (p,)).
 
-    With z > 0 (ablation; the default z = 0 moves every pair), a pair is moved only if its leak is significant: robust
-    (HC0 sandwich) Wald statistic of the coefficients above the chi-square quantile with the tail probability of
-    |N(0,1)| > z. A variable whose rescale factor falls outside `bounds` is excluded and the pairs are refitted without
-    it, until all factors are within bounds.
+    shrink (how much of the in-sample leak is moved; w = 1 moves all of it, exact in-sample orthogonality):
+      "none":    w = 1 for every coefficient.
+      "var_eb":  per variable j, the aggregate rescale t_j = sum_c a_cj is shrunk by the empirical-Bayes factor
+                 w_j = max(0, 1 - se_j^2 / t_j^2), with se_j its HC0 (row-influence sandwich) standard error over all
+                 pairs containing j; every coefficient a_cj is multiplied by w_j. A main effect is rescaled only in
+                 proportion to the evidence that its leak is not row-sampling noise.
+      "coef_eb": the same factor per coefficient, max(0, 1 - se_cj^2 / a_cj^2).
+      "pair_eb": per pair, max(0, 1 - q / W_c), with W_c the robust Wald statistic of its q coefficients.
+      "pair_gate": (older ablation) a pair is moved only if its robust Wald statistic exceeds the chi-square quantile
+                 with the tail probability of |N(0,1)| > z.
+    A variable whose rescale factor falls outside `bounds` is excluded and the pairs are refitted without it, until all
+    factors are within bounds.
     """
     p = main.shape[1]
+    n = main.shape[0]
     Mc = main - main.mean(0)
     var = np.mean(Mc ** 2, 0)
     excluded = var <= 1e-12 * max(var.max(), 1e-300)
     alpha = 2.0 * norm.sf(z)
     for _ in range(p + 1):
         coef = np.zeros((len(il), 2))
+        se = np.zeros((len(il), 2))
+        psi = np.zeros((n, p))  # row influence on the aggregate rescale t_j
         for c in cols:
             j, k = il[c]
             use = [a for a, v in enumerate((j, k)) if not excluded[v]]
@@ -219,17 +232,35 @@ def _close(main, inter, il, cols, z=CLOSE_Z, bounds=SCALE_BOUNDS):
             Z = Mc[:, [(j, k)[a] for a in use]]
             y = inter[:, c] - inter[:, c].mean()
             beta = np.linalg.lstsq(Z, y, rcond=None)[0]
-            if z > 0:
+            infl = None
+            if shrink != "none":
                 e = y - Z @ beta
-                bread = np.linalg.pinv(Z.T @ Z)
-                V = bread @ ((Z * (e * e)[:, None]).T @ Z) @ bread
+                infl = (Z * e[:, None]) @ np.linalg.pinv(Z.T @ Z)  # (n, q): row i's influence on beta
+                se[c, use] = np.sqrt(np.sum(infl * infl, 0))
+                for a, u in enumerate(use):
+                    psi[:, (j, k)[u]] += infl[:, a]
+            if shrink in ("pair_gate", "pair_eb"):
+                V = infl.T @ infl
                 try:
                     wald = float(beta @ np.linalg.solve(V, beta))
                 except np.linalg.LinAlgError:
                     wald = np.inf
-                if not wald > chi2.isf(alpha, len(use)):
+                if shrink == "pair_gate" and not wald > chi2.isf(alpha, len(use)):
                     continue
+                if shrink == "pair_eb":
+                    beta = beta * max(0.0, 1.0 - len(use) / wald) if wald > 0 else 0.0 * beta
             coef[c, use] = beta
+        if shrink == "coef_eb":
+            coef *= np.clip(1.0 - se ** 2 / np.maximum(coef ** 2, 1e-300), 0.0, 1.0)
+        elif shrink == "var_eb":
+            t = np.zeros(p)
+            for c in cols:
+                j, k = il[c]
+                t[j] += coef[c, 0]
+                t[k] += coef[c, 1]
+            se_t = np.sqrt(np.sum(psi * psi, 0))
+            w = np.clip(1.0 - se_t ** 2 / np.maximum(t ** 2, 1e-300), 0.0, 1.0)
+            coef *= w[il]
         scale = np.ones(p)
         for c in cols:
             j, k = il[c]
@@ -244,7 +275,7 @@ def _close(main, inter, il, cols, z=CLOSE_Z, bounds=SCALE_BOUNDS):
 
 def fit_projection(eta0, main_tr, inter_tr, inter_list, X, xgb_table, m_min=M_MIN, tau_grid=TAU_GRID,
                    n_folds=N_FOLDS, criterion="mse", se_rule=SE_RULE, close=CLOSE, directions=DIRECTIONS,
-                   close_z=CLOSE_Z):
+                   close_z=CLOSE_Z, shrink=SHRINK, step1=STEP1):
     """Fit the transfers on X_train. Returns (state dict, new intercept, diagnostics).
 
     Step 1 model per pair: eta_jk ~ g_j(b_j) + g_k(b_k) [+ beta_j eta_j + beta_k eta_k if directions], where eta_j are
@@ -255,10 +286,10 @@ def fit_projection(eta0, main_tr, inter_tr, inter_list, X, xgb_table, m_min=M_MI
       "leak": _leak(residual, [eta_j + transfer_j, eta_k + transfer_k]) (plain argmin, for ablations).
     """
     n, p = X.shape
-    edges = union_edges(xgb_table, X, min_count(n, m_min))
-    bins = [np.digitize(X[:, j], edges[j]) for j in range(p)]
+    edges = union_edges(xgb_table, X, min_count(n, m_min)) if step1 else [np.empty(0)] * p
+    bins = [np.digitize(X[:, j], edges[j]) for j in range(p)] if step1 else None
     nbins = [e.size + 1 for e in edges]
-    pens = [diff_penalty(b) for b in nbins]
+    pens = [diff_penalty(b) for b in nbins] if step1 else None
     il = np.asarray(inter_list, dtype=int).reshape(-1, 2)
     nonzero = [c for c in range(il.shape[0]) if np.var(inter_tr[:, c]) > 0]
     mvar = np.var(main_tr, 0)
@@ -266,7 +297,7 @@ def fit_projection(eta0, main_tr, inter_tr, inter_list, X, xgb_table, m_min=M_MI
     G = len(tau_grid)
     t_best = {}
     pairs, shift = [], 0.0
-    for c in nonzero:
+    for c in (nonzero if step1 else []):
         j, k = il[c]
         if nbins[j] == 1 and nbins[k] == 1:
             continue
@@ -293,7 +324,7 @@ def fit_projection(eta0, main_tr, inter_tr, inter_list, X, xgb_table, m_min=M_MI
                 n_pairs=il.shape[0], n_bins=nbins)
     if close and nonzero:
         main1, inter1 = apply_projection(proj, main_tr, inter_tr, X)
-        proj["coef"], proj["scale"] = _close(main1, inter1, il, nonzero, close_z)
+        proj["coef"], proj["scale"] = _close(main1, inter1, il, nonzero, close_z, shrink=shrink)
         diag["n_closed"] = int(np.any(proj["coef"] != 0, axis=1).sum())
         diag["scale"] = proj["scale"].tolist()
     return proj, float(eta0) + shift, diag

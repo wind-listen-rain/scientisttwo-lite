@@ -3,6 +3,10 @@
 
 import numpy as np
 
+# S1: seed of the tie-break between equally close training cells (baseline: unseeded, None);
+# a fresh generator per call makes predictions deterministic and independent of call order.
+TIE_SEED = 0
+
 
 class CartesianTreePartition:
     """Cartesian tree partition.
@@ -212,7 +216,7 @@ class CartesianTreePartition:
                     index_min = np.where(cell_distance
                                          == np.min(cell_distance))[0]
                     counts = self.counts_list[k][index_min]
-                    index_rand = np.random.default_rng().choice(
+                    index_rand = np.random.default_rng(TIE_SEED).choice(
                         np.where(counts == np.max(counts))[0], size=1)[0]
                     cell_index_train = index_min[index_rand]
                 else:

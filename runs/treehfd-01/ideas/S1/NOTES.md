@@ -52,8 +52,8 @@ sum-preserving re-orthogonalization (`lib/s1_projection.py`), fitted on X_train 
      Across all 12 dev datasets the factors stay within [0.85, 1.37], so the guard never triggered.
    - At predict time, the stored coefficients are applied to the step-1 main effects at the new points.
 
-Both steps are pointwise sum-preserving. The reconstruction changes by <= 2e-9 relative on train and eval points (checked
-on all dev datasets).
+Both steps are pointwise sum-preserving. On every dev dataset, the normalised resid_in / resid_out change by
+<= 2e-9 (floating point).
 
 ## Hyper-parameters
 | name | value | role |
@@ -90,8 +90,8 @@ their results are in the git history of this file.
 - **Result.** ortho_in is below 2e-16 on every dataset, so ortho_in is no longer an informative metric for this method.
 
 ### 2. locvar_in regression
-- **Diagnosis (superconduct, old configuration).** Main effects there hold 1e-5 to 4e-3 of Var T each, and every
-  variable sits in about 72 pairs. The step-1 transfers into x12 have a bin-to-bin roughness index
+- **Diagnosis (superconduct, with n^(2/3) bins and the 2-SE rule).** Main effects there hold 1e-5 to 4e-3 of Var T
+  each, and every variable sits in about 72 pairs. The step-1 transfers into x12 have a bin-to-bin roughness index
   (`sum (dg)^2 / (var(g) * n_bins)`) of about 0.4-1.5, which is close to white noise. The cross-fit still judged most of
   them significant (n = 17010).
 - **Interpretation.** The additive leak TreeHFD leaves in its aggregated interactions is itself step-shaped: it comes
@@ -107,7 +107,7 @@ their results are in the git history of this file.
   - z = 3 or 4.5 in the SE rule changed superconduct only slightly (1.20x, 1.16x), so the bin size is the effective lever.
 - **Tried and rejected:** adding the parents' main effects as unpenalised columns in step 1 (`directions=True`). The
   bin terms then capture only the rough residual structure beyond the main-effect direction, and locvar rose (concrete
-  1.11x; 1.75x with n^(2/3) bins).
+  1.11x with the final bins; airfoil 2.49x and concrete 1.75x with 30-row bins).
 - **Not tried:** a second-difference penalty. Its tau -> inf limit is a linear trend in bin index, not "no transfer",
   so "no transfer" would need a separate candidate. The coarse bins already brought locvar to about 1.0x.
 - **The critic's "joint leak + roughness criterion"** is played by the SE rule: it takes the smoothest candidate that is
@@ -207,7 +207,7 @@ The baseline's eval-time tie-break jitter is about ±1% on these values (see Unc
 
 ## Honest assessment
 - **Reconstruction is untouched.** resid_in is identical. resid_out differs only by the baseline's own eval-time
-  tie-break jitter; the transfers change the reconstruction by <= 2e-9 relative.
+  tie-break jitter; the transfers change the normalised residuals by <= 2e-9.
 - **ortho_in is 0 by construction**, so it no longer discriminates. The informative metric is ortho_out.
 - **ortho_out is clearly better only where the eval set is large enough to tell:**
   - analytical reps 0 and 1: 0.080 -> 0.045 and 0.109 -> 0.048. Rep 2 is 0.063 -> 0.055, but the bootstrap is
