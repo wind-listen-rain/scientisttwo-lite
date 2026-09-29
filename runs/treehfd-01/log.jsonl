@@ -63,3 +63,4 @@
 {"event": "downtime", "msg": "上次心跳在 0.1 小时前（star-of-wind，running），这段时间不计入预算", "t": "2026-09-29 09:36:15"}
 {"event": "start", "msg": "dry=False host=star-of-wind env=22b414443084 cfg={'lim_rounds': 3, 'n_seed': 4, 'max_rounds': 2, 'successes': 2, 'n_eng': 2, 'n_abl': 1, 'n_peer': 2, 'review_threshold': 8, 'n_meta': 1, 'max_hours': 20, 'max_calls': 110, 'agent_timeout': 3600}", "t": "2026-09-29 09:36:24"}
 {"event": "resume", "role": "coder", "msg": "续接上次没做完的会话 2862ba89-7e23-4bef-ac64-d9987719e58f（2026-09-29 09:31:46 开始）", "t": "2026-09-29 09:36:25"}
+{"event": "wait", "msg": "订阅用量上限，等待 185 分钟后重试：You've hit your session limit · resets 12:50pm (Asia/Shanghai)", "t": "2026-09-29 09:47:39"}
