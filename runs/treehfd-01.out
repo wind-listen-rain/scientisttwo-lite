@@ -128,3 +128,9 @@ tep 等步骤 idea_E1 完成后停下编排器并重启 autopilot（当前 autop
 [2026-09-29 15:06:39] wait  订阅用量上限，等待 166 分钟后重试：You've hit your session limit · resets 5:50pm (Asia/Shanghai)
 [checkpoint] 撞到订阅用量上限，预计 09-29 17:52 重置 → pushed
 [2026-09-29 17:54:05] agent ablation_coder {"status": "done", "files": ["<ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_shrinkage_direct_solver_only.py", "<ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_lattice_prior_ridge_zero_only.py", "<ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_e
+[checkpoint] 定时存档 → pushed
+[2026-09-29 18:03:34] eval  full <ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_lattice_prior_ridge_zero_only.py 568s errors=[]
+[2026-09-29 18:07:53] eval  full <ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_shrinkage_direct_solver_only.py 827s errors=[]
+[2026-09-29 18:08:17] eval  full <ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_ensemble_level_kappa_step.py 851s errors=[]
+[2026-09-29 18:25:28] eval  full <ROOT>/runs/treehfd-01/ideas/S4/ablations/method_soft_orthogonality_rows.py 1314s errors=[]
+[2026-09-29 18:25:52] agent ablation_critic {"decision": "refine", "feedback": "The breakdown is not clean. Much of the gain comes from the solver and the deterministic unseen-cell rule, not from Good-Turing/PRESS shrinkage, and one metric family regresses.\n\n1. Attribution. The 'direct solver only' ablation (no shrinkage) already gets most 

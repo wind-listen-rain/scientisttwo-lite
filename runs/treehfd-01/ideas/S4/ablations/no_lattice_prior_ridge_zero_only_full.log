@@ -1,0 +1,21 @@
+[harness] full 模式评测 <ROOT>\runs\treehfd-01\ideas\S4\ablations\method_no_lattice_prior_ridge_zero_only.py
+  analytical rep 1/10: eta12=0.0446 eta1=0.0282
+  analytical rep 2/10: eta12=0.0375 eta1=0.0270
+  analytical rep 3/10: eta12=0.0486 eta1=0.0259
+  analytical rep 4/10: eta12=0.0394 eta1=0.0342
+  analytical rep 5/10: eta12=0.0399 eta1=0.0226
+  analytical rep 6/10: eta12=0.0442 eta1=0.0402
+  analytical rep 7/10: eta12=0.0613 eta1=0.0214
+  analytical rep 8/10: eta12=0.0371 eta1=0.0276
+  analytical rep 9/10: eta12=0.0385 eta1=0.0308
+  analytical rep 10/10: eta12=0.0413 eta1=0.0256
+  abalone: resid_in=0.0059 resid_out=0.0270 ortho_in=0.02586109907760526 locvar=0.002533 fit=8.6s
+  airfoil: resid_in=0.0108 resid_out=0.0297 ortho_in=0.007656932545732558 locvar=5.321e-05 fit=2.2s
+  bike: resid_in=0.0214 resid_out=0.0246 ortho_in=0.01337024604768114 locvar=0.0003112 fit=24.3s
+  housing: resid_in=0.0107 resid_out=0.0142 ortho_in=0.02859550367799365 locvar=0.001338 fit=69.2s
+  concrete: resid_in=0.0020 resid_out=0.0207 ortho_in=0.007239166022190831 locvar=0.008632 fit=3.9s
+  nutrition: resid_in=0.0251 resid_out=0.0728 ortho_in=0.015653286208325557 locvar=0.00264 fit=6.6s
+  parkinson: resid_in=0.0073 resid_out=0.0096 ortho_in=0.08203877019246411 locvar=0.004348 fit=25.4s
+  powerplant: resid_in=0.0007 resid_out=0.0011 ortho_in=None locvar=0.0005231 fit=17.9s
+  superconduct: resid_in=0.0102 resid_out=0.0091 ortho_in=None locvar=0.0006528 fit=173.2s
+[harness] 完成，用时 566s，错误 []
