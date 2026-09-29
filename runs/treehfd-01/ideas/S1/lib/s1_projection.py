@@ -2,10 +2,11 @@
 
 Step 1 (union-bin transfer). For every retained pair (j, k), the aggregated TreeHFD interaction eta_jk is regressed on
 an additive, piecewise constant model g_j(b_j) + g_k(b_k) under the empirical measure of X_train, where b_j indexes the
-bins of the union of all split thresholds of the ensemble on x_j (merged to a minimum count). A first-difference penalty
-along the ordered bins smooths g; its strength is chosen per pair by K-fold cross-fitting on the rows of X_train (no
-labels involved) with a paired one-standard-error rule: the smoothest candidate -- including "no transfer" -- whose
-held-out error is not significantly worse than the best one is kept. The fitted part is moved to the main effects:
+bins of the union of all split thresholds of the ensemble on x_j (merged to a minimum count, about n^(1/4) bins). A
+first-difference penalty along the ordered bins smooths g; its strength is chosen per pair by K-fold cross-fitting on the
+rows of X_train (no labels involved) with a paired two-standard-error rule: the smoothest candidate -- including "no
+transfer" -- whose held-out error is not significantly worse than the best one is kept. The fitted part is moved to the
+main effects:
     eta_jk <- eta_jk - g_j - g_k,  eta_j <- eta_j + g_j - c_j,  eta_k <- eta_k + g_k - c_k,  eta0 <- eta0 + c_j + c_k.
 
 Step 2 (closing step on the final main effects). Merged bins (and the smoothing) do not span the final main effects
@@ -20,20 +21,31 @@ Both steps leave intercept + sum(main) + sum(inter) unchanged at every x.
 """
 import numpy as np
 from scipy.linalg import LinAlgError, cho_factor, cho_solve, solve
+from scipy.stats import chi2, norm
 
-M_MIN = 30          # minimum number of X_train rows per merged union bin
+M_MIN = None        # minimum X_train rows per merged union bin; None = max(M_FLOOR, n^M_EXP), see min_count
+M_FLOOR = 30
+M_EXP = 0.75        # rows per bin ~ n^(3/4), i.e. about n^(1/4) bins per variable
 N_FOLDS = 3         # cross-fitting folds (deterministic: row index mod N_FOLDS)
 RIDGE = 1e-8        # numerical ridge on the normal equations, in units of rows
 # Difference-penalty grid, lambda = tau in units of rows: bins holding many more than tau rows are barely smoothed,
 # thin bins are pooled with their neighbours. tau = inf forces g_j, g_k constant, i.e. no transfer for the pair.
 TAU_GRID = (0.0, 1.0, 3.0, 10.0, 30.0, 100.0, 300.0, 1e3, 1e4, np.inf)
-SE_RULE = 1.0       # paired one-standard-error rule (0 = plain argmin of the held-out error)
+SE_RULE = 2.0       # step 1: paired "z standard errors" rule (0 = plain argmin of the held-out error)
 CLOSE = True        # step 2 (closing step on the final main effects)
+CLOSE_Z = 0.0       # step 2: >0 moves a pair only if its leak is significant at |N(0,1)| > CLOSE_Z (ablation)
 SCALE_BOUNDS = (0.5, 2.0)  # step 2 is skipped for a variable whose main effect would be rescaled outside these bounds
-DIRECTIONS = True  # step 1 includes the parents' main effects as unpenalised columns (see fit_projection)
+DIRECTIONS = False  # step 1: add the parents' main effects as unpenalised columns (ablation only, see NOTES.md)
 
 
-def union_edges(xgb_table, X, m_min=M_MIN):
+def min_count(n, m_min=M_MIN):
+    """Rows per merged bin. Default n^(3/4), i.e. about n^(1/4) bins: deliberately coarser than the MSE-optimal n^(1/3)
+    bins of a histogram regression, so that step 1 only makes coarse (smooth, reliably estimated) shape corrections;
+    the fine-grid part along the final main effects is left to step 2, which adds no roughness. Never below M_FLOOR."""
+    return int(m_min) if m_min else max(M_FLOOR, int(np.ceil(n ** M_EXP)))
+
+
+def union_edges(xgb_table, X, m_min=M_FLOOR):
     """Union of all split thresholds of the ensemble per variable, greedily merged so each bin holds >= m_min rows."""
     edges = []
     feat = xgb_table["Feature"].to_numpy()
@@ -97,8 +109,11 @@ class PairSystem:
         C = np.bincount(bj * nbk + bk, minlength=nbj * nbk).reshape(nbj, nbk).astype(float)
         rj = np.bincount(bj, weights=yr, minlength=nbj)
         rk = np.bincount(bk, weights=yr, minlength=nbk)
-        Uj = np.stack([np.bincount(bj, weights=u, minlength=nbj) for u in U.T], 1).reshape(nbj, -1)
-        Uk = np.stack([np.bincount(bk, weights=u, minlength=nbk) for u in U.T], 1).reshape(nbk, -1)
+        Uj = np.zeros((nbj, U.shape[1]))
+        Uk = np.zeros((nbk, U.shape[1]))
+        for a in range(U.shape[1]):
+            Uj[:, a] = np.bincount(bj, weights=U[:, a], minlength=nbj)
+            Uk[:, a] = np.bincount(bk, weights=U[:, a], minlength=nbk)
         return nj, nk, C, rj, rk, Uj, Uk, U.T @ U, U.T @ yr
 
     def solve(self, st, tau):
@@ -181,16 +196,19 @@ def _choose(loss, leak, criterion, se_rule):
     return t_min
 
 
-def _close(main, inter, il, cols, bounds=SCALE_BOUNDS):
+def _close(main, inter, il, cols, z=CLOSE_Z, bounds=SCALE_BOUNDS):
     """Step 2: per pair, least squares of eta_jk on its parents' main effects; returns (coef (K, 2), scale (p,)).
 
-    A variable whose resulting rescale factor falls outside `bounds` (main effect too weak to carry the transfer) is
-    excluded and the pairs are refitted without it, until all factors are within bounds.
+    With z > 0 (ablation; the default z = 0 moves every pair), a pair is moved only if its leak is significant: robust
+    (HC0 sandwich) Wald statistic of the coefficients above the chi-square quantile with the tail probability of
+    |N(0,1)| > z. A variable whose rescale factor falls outside `bounds` is excluded and the pairs are refitted without
+    it, until all factors are within bounds.
     """
     p = main.shape[1]
     Mc = main - main.mean(0)
     var = np.mean(Mc ** 2, 0)
     excluded = var <= 1e-12 * max(var.max(), 1e-300)
+    alpha = 2.0 * norm.sf(z)
     for _ in range(p + 1):
         coef = np.zeros((len(il), 2))
         for c in cols:
@@ -200,7 +218,18 @@ def _close(main, inter, il, cols, bounds=SCALE_BOUNDS):
                 continue
             Z = Mc[:, [(j, k)[a] for a in use]]
             y = inter[:, c] - inter[:, c].mean()
-            coef[c, use] = np.linalg.lstsq(Z, y, rcond=None)[0]
+            beta = np.linalg.lstsq(Z, y, rcond=None)[0]
+            if z > 0:
+                e = y - Z @ beta
+                bread = np.linalg.pinv(Z.T @ Z)
+                V = bread @ ((Z * (e * e)[:, None]).T @ Z) @ bread
+                try:
+                    wald = float(beta @ np.linalg.solve(V, beta))
+                except np.linalg.LinAlgError:
+                    wald = np.inf
+                if not wald > chi2.isf(alpha, len(use)):
+                    continue
+            coef[c, use] = beta
         scale = np.ones(p)
         for c in cols:
             j, k = il[c]
@@ -214,7 +243,8 @@ def _close(main, inter, il, cols, bounds=SCALE_BOUNDS):
 
 
 def fit_projection(eta0, main_tr, inter_tr, inter_list, X, xgb_table, m_min=M_MIN, tau_grid=TAU_GRID,
-                   n_folds=N_FOLDS, criterion="mse", se_rule=SE_RULE, close=CLOSE, directions=DIRECTIONS):
+                   n_folds=N_FOLDS, criterion="mse", se_rule=SE_RULE, close=CLOSE, directions=DIRECTIONS,
+                   close_z=CLOSE_Z):
     """Fit the transfers on X_train. Returns (state dict, new intercept, diagnostics).
 
     Step 1 model per pair: eta_jk ~ g_j(b_j) + g_k(b_k) [+ beta_j eta_j + beta_k eta_k if directions], where eta_j are
@@ -225,7 +255,7 @@ def fit_projection(eta0, main_tr, inter_tr, inter_list, X, xgb_table, m_min=M_MI
       "leak": _leak(residual, [eta_j + transfer_j, eta_k + transfer_k]) (plain argmin, for ablations).
     """
     n, p = X.shape
-    edges = union_edges(xgb_table, X, m_min)
+    edges = union_edges(xgb_table, X, min_count(n, m_min))
     bins = [np.digitize(X[:, j], edges[j]) for j in range(p)]
     nbins = [e.size + 1 for e in edges]
     pens = [diff_penalty(b) for b in nbins]
@@ -263,7 +293,8 @@ def fit_projection(eta0, main_tr, inter_tr, inter_list, X, xgb_table, m_min=M_MI
                 n_pairs=il.shape[0], n_bins=nbins)
     if close and nonzero:
         main1, inter1 = apply_projection(proj, main_tr, inter_tr, X)
-        proj["coef"], proj["scale"] = _close(main1, inter1, il, nonzero)
+        proj["coef"], proj["scale"] = _close(main1, inter1, il, nonzero, close_z)
+        diag["n_closed"] = int(np.any(proj["coef"] != 0, axis=1).sum())
         diag["scale"] = proj["scale"].tolist()
     return proj, float(eta0) + shift, diag
 

@@ -1,9 +1,11 @@
 """S1: TreeHFD + ensemble-level re-orthogonalization of the interactions on the union-of-splits partition.
 
-TreeHFD is fitted exactly as in the baseline; then, for each interaction (j, k), its additive part on the union of the
-ensemble's split thresholds (cross-fitted difference-penalised least squares, see lib/s1_projection.py) is moved into
-the main effects eta_j, eta_k and the intercept. The move is pointwise sum-preserving, so the reconstruction is the
-baseline's at every x.
+TreeHFD is fitted exactly as in the baseline. Then, for each interaction (j, k):
+  step 1: its additive part on coarse bins of the union of the ensemble's split thresholds (cross-fitted,
+          difference-penalised least squares with a two-standard-error rule) is moved into eta_j, eta_k and the intercept;
+  step 2: its component along its parents' final main effects is moved into them (a rescaling of eta_j), which makes
+          every interaction exactly uncorrelated with its parents' main effects under the empirical measure of X_train.
+Both moves are pointwise sum-preserving, so the reconstruction is the baseline's at every x. See lib/s1_projection.py.
 """
 import sys
 from pathlib import Path

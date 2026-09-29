@@ -58,7 +58,7 @@ def run(name, **kw):
     scs = "" if sc is None else f" scale [{min(sc):.3f},{max(sc):.3f}]"
     print(f"{name:12s} ortho_in {f(base[0])}->{f(new[0])}  ortho_out {f(base[1])}->{f(new[1])}  "
           f"locvar {base[2]:.4g}->{new[2]:.4g} ({new[2] / base[2]:.2f}x)  |dresid| {dr:.0e}  "
-          f"proj {t1 - t0:.2f}s  transfers {dg['n_transfer']}/{dg['n_pairs']}{scs}  {bts}", flush=True)
+          f"proj {t1 - t0:.2f}s  transfers {dg['n_transfer']}/{dg['n_pairs']} closed {dg.get('n_closed')}{scs}  {bts}", flush=True)
     return dict(base=base, new=new, boot=bt, diag=dg)
 
 
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     for a in sys.argv[1:]:
         if "=" in a:
             k, v = a.split("=")
-            kw[k] = float(v) if k in ("se_rule",) else (bool(int(v)) if k in ("close", "directions") else
+            kw[k] = float(v) if k in ("se_rule", "close_z") else (bool(int(v)) if k in ("close", "directions") else
                                                           (int(v) if k in ("m_min", "n_folds") else v))
         else:
             names.append(a)
