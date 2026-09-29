@@ -1,7 +1,7 @@
 {
  "started": 1790512245.3949382,
- "calls": 36,
- "cost_usd": 61.0220378,
+ "calls": 38,
+ "cost_usd": 61.130822,
  "steps": {
   "limitations": [
    {
@@ -463,6 +463,39 @@
   }
  },
  "rebaseline_s": 2173.6644105911255,
- "partial": {},
- "inflight": null
+ "partial": {
+  "ablation_S4": {
+   "plan": {
+    "ablations": [
+     {
+      "name": "no_shrinkage_direct_solver_only",
+      "removes": "The GT-LOCO Tikhonov shrinkage: the ridge/lattice priors, the Good-Turing/PRESS choice of kappa, and the ensemble-level kappa shift. This is the core mechanism.",
+      "how": "In lib/gtloco.py restrict KAPPAS to the single smallest value (1e-2, effectively unregularised) and set SHIFTS to [0]. Every tree then takes the near-interpolating solution from the direct eigendecomposition solver, with the vectorised construction, exact orthogonality and deterministic unseen-cell rule left as they are. Comparing against the full method gives the gain from the self-supervised shrinkage alone. Comparing against the original treehfd gives the effect of the side changes (direct solver, hard orthogonality, deterministic fallback) without shrinkage. Report resid_in, resid_out, ortho_in, ortho_out, mse_others and mse_eta12/34 on the subset and the full run, and check the chosen-kappa diagnostics."
+     },
+     {
+      "name": "no_lattice_prior_ridge_zero_only",
+      "removes": "The geometry-weighted lattice (Gaussian Markov random field) prior and the harmonic-extension unseen-cell rule. Only the plain ridge prior with the zero (additive) rule remains.",
+      "how": "Set PRIORS = ('ridge',) and RULES = ('zero',) in lib/gtloco.py, keeping the kappa grid, the risk criterion R, the per-tree argmin and the ensemble step. The lattice branch then never runs. Differences from the full method show whether split-geometry smoothing and harmonic filling add anything beyond simple ridge shrinkage towards the additive explanation. Rule selection can be isolated further by keeping PRIORS but forcing RULES = ('zero',). Expect mainly ortho_out, resid_out and the unseen-cell behaviour to differ."
+     },
+     {
+      "name": "no_ensemble_level_kappa_step",
+      "removes": "The ensemble-level correction (idea step 6), which picks a global kappa shift or common kappa by the risk of the leave-out residuals summed over trees. Each tree keeps its own per-tree argmin of R.",
+      "how": "Force the ensemble step to choose the candidate with shift 0 by setting SHIFTS = [0] and restricting the variant choice to the per-tree variant argmin. Keep the KAPPAS grid, priors and rules unchanged. Report resid_in, resid_out and ortho_out. The round-3 notes say this step mostly buys in-sample fidelity (resid_in about 2.5-3x lower) rather than resid_out. This ablation checks that on the benchmark split and on the full datasets, and shows how much of the resid_in cost is bounded by this step."
+     },
+     {
+      "name": "soft_orthogonality_rows",
+      "removes": "The exact hierarchical-orthogonality parameterisation, which is an added side change not in the baseline or the idea. Each pair's coefficients are restricted to the null space of its orthogonality rows.",
+      "how": "Set HARD_ORTHO = False in lib/gtloco.py so the baseline's soft orthogonality rows are used, and keep everything else, including the shrinkage. Compare ortho_in and ortho_out, plus resid_in and resid_out. Any gain that disappears here is due to the exact-orthogonality side change rather than to the Good-Turing shrinkage. The notes report that soft rows are traded off against the penalty, with in-sample interaction/main correlations of 0.06-0.13 versus at most 0.012 for hard rows."
+     }
+    ]
+   }
+  }
+ },
+ "inflight": {
+  "role": "ablation_coder",
+  "cwd": "<ROOT>/runs/treehfd-01/ideas/S4",
+  "session_id": "2ee43d60-8fc0-4110-a996-ac7d652790ae",
+  "model": "claude-opus-5-5",
+  "started": "2026-09-29 14:41:35"
+ }
 }

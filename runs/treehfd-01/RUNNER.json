@@ -2,19 +2,19 @@
  "host": "star-of-wind",
  "pid": 40620,
  "status": "running",
- "last_alive": 1790664069.1308753,
- "last_alive_local": "2026-09-29 14:41:09",
+ "last_alive": 1790664119.1006787,
+ "last_alive_local": "2026-09-29 14:41:59",
  "env": "22b414443084",
  "usage": {
   "five_hour": {
-   "pct": 88.0,
-   "resets_at": "2026-09-29T09:49:59.869334+00:00"
+   "pct": 93.0,
+   "resets_at": "2026-09-29T09:50:00.207329+00:00"
   },
   "seven_day": {
    "pct": 45.0,
-   "resets_at": "2026-09-29T19:59:59.869356+00:00"
+   "resets_at": "2026-09-29T20:00:00.207346+00:00"
   }
  },
- "budget_hours_used": 8.93,
- "calls": 36
+ "budget_hours_used": 8.95,
+ "calls": 38
 }
