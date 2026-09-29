@@ -13,7 +13,7 @@ import time
 import numpy as np
 import xgboost as xgb
 
-sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[5]) + "/runs/treehfd-01/ideas/S4/lib")
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[1] / "lib"))
 import gtloco  # noqa: E402
 from treehfd import XGBTreeHFD  # noqa: E402
 

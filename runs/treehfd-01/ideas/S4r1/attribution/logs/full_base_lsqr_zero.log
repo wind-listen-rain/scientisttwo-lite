@@ -1,0 +1,19 @@
+[harness] full 模式评测 D:\scientisttwo-lite\runs\treehfd-01\ideas\S4r1\attribution\method_base_lsqr_zero.py
+  analytical rep 1/10: eta12=0.0454 eta1=0.0281
+  analytical rep 2/10: eta12=0.0390 eta1=0.0270
+  analytical rep 3/10: eta12=0.0486 eta1=0.0261
+  analytical rep 4/10: eta12=0.0391 eta1=0.0344
+  analytical rep 5/10: eta12=0.0397 eta1=0.0227
+  analytical rep 6/10: eta12=0.0438 eta1=0.0402
+  analytical rep 7/10: eta12=0.0608 eta1=0.0214
+  analytical rep 8/10: eta12=0.0366 eta1=0.0276
+  analytical rep 9/10: eta12=0.0367 eta1=0.0310
+  analytical rep 10/10: eta12=0.0395 eta1=0.0255
+  abalone: resid_in=0.0046 resid_out=0.0460 ortho_in=0.026804009670223346 locvar=0.00256 fit=21.8s
+  airfoil: resid_in=0.0098 resid_out=0.0297 ortho_in=0.009668581126244455 locvar=5.199e-05 fit=4.5s
+  bike: resid_in=0.0213 resid_out=0.0246 ortho_in=0.013374760789686161 locvar=0.0003446 fit=70.4s
+  housing: resid_in=0.0100 resid_out=0.0154 ortho_in=0.027975901033211792 locvar=0.001796 fit=203.3s
+  concrete: resid_in=0.0015 resid_out=0.0243 ortho_in=0.006358770793211985 locvar=0.01249 fit=10.8s
+  nutrition: resid_in=0.0179 resid_out=0.0953 ortho_in=0.01622310523659369 locvar=0.002818 fit=15.1s
+  parkinson: resid_in=0.0072 resid_out=0.0096 ortho_in=0.08200709666235434 locvar=0.00469 fit=85.5s
+  powerplant: resid_in=0.0006 resid_out=0.0011 ortho_in=None locvar=0.0005291 fit=20.3s

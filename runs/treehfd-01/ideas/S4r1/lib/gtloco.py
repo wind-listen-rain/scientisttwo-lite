@@ -67,6 +67,17 @@ COMMON_KAPPA = True        # ensemble step also offers one common kappa for all 
 # (default). 1 trades about 15% of resid_in for about 5% of resid_out in development, so
 # it is off.
 SE_RULE = 0.0
+# Ensemble step, round 4:
+# * ORTHO_TERM: the risk of a candidate is R + Omega, where Omega is the in-sample
+#   hierarchical-orthogonality violation in the same units as R: for every interaction,
+#   the variance of eta_jk explained by its two main effects (eta_j, eta_k) on X_train,
+#   i.e. the variance an HFD-consistent explanation would have to move into main effects.
+# * RESID_IN_CAP: a candidate is admissible only if its in-sample residual is at most
+#   RESID_IN_CAP times the smallest in-sample residual among all candidates (the
+#   least-regularised fit, close to the baseline's). This bounds the in-sample fidelity
+#   lost to shrinkage by an a-priori factor (None disables the cap).
+ORTHO_TERM = True
+RESID_IN_CAP = 1.5
 KEEP_PATH = False          # development only: keep the whole kappa path after fitting
 HARD_ORTHO = True          # exact per-tree orthogonality (False: baseline soft rows)
 
@@ -474,14 +485,31 @@ class GTLocoTree:
                 for key in ("Q", "S", "E", "unseen"):
                     p.pop(key, None)
 
+    def components_train(self, X: np.ndarray, kappa_idx: int,
+                         prior: int) -> tuple[np.ndarray, np.ndarray]:
+        """Components on the training inputs for one point of the kappa path (before
+        finalisation). Every pair cell of a training point is observed, so no rule is needed."""
+        n = X.shape[0]
+        if self.main_variables.size == 0:
+            return np.zeros((n, 0)), np.zeros((n, 0))
+        beta = self.betas[prior][:, kappa_idx]
+        lb = self._bins(X)
+        y_order2 = np.zeros((n, len(self.pairs)))
+        for k, p in enumerate(self.pairs):
+            code = lb[:, p["ia"]] * self.nb[p["ib"]] + lb[:, p["ib"]]
+            y_order2[:, k] = beta[p["off"] + np.searchsorted(p["codes"], code)]
+        return beta[lb + self.off_main[:-1]], y_order2
+
     # ------------------------------------------------------------- predict
+    def _bins(self, X: np.ndarray) -> np.ndarray:
+        return np.column_stack([np.digitize(X[:, j], bins=self.split_list[k], right=False)
+                                for k, j in enumerate(self.main_variables)])
+
     def predict(self, X_new: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         n = X_new.shape[0]
         if self.main_variables.size == 0:
             return np.zeros((n, 0)), np.zeros((n, 0))
-        lb = np.column_stack([np.digitize(X_new[:, j], bins=self.split_list[k],
-                                          right=False)
-                              for k, j in enumerate(self.main_variables)])
+        lb = self._bins(X_new)
         y_main = self.beta[lb + self.off_main[:-1]]
         y_order2 = np.zeros((n, len(self.pairs)))
         for k, p in enumerate(self.pairs):
@@ -548,39 +576,12 @@ class GTLocoHFD(XGBTreeHFD):
                 loos.append(acc_common[v, g])
                 inss.append(ins_common[pr, g])
         sq = np.array(loos) ** 2                             # (candidates, n)
+        if KEEP_PATH:
+            self._cand_sq = sq
         risks = np.mean(sq, axis=1)
         fidelity = np.mean(np.array(inss) ** 2, axis=1)       # in-sample MSE vs T(x)
-        i_min = int(_first_min(risks))
-        # Optional k-standard-error rule towards in-sample fidelity (SE_RULE = k): among
-        # candidates whose estimated risk is within k paired standard errors of the minimum,
-        # take the one that best reconstructs T on X_train. With k = 0 this is the argmin of
-        # R (ties towards the earlier candidate, as before).
-        i_sel = i_min
-        if SE_RULE > 0:
-            se = np.std(sq - sq[i_min], axis=1) / np.sqrt(n) * SE_RULE
-            tied = np.flatnonzero(risks <= risks[i_min] * (1 + 1e-9) + se)
-            i_sel = int(tied[_first_min(fidelity[tied])])
-        cands = [(*c, float(r), float(f)) for c, r, f in zip(cands, risks, fidelity,
-                                                            strict=True)]
-        best = cands[i_sel]
-        mode, variant, par = best[:3]
-        chosen = []
-        for t, tree in enumerate(self.treehfd_list):
-            g = (int(np.clip(per_tree_idx[t, variant] + par, 0, G - 1)) if mode == "shift"
-                 else par)
-            tree.finalize(g, variant)
-            chosen.append(g)
-        # Label-free trade-off report (X_train and tree outputs only): estimated
-        # out-of-sample risk and in-sample residual, relative to Var[T(X_train)].
-        var_t = float(np.var(tree_predictions.sum(axis=1)))
-        diag.update({"selection": best, "candidates": cands, "min_risk": cands[i_min],
-                     "risk_over_var": best[3] / var_t, "resid_in_over_var": best[4] / var_t,
-                     "kappa_chosen": KAPPAS[np.array(chosen)],
-                     "per_tree_kappa": KAPPAS[per_tree_idx],
-                     "per_tree_idx": per_tree_idx})
-        self.diagnostics = diag
 
-        # Global interaction list and column maps.
+        # Global interaction list and column maps (also used by the orthogonality term).
         lists = [np.array(t.interaction_list, dtype=int).reshape(-1, 2)
                  for t in self.treehfd_list]
         allp = np.concatenate(lists, axis=0) if lists else np.empty((0, 2), int)
@@ -589,6 +590,92 @@ class GTLocoHFD(XGBTreeHFD):
         index = {tuple(p): k for k, p in enumerate(self.interaction_list.tolist())}
         self._inter_index = [np.array([index[tuple(p)] for p in t.interaction_list],
                                       dtype=int) for t in self.treehfd_list]
+
+        def tree_kappa(c: tuple, t: int) -> int:
+            mode, v, par = c[:3]
+            return (int(np.clip(per_tree_idx[t, v] + par, 0, G - 1)) if mode == "shift"
+                    else par)
+
+        # Admissible candidates: in-sample residual within RESID_IN_CAP of the smallest.
+        adm = np.arange(len(cands))
+        if RESID_IN_CAP is not None:
+            adm = np.flatnonzero(fidelity <= RESID_IN_CAP * fidelity.min() * (1 + 1e-12))
+        i_min_all = int(_first_min(risks))
+        i_min = int(adm[_first_min(risks[adm])])
+        # Optional k-standard-error rule towards in-sample fidelity (SE_RULE = k): among
+        # candidates whose estimated risk is within k paired standard errors of the minimum,
+        # take the one that best reconstructs T on X_train. With k = 0 this is the argmin of
+        # R (ties towards the earlier candidate, as before).
+        i_sel = i_min
+        if SE_RULE > 0:
+            se = np.std(sq[adm] - sq[i_min], axis=1) / np.sqrt(n) * SE_RULE
+            tied = adm[risks[adm] <= risks[i_min] * (1 + 1e-9) + se]
+            i_sel = int(tied[_first_min(fidelity[tied])])
+        # Orthogonality term: exact argmin of R + Omega over the admissible candidates.
+        # Omega >= 0, so a candidate whose R is not below the best R + Omega found so far
+        # cannot win; candidates are visited by increasing R and Omega is computed only
+        # until that bound is reached.
+        omega = np.full(len(cands), np.nan)
+        if ORTHO_TERM and SE_RULE == 0:
+            bound = np.inf
+            for i in [i_min, *adm[np.argsort(risks[adm], kind="stable")]]:
+                if risks[i] >= bound:
+                    break
+                if np.isnan(omega[i]):
+                    omega[i] = self._omega(X, [tree_kappa(cands[i], t) for t in range(
+                        len(self.treehfd_list))], cands[i][1])
+                    bound = min(bound, risks[i] + omega[i])
+            total = np.full(len(cands), np.inf)
+            total[adm] = np.nan_to_num(risks[adm] + omega[adm], nan=np.inf)
+            i_sel = int(_first_min(total))
+        cands = [(*c, float(r), float(f)) for c, r, f in zip(cands, risks, fidelity,
+                                                            strict=True)]
+        best = cands[i_sel]
+        variant = best[1]
+        chosen = []
+        for t, tree in enumerate(self.treehfd_list):
+            g = tree_kappa(best, t)
+            tree.finalize(g, variant)
+            chosen.append(g)
+        # Label-free trade-off report (X_train and tree outputs only): estimated
+        # out-of-sample risk, in-sample residual and orthogonality term, relative to
+        # Var[T(X_train)].
+        var_t = float(np.var(tree_predictions.sum(axis=1)))
+        diag.update({"selection": best, "candidates": cands, "min_risk": cands[i_min_all],
+                     "risk_over_var": best[3] / var_t, "resid_in_over_var": best[4] / var_t,
+                     "omega_over_var": float(omega[i_sel]) / var_t,
+                     "omega_evaluated": {i: float(o) / var_t for i, o in enumerate(omega)
+                                         if not np.isnan(o)},
+                     "n_admissible": len(adm), "cap_binding": i_min != i_min_all,
+                     "kappa_chosen": KAPPAS[np.array(chosen)],
+                     "per_tree_kappa": KAPPAS[per_tree_idx],
+                     "per_tree_idx": per_tree_idx})
+        self.diagnostics = diag
+
+    def _omega(self, X: np.ndarray, kappa_idx: list, variant: int) -> float:
+        """In-sample orthogonality violation of one candidate: summed over interactions,
+        the variance of eta_jk explained by the linear span of (eta_j, eta_k) on X_train."""
+        n = X.shape[0]
+        prior = variants()[variant][0]
+        main = np.zeros((n, X.shape[1]))
+        inter = np.zeros((n, self.interaction_list.shape[0]))
+        for tree, idx, g in zip(self.treehfd_list, self._inter_index, kappa_idx, strict=True):
+            if tree.main_variables.size == 0:
+                continue
+            m_t, o_t = tree.components_train(X, g, prior)
+            main[:, tree.main_variables] += m_t
+            if len(idx):
+                inter[:, idx] += o_t
+        main -= main.mean(axis=0)
+        inter -= inter.mean(axis=0)
+        gram = main.T @ main
+        cross = inter.T @ main                                # (K, p)
+        tot = 0.0
+        for c, (j, k) in enumerate(self.interaction_list):
+            b = cross[c, [j, k]]
+            coef = np.linalg.lstsq(gram[np.ix_([j, k], [j, k])], b, rcond=None)[0]
+            tot += float(coef @ b) / n
+        return tot
 
     def predict(self, X_new: np.ndarray, verbose: bool = False) -> tuple:
         X_new = np.asarray(X_new, dtype=float)

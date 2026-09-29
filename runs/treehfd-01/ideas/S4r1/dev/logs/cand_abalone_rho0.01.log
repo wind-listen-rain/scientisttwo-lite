@@ -1,0 +1,7 @@
+abalone s1: fit 23.6s sel=('shift', 1, -3) R=0.04645 in=0.00597 out=0.01855 oin=0.0147 oout=0.0559 Om_in=1.70e-04 Om_out=9.75e-04 inter=0.104
+abalone s2: fit 23.0s sel=('shift', 3, -3) R=0.04955 in=0.00702 out=0.02006 oin=0.0123 oout=0.0397 Om_in=2.33e-04 Om_out=1.02e-03 inter=0.092
+abalone s3: fit 24.3s sel=('shift', 1, -2) R=0.05517 in=0.00779 out=0.01937 oin=0.0204 oout=0.0610 Om_in=2.12e-04 Om_out=8.21e-04 inter=0.089
+abalone s4: fit 24.5s sel=('shift', 1, -3) R=0.05326 in=0.00633 out=0.02472 oin=0.0080 oout=0.0827 Om_in=1.67e-04 Om_out=7.37e-04 inter=0.092
+abalone s5: fit 21.0s sel=('shift', 1, -3) R=0.05218 in=0.00632 out=0.02385 oin=0.0203 oout=0.0511 Om_in=2.07e-04 Om_out=1.44e-03 inter=0.087
+abalone s6: fit 20.9s sel=('shift', 1, -2) R=0.05224 in=0.00775 out=0.02173 oin=0.0092 oout=0.0675 Om_in=1.62e-04 Om_out=5.44e-04 inter=0.088
+abalone s7: fit 16.5s sel=('shift', 1, -3) R=0.04471 in=0.00588 out=0.02037 oin=0.0277 oout=0.1152 Om_in=2.20e-04 Om_out=1.41e-03 inter=0.091

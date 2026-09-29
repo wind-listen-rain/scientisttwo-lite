@@ -9,8 +9,8 @@ import time
 
 import pandas as pd
 
-sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[5]) + "/runs/treehfd-01/ideas/S4/lib")
-sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[5]) + "/runs/treehfd-01/ideas/S4/dev")
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[1] / "lib"))
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 import gtloco  # noqa: E402
 from common import analytical, real  # noqa: E402
 
@@ -29,6 +29,6 @@ def run():
         print(f"tree {t}: m={m} N1/n={n1f:.3f} {time.time() - t0:.2f}s", flush=True)
 
 
-PROF = str(__import__("pathlib").Path(__file__).resolve().parents[5]) + "/runs/treehfd-01/ideas/S4/dev/gtloco.prof"
+PROF = str(__import__("pathlib").Path(__file__).resolve().parent / "gtloco.prof")
 cProfile.run("run()", PROF)
 pstats.Stats(PROF).sort_stats("cumulative").print_stats(25)

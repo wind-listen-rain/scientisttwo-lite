@@ -4,8 +4,8 @@ import sys
 import numpy as np
 import pandas as pd
 
-sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[5]) + "/runs/treehfd-01/ideas/S4/lib")
-sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[5]) + "/runs/treehfd-01/ideas/S4/dev")
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[1] / "lib"))
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from common import analytical, real  # noqa: E402
 from treehfd_mod import XGBTreeHFD  # noqa: E402
 from treehfd_mod.cartesian_partition import CartesianTreePartition  # noqa: E402

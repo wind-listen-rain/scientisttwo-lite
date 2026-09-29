@@ -1,0 +1,8 @@
+nutrition s0: fit 12.2s sel=('shift', 2, -2) R=0.13628 in=0.03009 out=0.07253 oin=0.0154 oout=0.0817 Om_in=2.93e-05 Om_out=1.63e-03 inter=0.148
+nutrition s1: fit 13.3s sel=('shift', 0, -2) R=0.13457 in=0.02371 out=0.08246 oin=0.0139 oout=0.1228 Om_in=3.03e-05 Om_out=1.31e-03 inter=0.144
+nutrition s2: fit 11.2s sel=('shift', 2, -2) R=0.12834 in=0.02642 out=0.08664 oin=0.0148 oout=0.1059 Om_in=2.45e-05 Om_out=1.44e-03 inter=0.148
+nutrition s3: fit 12.3s sel=('shift', 1, -3) R=0.12024 in=0.02151 out=0.07016 oin=0.0129 oout=0.1114 Om_in=2.99e-05 Om_out=2.54e-03 inter=0.158
+nutrition s4: fit 12.3s sel=('shift', 0, -2) R=0.12598 in=0.02126 out=0.08437 oin=0.0230 oout=0.0769 Om_in=3.81e-05 Om_out=1.03e-03 inter=0.162
+nutrition s5: fit 13.3s sel=('shift', 3, -2) R=0.12447 in=0.02566 out=0.06315 oin=0.0191 oout=0.1015 Om_in=4.81e-05 Om_out=3.33e-03 inter=0.156
+nutrition s6: fit 16.2s sel=('shift', 0, -3) R=0.13362 in=0.02011 out=0.10537 oin=0.0191 oout=0.1868 Om_in=5.49e-05 Om_out=3.88e-03 inter=0.168
+nutrition s7: fit 12.8s sel=('shift', 3, -2) R=0.13503 in=0.02764 out=0.07451 oin=0.0139 oout=0.1491 Om_in=2.01e-05 Om_out=2.71e-03 inter=0.145

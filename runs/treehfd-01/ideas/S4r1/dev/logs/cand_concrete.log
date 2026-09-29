@@ -1,0 +1,8 @@
+concrete s0: fit 7.3s sel=('shift', 3, -2) R=0.02053 in=0.00216 out=0.02104 oin=0.0061 oout=0.0716 Om_in=1.91e-04 Om_out=1.16e-03 inter=0.060
+concrete s1: fit 8.3s sel=('shift', 2, -2) R=0.02541 in=0.00288 out=0.02339 oin=0.0055 oout=0.0208 Om_in=9.87e-05 Om_out=1.58e-03 inter=0.063
+concrete s2: fit 7.9s sel=('shift', 3, -1) R=0.02152 in=0.00374 out=0.01989 oin=nan oout=nan Om_in=7.74e-05 Om_out=9.95e-04 inter=0.056
+concrete s3: fit 7.2s sel=('shift', 2, -2) R=0.02080 in=0.00225 out=0.01900 oin=0.0238 oout=0.0976 Om_in=1.03e-04 Om_out=9.25e-04 inter=0.076
+concrete s4: fit 8.5s sel=('shift', 2, -1) R=0.02346 in=0.00413 out=0.01612 oin=0.0115 oout=0.0870 Om_in=1.09e-04 Om_out=1.19e-03 inter=0.059
+concrete s5: fit 7.6s sel=('shift', 3, -2) R=0.02304 in=0.00294 out=0.01819 oin=0.0058 oout=0.0490 Om_in=1.31e-04 Om_out=2.11e-03 inter=0.067
+concrete s6: fit 8.9s sel=('shift', 2, -2) R=0.02096 in=0.00281 out=0.01472 oin=0.0104 oout=0.0875 Om_in=9.89e-05 Om_out=9.46e-04 inter=0.066
+concrete s7: fit 7.6s sel=('shift', 2, -2) R=0.01889 in=0.00240 out=0.02274 oin=0.0098 oout=0.0784 Om_in=1.11e-04 Om_out=1.02e-03 inter=0.062

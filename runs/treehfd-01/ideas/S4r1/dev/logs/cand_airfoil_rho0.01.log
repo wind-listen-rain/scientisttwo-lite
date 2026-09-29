@@ -1,0 +1,7 @@
+airfoil s1: fit 6.8s sel=('shift', 3, -1) R=0.02182 in=0.01013 out=0.02474 oin=0.0151 oout=0.1647 Om_in=1.21e-04 Om_out=8.19e-03 inter=0.420
+airfoil s2: fit 6.4s sel=('shift', 3, -1) R=0.02384 in=0.01088 out=0.02519 oin=0.0191 oout=0.0450 Om_in=8.41e-05 Om_out=1.24e-03 inter=0.395
+airfoil s3: fit 7.0s sel=('shift', 3, -1) R=0.02529 in=0.01128 out=0.02485 oin=0.0198 oout=0.1606 Om_in=1.12e-04 Om_out=8.50e-03 inter=0.401
+airfoil s4: fit 8.0s sel=('shift', 3, -2) R=0.02511 in=0.00859 out=0.02111 oin=0.0134 oout=0.1037 Om_in=1.39e-04 Om_out=4.86e-03 inter=0.420
+airfoil s5: fit 8.1s sel=('shift', 3, -1) R=0.02711 in=0.01196 out=0.02301 oin=0.0190 oout=0.1136 Om_in=9.17e-05 Om_out=5.57e-03 inter=0.425
+airfoil s6: fit 7.9s sel=('shift', 3, -1) R=0.02452 in=0.01009 out=0.02213 oin=0.0221 oout=0.1429 Om_in=1.04e-04 Om_out=3.64e-03 inter=0.405
+airfoil s7: fit 7.7s sel=('shift', 3, -1) R=0.03057 in=0.01403 out=0.02030 oin=0.0135 oout=0.1186 Om_in=4.99e-05 Om_out=7.29e-03 inter=0.435

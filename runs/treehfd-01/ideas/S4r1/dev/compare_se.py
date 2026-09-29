@@ -9,8 +9,8 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[5]) + "/runs/treehfd-01/ideas/S4/lib")
-sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[5]) + "/runs/treehfd-01/ideas/S4/dev")
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[1] / "lib"))
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 import gtloco  # noqa: E402
 from ablate_shift import ortho, split  # noqa: E402
 from common import analytical  # noqa: E402

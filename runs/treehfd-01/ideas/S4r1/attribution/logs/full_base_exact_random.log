@@ -1,0 +1,14 @@
+[harness] full 模式评测 D:\scientisttwo-lite\runs\treehfd-01\ideas\S4r1\attribution\method_base_exact_random.py
+  analytical rep 1/10: eta12=0.0343 eta1=0.0281
+  analytical rep 2/10: eta12=0.0335 eta1=0.0270
+  analytical rep 3/10: eta12=0.0337 eta1=0.0261
+  analytical rep 4/10: eta12=0.0281 eta1=0.0344
+  analytical rep 5/10: eta12=0.0291 eta1=0.0227
+  analytical rep 6/10: eta12=0.0310 eta1=0.0402
+  analytical rep 7/10: eta12=0.0360 eta1=0.0214
+  analytical rep 8/10: eta12=0.0260 eta1=0.0276
+  analytical rep 9/10: eta12=0.0285 eta1=0.0310
+  analytical rep 10/10: eta12=0.0317 eta1=0.0255
+  abalone: resid_in=0.0045 resid_out=0.0743 ortho_in=0.04005427169705287 locvar=0.002625 fit=36.1s
+  airfoil: resid_in=0.0098 resid_out=0.0268 ortho_in=0.009667346768714613 locvar=5.198e-05 fit=7.1s
+  bike: resid_in=0.0213 resid_out=0.0246 ortho_in=0.013374876347413637 locvar=0.0003434 fit=96.8s
