@@ -92,3 +92,4 @@ tep 等步骤 idea_E1 完成后停下编排器并重启 autopilot（当前 autop
 [2026-09-29 08:25:17] agent engineer {"status": "done", "changes": "Round 2 of E1 (all in <ROOT>/runs/treehfd-01/ideas/E1; NOTES.md rewritten, round-1 notes kept in dev/NOTES_round1.md). (1) COMPUTE (critic point 1): the round-1 exact leave-out speed-up is validated and now in lib/agtloco.py: cache-sized block chunks (BLO
 [2026-09-29 08:29:45] eval  subset <ROOT>/runs/treehfd-01/ideas/E1/method.py 268s errors=[]
 [2026-09-29 08:30:01] agent subset_critic {"decision": "refine", "feedback": "E1 shows potential but has regressions that block a 'good' verdict. It is not 'bad': I found no red-line problems in the results, and I did not open the code, so the red-line check rests on the idea description, not on reading method.py or lib/.\n\nWhat works:\n- 
+[checkpoint] 定时存档 → pushed

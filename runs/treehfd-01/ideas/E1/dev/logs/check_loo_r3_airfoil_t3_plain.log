@@ -1,0 +1,26 @@
+airfoil tree 3: m=491 N1/n=0.205 virtual=3242
+checked singletons (plain): 218
+rho=0    ridge   zero     kappa=0.01  brute msq=2.064e-02 closed msq=2.062e-02 ratio=0.999 max|diff|=1.451e-03
+rho=0    ridge   zero     kappa=0.1   brute msq=2.072e-02 closed msq=2.072e-02 ratio=1.000 max|diff|=1.195e-02
+rho=0    ridge   zero     kappa=1     brute msq=2.072e-02 closed msq=2.172e-02 ratio=1.048 max|diff|=5.207e-02
+rho=0    ridge   harmonic kappa=0.01  brute msq=2.064e-02 closed msq=2.062e-02 ratio=0.999 max|diff|=1.451e-03
+rho=0    ridge   harmonic kappa=0.1   brute msq=2.072e-02 closed msq=2.072e-02 ratio=1.000 max|diff|=1.195e-02
+rho=0    ridge   harmonic kappa=1     brute msq=2.072e-02 closed msq=2.172e-02 ratio=1.048 max|diff|=5.207e-02
+rho=0    lattice zero     kappa=0.01  brute msq=2.040e-02 closed msq=2.037e-02 ratio=0.999 max|diff|=7.189e-04
+rho=0    lattice zero     kappa=0.1   brute msq=1.967e-02 closed msq=1.968e-02 ratio=1.000 max|diff|=4.912e-03
+rho=0    lattice zero     kappa=1     brute msq=1.844e-02 closed msq=1.890e-02 ratio=1.025 max|diff|=2.285e-02
+rho=0    lattice harmonic kappa=0.01  brute msq=2.040e-02 closed msq=2.037e-02 ratio=0.999 max|diff|=7.189e-04
+rho=0    lattice harmonic kappa=0.1   brute msq=1.967e-02 closed msq=1.968e-02 ratio=1.000 max|diff|=4.912e-03
+rho=0    lattice harmonic kappa=1     brute msq=1.844e-02 closed msq=1.890e-02 ratio=1.025 max|diff|=2.285e-02
+rho=0.25 ridge   zero     kappa=0.01  brute msq=2.064e-02 closed msq=2.062e-02 ratio=0.999 max|diff|=1.451e-03
+rho=0.25 ridge   zero     kappa=0.1   brute msq=2.072e-02 closed msq=2.072e-02 ratio=1.000 max|diff|=1.195e-02
+rho=0.25 ridge   zero     kappa=1     brute msq=2.072e-02 closed msq=2.172e-02 ratio=1.048 max|diff|=5.207e-02
+rho=0.25 ridge   harmonic kappa=0.01  brute msq=2.064e-02 closed msq=2.062e-02 ratio=0.999 max|diff|=1.451e-03
+rho=0.25 ridge   harmonic kappa=0.1   brute msq=2.072e-02 closed msq=2.072e-02 ratio=1.000 max|diff|=1.195e-02
+rho=0.25 ridge   harmonic kappa=1     brute msq=2.072e-02 closed msq=2.172e-02 ratio=1.048 max|diff|=5.207e-02
+rho=0.25 lattice zero     kappa=0.01  brute msq=1.843e-02 closed msq=1.841e-02 ratio=0.999 max|diff|=7.414e-04
+rho=0.25 lattice zero     kappa=0.1   brute msq=1.789e-02 closed msq=1.788e-02 ratio=0.999 max|diff|=3.333e-03
+rho=0.25 lattice zero     kappa=1     brute msq=1.698e-02 closed msq=1.736e-02 ratio=1.023 max|diff|=2.044e-02
+rho=0.25 lattice harmonic kappa=0.01  brute msq=1.843e-02 closed msq=1.841e-02 ratio=0.999 max|diff|=7.414e-04
+rho=0.25 lattice harmonic kappa=0.1   brute msq=1.789e-02 closed msq=1.788e-02 ratio=0.999 max|diff|=3.333e-03
+rho=0.25 lattice harmonic kappa=1     brute msq=1.698e-02 closed msq=1.736e-02 ratio=1.023 max|diff|=2.044e-02
