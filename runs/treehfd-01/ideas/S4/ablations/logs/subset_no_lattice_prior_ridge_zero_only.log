@@ -1,0 +1,8 @@
+[harness] subset 模式评测 D:\scientisttwo-lite\runs\treehfd-01\ideas\S4\ablations\method_no_lattice_prior_ridge_zero_only.py
+  analytical rep 1/3: eta12=0.0446 eta1=0.0282
+  analytical rep 2/3: eta12=0.0375 eta1=0.0270
+  analytical rep 3/3: eta12=0.0486 eta1=0.0259
+  airfoil: resid_in=0.0108 resid_out=0.0297 ortho_in=0.007656932545732558 locvar=5.321e-05 fit=2.0s
+  concrete: resid_in=0.0020 resid_out=0.0207 ortho_in=0.007239166022190831 locvar=0.008632 fit=3.7s
+  abalone: resid_in=0.0059 resid_out=0.0270 ortho_in=0.02586109907760526 locvar=0.002533 fit=8.0s
+[harness] 完成，用时 78s，错误 []

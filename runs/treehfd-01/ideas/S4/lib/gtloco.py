@@ -60,6 +60,8 @@ LATTICE_RIDGE = 0.1        # ridge part of the lattice prior (edge weights have 
 # by the leave-out risk in development, so it is not a candidate).
 RULES = ("zero", "harmonic")
 SHIFTS = np.arange(-5, 4)  # global shifts of the per-tree kappa index (ensemble step)
+COMMON_KAPPA = True        # ensemble step also offers one common kappa for all trees
+                           # (False is used only by the ensemble-step ablation)
 # Ensemble step: candidates within SE_RULE paired standard errors of the minimum risk are
 # treated as tied, and the one with the best in-sample fidelity is taken. 0 = plain argmin
 # (default). 1 trades about 15% of resid_in for about 5% of resid_out in development, so
@@ -541,7 +543,7 @@ class GTLocoHFD(XGBTreeHFD):
                 cands.append(("shift", v, int(SHIFTS[si])))
                 loos.append(acc_shift[v, si])
                 inss.append(ins_shift[v, si])
-            for g in range(G):
+            for g in range(G if COMMON_KAPPA else 0):
                 cands.append(("common", v, g))
                 loos.append(acc_common[v, g])
                 inss.append(ins_common[pr, g])

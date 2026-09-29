@@ -124,3 +124,5 @@ tep 等步骤 idea_E1 完成后停下编排器并重启 autopilot（当前 autop
 [2026-09-29 14:41:09] agent subset_critic {"decision": "refine", "feedback": "S1 is not broken and violates no red line. It is sum-preserving, uses no labels, and does not touch the model, so resid_in is unchanged and resid_out moves by at most +0.4% (+0.3% analytical, +0.4% abalone). But it does not consistently beat the baseline, and the 
 [checkpoint] 完成 idea_S1 → pushed
 [2026-09-29 14:41:35] agent ablation_planner {"ablations": [{"name": "no_shrinkage_direct_solver_only", "removes": "The GT-LOCO Tikhonov shrinkage: the ridge/lattice priors, the Good-Turing/PRESS choice of kappa, and the ensemble-level kappa shift. This is the core mechanism.", "how": "In lib/gtloco.py restrict KAPPAS to the single smallest va
+[checkpoint] 用量已到 93.0%（7 天窗口 45.0%），额度用尽前先存档 → pushed
+[2026-09-29 15:06:39] wait  订阅用量上限，等待 166 分钟后重试：You've hit your session limit · resets 5:50pm (Asia/Shanghai)
