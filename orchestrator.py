@@ -612,11 +612,17 @@ def init_ws_git(path):
     git(path, "config", "core.autocrlf", "false")
     excl = Path(path) / ".wsgit" / "info" / "exclude"
     excl.parent.mkdir(parents=True, exist_ok=True)
-    wtext(excl, ".wsgit/\nHISTORY.bundle\n__pycache__/\n")
+    wtext(excl, gitsync.WS_EXCLUDE)
 
 
 def commit(path, msg):
     gitsync.sanitize_tree(path)  # 智能体刚写完的文件里的本机路径 → 可移植写法（此时没有智能体在这个目录里工作）
+    excl = Path(path) / ".wsgit" / "info" / "exclude"
+    if excl.exists() and "cache/" not in rtext(excl):  # 2026-09-29 之前建的工作区：补上缓存与大文件的排除规则
+        wtext(excl, gitsync.WS_EXCLUDE)
+    gitsync.exclude_large(path, excl, path)  # 超过 5 MB 的文件不进工作区历史
+    git(path, "rm", "-r", "-q", "--cached", "--ignore-unmatch", "--", ":(glob)**/cache/**", ":(glob)**/*.npy",
+        ":(glob)**/*.npz", ":(glob)**/*.pkl")  # 已被跟踪的也拿掉（文件保留）
     git(path, "add", "-A")
     git(path, "-c", "user.name=pipeline", "-c", "user.email=pipeline@local", "commit", "-q", "-m", msg, "--allow-empty")
 

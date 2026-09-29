@@ -3,6 +3,6 @@
   analytical rep 2/3: eta12=0.0313 eta1=0.0269
   analytical rep 3/3: eta12=0.0331 eta1=0.0257
   airfoil: resid_in=0.0121 resid_out=0.0210 ortho_in=0.006586686840089793 locvar=3.072e-05 fit=6.5s
-  concrete: resid_in=0.0020 resid_out=0.0202 ortho_in=0.006010959654399749 locvar=0.01668 fit=10.9s
-  abalone: resid_in=0.0055 resid_out=0.0211 ortho_in=0.02713180188203938 locvar=0.002462 fit=23.0s
-[harness] 完成，用时 204s，错误 []
+  concrete: resid_in=0.0020 resid_out=0.0202 ortho_in=0.006010959654399749 locvar=0.01668 fit=11.0s
+  abalone: resid_in=0.0055 resid_out=0.0211 ortho_in=0.02713180188203938 locvar=0.002462 fit=23.4s
+[harness] 完成，用时 206s，错误 []

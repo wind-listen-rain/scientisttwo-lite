@@ -21,6 +21,34 @@ HOST = socket.gethostname()
 REMOTE_EXIT = 75  # 编排器发现 GitHub 上有新进度时的退出码
 LOCK = threading.RLock()
 TEXT = {".md", ".json", ".jsonl", ".log", ".out", ".txt", ".csv", ".tsv"}
+# 智能体生成的中间缓存和大文件不进工作区历史、也不进仓库（2026-09-29：E1 的 dev/cache/*.npz 共 100 多 MB 进了工作区历史，
+# HISTORY.bundle 涨到 177 MB，超过 GitHub 单文件 100 MB 的上限，存档推不上去）
+WS_EXCLUDE = ".wsgit/\nHISTORY.bundle\nHISTORY.bundle.tmp\n__pycache__/\ncache/\n*.npy\n*.npz\n*.pkl\n*.pt\n*.joblib\n"
+MAX_FILE = 5_000_000  # 超过 5 MB 的文件一律不纳入版本管理
+
+
+def exclude_large(top, exclude_file, rel_to):
+    """把 top 下超过 MAX_FILE 的文件写进 exclude 文件（外层仓库的 .git/info/exclude 或工作区的 .wsgit/info/exclude）。
+    返回新排除的相对路径。"""
+    top, exclude_file = Path(top), Path(exclude_file)
+    have = set(exclude_file.read_text(encoding="utf-8").splitlines()) if exclude_file.exists() else set()
+    new = []
+    for dirpath, dirnames, filenames in os.walk(top):
+        dirnames[:] = [d for d in dirnames if d not in (".git", ".wsgit", ".conda", "__pycache__", "tasks")]
+        for name in filenames:
+            f = Path(dirpath) / name
+            try:
+                if f.stat().st_size > MAX_FILE and name != "HISTORY.bundle":
+                    rel = "/" + f.relative_to(rel_to).as_posix()
+                    if rel not in have:
+                        new.append(rel)
+            except OSError:
+                continue
+    if new:
+        exclude_file.parent.mkdir(parents=True, exist_ok=True)
+        with exclude_file.open("a", encoding="utf-8", newline="\n") as fh:
+            fh.write("\n".join(new) + "\n")
+    return new
 TRAILER = "\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 
@@ -132,7 +160,7 @@ def restore_ws_histories(log=print):
             continue
         git(gd, "config", "core.autocrlf", "false")
         (gdir / "info").mkdir(exist_ok=True)
-        (gdir / "info" / "exclude").write_text(".wsgit/\nHISTORY.bundle\n__pycache__/\n", encoding="utf-8")
+        (gdir / "info" / "exclude").write_text(WS_EXCLUDE, encoding="utf-8")
         git(gd, f"--work-tree={d}", "reset", "-q", "HEAD")  # 只更新索引；工作区文件以外层仓库为准
         log(f"还原工作区历史：{d.relative_to(ROOT).as_posix()} → {head and head[:7]}")
 
@@ -225,22 +253,32 @@ def checkpoint(msg, push=True):
     """提交整个仓库并推送到 GitHub。返回 "pushed" / "nothing" / "remote_ahead"（GitHub 上有本机没有的新提交）/ "push_failed"。"""
     with LOCK:
         refresh_bundles()
+        big = exclude_large(ROOT / "runs", ROOT / ".git" / "info" / "exclude", ROOT)
+        for rel in big:  # 已经被跟踪的大文件：从索引里拿掉（本地文件保留）
+            git("rm", "-q", "--cached", "--ignore-unmatch", rel.lstrip("/"))
         git("add", "-A")
         if git("diff", "--cached", "--quiet").returncode != 0:
-            git("commit", "-q", "-m", f"存档（{HOST}）：{msg}{TRAILER}")
+            note = f"（超过 5 MB 不纳入：{', '.join(big)[:300]}）" if big else ""
+            git("commit", "-q", "-m", f"存档（{HOST}）：{msg}{note}{TRAILER}")
         if not push:
             return "committed"
         if git("rev-list", "--count", "origin/main..HEAD").stdout.strip() == "0":
             return "nothing"
+        err = ""
         for attempt in range(3):
-            r = git("push", "-q", "origin", "HEAD:main", timeout=300)
+            r = git("push", "-q", "origin", "HEAD:main", timeout=600)
             if r.returncode == 0:
                 git("fetch", "-q", "origin", timeout=300)
                 return "pushed"
-            if re.search(r"rejected|non-fast-forward|fetch first", r.stderr):
-                return "remote_ahead"
+            err = r.stderr.strip()
+            if re.search(r"rejected|non-fast-forward|fetch first", err):
+                # 只有 GitHub 上真有本机没有的提交才算"有新进度"；否则是推送本身被拒（比如文件太大），不该让出
+                if git("fetch", "-q", "origin", timeout=300).returncode == 0 and \
+                        git("rev-list", "--count", "HEAD..origin/main").stdout.strip() not in ("", "0"):
+                    return "remote_ahead"
+                return f"push_rejected: {err[-300:]}"
             time.sleep(20 * (attempt + 1))
-        return "push_failed"
+        return f"push_failed: {err[-300:]}"
 
 
 def remote_news():

@@ -31,16 +31,19 @@ What this buys and what it costs. The numbers are the geo-mean over S4's 8 diagn
   28.7%), abalone (39.0% → 19.3%) and nutrition (45.6% → 25.7%). On airfoil it is only cut from 26.2% to 22.8%.
   Round 2 had cut it by 1–6% of S4's value.
 * **resid_out (the price).**
-  * It stays at or below S4 everywhere (0.94–1.00× S4), which is the idea's floor.
+  * It stays at S4's level or below (0.94–1.00× S4; abalone 1.001×), which is the idea's floor.
   * The larger round-2 gains (0.86–0.93× S4) are mostly given back. In the analytical case round 3 is at S4's
     level (resid_out 1.008× S4, mse_eta12 1.010×, mse_others 1.040× over reps 0–2).
 * **Orthogonality and locvar.**
   * Airfoil is better than S4 on ortho_in (0.81×) and locvar (0.65×).
-  * Concrete's harness ortho stays 1.3–1.4× S4 over the 8 splits; round 2 showed this is mostly the 1% variance
-    threshold of the metric (see below). On the benchmark split, concrete's ortho_in (0.945× baseline) and
-    ortho_out (0.872×) are at S4's level.
+  * Concrete's harness ortho stays 1.3–1.4× S4 over the 8 splits. On the same pairs it is 1.05 / 1.03× S4; the
+    rest is the metric's 1% variance threshold (re-measured, see caveats). On the benchmark split, concrete's
+    ortho_in (0.945× baseline) and ortho_out (0.872×) are at S4's level.
+  * Abalone's ortho_in is a real +8% over S4 across the 8 splits.
   * Concrete's locvar_in is 1.34× baseline on the benchmark split (round 2 1.69×, S4 1.06×).
 * **Compute.** Subset fit_s is 1.05–2.62× baseline (round 2 1.46–3.42×); analytical went from 3.42× to 2.62×.
+  Full mode is 1.03–3.86× (round 2 1.12–4.80×).
+* **Full mode.** resid_in ≤ S4 on all 9 datasets. resid_out is ≤ S4 or within 1.3% of it.
 
 ## Round 3 in detail: one item per point of the critic
 
@@ -52,6 +55,11 @@ scores it with the harness metrics:
 
 The results are cached in `dev/cache/*.npz`. `dev/rules_r3.py` and `dev/summary_r3.py` then compare selection
 rules offline.
+* The cache is 151 MB (70 files); the pipeline's timed archive has already committed it. All of its results are
+  also in the logs below, so it can be deleted.
+* To regenerate it (deterministic, about 15 min on 16 processes):
+  `bash dev/run_cands_r3.sh 0,0.25 r0_0.25 airfoil concrete abalone nutrition analytical` and the same with
+  `0,0.25,1 r0_0.25_1`.
 * Consistency check: the cached tables reproduce round 2's reported 8-split rows exactly (round 1 argmin, round 2
   one-SE, ρ = 0.25 mode), and the new library's selection equals the offline "cap" rule (checked on airfoil and
   concrete split 0).
@@ -65,8 +73,12 @@ rules offline.
 * Round-3 fits: with G2, ρ = 0.25 in 100/100 trees on airfoil and concrete split 0.
 * So R always prefers the largest ρ offered, and the grid cap is effectively a fixed setting, not a selected one.
 * The critic's options:
-  * **A 2–3 SE margin before accepting ρ > 0 would not help.** Round 2 measured R's preference for ρ = 1 over
-    ρ = 0.25 to exceed one paired SE, and the preference over ρ = 0 is larger still.
+  * **A 2–3 SE margin before accepting ρ > 0 would not help.**
+    * Measured on the round-2 grid (`dev/logs/margin_r3.log`): the paired t of R(S4's choice) − R(best ρ > 0
+      candidate) is 6.0–9.1 on airfoil, 3.8–6.2 on abalone, 6.1–8.4 on nutrition and 2.1–4.0 on concrete.
+    * So a 3-SE margin would still accept ρ = 1 on every airfoil, abalone and nutrition split, and on 4 of 8
+      concrete splits.
+    * Round 2 also found R's preference for ρ = 1 over ρ = 0.25 to exceed one paired SE.
   * **A penalty on ρ in R** would be an arbitrary constant.
   * **I took the third option: cap ρ at 0.25.** The critic listed it, and there is a mechanism reason for it.
 * **Mechanism** (`dev/diag_copies.py`, `dev/logs/diag_copies_*.log`, benchmark split, every 10th tree):
@@ -221,7 +233,39 @@ rules offline.
   splits).
 * The self-test JSON has no `eval_env` field (the harness does not write one); it was run on this machine.
 
-FULL_MODE_PLACEHOLDER
+### Full mode (`full_selftest.json`, no errors, wall 1,396 s; round 2: 1,746 s): ratio to `baseline/env-22b414443084/full.json`
+| dataset | resid_in S4 / r2 / **r3** | resid_out S4 / r2 / **r3** | ortho_in S4 / r2 / **r3** | ortho_out S4 / r2 / **r3** | locvar_in S4 / r2 / **r3** | fit_s base → r3 (S4, r2, **r3** ratio) |
+|---|---|---|---|---|---|---|
+| abalone | 1.392 / 1.377 / **1.198** | 0.511 / 0.471 / **0.514** | 0.942 / 1.044 / **1.012** | 2.646 / 2.857 / **2.681** | 0.988 / 0.959 / **0.962** | 17.3 → 24.1 (0.72, 1.70, **1.40**) |
+| airfoil | 1.255 / 1.144 / **1.230** | 0.835 / 0.699 / **0.781** | 0.868 / 1.757 / **0.681** | 1.152 / 1.368 / **1.073** | 0.878 / 0.581 / **0.591** | 3.9 → 7.0 (0.99, 2.10, **1.78**) |
+| bike | 1.005 / 1.002 / **1.005** | 0.998 / 0.999 / **0.998** | 1.000 / 0.999 / **1.000** | 1.000 / 1.000 / **1.000** | 0.946 / 0.975 / **0.946** | 46.4 → 125.8 (0.79, 4.07, **2.71**) |
+| housing | 1.109 / 1.057 / **1.064** | 0.910 / 0.911 / **0.922** | 1.013 / 1.002 / **1.007** | 0.989 / 0.956 / **0.970** | 0.750 / 0.743 / **0.740** | 99.2 → 196.4 (1.13, 2.64, **1.98**) |
+| concrete | 1.411 / 1.592 / **1.326** | 0.842 / 0.802 / **0.810** | 0.964 / 1.094 / **0.945** | 0.871 / 0.819 / **0.871** | 1.058 / 1.694 / **1.335** | 4.7 → 10.8 (1.34, 2.92, **2.31**) |
+| nutrition | 1.685 / 1.392 / **1.400** | 0.750 / 0.692 / **0.725** | 0.949 / 1.060 / **1.016** | 0.769 / 0.921 / **0.802** | 0.970 / 1.022 / **1.004** | 6.6 → 20.9 (1.68, 4.35, **3.18**) |
+| parkinson | 1.012 / 1.005 / **1.012** | 1.002 / 0.990 / **1.002** | 1.000 / 1.001 / **1.000** | 0.998 / 0.997 / **0.998** | 0.927 / 0.941 / **0.927** | 42.1 → 80.9 (0.94, 2.54, **1.92**) |
+| powerplant | 1.058 / 1.121 / **1.058** | 0.965 / 0.938 / **0.952** | n/a | n/a | 0.989 / 0.981 / **0.990** | 12.1 → 46.7 (2.47, 4.80, **3.86**) |
+| superconduct | 1.008 / 1.004 / **1.008** | 0.998 / 0.996 / **0.999** | n/a | n/a | 0.981 / 0.982 / **0.981** | 359.0 → 371.3 (0.47, 1.12, **1.03**) |
+
+| analytical (10 reps) | baseline | S4 | E1 round 2 | **E1 round 3** |
+|---|---|---|---|---|
+| mse_eta1..4 | | 0.992–1.001 | 0.999–1.005 | **0.995–1.000** |
+| mse_eta5 / eta6 | 0.000301 / 0.000367 | 0.963 / 0.989 | 0.951 / 0.976 | **0.959 / 0.988** |
+| mse_eta12 / eta34 | 0.03118 / 0.02820 | 0.970 / 0.982 | 0.960 / 0.972 | **0.965 / 0.976** |
+| mse_others | 0.002125 | 0.776 | 0.816 | **0.817** |
+| resid_out | 0.01016 | 0.824 | 0.800 | **0.828** |
+| fit_s | 17.3 s | 1.78 | 3.37 | **2.58** |
+
+* **resid_in is ≤ S4 on all 9 datasets**, as guaranteed by the cap.
+  * Lower on abalone, airfoil, housing, concrete and nutrition (nutrition 1.40× vs 1.69× baseline).
+  * Equal to S4 at printed precision on bike, parkinson, powerplant and superconduct. There, no anchored candidate
+    beats S4's in-sample fidelity with a smaller R, or the gain is below 0.1%.
+* **resid_out.**
+  * Below S4 on airfoil, concrete, nutrition and powerplant; equal on bike and parkinson.
+  * Slightly above S4 on housing (0.922 vs 0.910), abalone (0.514 vs 0.511), superconduct (0.999 vs 0.998) and
+    the analytical case (0.828 vs 0.824).
+* **Analytical.** The true interactions are a little better than S4 (mse_eta12 / eta34 0.965 / 0.976 vs 0.970 /
+  0.982). Spurious interactions are worse than S4 (mse_others 0.817 vs 0.776, the same as round 2).
+* **Compute.** Every fit_s is below 4× baseline: largest powerplant 3.86× (round 2: 4.80×), then nutrition 3.18×.
 
 ## What the method does
 Per tree t: y = T_t(X_train) − η0_t. β is parameterised in S4's exact null space of the hierarchical-orthogonality
@@ -309,15 +353,17 @@ rows (β = Q γ per pair). The method minimises
   * The anchor at ρ ≤ 0.25 barely changes the analytical fit, and the cap then moves κ down slightly.
   * The idea hoped for −5…−6% on the true interactions. Round 3 gets −4.3…−4.5% relative to the baseline and no
     gain over S4.
-* **Concrete orthogonality over 8 splits** is 1.31× / 1.41× S4 (ortho_in / ortho_out).
-  * Round 2 traced about 90% of this to the harness's 1% variance threshold. The anchor raises the interaction
-    variance, so more pairs are counted; on the same pairs E1 / S4 was 1.04 / 1.05.
-  * Round 3's selection has the same concrete ortho_in as round 1's argmin selection (1.31 vs 1.63× S4 for round
-    1), so I expect the same explanation, but I have not re-run that diagnostic for round 3.
+* **Concrete orthogonality over 8 splits** is 1.31× / 1.41× S4 on the harness metric (ortho_in / ortho_out).
+  * Re-measured for round 3 (`dev/diag_ortho_common.py`, logs `diag_ortho_common_r3_*`, summary
+    `diag_ortho_common_r3_summary.log`): **on the same pairs for both methods it is 1.048 / 1.033**.
+  * The rest is the harness's 1% variance threshold. The anchor and the smaller κ raise the interaction variance
+    by 16%, so more pairs are counted (train 8 → 9 pair-splits, test 8 → 12).
   * The benchmark split is at S4's level (0.945× / 0.872× baseline).
+* **Abalone ortho_in is 1.077× S4 over 8 splits, on the same pairs too:** a real cost of about 8% on the worst
+  pair (median per-pair ratio 1.011). Round 2 had 1.039×. On the benchmark split it is 1.012× baseline (S4
+  0.942×). Abalone's ortho_out is 0.98× S4.
 * **Concrete locvar_in** is 1.34× baseline on the benchmark split and 1.14× S4 over 8 splits. It is set by κ (item
   4). Not fixed.
-* **Abalone ortho_in** is 1.08× S4 over 8 splits, 1.012× baseline on the benchmark split (S4 0.942×).
 * **Selection data.** The round-3 settings were chosen after seeing the 8-split held-out metrics, including the
   benchmark split, with the reasoning given in item 3. No per-dataset setting exists.
 
@@ -333,6 +379,6 @@ rows (β = Q γ per pair). The method minimises
     * `cache/` (candidate tables);
     * `agtloco_round2.py.txt` (round-2 code), `NOTES_round2.md`, `full_selftest_round2.json`;
     * `subset_rho0_r3.json` (check a);
-    * logs: `cands_r3_*`, `rules_r3.log`, `summary_r3.md`, `diag_copies_*`, `check_loo_r3_*`,
-      `subset_rho0_r3.log`, `full_selftest_round2.log`.
+    * logs: `cands_r3_*`, `rules_r3.log`, `summary_r3.md`, `margin_r3.log`, `diag_copies_*`,
+      `diag_ortho_common_r3_*`, `check_loo_r3_*`, `subset_rho0_r3.log`, `full_selftest_round2.log`.
   * **Earlier rounds:** see `dev/NOTES_round2.md` (Files).

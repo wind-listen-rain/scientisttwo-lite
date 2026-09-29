@@ -1,0 +1,4 @@
+r3_concrete ortho_in  E1/S4: harness 1.314 (n=7) | common pair set 1.048 (n=7) | median per-pair ratio 1.072 | pairs >=1%: S4 8 E1 9 | interaction variance share 1.159
+r3_concrete ortho_out E1/S4: harness 1.406 (n=7) | common pair set 1.033 (n=8) | median per-pair ratio 0.998 | pairs >=1%: S4 8 E1 12 | interaction variance share 1.166
+r3_abalone ortho_in  E1/S4: harness 1.077 (n=8) | common pair set 1.077 (n=8) | median per-pair ratio 1.011 | pairs >=1%: S4 19 E1 19 | interaction variance share 1.119
+r3_abalone ortho_out E1/S4: harness 0.981 (n=8) | common pair set 0.981 (n=8) | median per-pair ratio 1.026 | pairs >=1%: S4 19 E1 21 | interaction variance share 1.116

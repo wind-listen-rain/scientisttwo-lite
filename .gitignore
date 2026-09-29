@@ -21,3 +21,12 @@ verify_cache.json
 
 # 本机控制文件：建了它编排器就会存档后停下（不同步到别的机器）
 runs/*/STOP
+
+# 智能体生成的中间缓存与数据转储：不进仓库（2026-09-29：E1 的缓存把工作区历史撑到 177 MB，推不上 GitHub）
+runs/**/cache/
+runs/**/*.npy
+runs/**/*.npz
+runs/**/*.pkl
+runs/**/*.pt
+runs/**/*.joblib
+runs/**/HISTORY.bundle.tmp

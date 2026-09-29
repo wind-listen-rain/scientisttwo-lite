@@ -10,3 +10,7 @@ abalone split 4 in : harness S4=0.0080 E1=0.0107 | common set (n=2) S4=0.0080 E1
 abalone split 4 out: harness S4=0.0827 E1=0.0813 | common set (n=3) S4=0.0827 E1=0.0813 median pair ratio=1.084 | n_big S4=2 E1=3 | inter share S4=0.1048 E1=0.1146
 abalone split 5 in : harness S4=0.0203 E1=0.0223 | common set (n=2) S4=0.0203 E1=0.0223 median pair ratio=1.355 | n_big S4=2 E1=2 | inter share S4=0.0873 E1=0.0932
 abalone split 5 out: harness S4=0.0514 E1=0.0499 | common set (n=2) S4=0.0514 E1=0.0499 median pair ratio=2.616 | n_big S4=2 E1=2 | inter share S4=0.0964 E1=0.1020
+abalone split 6 in : harness S4=0.0092 E1=0.0157 | common set (n=2) S4=0.0092 E1=0.0157 median pair ratio=1.266 | n_big S4=2 E1=2 | inter share S4=0.0876 E1=0.1068
+abalone split 6 out: harness S4=0.0663 E1=0.0612 | common set (n=3) S4=0.0663 E1=0.0612 median pair ratio=1.021 | n_big S4=2 E1=3 | inter share S4=0.1008 E1=0.1233
+abalone split 7 in : harness S4=0.0277 E1=0.0261 | common set (n=3) S4=0.0277 E1=0.0261 median pair ratio=0.972 | n_big S4=3 E1=3 | inter share S4=0.0907 E1=0.1001
+abalone split 7 out: harness S4=0.1152 E1=0.1196 | common set (n=3) S4=0.1152 E1=0.1196 median pair ratio=1.153 | n_big S4=3 E1=3 | inter share S4=0.1047 E1=0.1159
