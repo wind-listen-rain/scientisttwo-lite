@@ -108,3 +108,4 @@ tep 等步骤 idea_E1 完成后停下编排器并重启 autopilot（当前 autop
 [2026-09-29 09:36:25] resume coder 续接上次没做完的会话 2862ba89-7e23-4bef-ac64-d9987719e58f（2026-09-29 09:31:46 开始）
 [checkpoint] 用量已到 92.0%（7 天窗口 36.0%），额度用尽前先存档 → pushed
 [2026-09-29 09:47:39] wait  订阅用量上限，等待 185 分钟后重试：You've hit your session limit · resets 12:50pm (Asia/Shanghai)
+[checkpoint] 撞到订阅用量上限，预计 09-29 12:52 重置 → pushed
