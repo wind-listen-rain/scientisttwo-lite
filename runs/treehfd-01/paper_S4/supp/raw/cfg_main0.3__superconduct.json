@@ -1,0 +1,20 @@
+{
+ "dataset": "superconduct",
+ "job": "cfg:main0.3",
+ "n_train": 17010,
+ "n_test": 4253,
+ "sweep_fit_s": 251.91908289999992,
+ "default_sel": {
+  "resid_in": 0.010175874385573288,
+  "resid_out": 0.009089966212582264,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "shift",
+   2,
+   -3.0
+  ],
+  "risk_over_var": 0.012200942533378861,
+  "fid_over_var": 0.01017586465547208
+ }
+}

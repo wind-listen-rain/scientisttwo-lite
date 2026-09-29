@@ -1,0 +1,568 @@
+{
+ "envs": {
+  "base": "22b414443084",
+  "full": "22b414443084",
+  "no_shrinkage_direct_solver_only": "22b414443084",
+  "no_lattice_prior_ridge_zero_only": "22b414443084",
+  "no_ensemble_level_kappa_step": "22b414443084",
+  "soft_orthogonality_rows": "22b414443084"
+ },
+ "tables": {
+  "resid_out_vs_TreeHFD": {
+   "Full GT-LOCO": {
+    "per_dataset": {
+     "abalone": 0.511006869933323,
+     "airfoil": 0.8350743676646606,
+     "bike": 0.9980909487392752,
+     "housing": 0.9102306178541236,
+     "concrete": 0.8419973667663945,
+     "nutrition": 0.7504725487606297,
+     "parkinson": 1.0020192665473555,
+     "powerplant": 0.9646938076972991,
+     "superconduct": 0.9982504432518339
+    },
+    "gm_all": 0.8519275723139784,
+    "gm_excl_abalone_airfoil": 0.9190796877254795
+   },
+   "No shrinkage (kappa=0.01 only)": {
+    "per_dataset": {
+     "abalone": 0.5947386559365265,
+     "airfoil": 0.8576132580536677,
+     "bike": 1.0002314593990325,
+     "housing": 0.9667919114695587,
+     "concrete": 0.9167171854053315,
+     "nutrition": 0.8878551978496014,
+     "parkinson": 0.9971633878855134,
+     "powerplant": 0.9709494019754951,
+     "superconduct": 0.9962537496004766
+    },
+    "gm_all": 0.899949112723442,
+    "gm_excl_abalone_airfoil": 0.9614047753587368
+   },
+   "No lattice prior / harmonic rule": {
+    "per_dataset": {
+     "abalone": 0.659514743296192,
+     "airfoil": 1.1038588966121008,
+     "bike": 0.9977118129884025,
+     "housing": 0.9172349967951546,
+     "concrete": 0.8288732607308421,
+     "nutrition": 0.7529171129090966,
+     "parkinson": 1.0020192665473555,
+     "powerplant": 0.9708137605010311,
+     "superconduct": 0.9989277930838794
+    },
+    "gm_all": 0.9042057064544956,
+    "gm_excl_abalone_airfoil": 0.9193200491218038
+   },
+   "No ensemble-level kappa step": {
+    "per_dataset": {
+     "abalone": 0.5258349859670026,
+     "airfoil": 0.8868054181350271,
+     "bike": 0.9987737321091723,
+     "housing": 0.90447244181356,
+     "concrete": 0.8783495893491361,
+     "nutrition": 0.6750531753723963,
+     "parkinson": 1.0284525646569749,
+     "powerplant": 1.012940209540903,
+     "superconduct": 1.0596055858935811
+    },
+    "gm_all": 0.8666199117184743,
+    "gm_excl_abalone_airfoil": 0.927677802272759
+   },
+   "Soft orthogonality rows": {
+    "per_dataset": {
+     "abalone": 0.49519429469072446,
+     "airfoil": 0.8340853650399294,
+     "bike": 0.9979642759399562,
+     "housing": 0.9085427928517623,
+     "concrete": 0.834727218773728,
+     "nutrition": 0.746856767808346,
+     "parkinson": 1.0022300103012487,
+     "powerplant": 0.9648482281811953,
+     "superconduct": 0.998243571960352
+    },
+    "gm_all": 0.8474206406194733,
+    "gm_excl_abalone_airfoil": 0.9170964866003364
+   }
+  },
+  "resid_out_vs_full GT-LOCO": {
+   "No shrinkage (kappa=0.01 only)": {
+    "per_dataset": {
+     "abalone": 1.163856478121574,
+     "airfoil": 1.026990279263437,
+     "bike": 1.002144604820293,
+     "housing": 1.0621395199260368,
+     "concrete": 1.0887411547685606,
+     "nutrition": 1.1830615247897511,
+     "parkinson": 0.9951539068918566,
+     "powerplant": 1.006484538646649,
+     "superconduct": 0.9979998068973023
+    },
+    "gm_all": 1.0563681021369329,
+    "gm_excl_abalone_airfoil": 1.0460515972646534
+   },
+   "No lattice prior / harmonic rule": {
+    "per_dataset": {
+     "abalone": 1.2906181542769601,
+     "airfoil": 1.3218689728186885,
+     "bike": 0.9996201390751498,
+     "housing": 1.0076951695577367,
+     "concrete": 0.9844131269840496,
+     "nutrition": 1.003257366511945,
+     "parkinson": 1.0,
+     "powerplant": 1.0063439329193375,
+     "superconduct": 1.0006785369709819
+    },
+    "gm_all": 1.061364528910035,
+    "gm_excl_abalone_airfoil": 1.0002615240000778
+   },
+   "No ensemble-level kappa step": {
+    "per_dataset": {
+     "abalone": 1.0290174494828503,
+     "airfoil": 1.0619478365921298,
+     "bike": 1.0006840893314979,
+     "housing": 0.9936739372114963,
+     "concrete": 1.0431737960444565,
+     "nutrition": 0.8995041543987385,
+     "parkinson": 1.0263800297979302,
+     "powerplant": 1.050012140078692,
+     "superconduct": 1.0614626750796932
+    },
+    "gm_all": 1.0172459958827123,
+    "gm_excl_abalone_airfoil": 1.00935513499222
+   },
+   "Soft orthogonality rows": {
+    "per_dataset": {
+     "abalone": 0.9690560417619007,
+     "airfoil": 0.9988156711988454,
+     "bike": 0.9998730849132746,
+     "housing": 0.9981457171740273,
+     "concrete": 0.9913655929583405,
+     "nutrition": 0.9951819943870632,
+     "parkinson": 1.0002103190636438,
+     "powerplant": 1.000160072017322,
+     "superconduct": 0.9999931166657341
+    },
+    "gm_all": 0.9947097243463273,
+    "gm_excl_abalone_airfoil": 0.9978421880587404
+   }
+  },
+  "resid_in_vs_TreeHFD": {
+   "Full GT-LOCO": {
+    "per_dataset": {
+     "abalone": 1.3918995246979349,
+     "airfoil": 1.2549216582415914,
+     "bike": 1.0048128073901388,
+     "housing": 1.1094947683184775,
+     "concrete": 1.4111682221430684,
+     "nutrition": 1.6848131222632814,
+     "parkinson": 1.0118007917804588,
+     "powerplant": 1.058329603856414,
+     "superconduct": 1.008296017673679
+    },
+    "gm_all": 1.195782413647984,
+    "gm_excl_abalone_airfoil": 1.1620772358263343
+   },
+   "No shrinkage (kappa=0.01 only)": {
+    "per_dataset": {
+     "abalone": 1.09032227866795,
+     "airfoil": 1.027584443747536,
+     "bike": 1.0008238372292562,
+     "housing": 1.0145594411543681,
+     "concrete": 1.0558133888520778,
+     "nutrition": 1.0737752896087804,
+     "parkinson": 1.0084443168901802,
+     "powerplant": 1.0270009241530937,
+     "superconduct": 1.0032461172539273
+    },
+    "gm_all": 1.0330622321835055,
+    "gm_excl_abalone_airfoil": 1.0259103749090188
+   },
+   "No lattice prior / harmonic rule": {
+    "per_dataset": {
+     "abalone": 1.2953073167976012,
+     "airfoil": 1.0930307068326168,
+     "bike": 1.0032664428043694,
+     "housing": 1.0678884619079567,
+     "concrete": 1.3126819221021782,
+     "nutrition": 1.4074034913088005,
+     "parkinson": 1.0118007917804588,
+     "powerplant": 1.0591822079936444,
+     "superconduct": 1.0064457393409636
+    },
+    "gm_all": 1.1307737744847528,
+    "gm_excl_abalone_airfoil": 1.114432494239509
+   },
+   "No ensemble-level kappa step": {
+    "per_dataset": {
+     "abalone": 4.554051808548581,
+     "airfoil": 1.550240123661034,
+     "bike": 1.0236042730879382,
+     "housing": 1.3695289793365084,
+     "concrete": 3.8183652257137837,
+     "nutrition": 3.727577050425546,
+     "parkinson": 1.194326962630795,
+     "powerplant": 1.4453820686578454,
+     "superconduct": 1.108317381800299
+    },
+    "gm_all": 1.862360799948127,
+    "gm_excl_abalone_airfoil": 1.6825508873836337
+   },
+   "Soft orthogonality rows": {
+    "per_dataset": {
+     "abalone": 1.3544541993379473,
+     "airfoil": 1.254506230905056,
+     "bike": 1.0049461683104188,
+     "housing": 1.121036203046022,
+     "concrete": 1.579347967287529,
+     "nutrition": 1.6820645443848803,
+     "parkinson": 1.0127881062754502,
+     "powerplant": 1.0599899553629604,
+     "superconduct": 1.0082721478759913
+    },
+    "gm_all": 1.2086540728939161,
+    "gm_excl_abalone_airfoil": 1.1828396162804855
+   }
+  },
+  "resid_in_vs_full GT-LOCO": {
+   "No shrinkage (kappa=0.01 only)": {
+    "per_dataset": {
+     "abalone": 0.7833340405117013,
+     "airfoil": 0.8188435007069664,
+     "bike": 0.9960301360297713,
+     "housing": 0.9144337315731638,
+     "concrete": 0.7481839317843116,
+     "nutrition": 0.6373260484618806,
+     "parkinson": 0.996682672204306,
+     "powerplant": 0.9703979936031624,
+     "superconduct": 0.9949916489490827
+    },
+    "gm_all": 0.8639215800405807,
+    "gm_excl_abalone_airfoil": 0.8828246034606388
+   },
+   "No lattice prior / harmonic rule": {
+    "per_dataset": {
+     "abalone": 0.9306040370110079,
+     "airfoil": 0.8709951730087934,
+     "bike": 0.9984610421220785,
+     "housing": 0.9624997723300867,
+     "concrete": 0.9302093836188261,
+     "nutrition": 0.8353469430592843,
+     "parkinson": 1.0,
+     "powerplant": 1.0008056130473186,
+     "superconduct": 0.9981649453133967
+    },
+    "gm_all": 0.9456350600065202,
+    "gm_excl_abalone_airfoil": 0.9590003657950102
+   },
+   "No ensemble-level kappa step": {
+    "per_dataset": {
+     "abalone": 3.2718251050030966,
+     "airfoil": 1.2353282083227775,
+     "bike": 1.0187014591768668,
+     "housing": 1.2343717324707464,
+     "concrete": 2.7058186017787658,
+     "nutrition": 2.212457275628369,
+     "parkinson": 1.1803973394102079,
+     "powerplant": 1.3657201531461116,
+     "superconduct": 1.0991984123446081
+    },
+    "gm_all": 1.5574412022556903,
+    "gm_excl_abalone_airfoil": 1.4478821506104105
+   },
+   "Soft orthogonality rows": {
+    "per_dataset": {
+     "abalone": 0.9730976807624717,
+     "airfoil": 0.9996689615373144,
+     "bike": 1.0001327221541159,
+     "housing": 1.0104024237491778,
+     "concrete": 1.119177673154413,
+     "nutrition": 0.9983686155799232,
+     "parkinson": 1.0009757992907418,
+     "powerplant": 1.0015688415976425,
+     "superconduct": 0.9999763265972796
+    },
+    "gm_all": 1.0107642152109133,
+    "gm_excl_abalone_airfoil": 1.0178666097347544
+   }
+  },
+  "ortho_in_vs_TreeHFD": {
+   "Full GT-LOCO": {
+    "per_dataset": {
+     "abalone": 0.9415604411043035,
+     "airfoil": 0.8683562847897595,
+     "bike": 1.0002927193413567,
+     "housing": 1.012881229560509,
+     "concrete": 0.9638357321129308,
+     "nutrition": 0.9485942480225642,
+     "parkinson": 1.000386229136244,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 0.9611325508524067,
+    "gm_excl_abalone_airfoil": 0.9848891862105157
+   },
+   "No shrinkage (kappa=0.01 only)": {
+    "per_dataset": {
+     "abalone": 1.0116115695736556,
+     "airfoil": 1.0425226867297515,
+     "bike": 0.9987105134041995,
+     "housing": 1.0013659182336077,
+     "concrete": 0.8543343371253841,
+     "nutrition": 0.955673267865331,
+     "parkinson": 1.0008182304383944,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 0.9789824154717902,
+    "gm_excl_abalone_airfoil": 0.9604283852056366
+   },
+   "No lattice prior / harmonic rule": {
+    "per_dataset": {
+     "abalone": 0.9648220320683749,
+     "airfoil": 0.7919396285509291,
+     "bike": 0.9996624431587217,
+     "housing": 1.0221477279336344,
+     "concrete": 1.1384536819472517,
+     "nutrition": 0.9648760813692547,
+     "parkinson": 1.000386229136244,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 0.9783503854072042,
+    "gm_excl_abalone_airfoil": 1.023444581570386
+   },
+   "No ensemble-level kappa step": {
+    "per_dataset": {
+     "abalone": 0.39398450644270167,
+     "airfoil": 0.7432539388802254,
+     "bike": 1.0057871418331135,
+     "housing": 1.0272456201372362,
+     "concrete": null,
+     "nutrition": 0.9181947796618816,
+     "parkinson": 1.0370007425966608,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 0.8126778778023888,
+    "gm_excl_abalone_airfoil": 0.9959179638795714
+   },
+   "Soft orthogonality rows": {
+    "per_dataset": {
+     "abalone": 1.1832842945273703,
+     "airfoil": 0.7414416670567031,
+     "bike": 0.9890839456735733,
+     "housing": 1.0424654014175094,
+     "concrete": 2.204771980572842,
+     "nutrition": 1.8226224474266326,
+     "parkinson": 1.0089349159537186,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 1.2039996160834494,
+    "gm_excl_abalone_airfoil": 1.331201106847897
+   }
+  },
+  "ortho_in_vs_full GT-LOCO": {
+   "No shrinkage (kappa=0.01 only)": {
+    "per_dataset": {
+     "abalone": 1.0743989715489675,
+     "airfoil": 1.200570209475895,
+     "bike": 0.9984182570695915,
+     "housing": 0.9886311336503908,
+     "concrete": 0.8863899818826008,
+     "nutrition": 1.0074626425972155,
+     "parkinson": 1.0004318345150787,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 1.0185716991933662,
+    "gm_excl_abalone_airfoil": 0.9751639053942757
+   },
+   "No lattice prior / harmonic rule": {
+    "per_dataset": {
+     "abalone": 1.0247053613858175,
+     "airfoil": 0.9119984992596308,
+     "bike": 0.9993699082574048,
+     "housing": 1.0091486524803566,
+     "concrete": 1.1811698238781017,
+     "nutrition": 1.017164170434969,
+     "parkinson": 1.0,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 1.017914110326955,
+    "gm_excl_abalone_airfoil": 1.0391469374419846
+   },
+   "No ensemble-level kappa step": {
+    "per_dataset": {
+     "abalone": 0.41843782856958106,
+     "airfoil": 0.8559320084384223,
+     "bike": 1.0054928146386735,
+     "housing": 1.0141817126801334,
+     "concrete": null,
+     "nutrition": 0.9679531386321883,
+     "parkinson": 1.0366003773282952,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 0.8459378195204856,
+    "gm_excl_abalone_airfoil": 1.0057501601893901
+   },
+   "Soft orthogonality rows": {
+    "per_dataset": {
+     "abalone": 1.2567268577464474,
+     "airfoil": 0.853844994323057,
+     "bike": 0.9887945063969236,
+     "housing": 1.0292079377064152,
+     "concrete": 2.2874976586928537,
+     "nutrition": 1.9213931048243904,
+     "parkinson": 1.0085453863402896,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 1.252688419527202,
+    "gm_excl_abalone_airfoil": 1.351625264533424
+   }
+  },
+  "ortho_out_vs_TreeHFD": {
+   "Full GT-LOCO": {
+    "per_dataset": {
+     "abalone": 2.6458613621648075,
+     "airfoil": 1.1518568192232286,
+     "bike": 1.0000734216726028,
+     "housing": 0.9889864166452959,
+     "concrete": 0.8707682602433755,
+     "nutrition": 0.7690188129881593,
+     "parkinson": 0.9984465523851466,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 1.1052967207739457,
+    "gm_excl_abalone_airfoil": 0.9206134546339935
+   },
+   "No shrinkage (kappa=0.01 only)": {
+    "per_dataset": {
+     "abalone": 2.3783093357952465,
+     "airfoil": 1.5183387818115084,
+     "bike": 1.00012323513502,
+     "housing": 0.9972775423113809,
+     "concrete": 0.8924952168521375,
+     "nutrition": 0.9449711661838833,
+     "parkinson": 0.9980269463217001,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 1.1716839258543048,
+    "gm_excl_abalone_airfoil": 0.9656222306788528
+   },
+   "No lattice prior / harmonic rule": {
+    "per_dataset": {
+     "abalone": 3.19455912838771,
+     "airfoil": 1.2454064793701682,
+     "bike": 0.9994678335157909,
+     "housing": 1.0078748379125322,
+     "concrete": 0.8369502692229472,
+     "nutrition": 0.8295501062953327,
+     "parkinson": 0.9984465523851466,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 1.1571640671258794,
+    "gm_excl_abalone_airfoil": 0.9306974083828985
+   },
+   "No ensemble-level kappa step": {
+    "per_dataset": {
+     "abalone": 3.373683005973886,
+     "airfoil": 1.220821629229963,
+     "bike": 1.0014746511095873,
+     "housing": 0.8214293191988604,
+     "concrete": 0.8244226555497549,
+     "nutrition": 0.5356559514836233,
+     "parkinson": 1.0385795905107695,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 1.0649982594599572,
+    "gm_excl_abalone_airfoil": 0.8228812363554141
+   },
+   "Soft orthogonality rows": {
+    "per_dataset": {
+     "abalone": 3.7480220062802956,
+     "airfoil": 1.0750109795431226,
+     "bike": 1.0006636872585963,
+     "housing": 0.9756618249559366,
+     "concrete": 0.8475928919881858,
+     "nutrition": 0.7682114139697802,
+     "parkinson": 1.0043649734166387,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 1.1445193982079929,
+    "gm_excl_abalone_airfoil": 0.9141751560158238
+   }
+  },
+  "ortho_out_vs_full GT-LOCO": {
+   "No shrinkage (kappa=0.01 only)": {
+    "per_dataset": {
+     "abalone": 0.8988790455178447,
+     "airfoil": 1.3181662481587098,
+     "bike": 1.000049809805298,
+     "housing": 1.0083834575748867,
+     "concrete": 1.024951479745816,
+     "nutrition": 1.2288011037233664,
+     "parkinson": 0.9995797410863465,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 1.0600627902287396,
+    "gm_excl_abalone_airfoil": 1.0488899828894565
+   },
+   "No lattice prior / harmonic rule": {
+    "per_dataset": {
+     "abalone": 1.2073796360116031,
+     "airfoil": 1.0812163965049286,
+     "bike": 0.9993944563032191,
+     "housing": 1.0190987671310057,
+     "concrete": 0.9611630412309972,
+     "nutrition": 1.0787123699509615,
+     "parkinson": 1.0,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 1.0469261741006664,
+    "gm_excl_abalone_airfoil": 1.0109535155044134
+   },
+   "No ensemble-level kappa step": {
+    "per_dataset": {
+     "abalone": 1.2750792820125636,
+     "airfoil": 1.0598727279778068,
+     "bike": 1.0014011265639284,
+     "housing": 0.830576947644236,
+     "concrete": 0.9467761897055512,
+     "nutrition": 0.696544665015719,
+     "parkinson": 1.040195479697687,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 0.9635405945240018,
+    "gm_excl_abalone_airfoil": 0.8938401152116177
+   },
+   "Soft orthogonality rows": {
+    "per_dataset": {
+     "abalone": 1.4165602400322725,
+     "airfoil": 0.9332852500435531,
+     "bike": 1.0005902222508887,
+     "housing": 0.9865270225504642,
+     "concrete": 0.9733851481349213,
+     "nutrition": 0.9989500919811808,
+     "parkinson": 1.0059276292930792,
+     "powerplant": null,
+     "superconduct": null
+    },
+    "gm_all": 1.0354861067592627,
+    "gm_excl_abalone_airfoil": 0.9930065125751075
+   }
+  }
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "dataset": "superconduct",
+ "job": "ridge",
+ "n_train": 17010,
+ "n_test": 4253,
+ "ridge_zero": {
+  "resid_in": 0.010115013716245728,
+  "resid_out": 0.009091242036759364,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "common",
+   0,
+   1.0
+  ],
+  "risk_over_var": 0.012242279619052757,
+  "fid_over_var": 0.010115003997977823
+ },
+ "ridge_harmonic": {
+  "resid_in": 0.010115013716245728,
+  "resid_out": 0.009077443792760011,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "common",
+   1,
+   1.0
+  ],
+  "risk_over_var": 0.012253244657071278,
+  "fid_over_var": 0.010115003997977823
+ },
+ "ridge_full_selection": {
+  "resid_in": 0.010157483745771568,
+  "resid_out": 0.009095902669780213,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "shift",
+   0,
+   -3.0
+  ],
+  "risk_over_var": 0.012219472171587335,
+  "fid_over_var": 0.010157474001251688
+ }
+}
