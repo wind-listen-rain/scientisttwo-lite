@@ -12,7 +12,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "lib"))
 from treehfd_mod import XGBTreeHFD  # noqa: E402
 
-DATA = Path("D:/scientisttwo-lite/bench/data")
+DATA = Path(str(__import__("pathlib").Path(__file__).resolve().parents[5]) + "/bench/data")
 XGB_PARAMS = dict(eta=0.1, n_estimators=100, max_depth=6, n_jobs=4)
 
 

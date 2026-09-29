@@ -185,6 +185,9 @@ class XGBTreeHFD:
         self.interaction_list = np.empty((0, 0), dtype=int)
         eta0 = np.zeros(self.num_outputs)
         interaction_list_raw: list[list[list[int]]] = []
+        train_main = np.zeros(X.shape)
+        train_order2: dict[tuple[int, int], np.ndarray] = {}
+        self.train_components = None
         num_trees = self.n_estimators * self.num_outputs
         for tree_idx in tqdm(range(num_trees), disable=not verbose):
             tree_table = pd.DataFrame(
@@ -196,6 +199,19 @@ class XGBTreeHFD:
             self.treehfd_list.append(tree)
             eta0[self._get_output_idx(tree_idx)] += tree.eta0
             interaction_list_raw.append(tree.interaction_list)
+            # S1: accumulate the training-point components from the fitted
+            # cells (identical to predict(X), without re-binning X).
+            if self.num_outputs == 1 and tree.train_bins is not None:
+                n_main = len(tree.cartesian_partition.main_variables)
+                train_main[:, tree.cartesian_partition.main_variables] += (
+                    tree.hfd_coeffs[tree.train_bins[:, :n_main]])
+                for i, pair in enumerate(tree.interaction_list):
+                    key = tuple(int(v) for v in pair)
+                    if key not in train_order2:
+                        train_order2[key] = np.zeros(X.shape[0])
+                    train_order2[key] += tree.hfd_coeffs[
+                        tree.train_bins[:, n_main + i]]
+            tree.train_bins = None
         if self.num_outputs == 1:
             self.eta0 = float(eta0[0])
         else:
@@ -204,6 +220,11 @@ class XGBTreeHFD:
         if len(interaction_list_raw) > 0:
             self.interaction_list = np.unique(np.concatenate(
                                         interaction_list_raw, axis=0), axis=0)
+        if self.num_outputs == 1:
+            self.train_components = (train_main, np.stack(
+                [train_order2[tuple(int(v) for v in pair)]
+                 for pair in self.interaction_list], axis=1)
+                if len(train_order2) > 0 else np.zeros((X.shape[0], 0)))
 
     def predict(self, X_new: np.ndarray, verbose: bool = True) -> tuple:
         """Predict TreeHFD components for new input data.

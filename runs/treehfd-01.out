@@ -109,3 +109,7 @@ tep 等步骤 idea_E1 完成后停下编排器并重启 autopilot（当前 autop
 [checkpoint] 用量已到 92.0%（7 天窗口 36.0%），额度用尽前先存档 → pushed
 [2026-09-29 09:47:39] wait  订阅用量上限，等待 185 分钟后重试：You've hit your session limit · resets 12:50pm (Asia/Shanghai)
 [checkpoint] 撞到订阅用量上限，预计 09-29 12:52 重置 → pushed
+[checkpoint] 定时存档 → pushed
+[2026-09-29 13:14:25] agent coder {"status": "implemented", "summary": "S1 = baseline TreeHFD (algorithm unchanged; training-row components now collected during the fit, bit-identical to predict(X_train)) + a post-hoc, pointwise sum-preserving re-orthogonalization. For each interaction (j,k), an additive piecewise-constant fit g_j +
+[2026-09-29 13:16:44] eval  subset <ROOT>/runs/treehfd-01/ideas/S1/method.py 139s errors=[]
+[2026-09-29 13:17:09] agent subset_critic {"decision": "refine", "feedback": "S1 does not clearly beat the baseline yet. Reconstruction is preserved, so resid_in is unchanged and resid_out is within noise. The compute cost is fine. The metric changes are small and mixed, and some are regressions.\n\n**What the table shows**\n- Analytical ms

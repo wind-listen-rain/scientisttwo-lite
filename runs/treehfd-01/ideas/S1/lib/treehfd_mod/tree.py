@@ -87,6 +87,7 @@ class TreeHFD:
         self.eta0 = 0.0
         self.cartesian_partition = CartesianTreePartition(main_variables)
         self.hfd_coeffs: np.ndarray = np.empty(0)
+        self.train_bins: np.ndarray | None = None
 
     def fit(self, X: np.ndarray, y_tree: np.ndarray) -> None:
         """Fit TreeHFD decomposition of a single tree.
@@ -113,6 +114,9 @@ class TreeHFD:
 
         # Fit treehfd coefficients.
         self.hfd_coeffs = lsqr(constr_mat, target)[0]
+        # S1: keep the training cells so the ensemble can aggregate the
+        # training-point components without a second pass (freed after use).
+        self.train_bins = X_bin if X_bin.shape[1] > 0 else None
 
     def predict(self, X_new: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         """Predict TreeHFD components of a single tree for new input data.

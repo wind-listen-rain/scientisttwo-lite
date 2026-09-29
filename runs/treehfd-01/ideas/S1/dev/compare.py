@@ -1,7 +1,7 @@
 """Dev only: side-by-side table of a result file vs the baseline of this machine."""
 import json, sys
 new = json.load(open(sys.argv[1]))
-base = json.load(open(sys.argv[2] if len(sys.argv) > 2 else "D:/scientisttwo-lite/baseline/env-22b414443084/subset.json"))
+base = json.load(open(sys.argv[2] if len(sys.argv) > 2 else str(__import__("pathlib").Path(__file__).resolve().parents[5]) + "/baseline/env-22b414443084/subset.json"))
 print("errors:", new["errors"], "| eval_env:", new.get("eval_env"))
 if "analytical" in new:
     for k, v in new["analytical"]["mean"].items():

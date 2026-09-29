@@ -20,7 +20,7 @@ def fit(model, X_train, interaction_order=2):
     hfd.fit(X_train, interaction_order=interaction_order, verbose=False)
     state = {"hfd": hfd, "eta0": float(hfd.eta0), "proj": None, "diag": None}
     if hfd.interaction_list.shape[0] > 0:
-        main, inter = hfd.predict(X_train, verbose=False)
+        main, inter = hfd.train_components  # = hfd.predict(X_train), accumulated during the fit
         state["proj"], state["eta0"], state["diag"] = fit_projection(
             hfd.eta0, main, inter, hfd.interaction_list, X_train, hfd.xgb_table)
     return state

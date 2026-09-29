@@ -1,7 +1,7 @@
 {
  "started": 1790512245.3949382,
- "calls": 31,
- "cost_usd": 44.5536746,
+ "calls": 33,
+ "cost_usd": 50.8074716,
  "steps": {
   "limitations": [
    {
@@ -407,12 +407,52 @@
   }
  },
  "rebaseline_s": 2173.6644105911255,
- "partial": {},
+ "partial": {
+  "idea_S1": {
+   "idea": {
+    "title": "Ensemble-level re-orthogonalization on the union-of-splits partition (sum-preserving, cross-fitted smoothed projection)",
+    "addresses": [
+     "The piecewise-constant density approximation leaves an irreducible bias at the fixed, shallow tree depth used in the benchmark",
+     "Spurious interaction candidates are never pruned, leaking noise into components that should be exactly zero"
+    ],
+    "mechanism": "TreeHFD makes each tree's interaction orthogonal only to functions that are piecewise constant on that tree's own coarse partition of x_j. The paper's Theorem 3(ii) admits that the summed ensemble interaction eta_jk = sum_l eta_jk^l is NOT orthogonal to the summed main effects. The covariance is bounded only by Delta_{A,f}, the same discretization term that appears in the Theorem 6 error bound. The baseline shows this directly: ortho_in = 0.082 on parkinson and 0.028 on housing, even in-sample. The aggregated main effect eta_j is piecewise constant on the union U_j of all split thresholds on x_j across the ensemble. This union grid is much finer than any single depth-6 tree's grid, and we get it at no cost from the fixed model. The new step is a global, post-hoc projection. For each retained pair (j,k), solve an additive least-squares problem under the empirical measure of X_train: (g_j, g_k) = argmin E_n[(eta_jk - g_j(x_j) - g_k(x_k))^2] + lambda * R(g). Here g_j lives on the union bins U_j (merged to a minimum count), and R is a first-difference (P-spline-like) penalty along the ordered bins, so the transfer is smooth and generalises out of sample. Then set eta_jk <- eta_jk - g_j - g_k, eta_j <- eta_j + g_j and eta_k <- eta_k + g_k, and move the constants into the intercept. Hierarchical orthogonality only requires eta_jk to be orthogonal to functions of its own subsets, so the pairs can be projected independently and in any order. The move is pointwise sum-preserving, so the reconstruction (and therefore resid_in and resid_out) is unchanged at every x. The only change is how T is split among components: each interaction becomes orthogonal to the whole union-bin function space of x_j and x_k, which contains the final eta_j and eta_k. This is a finer discretization of the true HFD constraint, and it shrinks the effective Delta_{A,f} without retraining. The penalty lambda is picked label-free by K-fold cross-fitting on X_train only: fit the projection on K-1 folds and score the held-out |corr(eta_jk, eta_j)|.",
+    "implementation_sketch": "method.py: (1) Run TreeHFD as in the baseline (bench/baseline_method.py logic, reusing the treehfd package) to get per-tree components. (2) From model.get_booster().trees_to_dataframe(), collect all split thresholds per feature. Build union edges U_j, then greedily merge adjacent bins that hold fewer than m_min (e.g. 10) X_train points. Store the edges. (3) Evaluate the aggregated eta_jk on X_train (n x K) and the bin indices b_j = digitize(X_train[:, j], U_j). (4) For each pair, assemble the normal equations with np.bincount: the Gram blocks are diagonal counts for (j,j) and (k,k) and a joint count table for (j,k). Add lambda * D^T D difference penalties and solve the small dense (B_j + B_k) system with a fixed gauge (centred g). Cost is O(n + B^2) per pair, so seconds even for superconduct. (5) Pick lambda from a small grid by 3-fold cross-fitting on X_train rows (deterministic fold split). (6) At predict time, compute the baseline components, then subtract g_j[digitize(x_j)] + g_k[digitize(x_k)] from each interaction column and add them to the main-effect columns. The intercept absorbs the centring constants. No RNG is used, and the added fit time is expected to be <10% of baseline.",
+    "expected_effect_on_metrics": "ortho_in should drop to about 0 up to the lambda smoothing (largest gains on parkinson 0.082, housing 0.028, abalone 0.027). ortho_out should drop substantially on airfoil, concrete, nutrition and parkinson (currently 0.08-0.12), because the smoothed transfer generalises. resid_in and resid_out are unchanged by construction. Analytical: lower mse_eta12 and mse_eta34, since the true eta_jk are exactly orthogonal to all functions of their parent variables, and main-effect mass leaked into interactions returns to eta_1..eta_4. mse_others should fall, because the additive part of spurious pairs such as (1,3), created by per-tree coarse discretization under rho=0.5, is moved to main effects. locvar_in stays neutral or improves slightly thanks to the difference penalty on g_j. fit_s rises by about 1.0-1.1x.",
+    "risks": "(a) Moving mass into main effects could slightly raise locvar_in on the finest union bins if lambda is too small. This is mitigated by the difference penalty and the minimum-count merging. (b) Orthogonality is enforced under the empirical training measure, so ortho_out gains depend on how well the cross-fitted lambda generalises; small-n datasets (concrete, n=824 train) may gain less. (c) If the aggregated interaction for a true pair is mostly pure interaction already, mse_eta12 and mse_eta34 may barely move; the gain is then mainly on ortho metrics. (d) The union bins of a variable split often (e.g. sin(2*pi*x1)) can be numerous, but B_j is at most a few hundred after merging, so the dense solves stay cheap. (e) This step changes neither the model nor the reconstruction, so it stays within red lines 2-3.",
+    "id": "S1",
+    "novelty": 3,
+    "closest": [
+     {
+      "title": "Purifying Interaction Effects with the Functional ANOVA: An Efficient Algorithm for Recovering Identifiable Additive Models (Lengerich, Tan, Chang, Hooker, Caruana; AISTATS 2020)",
+      "url": "https://arxiv.org/abs/1911.04974",
+      "overlap": "This is an exact, sum-preserving 'purification' algorithm for piecewise-constant functions (tree ensembles / GA2Ms with interactions) that redistributes mass between interaction and main-effect terms to restore functional-ANOVA orthogonality/identifiability under the empirical (training) distribution, leaving the reconstruction unchanged. That is precisely the core mechanism proposed here (project eta_jk onto functions of x_j and x_k, subtract the projection from the interaction, add it to the mains, sum-preserving, under the empirical measure). The idea's contribution on top of this is largely implementation detail: doing the projection on the union-of-tree-split bins rather than an arbitrary Cartesian partition, and adding a P-spline-like smoothing penalty with cross-fitted lambda so the correction generalizes out-of-sample (targeting ortho_out) instead of Lengerich's exact in-sample purification."
+     },
+     {
+      "title": "Achieving interpretable machine learning by functional decomposition of black-box models into explainable predictor effects (npj Artificial Intelligence, 2025)",
+      "url": "https://arxiv.org/abs/2407.18650",
+      "overlap": "Introduces 'stacked orthogonality' and an efficient post-hoc orthogonalization procedure that moves explanatory mass from higher-order interactions into main effects (and lower-order into higher, hierarchically) so that main effects capture as much signal as possible without leaking into interactions — the same hierarchical-orthogonality-restoration goal TreeHFD already targets, solved post-hoc rather than during fitting. It differs from the idea by operating on a neural-additive-model surrogate rather than directly on tree-ensemble split partitions, and it doesn't appear to add a smoothing/regularization step for out-of-sample generalization."
+     }
+    ]
+   },
+   "workspace": "<ROOT>/runs/treehfd-01/ideas/S1",
+   "env": "22b414443084",
+   "history": [
+    {
+     "phase": "subset",
+     "iter": 0,
+     "result": "<ROOT>/runs/treehfd-01/ideas/S1/subset_0.json",
+     "decision": "refine",
+     "feedback": "S1 does not clearly beat the baseline yet. Reconstruction is preserved, so resid_in is unchanged and resid_out is within noise. The compute cost is fine. The metric changes are small and mixed, and some are regressions.\n\n**What the table shows**\n- Analytical mse_eta* and mse_others move by -1% to +1%, which is noise.\n- Real-data ortho_in improves on abalone (-63%) and, per the notes, on housing, parkinson and bike. It gets worse on concrete (+117%), and airfoil is flat to slightly worse (+1.2%).\n- ortho_out is worse on abalone (+30%) and about -1% on the others, which is inside the noise floor of 1/sqrt(n_test).\n- locvar_in is worse on airfoil (+23%) and concrete (+12%), and the notes report 2.5x on superconduct. This is a real smoothness regression.\n- The notes say the analytical gains did not appear. The additive leak left in the interactions is about 0.5% of var(eta_12), so the headline claims (lower mse_eta12, mse_eta34 and mse_others) did not materialise.\n\n**Fixes to try**\n1. **Concrete ortho_in (+117%).** The projection is supposed to drive in-sample orthogonality toward 0, so the cross-fitted lambda or the leak criterion is behaving badly there.\n   - Fall back to the baseline for any pair or dataset where the held-out leak does not improve on the baseline's held-out leak. Do this per pair, not globally.\n   - Also check whether the harness measures ortho on a different grid or measure than the one the projection enforces.\n2. **locvar_in regression.**\n   - Raise the minimum bin count and the difference-penalty strength.\n   - Use a second-difference penalty.\n   - Skip transfers whose variance share is negligible. On superconduct, about 70 tiny transfers per variable roughen the main effects.\n   - Choose lambda by a joint criterion: held-out leak plus a roughness term.\n3. **Cross-fit selection.** Select lambda per pair or per feature on the held-out |corr| itself. The notes say the current cross-fit judged the analytical additive part 'not estimable better', so it effectively did nothing there. Compare against an unpenalised or lightly penalised projection.\n4. **Report.** Give ortho_out with uncertainty, or use more repeats, so real gains can be told apart from noise. Parkinson and housing look genuinely improved (0.118→0.082 and 0.049→0.041). Aim to make that consistent across datasets without hurting locvar_in.\n\nThe core mechanism is close to Lengerich's purification (2020), so the gain has to come from the generalising smoothing. That step needs to show a consistent out-of-sample benefit, and it does not yet."
+    }
+   ],
+   "coder_done": true
+  }
+ },
  "inflight": {
-  "role": "coder",
+  "role": "engineer",
   "cwd": "<ROOT>/runs/treehfd-01/ideas/S1",
-  "session_id": "2862ba89-7e23-4bef-ac64-d9987719e58f",
+  "session_id": "63ef43b6-02f8-45f5-bdcf-f545955b8ba6",
   "model": "claude-opus-5-5",
-  "started": "2026-09-29 09:31:46"
+  "started": "2026-09-29 13:17:09"
  }
 }
