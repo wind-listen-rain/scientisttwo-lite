@@ -1,7 +1,7 @@
 {
  "started": 1790512245.3949382,
  "calls": 38,
- "cost_usd": 61.130822,
+ "cost_usd": 65.5062358,
  "steps": {
   "limitations": [
    {
@@ -406,7 +406,7 @@
   "tasks/treehfd/src/treehfd/tree_structure.py": "9a5b00d7158d73f95e85deb2aa7aca5343653236b0253760e967d6978b8eeeec",
   "tasks/treehfd/src/treehfd/validation.py": "02f3e3713accc2fd0c43c23850643128b1a9a88a77426c5ddac01f3e3fa4677f"
  },
- "waited_s": 119668.35012221336,
+ "waited_s": 129648.50068330765,
  "protocol_changes": [
   {
    "t": "2026-09-28 11:01:33",
@@ -488,14 +488,32 @@
       "how": "Set HARD_ORTHO = False in lib/gtloco.py so the baseline's soft orthogonality rows are used, and keep everything else, including the shrinkage. Compare ortho_in and ortho_out, plus resid_in and resid_out. Any gain that disappears here is due to the exact-orthogonality side change rather than to the Good-Turing shrinkage. The notes report that soft rows are traded off against the penalty, with in-sample interaction/main correlations of 0.06-0.13 versus at most 0.012 for hard rows."
      }
     ]
+   },
+   "code": {
+    "status": "done",
+    "files": [
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_shrinkage_direct_solver_only.py",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_lattice_prior_ridge_zero_only.py",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_ensemble_level_kappa_step.py",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/method_soft_orthogonality_rows.py",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/method_zero_rule_only.py",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/_shared.py",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/diag_selection.py",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/compare_ablations.py",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/run_subset.sh",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/README.md",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/subset_no_shrinkage_direct_solver_only.json",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/subset_no_lattice_prior_ridge_zero_only.json",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/subset_no_ensemble_level_kappa_step.json",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/subset_soft_orthogonality_rows.json",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/subset_zero_rule_only.json",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/logs/diag_selection_subset.log",
+     "<ROOT>/runs/treehfd-01/ideas/S4/ablations/logs/subset_method_recheck.json",
+     "<ROOT>/runs/treehfd-01/ideas/S4/lib/gtloco.py"
+    ],
+    "notes": "Each ablation file imports lib/gtloco.py and method.py through ablations/_shared.py, sets gtloco module switches at import time and reuses method.fit / method.predict unchanged. The harness runs each method in its own process, so the switches never reach the submitted method. (1) no_shrinkage_direct_solver_only: KAPPAS=[1e-2], SHIFTS=[0]. The (prior, rule) variant is still chosen by ensemble leave-out risk as specified; at kappa=0.01 the lattice prior still acts slightly on weakly identified directions. (2) no_lattice_prior_ridge_zero_only: PRIORS=('ridge',), RULES=('zero',); the lattice branch never runs. (3) no_ensemble_level_kappa_step: SHIFTS=[0] plus a new switch gtloco.COMMON_KAPPA=False, so the only candidates are the per-tree argmin under each variant, with the variant chosen by summed leave-out risk (the round-3 'per-tree' setup of dev/ablate_shift.py). (4) soft_orthogonality_rows: HARD_ORTHO=False. Extra, optional: method_zero_rule_only.py (RULES=('zero',), both priors), the rule-only isolation suggested in ablation 2. The only edit to lib/gtloco.py is COMMON_KAPPA (default True = previous candidate set). A subset re-run of method.py after the edit reproduces subset_env-22b414443084.json exactly on all metrics except fit_s (logs/subset_method_recheck.json). Subset self-tests (this machine, one run each): all 5 files complete with errors=[]. Ratio to the full method, resid_in / resid_out / ortho_out for airfoil, concrete, abalone: no_shrinkage 0.82,0.75,0.78 / 1.03,1.09,1.16 / 1.32,1.02,0.90, analytical resid_out 1.09, mse_others 1.13. ridge_zero 0.87,0.93,0.93 / 1.32,0.98,1.29 / 1.08,0.96,1.21, analytical resid_out 1.40, eta12 1.36, eta34 1.24. no_ensemble_step 1.24,2.71,3.27 / 1.06,1.04,1.03 / 1.06,0.95,1.28, analytical resid_out 1.04; per-tree median kappa 0.3-1 vs 0.03-0.1, which confirms the round-3 finding that the step mostly buys resid_in. soft_ortho 1.00,1.12,0.97 / 1.00,0.99,0.97 / 0.93,0.97,1.42, ortho_in 0.85,2.29,1.26. zero_rule_only resid_out 1.17,1.00,1.21, analytical resid_out 1.28, so the ridge_zero loss comes mostly from the harmonic rule. Chosen-kappa and variant diagnostics are in logs/diag_selection_subset.log (no_shrinkage picks lattice/harmonic except lattice/zero on concrete). Fit time: soft_orthogonality_rows is 1.4-2.8x the baseline on this machine (analytical 53s vs 19s, concrete 16s vs 6s); its full-mode time is not measured. The other ablations are <=1.1x the full method. Not done: no full-mode runs of the ablations."
    }
   }
  },
- "inflight": {
-  "role": "ablation_coder",
-  "cwd": "<ROOT>/runs/treehfd-01/ideas/S4",
-  "session_id": "2ee43d60-8fc0-4110-a996-ac7d652790ae",
-  "model": "claude-opus-5-5",
-  "started": "2026-09-29 14:41:35"
- }
+ "inflight": null
 }

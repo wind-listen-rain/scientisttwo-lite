@@ -126,3 +126,5 @@ tep 等步骤 idea_E1 完成后停下编排器并重启 autopilot（当前 autop
 [2026-09-29 14:41:35] agent ablation_planner {"ablations": [{"name": "no_shrinkage_direct_solver_only", "removes": "The GT-LOCO Tikhonov shrinkage: the ridge/lattice priors, the Good-Turing/PRESS choice of kappa, and the ensemble-level kappa shift. This is the core mechanism.", "how": "In lib/gtloco.py restrict KAPPAS to the single smallest va
 [checkpoint] 用量已到 93.0%（7 天窗口 45.0%），额度用尽前先存档 → pushed
 [2026-09-29 15:06:39] wait  订阅用量上限，等待 166 分钟后重试：You've hit your session limit · resets 5:50pm (Asia/Shanghai)
+[checkpoint] 撞到订阅用量上限，预计 09-29 17:52 重置 → pushed
+[2026-09-29 17:54:05] agent ablation_coder {"status": "done", "files": ["<ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_shrinkage_direct_solver_only.py", "<ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_lattice_prior_ridge_zero_only.py", "<ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_e
