@@ -134,3 +134,4 @@ tep 等步骤 idea_E1 完成后停下编排器并重启 autopilot（当前 autop
 [2026-09-29 18:08:17] eval  full <ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_ensemble_level_kappa_step.py 851s errors=[]
 [2026-09-29 18:25:28] eval  full <ROOT>/runs/treehfd-01/ideas/S4/ablations/method_soft_orthogonality_rows.py 1314s errors=[]
 [2026-09-29 18:25:52] agent ablation_critic {"decision": "refine", "feedback": "The breakdown is not clean. Much of the gain comes from the solver and the deterministic unseen-cell rule, not from Good-Turing/PRESS shrinkage, and one metric family regresses.\n\n1. Attribution. The 'direct solver only' ablation (no shrinkage) already gets most 
+[checkpoint] 完成 ablation_S4 → pushed
