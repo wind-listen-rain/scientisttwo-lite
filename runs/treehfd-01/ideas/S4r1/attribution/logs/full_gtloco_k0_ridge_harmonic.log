@@ -1,0 +1,21 @@
+[harness] full 模式评测 D:\scientisttwo-lite\runs\treehfd-01\ideas\S4r1\attribution\method_gtloco_k0_ridge_harmonic.py
+  analytical rep 1/10: eta12=0.0352 eta1=0.0281
+  analytical rep 2/10: eta12=0.0331 eta1=0.0270
+  analytical rep 3/10: eta12=0.0340 eta1=0.0261
+  analytical rep 4/10: eta12=0.0286 eta1=0.0343
+  analytical rep 5/10: eta12=0.0292 eta1=0.0227
+  analytical rep 6/10: eta12=0.0321 eta1=0.0402
+  analytical rep 7/10: eta12=0.0371 eta1=0.0215
+  analytical rep 8/10: eta12=0.0271 eta1=0.0276
+  analytical rep 9/10: eta12=0.0291 eta1=0.0307
+  analytical rep 10/10: eta12=0.0318 eta1=0.0255
+  abalone: resid_in=0.0046 resid_out=0.0463 ortho_in=0.030722113364592792 locvar=0.002571 fit=9.3s
+  airfoil: resid_in=0.0098 resid_out=0.0260 ortho_in=0.009667579078887982 locvar=5.198e-05 fit=2.6s
+  bike: resid_in=0.0213 resid_out=0.0247 ortho_in=0.013374849883386998 locvar=0.0003434 fit=26.0s
+  housing: resid_in=0.0100 resid_out=0.0155 ortho_in=0.027987220664101524 locvar=0.001775 fit=69.6s
+  concrete: resid_in=0.0015 resid_out=0.0243 ortho_in=0.006352653367345029 locvar=0.01244 fit=4.3s
+  nutrition: resid_in=0.0179 resid_out=0.0979 ortho_in=0.016253513984838888 locvar=0.002836 fit=6.8s
+  parkinson: resid_in=0.0072 resid_out=0.0096 ortho_in=0.08203770590893229 locvar=0.004705 fit=25.1s
+  powerplant: resid_in=0.0006 resid_out=0.0011 ortho_in=None locvar=0.0005291 fit=18.1s
+  superconduct: resid_in=0.0101 resid_out=0.0091 ortho_in=None locvar=0.0006568 fit=173.5s
+[harness] 完成，用时 593s，错误 []

@@ -1,0 +1,7 @@
+analytical   baseline    19.7s  method    34.8s  ratio  1.77
+abalone      baseline    17.4s  method    13.3s  ratio  0.77
+airfoil      baseline     3.1s  method     3.7s  ratio  1.19
+concrete     baseline     5.7s  method     6.8s  ratio  1.19
+nutrition    baseline     8.1s  method    10.9s  ratio  1.35
+powerplant   baseline    13.3s  method    31.6s  ratio  2.37
+housing      baseline   115.8s  method   114.1s  ratio  0.99

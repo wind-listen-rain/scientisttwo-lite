@@ -5,8 +5,7 @@ For each split seed s (0 = benchmark split; others are alternative 80/20 splits 
 diagnosis; for "analytical", s is the repetition), fits GT-LOCO once and, for every ensemble
 candidate (variant x {shift, common kappa}), records
   * label-free quantities the method can use: R, in-sample residual, the in-sample
-    orthogonality term Omega (variance of each interaction explained by its two main effects),
-    and the per-point squared leave-out residuals (for standard-error rules);
+    orthogonality term Omega (variance of each interaction explained by its two main effects).
   * held-out quantities (diagnosis only, never used by the method): resid_out, ortho_in,
     ortho_out, and Omega on test points.
 Saves dev/cache/cand_<dataset>_s<seed>.npz.
@@ -103,7 +102,7 @@ def main():
         sel = d["selection"]
         isel = [i for i, c in enumerate(d["candidates"]) if c[:3] == sel[:3]][0]
         np.savez(HERE / "cache" / f"cand_{name}_s{seed}{tag}.npz", tab=tab,
-                 sq=hfd._cand_sq.astype(np.float32), isel=isel, vtr=vtr, tfit=tfit)
+                 isel=isel, vtr=vtr, tfit=tfit)
         r = tab[isel]
         print(f"{name} s{seed}: fit {tfit:.1f}s sel={sel[:3]} R={r[3]:.5f} in={r[5]:.5f} "
               f"out={r[9]:.5f} oin={r[6]:.4f} oout={r[10]:.4f} Om_in={r[7]:.2e} "

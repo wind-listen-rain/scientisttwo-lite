@@ -1,0 +1,36 @@
+=== abalone: ratio to argmin R; geo-mean over splits [1, 2, 3, 4, 5, 6, 7] | split 0 (benchmark)
+rule           resid_in  resid_out   ortho_in  ortho_out   inter_in |   resid_in  resid_out   ortho_in  ortho_out   inter_in | split-0 choice
+argminR           1.000      1.000      1.000      1.000      1.000 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -3
+R+Omega           1.000      1.000      1.000      1.000      1.000 |      0.940      1.047      1.001      1.024      0.943 | shift v1 -3
+cap1.25           0.880      1.055      1.011      1.003      1.053 |      0.817      1.123      1.044      1.018      1.015 | shift v1 -4
+cap1.5            0.947      1.020      1.045      0.997      1.010 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -3
+cap1.5+Omega      0.947      1.020      1.045      0.997      1.010 |      0.940      1.047      1.001      1.024      0.943 | shift v1 -3
+per_tree          3.166      0.958      0.703      0.781      0.642 |      3.272      1.029      0.418      1.275      0.657 | shift v3 +0
+lattice_only      0.999      1.005      1.049      1.005      1.078 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -3
+=== airfoil: ratio to argmin R; geo-mean over splits [1, 2, 3, 4, 5, 6, 7] | split 0 (benchmark)
+rule           resid_in  resid_out   ortho_in  ortho_out   inter_in |   resid_in  resid_out   ortho_in  ortho_out   inter_in | split-0 choice
+argminR           1.000      1.000      1.000      1.000      1.000 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -1
+R+Omega           1.000      1.000      1.000      1.000      1.000 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -1
+cap1.25           0.929      1.020      1.008      1.016      1.015 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -1
+cap1.5            1.000      1.000      1.000      1.000      1.000 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -1
+cap1.5+Omega      1.000      1.000      1.000      1.000      1.000 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -1
+per_tree          1.272      1.011      0.956      0.969      0.948 |      1.235      1.062      0.856      1.060      0.949 | shift v3 +0
+lattice_only      1.000      1.000      1.000      1.000      1.000 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -1
+=== concrete: ratio to argmin R; geo-mean over splits [1, 2, 3, 4, 5, 6, 7] | split 0 (benchmark)
+rule           resid_in  resid_out   ortho_in  ortho_out   inter_in |   resid_in  resid_out   ortho_in  ortho_out   inter_in | split-0 choice
+argminR           1.000      1.000      1.000      1.000      1.000 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -2
+R+Omega           1.000      1.000      1.000      1.000      1.000 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -2
+cap1.25           0.749      1.055      0.966      0.994      1.090 |      0.822      1.041      0.913      1.000      1.074 | common v2 +1
+cap1.5            0.905      1.021      1.003      1.003      1.034 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -2
+cap1.5+Omega      0.905      1.021      1.003      1.003      1.034 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -2
+per_tree          2.369      0.990      0.892      1.021      0.763 |      2.706      1.043        nan      0.947      0.768 | shift v3 +0
+lattice_only      1.000      1.000      1.000      1.000      1.000 |      1.000      1.000      1.000      1.000      1.000 | shift v3 -2
+=== nutrition: ratio to argmin R; geo-mean over splits [1, 2, 3, 4, 5, 6, 7] | split 0 (benchmark)
+rule           resid_in  resid_out   ortho_in  ortho_out   inter_in |   resid_in  resid_out   ortho_in  ortho_out   inter_in | split-0 choice
+argminR           1.000      1.000      1.000      1.000      1.000 |      1.000      1.000      1.000      1.000      1.000 | shift v2 -2
+R+Omega           1.000      1.000      1.000      1.000      1.000 |      1.000      1.000      1.000      1.000      1.000 | shift v2 -2
+cap1.25           0.822      1.045      0.989      0.976      1.071 |      0.703      1.115      1.009      1.187      1.162 | common v2 +1
+cap1.5            0.918      1.011      0.991      0.972      1.005 |      0.784      1.069      0.972      0.982      1.106 | shift v2 -3
+cap1.5+Omega      0.918      1.011      0.991      0.972      1.005 |      0.784      1.069      0.972      0.982      1.106 | shift v2 -3
+per_tree          2.482      0.942      0.984      0.842      0.681 |      2.212      0.900      0.968      0.697      0.684 | shift v3 +0
+lattice_only      0.994      1.014      1.005      1.025      1.047 |      1.000      1.000      1.000      1.000      1.000 | shift v2 -2

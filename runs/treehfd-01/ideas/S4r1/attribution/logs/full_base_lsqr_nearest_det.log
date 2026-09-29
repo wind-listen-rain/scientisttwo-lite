@@ -17,3 +17,5 @@
   nutrition: resid_in=0.0179 resid_out=0.0963 ortho_in=0.01622310523659369 locvar=0.002818 fit=15.4s
   parkinson: resid_in=0.0072 resid_out=0.0095 ortho_in=0.08200709666235434 locvar=0.00469 fit=84.7s
   powerplant: resid_in=0.0006 resid_out=0.0011 ortho_in=None locvar=0.0005291 fit=20.5s
+  superconduct: resid_in=0.0101 resid_out=0.0091 ortho_in=None locvar=0.0006625 fit=611.8s
+[harness] 完成，用时 1365s，错误 []

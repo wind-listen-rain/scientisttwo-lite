@@ -12,3 +12,10 @@
   abalone: resid_in=0.0045 resid_out=0.0743 ortho_in=0.04005427169705287 locvar=0.002625 fit=36.1s
   airfoil: resid_in=0.0098 resid_out=0.0268 ortho_in=0.009667346768714613 locvar=5.198e-05 fit=7.1s
   bike: resid_in=0.0213 resid_out=0.0246 ortho_in=0.013374876347413637 locvar=0.0003434 fit=96.8s
+  housing: resid_in=0.0100 resid_out=0.0154 ortho_in=0.02796750622706601 locvar=0.001775 fit=246.2s
+  concrete: resid_in=0.0015 resid_out=0.0250 ortho_in=0.0063636683041364325 locvar=0.01253 fit=12.8s
+  nutrition: resid_in=0.0179 resid_out=0.0972 ortho_in=0.016257262814809947 locvar=0.00284 fit=18.7s
+  parkinson: resid_in=0.0072 resid_out=0.0097 ortho_in=0.0820454118732525 locvar=0.004713 fit=88.4s
+  powerplant: resid_in=0.0006 resid_out=0.0011 ortho_in=None locvar=0.0005291 fit=39.6s
+  superconduct: resid_in=0.0101 resid_out=0.0091 ortho_in=None locvar=0.0006657 fit=273.6s
+[harness] 完成，用时 1805s，错误 []

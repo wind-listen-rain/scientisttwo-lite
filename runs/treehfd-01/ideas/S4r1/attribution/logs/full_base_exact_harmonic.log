@@ -15,3 +15,7 @@
   housing: resid_in=0.0100 resid_out=0.0155 ortho_in=0.02796750622706601 locvar=0.001775 fit=254.4s
   concrete: resid_in=0.0015 resid_out=0.0244 ortho_in=0.0063636683041364325 locvar=0.01253 fit=14.5s
   nutrition: resid_in=0.0179 resid_out=0.0980 ortho_in=0.016257262814809947 locvar=0.00284 fit=19.7s
+  parkinson: resid_in=0.0072 resid_out=0.0096 ortho_in=0.0820454118732525 locvar=0.004713 fit=93.6s
+  powerplant: resid_in=0.0006 resid_out=0.0011 ortho_in=None locvar=0.0005291 fit=40.8s
+  superconduct: resid_in=0.0101 resid_out=0.0091 ortho_in=None locvar=0.0006657 fit=315.2s
+[harness] 完成，用时 1454s，错误 []
