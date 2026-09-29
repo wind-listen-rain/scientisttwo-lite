@@ -1,0 +1,153 @@
+{
+ "method": "<ROOT>/runs/treehfd-01/ideas/S4/ablations/method_no_ensemble_level_kappa_step.py",
+ "method_sha256": "6b39b860cfa2309961f7f868c81a1b29d637ac3dfaff380b46bc05a58f39e694",
+ "mode": "full",
+ "protocol": {
+  "baseline_method.py": "291bb4f632ba36549722d64661437e3e414313ccd8202d077d879bc4503372f3",
+  "fetch_data.py": "a5b1c98740d31231525d1c80df5833e6bf7d8d74b7cb469f0e29e9f6ccd4f8c6",
+  "harness.py": "29edf403bd53a01bdadbb67ce83a7317a33b2606be5a51ca3668e441f562aa4a",
+  "runner.py": "378dfd6b265cb9c9d45ae55fb9a5eba3a379c3376858ed6d6a1becffd7277933",
+  "data\\abalone.npz": "9f3f681a91bfc23fbe7251b66c0c53cb1b073ec6c26b7fbe28e6f4c419d20ac6",
+  "data\\airfoil.npz": "a79fe8c851d46937ed3d464cac2a158695060df6af6e84e5b5cbd42e72aed827",
+  "data\\bike.npz": "e30b5b5943529f5672f8f40ef7a6182d246dabec1ba9a6038cc588f5188e170e",
+  "data\\concrete.npz": "2400d74a68d46c00e053cb59033b82d846855c838ed3342075881de33f25004f",
+  "data\\housing.npz": "d04f95a46147555262bb5748d8450d43edb1780a392ac8c051d96c8fc3582706",
+  "data\\nutrition.npz": "c02f0aad095eda777999e8f33020170efbdaddcb9c87951c85b4f22d0e0179f4",
+  "data\\parkinson.npz": "21372677d2d87819f82776718081c3f69d6b44fb4e3ed1e559291d98c7c0fcf9",
+  "data\\powerplant.npz": "4ecc969b5ceed556622cd9f9d0b2f0fd7f88b4acbaddf34d8f74e4fc7db1b489",
+  "data\\superconduct.npz": "739a0acd2839467df32ce1f25ffa6e9648ba67208975ecc0ac69a7e5cffca8f4"
+ },
+ "errors": {},
+ "analytical": {
+  "mean": {
+   "mse_eta1": 0.028461169191319708,
+   "mse_eta2": 0.018146838610364726,
+   "mse_eta3": 0.016540616667403172,
+   "mse_eta4": 0.016418416608308298,
+   "mse_eta5": 0.00029313846343574537,
+   "mse_eta6": 0.00036655766355068217,
+   "mse_eta12": 0.0329924389443538,
+   "mse_eta34": 0.029960983861247258,
+   "mse_others": 0.0013875022682450857,
+   "resid_out": 0.008556038772161167,
+   "fit_s": 30.42469766139984
+  },
+  "std": {
+   "mse_eta1": 0.005344987860993956,
+   "mse_eta2": 0.0069355375757959,
+   "mse_eta3": 0.004133939101557061,
+   "mse_eta4": 0.005017518639661805,
+   "mse_eta5": 0.00013066033412770272,
+   "mse_eta6": 0.0001901808961766523,
+   "mse_eta12": 0.0032175535767484977,
+   "mse_eta34": 0.004581872853524646,
+   "mse_others": 0.0002269439704782999,
+   "resid_out": 0.0009357513271823878,
+   "fit_s": 2.371170954059152
+  },
+  "reps": 10
+ },
+ "real": {
+  "abalone": {
+   "n": 4177,
+   "p": 9,
+   "xgb_r2_test": 0.5471054588481685,
+   "resid_in": 0.020735311919000864,
+   "resid_out": 0.021543431511356105,
+   "ortho_in": 0.010560364520608347,
+   "ortho_out": 0.05250491866395992,
+   "locvar_in": 0.0022490481015981926,
+   "fit_s": 14.676955699920654
+  },
+  "airfoil": {
+   "n": 1503,
+   "p": 5,
+   "xgb_r2_test": 0.9402295658572855,
+   "resid_in": 0.015262343866535976,
+   "resid_out": 0.02386492424956263,
+   "ortho_in": 0.007186211005464197,
+   "ortho_out": 0.11829501177284922,
+   "locvar_in": 4.74341497678386e-05,
+   "fit_s": 4.079564809799194
+  },
+  "bike": {
+   "n": 17379,
+   "p": 8,
+   "xgb_r2_test": 0.8666199922180609,
+   "resid_in": 0.02184438197568953,
+   "resid_out": 0.02461463581053093,
+   "ortho_in": 0.01345216242736004,
+   "ortho_out": 0.021239276965179552,
+   "locvar_in": 0.00023851448585646528,
+   "fit_s": 40.40937161445618
+  },
+  "housing": {
+   "n": 20640,
+   "p": 8,
+   "xgb_r2_test": 0.8261750003697259,
+   "resid_in": 0.013723025098839763,
+   "resid_out": 0.013966346601402455,
+   "ortho_in": 0.028738121805759596,
+   "ortho_out": 0.04010816695379189,
+   "locvar_in": 0.0012695824672635757,
+   "fit_s": 124.19990038871765
+  },
+  "concrete": {
+   "n": 1030,
+   "p": 8,
+   "xgb_r2_test": 0.9098943178589508,
+   "resid_in": 0.005856666665270506,
+   "resid_out": 0.02195221298809265,
+   "ortho_in": null,
+   "ortho_out": 0.06782689795354889,
+   "locvar_in": 0.007135858846911745,
+   "fit_s": 7.2031872272491455
+  },
+  "nutrition": {
+   "n": 2278,
+   "p": 7,
+   "xgb_r2_test": 0.28902986358925853,
+   "resid_in": 0.06657288975697362,
+   "resid_out": 0.06524334752799142,
+   "ortho_in": 0.014895970538145661,
+   "ortho_out": 0.056891512349584866,
+   "locvar_in": 0.0022176100853705935,
+   "fit_s": 13.582598686218262
+  },
+  "parkinson": {
+   "n": 5875,
+   "p": 19,
+   "xgb_r2_test": 0.9613052136932657,
+   "resid_in": 0.008606763151871491,
+   "resid_out": 0.009813202998883443,
+   "ortho_in": 0.0850414201370576,
+   "ortho_out": 0.12209519490943505,
+   "locvar_in": 0.004087252912785985,
+   "fit_s": 44.0520498752594
+  },
+  "powerplant": {
+   "n": 9568,
+   "p": 4,
+   "xgb_r2_test": 0.9666561735011276,
+   "resid_in": 0.0009112897472431805,
+   "resid_out": 0.0011180412340998957,
+   "ortho_in": null,
+   "ortho_out": null,
+   "locvar_in": 0.0005160665139450789,
+   "fit_s": 34.66723895072937
+  },
+  "superconduct": {
+   "n": 21263,
+   "p": 81,
+   "xgb_r2_test": 0.9163443281742178,
+   "resid_in": 0.011185616224243114,
+   "resid_out": 0.009648414374265135,
+   "ortho_in": null,
+   "ortho_out": null,
+   "locvar_in": 0.000609089814566578,
+   "fit_s": 187.51109981536865
+  }
+ },
+ "wall_s": 849.1901092529297,
+ "eval_env": "22b414443084"
+}
