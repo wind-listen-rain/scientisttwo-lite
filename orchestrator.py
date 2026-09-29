@@ -74,7 +74,7 @@ def wtext(p, s):
 
 
 def child_env(agent=False):
-    """子进程环境：UTF-8；BLAS 单线程（24 核混合架构上默认 24 线程反而慢 2 倍多，结果逐位不变）；
+    """子进程环境：UTF-8；BLAS 单线程（24 核混合架构上默认 24 线程反而慢 2 倍多，打印出的 10 位有效数字不变）；
     不继承用户级的子智能体模型和推理强度设置（与原版运行保持默认一致，也省额度）。"""
     env = {k: v for k, v in os.environ.items() if k not in ("CLAUDE_CODE_SUBAGENT_MODEL", "CLAUDE_CODE_EFFORT_LEVEL")}
     env.update(PYTHONUTF8="1", PYTHONIOENCODING="utf-8", OPENBLAS_NUM_THREADS="1")

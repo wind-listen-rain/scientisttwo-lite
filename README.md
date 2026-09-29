@@ -37,7 +37,7 @@
 
 接手请看 **[docs/HANDOFF.md](docs/HANDOFF.md)**（环境、断点续跑、未完成任务清单、整体规划）。实时进度看 `runs/treehfd-01/RUNNER.json`（哪台机器、什么状态、最后心跳）和 `runs/treehfd-01.out`。
 
-> 换到 Windows 续跑时发现：同一份评测脚本，合成数据和 locvar 的近邻取舍在 Mac 与 Windows 上不同（真实数据上的模型和 S4 结果逐位一致）。所以现在按“评测环境指纹”管理结果，只在同一台机器的结果之间比较，详见 [docs/JOURNAL.md](docs/JOURNAL.md)。
+> 换到 Windows 续跑时发现：同一份评测脚本，合成数据和 locvar 的近邻取舍在 Mac 与 Windows 上不同（真实数据上 XGBoost 模型逐位一致，S4 的结果一致到浮点舍入级别）。所以现在按“评测环境指纹”管理结果，只在同一台机器的结果之间比较，详见 [docs/JOURNAL.md](docs/JOURNAL.md)。
 
 ## 主要结果（详见 [docs/RESULTS.md](docs/RESULTS.md)）
 

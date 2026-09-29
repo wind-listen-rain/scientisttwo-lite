@@ -76,7 +76,7 @@
   → 仓库加 `.gitattributes` 强制 LF，本机关掉 autocrlf 重新检出；TreeHFD 源码同样用 `-c core.autocrlf=false` 克隆。21 个协议文件全部匹配。
 - 坑 7（影响结论，最重要）：协议文件逐字节相同，但 Windows 上重跑官方子集评测，和 Mac 的记录不一样
   （verify/platform_check.py，结果在 verify/platform/）：
-  - 真实数据：XGBoost 模型两边一致（xgb_r2_test 逐位相同）；确定性的 S4 在真实数据上的残差、正交性逐位一致；
+  - 真实数据：XGBoost 模型两边一致（xgb_r2_test 逐位相同）；确定性的 S4 在真实数据上的残差、正交性一致到浮点舍入级别（最大相对差 5e-11，09-29 用全量结果核对：不是逐位相同）；
   - 合成数据：基线 η(1,2) −3.6%、S4 −7.0%，η(5)、η(6) 差 35–45%。原因是 harness 用 `multivariate_normal` 采样，
     协方差是等相关矩阵，特征值 0.5 有 5 重，SVD 给出的这 5 维特征基由 LAPACK 实现决定，同一个种子在两台机器上抽出不同的样本；
   - locvar_in：abalone 基线和 S4 都差约 −7.7%（一维 10 近邻遇到并列值时选哪几个邻居，两边实现不同），concrete 差 0.015%。
@@ -86,7 +86,7 @@
   在本机重跑原版 TreeHFD，存到 `baseline/env-<指纹>/`；后面要拿 S4 的全量结果去比（选择、消融、写稿、审计）时，
   也先在本机用同一份代码重跑一遍（`ideas/S4/full_env-<指纹>.json`）。所有比较都在同一环境内做；评测脚本一行没改。
 - 坑 8：numpy 的 OpenBLAS 在这颗 24 核混合架构 CPU 上默认开 24 线程，S4 拟合 concrete 要 13.2 秒；
-  改成单线程只要 5.6 秒，结果逐位不变 → 官方评测、智能体自测都固定 `OPENBLAS_NUM_THREADS=1`（这是运行环境，不是协议）。
+  改成单线程只要 5.6 秒，打印出的 10 位有效数字完全相同 → 官方评测、智能体自测都固定 `OPENBLAS_NUM_THREADS=1`（这是运行环境，不是协议）。
 - 坑 9：中文 Windows 默认按 GBK 读写文件，state.json、提示词里有中文和 η，一读就崩 → 编排器所有读写显式用 UTF-8，
   子进程加 `PYTHONUTF8=1`。
 - 编排器的其他移植：解释器 `.conda/python.exe`；npm 装的 `claude` 是 .cmd 转发脚本，子进程调不了，改为直接找背后的 claude.exe；
