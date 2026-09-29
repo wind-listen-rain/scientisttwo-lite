@@ -32,10 +32,9 @@ removed together with every virtual row that depends on it (block Woodbury downd
     would reject them); that cell then becomes latent and takes the unseen-cell rule value.
 The ensemble step of S4 is kept, with rho as a new candidate dimension (common rho, or the
 per-tree argmin of R over (rho, kappa)); ties go to the smaller rho, then the smaller kappa.
-Round 3: the ensemble step minimises R subject to an in-sample fidelity cap (FID_CAP): only
-candidates whose in-sample residual to T(X_train) does not exceed that of S4's own selection
-are eligible (label-free; S4 is always eligible, so it stays nested). The rho grid is capped
-at 0.25 (RHOS). Round 2's one-SE rule (SE_RULE) is kept as an option and is off.
+Round 2: the ensemble step uses S4's one-standard-error rule (SE_RULE = 1): among the
+candidates whose R is within one paired SE of the minimum, the one with the best in-sample
+fidelity to T(X_train) is taken.
 """
 
 import numpy as np
@@ -61,26 +60,17 @@ PRIORS = ("ridge", "lattice")
 LATTICE_RIDGE = 0.1        # ridge part of the lattice prior (edge weights have mean 1)
 RULES = ("zero", "harmonic")
 SHIFTS = np.arange(-5, 4)  # global shifts of the per-tree kappa index (ensemble step)
-# k-SE rule of the ensemble step (0 = plain argmin, as S4). E1 round 2 used k = 1; round 3
-# secures in-sample fidelity with FID_CAP instead, so the rule is off (k = 1 inside the
-# feasible set is reported as an ablation in NOTES.md).
-SE_RULE = 0.0
-# E1 round 3: fidelity-constrained ensemble step. The candidate minimising R is taken among
-# those whose in-sample residual to T(X_train) (label-free) is no larger than that of S4's
-# own selection (the plain argmin of R within the rho = 0 mode). S4's selection is always
-# feasible, so S4 stays nested, and the anchor is used only where it does not cost the
-# in-sample fidelity that S4 attains.
-FID_CAP = True
+# k-SE rule of the ensemble step (0 = plain argmin, as S4). E1 round 2: k = 1, the
+# conventional value (not tuned, no other k run). Among the candidates whose R is within
+# one paired standard error of the minimum, the one with the smallest in-sample residual
+# (label-free: T(X_train) and the decomposition only) is taken, so the statistically tied
+# part of the anchor's gain goes to in-sample fidelity instead of to the corner of the
+# (rho, kappa) grid that the plain argmin picked (rho = 1, kappa at its floor).
+SE_RULE = 1.0
 KEEP_PATH = False          # development only: keep the whole path after fitting
 HARD_ORTHO = True          # exact per-tree orthogonality
 # ---------------------------------------------------------------- E1 settings
-# Anchor strength (virtual-to-real mass ratio); must start at 0. Round 3: capped at 0.25
-# (was (0, 0.25, 1)). R picked the grid cap in 95-100% of the trees in all 32 diagnostic fits,
-# so the cap acts as a fixed setting; at rho = 1 the kept copies weigh up to ~30% of the
-# empirical mass (airfoil) and 37-75% of them fall in joint cells that hold training points,
-# where they only re-weight P_n: the anchor then changes the measure (S2) instead of acting
-# as a prior on the empirical HFD. At 0.25 the virtual mass is <= ~8% of the empirical mass.
-RHOS = (0.0, 0.25)
+RHOS = (0.0, 0.25, 1.0)    # anchor strength (virtual-to-real mass ratio); must start at 0
 # Priors for which rho > 0 is fitted. Pre-registered compute fallback (idea step 7e), applied:
 # with both priors powerplant took 7.2x the baseline fit time on the evaluation machine
 # (> 4x trigger), so rho > 0 is fitted for the lattice prior only (4 instead of 6
@@ -907,14 +897,7 @@ class GTLocoHFD(XGBTreeHFD):
         sq = np.array(loos) ** 2                             # (candidates, n)
         risks = np.mean(sq, axis=1)
         fidelity = np.mean(np.array(inss) ** 2, axis=1)       # in-sample MSE vs T(x)
-        # S4's own selection: the plain argmin of R within the rho = 0 mode.
-        s4_idx = np.flatnonzero(np.array([c[2] for c in cands]) == 0)
-        i_s4 = int(s4_idx[_first_min(risks[s4_idx])])
-        feas = (np.flatnonzero(fidelity <= fidelity[i_s4] * (1 + 1e-12)) if FID_CAP
-                else np.arange(len(cands)))
-        i_fmin, i_f, n_tied = _se_select(sq[feas], fidelity[feas], SE_RULE)
-        i_sel = int(feas[i_f])
-        i_min = int(_first_min(risks))                        # unconstrained argmin (report)
+        i_min, i_sel, n_tied = _se_select(sq, fidelity, SE_RULE)
         if KEEP_PATH:   # development only: per-point residuals of every candidate
             diag["cand_loo"] = np.array(loos, dtype=np.float32)
         del sq, loos, inss
@@ -938,8 +921,6 @@ class GTLocoHFD(XGBTreeHFD):
         rho_names = [f"rho={r:g}" for r in RHOS] + ["rho=per-tree"]
         diag.update({"selection": best, "selection_rho_mode": rho_names[rm],
                      "candidates": cands, "min_risk": cands[i_min], "n_tied": n_tied,
-                     "s4_selection": cands[i_s4], "n_feasible": len(feas),
-                     "feasible_min_risk": cands[int(feas[i_fmin])],
                      "risk_over_var": best[4] / var_t, "resid_in_over_var": best[5] / var_t,
                      "kappa_chosen": KAPPAS[np.array(chosen_g)],
                      "rho_chosen": np.array(RHOS)[np.array(chosen_r)],

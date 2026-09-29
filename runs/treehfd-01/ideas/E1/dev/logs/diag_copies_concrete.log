@@ -1,0 +1,11 @@
+tree   0: V=8 pairs=25 kept/n=1.970 mass(rho=1)=0.123 pop_joint=0.306 thin_main=0.000 n_virtual(fit)=1623
+tree  10: V=8 pairs=25 kept/n=1.568 mass(rho=1)=0.098 pop_joint=0.336 thin_main=0.000 n_virtual(fit)=1292
+tree  20: V=8 pairs=26 kept/n=1.862 mass(rho=1)=0.116 pop_joint=0.308 thin_main=0.001 n_virtual(fit)=1534
+tree  30: V=8 pairs=25 kept/n=1.797 mass(rho=1)=0.112 pop_joint=0.435 thin_main=0.006 n_virtual(fit)=1481
+tree  40: V=8 pairs=28 kept/n=1.657 mass(rho=1)=0.104 pop_joint=0.391 thin_main=0.001 n_virtual(fit)=1365
+tree  50: V=8 pairs=24 kept/n=0.983 mass(rho=1)=0.061 pop_joint=0.437 thin_main=0.002 n_virtual(fit)=810
+tree  60: V=8 pairs=24 kept/n=1.542 mass(rho=1)=0.096 pop_joint=0.419 thin_main=0.000 n_virtual(fit)=1271
+tree  70: V=8 pairs=28 kept/n=2.032 mass(rho=1)=0.127 pop_joint=0.324 thin_main=0.000 n_virtual(fit)=1674
+tree  80: V=8 pairs=18 kept/n=2.085 mass(rho=1)=0.130 pop_joint=0.313 thin_main=0.000 n_virtual(fit)=1718
+tree  90: V=7 pairs=19 kept/n=1.455 mass(rho=1)=0.091 pop_joint=0.532 thin_main=0.000 n_virtual(fit)=1199
+ALL: kept/n per tree=1.695 pop_joint=0.371 thin_main=0.001 |S|=8

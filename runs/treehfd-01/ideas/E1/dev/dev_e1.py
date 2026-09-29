@@ -86,6 +86,10 @@ print("selection", label(sel), f"R/var={d['risk_over_var']:.5f} resid_in(est)/va
       f"{d['resid_in_over_var']:.5f} tied={d['n_tied']}")
 print("argmin   ", label(d["min_risk"]), f"R/var={d['min_risk'][4] / d['var_t']:.5f} "
       f"resid_in(est)/var={d['min_risk'][5] / d['var_t']:.5f}")
+if "s4_selection" in d:   # round 3: fidelity cap reference and feasible-set size
+    print("S4 ref   ", label(d["s4_selection"]), f"R/var={d['s4_selection'][4] / d['var_t']:.5f} "
+          f"resid_in(est)/var={d['s4_selection'][5] / d['var_t']:.5f} "
+          f"feasible={d['n_feasible']}/{len(d['candidates'])} FID_CAP={agtloco.FID_CAP}")
 print("N1/n mean", round(float(np.mean(d["n1_frac"])), 4), "m mean/max", np.mean(d["m"]),
       np.max(d["m"]), "virtual/n mean", round(float(np.mean(d["n_virtual"])) / len(Xtr), 3),
       "route_err max", f"{np.max(d['route_err']):.1e}")

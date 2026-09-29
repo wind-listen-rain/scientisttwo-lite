@@ -85,3 +85,10 @@ RuntimeError: coder 没有返回可解析的 JSON：You've hit your session limi
 [checkpoint] 定时存档 → pushed
 [checkpoint] 定时存档 → pushed
 tep 等步骤 idea_E1 完成后停下编排器并重启 autopilot（当前 autopilot 进程 20096）
+[2026-09-29 08:22:20] autopilot 启动编排器（star-of-wind）
+[2026-09-29 08:22:20] downtime  上次心跳在 11.8 小时前（star-of-wind，stopped），这段时间不计入预算
+[2026-09-29 08:22:31] start  dry=False host=star-of-wind env=22b414443084 cfg={'lim_rounds': 3, 'n_seed': 4, 'max_rounds': 2, 'successes': 2, 'n_eng': 2, 'n_abl': 1, 'n_peer': 2, 'review_threshold': 8, 'n_meta': 1, 'max_hours': 20, 'max_calls': 110, 'agent_timeout': 3600}
+[2026-09-29 08:22:31] resume engineer 续接上次没做完的会话 3b98c049-136c-4ed9-870d-cb8c5e17dba0（2026-09-28 18:44:00 开始）
+[2026-09-29 08:25:17] agent engineer {"status": "done", "changes": "Round 2 of E1 (all in <ROOT>/runs/treehfd-01/ideas/E1; NOTES.md rewritten, round-1 notes kept in dev/NOTES_round1.md). (1) COMPUTE (critic point 1): the round-1 exact leave-out speed-up is validated and now in lib/agtloco.py: cache-sized block chunks (BLO
+[2026-09-29 08:29:45] eval  subset <ROOT>/runs/treehfd-01/ideas/E1/method.py 268s errors=[]
+[2026-09-29 08:30:01] agent subset_critic {"decision": "refine", "feedback": "E1 shows potential but has regressions that block a 'good' verdict. It is not 'bad': I found no red-line problems in the results, and I did not open the code, so the red-line check rests on the idea description, not on reading method.py or lib/.\n\nWhat works:\n- 

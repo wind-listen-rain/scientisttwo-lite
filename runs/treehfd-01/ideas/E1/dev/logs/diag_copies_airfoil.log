@@ -1,0 +1,11 @@
+tree   0: V=5 pairs=10 kept/n=2.918 mass(rho=1)=0.292 pop_joint=0.739 thin_main=0.000 n_virtual(fit)=3507
+tree  10: V=5 pairs=10 kept/n=3.435 mass(rho=1)=0.344 pop_joint=0.659 thin_main=0.000 n_virtual(fit)=4129
+tree  20: V=5 pairs=10 kept/n=3.619 mass(rho=1)=0.362 pop_joint=0.570 thin_main=0.000 n_virtual(fit)=4350
+tree  30: V=5 pairs=10 kept/n=3.444 mass(rho=1)=0.344 pop_joint=0.781 thin_main=0.000 n_virtual(fit)=4140
+tree  40: V=5 pairs=10 kept/n=2.625 mass(rho=1)=0.262 pop_joint=0.684 thin_main=0.000 n_virtual(fit)=3155
+tree  50: V=5 pairs=9 kept/n=3.631 mass(rho=1)=0.363 pop_joint=0.757 thin_main=0.000 n_virtual(fit)=4364
+tree  60: V=5 pairs=10 kept/n=3.305 mass(rho=1)=0.331 pop_joint=0.775 thin_main=0.000 n_virtual(fit)=3973
+tree  70: V=5 pairs=8 kept/n=3.209 mass(rho=1)=0.321 pop_joint=0.881 thin_main=0.000 n_virtual(fit)=3857
+tree  80: V=5 pairs=8 kept/n=2.978 mass(rho=1)=0.298 pop_joint=0.824 thin_main=0.000 n_virtual(fit)=3580
+tree  90: V=5 pairs=10 kept/n=2.824 mass(rho=1)=0.282 pop_joint=0.843 thin_main=0.000 n_virtual(fit)=3395
+ALL: kept/n per tree=3.199 pop_joint=0.748 thin_main=0.000 |S|=5
