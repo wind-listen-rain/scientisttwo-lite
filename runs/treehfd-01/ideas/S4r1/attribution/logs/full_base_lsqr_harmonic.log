@@ -1,4 +1,4 @@
-[harness] full 模式评测 D:\scientisttwo-lite\runs\treehfd-01\ideas\S4r1\attribution\method_base_lsqr_harmonic.py
+[harness] full 模式评测 <ROOT>\runs\treehfd-01\ideas\S4r1\attribution\method_base_lsqr_harmonic.py
   analytical rep 1/10: eta12=0.0353 eta1=0.0281
   analytical rep 2/10: eta12=0.0345 eta1=0.0270
   analytical rep 3/10: eta12=0.0341 eta1=0.0261

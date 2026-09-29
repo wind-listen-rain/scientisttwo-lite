@@ -1,7 +1,7 @@
 {
  "started": 1790512245.3949382,
- "calls": 40,
- "cost_usd": 65.605533,
+ "calls": 41,
+ "cost_usd": 66.027764,
  "steps": {
   "limitations": [
    {
@@ -412,6 +412,12 @@
     "feedback": "The breakdown is not clean. Much of the gain comes from the solver and the deterministic unseen-cell rule, not from Good-Turing/PRESS shrinkage, and one metric family regresses.\n\n1. Attribution. The 'direct solver only' ablation (no shrinkage) already gets most of the effect. Its analytical mse_eta1-6 numbers match the full method within about 0.5%. mse_eta5 is -3.4% versus -3.7% for the full method. abalone resid_out is -40.5% versus -48.9%, and airfoil resid_out is -14.2% versus -16.5%. On these metrics the shrinkage adds a small increment. It adds more on concrete (-8.3% vs -15.8%), nutrition (-11% vs -25%) and analytical mse_others (-10.7% vs -22.4%). The abalone and concrete gains therefore come mainly from replacing lsqr and the random fallback, which the idea lists as a side-fix. They do not show that the leave-one-cell-out mechanism is what matters. The write-up should credit them accordingly, and the exact-solver step should be evaluated alone against the baseline. A run of the baseline lsqr with the deterministic fallback would separate the solver effect from the fallback effect. The ablation cannot separate them, because it bundles both.\n\n2. Lattice prior is essential and should be kept. Ridge-to-zero only makes analytical mse_eta12 +38.6%, mse_eta34 +26.6% and resid_out +16.6% versus the baseline. The zero rule for unseen cells hurts true interactions. It also degrades airfoil resid_out (+10.4%) and ortho_in on concrete. The lattice prior is what makes the method a net gain.\n\n3. Ensemble-level kappa step (step 6) is mixed, so change it rather than keep it as is. Removing it makes resid_in much worse (abalone +355%, concrete +282%, nutrition +273%) and hurts mse_eta12/34 (+6%). It also produces an NA concrete ortho_in, which looks like a numerical failure. Removing it improves analytical mse_others (-34.7% vs -22.4%), nutrition ortho_out (-46% vs -23%) and housing ortho_out (-18% vs -1%). Its objective is the summed leave-out residual, which trades away orthogonality and off-target components. Add an orthogonality term to its risk, or cap the multiplier so that resid_in stays within a bounded factor of the baseline.\n\n4. Regressions and claim mismatches in the full method:\n- ortho_out is worse on abalone (+165%) and airfoil (+15%). The idea predicted a fall.\n- resid_in is +39% on abalone, +41% on concrete and +69% on nutrition. The idea called this 'slight'.\n- fit_s is +78% on analytical, +147% on powerplant and +34% on concrete. The idea expected 0.5-1.5x. This is within the 5x limit but should be reported.\n- The full method gives no gain on bike, parkinson or superconduct resid_out (about 0%), where cells are nearly all singletons.\n\n5. The 'soft orthogonality rows' variant is helpful. Without it, ortho_in worsens on concrete (+120%), nutrition (+82%) and abalone (+18%), and fit time roughly doubles. Keep it. It is not in the idea's stated mechanism, so document it.\n\nConcrete refinements: keep the lattice prior and the orthogonality rows, retune or constrain the kappa step as above, and add the orthogonality term to the selection risk to fix the ortho_out regressions. Report the solver-only gain as a separate contribution."
    },
    "env": "22b414443084"
+  },
+  "ablation_refine_S4r1": {
+   "ws": "<ROOT>/runs/treehfd-01/ideas/S4r1",
+   "result": "<ROOT>/runs/treehfd-01/ideas/S4r1/full_0.json",
+   "prefer": "A",
+   "env": "22b414443084"
   }
  },
  "integrity": [],
@@ -495,14 +501,6 @@
   }
  },
  "rebaseline_s": 2173.6644105911255,
- "partial": {
-  "ablation_refine_S4r1": {}
- },
- "inflight": {
-  "role": "engineer",
-  "cwd": "<ROOT>/runs/treehfd-01/ideas/S4r1",
-  "session_id": "b1283a13-371d-4dd2-bf8f-089901478c0d",
-  "model": "claude-opus-5-5",
-  "started": "2026-09-29 18:25:58"
- }
+ "partial": {},
+ "inflight": null
 }
