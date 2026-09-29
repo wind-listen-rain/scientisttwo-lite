@@ -1,21 +1,21 @@
-"""S1: ensemble-level re-orthogonalization of TreeHFD interactions on the union-of-splits partition.
+"""S1: ensemble-level re-orthogonalization of TreeHFD interactions against their parents' main effects.
 
-Step 1 (union-bin transfer). For every retained pair (j, k), the aggregated TreeHFD interaction eta_jk is regressed on
-an additive, piecewise constant model g_j(b_j) + g_k(b_k) under the empirical measure of X_train, where b_j indexes the
-bins of the union of all split thresholds of the ensemble on x_j (merged to a minimum count, about n^(1/4) bins). A
-first-difference penalty along the ordered bins smooths g; its strength is chosen per pair by K-fold cross-fitting on the
-rows of X_train (no labels involved) with a paired two-standard-error rule: the smoothest candidate -- including "no
-transfer" -- whose held-out error is not significantly worse than the best one is kept. The fitted part is moved to the
-main effects:
+Default (this revision): step 2 only, with empirical-Bayes shrinkage.
+  The aggregated TreeHFD main effect eta_j is piecewise constant on the union of all split thresholds of the ensemble on
+  x_j. For each interaction (j, k), least squares of eta_jk on (eta_j, eta_k) under the empirical measure of X_train
+  gives its in-sample leak (a, b). The leak is shrunk by w = max(0, 1 - q / W), where W is the pair's robust (HC0,
+  row-influence sandwich) Wald statistic and q is the number of coefficients. This is the empirical-Bayes posterior
+  mean under a normal prior whose covariance is proportional to the sampling covariance. Then
+      eta_jk <- eta_jk - w a eta_j - w b eta_k,  eta_j <- s_j eta_j,  s_j = 1 + sum of the shrunk coefficients on eta_j.
+  Every transfer into eta_j is along eta_j itself, so the shape (and the normalised roughness) of eta_j is unchanged.
+  A pair whose leak is not distinguishable from row-sampling noise is left alone (w = 0). Pairs with a strong leak move
+  almost all of it (w -> 1, exact in-sample orthogonality).
+
+Step 1 (union-bin shape transfer, off by default since this revision; kept for ablations, step1=True). For every pair,
+the aggregated interaction is regressed on an additive, piecewise constant model g_j(b_j) + g_k(b_k) over merged union
+bins, with a first-difference penalty chosen by cross-fitting on the rows of X_train (paired two-standard-error rule).
+The fitted part is moved to the main effects:
     eta_jk <- eta_jk - g_j - g_k,  eta_j <- eta_j + g_j - c_j,  eta_k <- eta_k + g_k - c_k,  eta0 <- eta0 + c_j + c_k.
-
-Step 2 (closing step on the final main effects). Merged bins (and the smoothing) do not span the final main effects
-eta_j, which are piecewise constant on the full, unmerged union grid. So, as the last move, each interaction's
-component along its parents' final main effects is moved into them: least squares of eta_jk on (eta_j, eta_k) under the
-empirical measure gives (a, b); eta_jk <- eta_jk - a eta_j - b eta_k and eta_j <- s_j eta_j with s_j = 1 + sum of the
-coefficients on eta_j over its pairs. Every transfer into eta_j is along eta_j itself, so all pairs are exactly
-uncorrelated with the final main effects in-sample at the same time, and the shape (hence roughness) of eta_j is
-unchanged.
 
 Both steps leave intercept + sum(main) + sum(inter) unchanged at every x.
 """

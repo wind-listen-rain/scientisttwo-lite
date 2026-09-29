@@ -1,0 +1,8 @@
+[harness] subset 模式评测 <ROOT>\runs\treehfd-01\ideas\S1\method.py
+  analytical rep 1/3: eta12=0.0327 eta1=0.0274
+  analytical rep 2/3: eta12=0.0323 eta1=0.0262
+  analytical rep 3/3: eta12=0.0337 eta1=0.0260
+  airfoil: resid_in=0.0098 resid_out=0.0265 ortho_in=0.009668581126244476 locvar=5.199e-05 fit=3.0s
+  concrete: resid_in=0.0015 resid_out=0.0251 ortho_in=0.006358770793211966 locvar=0.01249 fit=5.2s
+  abalone: resid_in=0.0046 resid_out=0.0405 ortho_in=0.009651057920970324 locvar=0.00256 fit=17.2s
+[harness] 完成，用时 133s，错误 []

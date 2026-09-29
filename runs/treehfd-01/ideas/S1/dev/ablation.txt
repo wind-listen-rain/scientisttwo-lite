@@ -1,10 +1,66 @@
-| config | airfoil | concrete | abalone | analytical0 | analytical1 | analytical2 | nutrition | parkinson | housing | bike |
-|---|---|---|---|---|---|---|---|---|---|---|
-| previous (m=30, argmin, no step 2) | 0.0098 / 0.0985 / 1.23x | 0.0138 / 0.0813 / 1.12x | 0.0099 / 0.0220 / 1.02x | 0.0712 / 0.0797 / 1.00x | 0.0598 / 0.1090 / 0.98x | 0.0680 / 0.0634 / 1.00x | 0.0162 / 0.1101 / 1.00x | 0.0322 / 0.0824 / 1.09x | 0.0023 / 0.0413 / 1.00x | 0.0011 / 0.0212 / 1.16x |
-| step 1 only | 0.0119 / 0.1000 / 1.04x | 0.0064 / 0.0817 / 0.97x | 0.0269 / 0.0160 / 1.00x | 0.0712 / 0.0797 / 1.00x | 0.0598 / 0.1090 / 1.00x | 0.0680 / 0.0634 / 1.00x | 0.0162 / 0.1101 / 1.00x | 0.1026 / 0.1370 / 0.98x | 0.0108 / 0.0493 / 1.00x | 0.0042 / 0.0212 / 1.00x |
-| step 2 only | 0.0000 / 0.0923 / 1.00x | 0.0000 / 0.0751 / 1.00x | 0.0000 / 0.0242 / 1.00x | 0.0000 / 0.0450 / 1.00x | 0.0000 / 0.0475 / 1.00x | 0.0000 / 0.0553 / 1.00x | 0.0000 / 0.1055 / 1.00x | 0.0000 / 0.0990 / 1.00x | 0.0000 / 0.0385 / 1.00x | 0.0000 / 0.0212 / 1.00x |
-| final | 0.0000 / 0.0923 / 1.04x | 0.0000 / 0.0751 / 0.97x | 0.0000 / 0.0242 / 1.00x | 0.0000 / 0.0450 / 1.00x | 0.0000 / 0.0475 / 1.00x | 0.0000 / 0.0553 / 1.00x | 0.0000 / 0.1055 / 1.00x | 0.0000 / 0.0981 / 0.98x | 0.0000 / 0.0386 / 1.00x | 0.0000 / 0.0212 / 1.00x |
-| step 2 Wald-gated (z=2) | 0.0119 / 0.1000 / 1.04x | 0.0064 / 0.0817 / 0.97x | 0.0097 / 0.0242 / 1.00x | 0.0000 / 0.0450 / 1.00x | 0.0383 / 0.0669 / 1.00x | 0.0000 / 0.0553 / 1.00x | 0.0162 / 0.1101 / 1.00x | 0.0140 / 0.0981 / 0.98x | 0.0108 / 0.0493 / 1.00x | 0.0042 / 0.0212 / 1.00x |
-| step 1 + directions | 0.0000 / 0.0923 / 1.07x | 0.0000 / 0.0752 / 1.11x | 0.0000 / 0.0242 / 0.99x | 0.0000 / 0.0450 / 1.00x | 0.0000 / 0.0475 / 1.00x | 0.0000 / 0.0553 / 1.00x | 0.0000 / 0.1055 / 1.00x | 0.0000 / 0.0978 / 0.94x | 0.0000 / 0.0384 / 1.00x | 0.0000 / 0.0212 / 0.99x |
-| step 1 argmin (no SE rule) | 0.0000 / 0.0923 / 1.07x | 0.0000 / 0.0751 / 0.99x | 0.0000 / 0.0234 / 1.03x | 0.0000 / 0.0450 / 1.02x | 0.0000 / 0.0475 / 0.97x | 0.0000 / 0.0553 / 0.99x | 0.0000 / 0.1055 / 1.00x | 0.0000 / 0.0992 / 0.89x | 0.0000 / 0.0399 / 1.01x | 0.0000 / 0.0212 / 1.00x |
-| bins n^(2/3) | 0.0000 / 0.0968 / 1.06x | 0.0000 / 0.0751 / 0.96x | 0.0000 / 0.0242 / 1.01x | 0.0000 / 0.0450 / 1.00x | 0.0000 / 0.0475 / 1.00x | 0.0000 / 0.0553 / 1.00x | 0.0000 / 0.1055 / 1.00x | 0.0000 / 0.0983 / 0.91x | 0.0000 / 0.0389 / 1.00x | 0.0000 / 0.0212 / 1.00x |
+== airfoil: baseline ortho_in 0.0097 ortho_out 0.0985
+  s2pair  ortho_in 0.0097 ortho_out 0.0985 locvar 1.000x step1 0  scale [0.999,1.026]  d_out -0.0000+-0.0000 P(better) 0.27
+  s2none  ortho_in 0.0000 ortho_out 0.0923 locvar 1.000x step1 0  scale [0.997,1.037]  d_out +0.0002+-0.0088 P(better) 0.54
+  s1only  ortho_in 0.0119 ortho_out 0.1000 locvar 1.039x step1 2  d_out +0.0006+-0.0036 P(better) 0.18
+  s12pair ortho_in 0.0119 ortho_out 0.1000 locvar 1.039x step1 2  scale [1.000,1.000]  d_out +0.0006+-0.0036 P(better) 0.18
+  prev    ortho_in 0.0000 ortho_out 0.0923 locvar 1.039x step1 2  scale [0.992,1.013]  d_out +0.0005+-0.0101 P(better) 0.50
+== concrete: baseline ortho_in 0.0064 ortho_out 0.0817
+  s2pair  ortho_in 0.0064 ortho_out 0.0817 locvar 1.000x step1 0  scale [0.988,1.160]  d_out +0.0000+-0.0000 P(better) 0.26
+  s2none  ortho_in 0.0000 ortho_out 0.0751 locvar 1.000x step1 0  scale [0.991,1.287]  d_out -0.0001+-0.0192 P(better) 0.64
+  s1only  ortho_in 0.0064 ortho_out 0.0817 locvar 0.966x step1 1  d_out +0.0000+-0.0002 P(better) 0.00
+  s12pair ortho_in 0.0064 ortho_out 0.0817 locvar 0.966x step1 1  scale [0.979,1.141]  d_out +0.0000+-0.0002 P(better) 0.27
+  prev    ortho_in 0.0000 ortho_out 0.0751 locvar 0.966x step1 1  scale [0.991,1.230]  d_out -0.0001+-0.0192 P(better) 0.64
+== abalone: baseline ortho_in 0.0268 ortho_out 0.0159
+  s2pair  ortho_in 0.0097 ortho_out 0.0173 locvar 1.000x step1 0  scale [0.992,1.045]  d_out +0.0002+-0.0071 P(better) 0.40
+  s2none  ortho_in 0.0000 ortho_out 0.0242 locvar 1.000x step1 0  scale [0.968,1.067]  d_out -0.0019+-0.0126 P(better) 0.57
+  s1only  ortho_in 0.0269 ortho_out 0.0160 locvar 0.999x step1 6  d_out +0.0000+-0.0001 P(better) 0.14
+  s12pair ortho_in 0.0097 ortho_out 0.0173 locvar 0.999x step1 6  scale [0.991,1.044]  d_out +0.0002+-0.0071 P(better) 0.35
+  prev    ortho_in 0.0000 ortho_out 0.0242 locvar 0.999x step1 6  scale [0.967,1.065]  d_out -0.0019+-0.0126 P(better) 0.57
+== analytical0: baseline ortho_in 0.0712 ortho_out 0.0797
+  s2pair  ortho_in 0.0128 ortho_out 0.0320 locvar 1.000x step1 0  scale [1.003,1.059]  d_out -0.0402+-0.0217 P(better) 0.93  | pop: ortho 0.0958->0.0365 leak 1.65e-03->1.75e-04  s5,s6 1.010,1.003
+  s2none  ortho_in 0.0000 ortho_out 0.0450 locvar 1.000x step1 0  scale [1.023,1.090]  d_out -0.0354+-0.0290 P(better) 0.85  | pop: ortho 0.0958->0.0240 leak 1.65e-03->1.06e-04  s5,s6 1.048,1.090
+  s1only  ortho_in 0.0712 ortho_out 0.0797 locvar 1.000x step1 0  d_out +0.0000+-0.0000 P(better) 0.00
+  s12pair ortho_in 0.0128 ortho_out 0.0320 locvar 1.000x step1 0  scale [1.003,1.059]  d_out -0.0402+-0.0217 P(better) 0.93  | pop: ortho 0.0958->0.0365 leak 1.65e-03->1.75e-04  s5,s6 1.010,1.003
+  prev    ortho_in 0.0000 ortho_out 0.0450 locvar 1.000x step1 0  scale [1.023,1.090]  d_out -0.0354+-0.0290 P(better) 0.85  | pop: ortho 0.0958->0.0240 leak 1.65e-03->1.06e-04  s5,s6 1.048,1.090
+== analytical1: baseline ortho_in 0.0598 ortho_out 0.1090
+  s2pair  ortho_in 0.0168 ortho_out 0.0616 locvar 1.000x step1 0  scale [0.982,1.046]  d_out -0.0412+-0.0093 P(better) 1.00  | pop: ortho 0.0660->0.0338 leak 1.30e-03->2.54e-04  s5,s6 0.982,1.008
+  s2none  ortho_in 0.0000 ortho_out 0.0475 locvar 1.000x step1 0  scale [1.019,1.099]  d_out -0.0546+-0.0098 P(better) 1.00  | pop: ortho 0.0660->0.0162 leak 1.30e-03->6.07e-05  s5,s6 1.099,1.082
+  s1only  ortho_in 0.0598 ortho_out 0.1090 locvar 1.000x step1 0  d_out +0.0000+-0.0000 P(better) 0.00
+  s12pair ortho_in 0.0168 ortho_out 0.0616 locvar 1.000x step1 0  scale [0.982,1.046]  d_out -0.0412+-0.0093 P(better) 1.00  | pop: ortho 0.0660->0.0338 leak 1.30e-03->2.54e-04  s5,s6 0.982,1.008
+  prev    ortho_in 0.0000 ortho_out 0.0475 locvar 1.000x step1 0  scale [1.019,1.099]  d_out -0.0546+-0.0098 P(better) 1.00  | pop: ortho 0.0660->0.0162 leak 1.30e-03->6.07e-05  s5,s6 1.099,1.082
+== analytical2: baseline ortho_in 0.0680 ortho_out 0.0634
+  s2pair  ortho_in 0.0160 ortho_out 0.0445 locvar 1.000x step1 0  scale [1.013,1.061]  d_out -0.0044+-0.0235 P(better) 0.58  | pop: ortho 0.0394->0.0340 leak 3.00e-04->2.83e-04  s5,s6 1.016,1.035
+  s2none  ortho_in 0.0000 ortho_out 0.0553 locvar 1.000x step1 0  scale [1.020,1.104]  d_out +0.0055+-0.0269 P(better) 0.40  | pop: ortho 0.0394->0.0437 leak 3.00e-04->5.48e-04  s5,s6 1.086,1.104
+  s1only  ortho_in 0.0680 ortho_out 0.0634 locvar 1.000x step1 0  d_out +0.0000+-0.0000 P(better) 0.00
+  s12pair ortho_in 0.0160 ortho_out 0.0445 locvar 1.000x step1 0  scale [1.013,1.061]  d_out -0.0044+-0.0235 P(better) 0.58  | pop: ortho 0.0394->0.0340 leak 3.00e-04->2.83e-04  s5,s6 1.016,1.035
+  prev    ortho_in 0.0000 ortho_out 0.0553 locvar 1.000x step1 0  scale [1.020,1.104]  d_out +0.0055+-0.0269 P(better) 0.40  | pop: ortho 0.0394->0.0437 leak 3.00e-04->5.48e-04  s5,s6 1.086,1.104
+== nutrition: baseline ortho_in 0.0162 ortho_out 0.1101
+  s2pair  ortho_in 0.0162 ortho_out 0.1101 locvar 1.000x step1 0  scale [1.000,1.000]  d_out +0.0000+-0.0000 P(better) 0.00
+  s2none  ortho_in 0.0000 ortho_out 0.1055 locvar 1.000x step1 0  scale [0.999,1.019]  d_out +0.0021+-0.0097 P(better) 0.50
+  s1only  ortho_in 0.0162 ortho_out 0.1101 locvar 1.000x step1 0  d_out +0.0000+-0.0000 P(better) 0.00
+  s12pair ortho_in 0.0162 ortho_out 0.1101 locvar 1.000x step1 0  scale [1.000,1.000]  d_out +0.0000+-0.0000 P(better) 0.00
+  prev    ortho_in 0.0000 ortho_out 0.1055 locvar 1.000x step1 0  scale [0.999,1.019]  d_out +0.0021+-0.0097 P(better) 0.50
+== parkinson: baseline ortho_in 0.0820 ortho_out 0.1176
+  s2pair  ortho_in 0.0140 ortho_out 0.0937 locvar 1.000x step1 0  scale [0.883,1.169]  d_out -0.0200+-0.0385 P(better) 0.67
+  s2none  ortho_in 0.0000 ortho_out 0.0990 locvar 1.000x step1 0  scale [0.875,1.214]  d_out -0.0165+-0.0405 P(better) 0.64
+  s1only  ortho_in 0.1026 ortho_out 0.1370 locvar 0.985x step1 71  d_out +0.0147+-0.0105 P(better) 0.12
+  s12pair ortho_in 0.0140 ortho_out 0.0928 locvar 0.985x step1 71  scale [0.918,1.153]  d_out -0.0206+-0.0382 P(better) 0.67
+  prev    ortho_in 0.0000 ortho_out 0.0981 locvar 0.985x step1 71  scale [0.885,1.214]  d_out -0.0171+-0.0402 P(better) 0.64
+== housing: baseline ortho_in 0.0280 ortho_out 0.0488
+  s2pair  ortho_in 0.0104 ortho_out 0.0488 locvar 1.000x step1 0  scale [0.999,1.041]  d_out -0.0017+-0.0048 P(better) 0.55
+  s2none  ortho_in 0.0000 ortho_out 0.0385 locvar 1.000x step1 0  scale [0.911,1.057]  d_out -0.0084+-0.0075 P(better) 0.84
+  s1only  ortho_in 0.0108 ortho_out 0.0493 locvar 1.001x step1 13  d_out -0.0008+-0.0052 P(better) 0.29
+  s12pair ortho_in 0.0108 ortho_out 0.0493 locvar 1.001x step1 13  scale [0.999,1.034]  d_out -0.0010+-0.0052 P(better) 0.30
+  prev    ortho_in 0.0000 ortho_out 0.0386 locvar 1.001x step1 13  scale [0.911,1.057]  d_out -0.0080+-0.0077 P(better) 0.83
+== bike: baseline ortho_in 0.0134 ortho_out 0.0212
+  s2pair  ortho_in 0.0134 ortho_out 0.0212 locvar 1.000x step1 0  scale [0.996,1.038]  d_out -0.0020+-0.0065 P(better) 0.56
+  s2none  ortho_in 0.0000 ortho_out 0.0212 locvar 1.000x step1 0  scale [0.986,1.038]  d_out -0.0037+-0.0085 P(better) 0.68
+  s1only  ortho_in 0.0042 ortho_out 0.0212 locvar 0.999x step1 4  d_out -0.0032+-0.0076 P(better) 0.43
+  s12pair ortho_in 0.0042 ortho_out 0.0212 locvar 0.999x step1 4  scale [0.999,1.005]  d_out -0.0032+-0.0076 P(better) 0.55
+  prev    ortho_in 0.0000 ortho_out 0.0212 locvar 0.999x step1 4  scale [0.998,1.019]  d_out -0.0038+-0.0090 P(better) 0.68
+== powerplant: baseline ortho_in   -    ortho_out   -   
+  s2pair  ortho_in   -    ortho_out   -    locvar 1.000x step1 0  scale [0.999,1.005]
+  s2none  ortho_in   -    ortho_out   -    locvar 1.000x step1 0  scale [0.999,1.016]
+  s1only  ortho_in   -    ortho_out   -    locvar 1.000x step1 0
+  s12pair ortho_in   -    ortho_out   -    locvar 1.000x step1 0  scale [0.999,1.005]
+  prev    ortho_in   -    ortho_out   -    locvar 1.000x step1 0  scale [0.999,1.016]
