@@ -74,7 +74,7 @@ tail -f runs/treehfd-01.out
 
 **阶段 A：跑完 treehfd-01（当前）**
 完成上面的清单，得到第一份"论文 + 审计报告"，和 ScientistTwo 放出的 ECTS-HFD 论文做正面比较。
-为了省额度，可以考虑把写代码的角色从 Opus 换成 Sonnet（改 `orchestrator.py` 里的 `STRONG`），
+为了省额度，2026-09-29 已把补实验、改稿、审计修稿三个角色从 Opus 换成 Sonnet；还可以考虑把写代码的角色也换成 Sonnet（改 `orchestrator.py` 里的 `STRONG`），
 或者把 `n_peer` 从 2 改成 1。这两项都会偏离原版设定，改了要在 JOURNAL 里记下来。
 
 **阶段 B：补上和原版差距最大的两处**

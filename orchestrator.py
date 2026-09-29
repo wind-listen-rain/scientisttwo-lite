@@ -54,7 +54,11 @@ CFG = {
     "max_calls": 110,         # 全局智能体调用上限
     "agent_timeout": 3600,    # 单次智能体调用超时秒数
 }
-FAST, STRONG = "sonnet", "opus"  # 对应原文 Gemini 3.6 Flash / Claude Code + Opus 4.8
+# 对应原文 Gemini 3.6 Flash / Claude Code + Opus 4.8。2026-09-29 起固定模型 ID（此前用别名 sonnet / opus，当天实测解析到的就是这两个）。
+# 分工（2026-09-29 按用户要求重新评估，省额度）：研究性的写代码——实现想法（coder）、工程改进（engineer）、消融实现
+# （ablation_coder）、生成与进化想法——用 Opus；其余角色用 Sonnet，其中补实验（rebuttal_coder）、改稿（enhancer）、
+# 审计修稿（audit_fixer）原来用 Opus，改为 Sonnet：它们不改方法、不产出官方结果，改完还有审稿人或审计复查。
+FAST, STRONG = "claude-sonnet-5-5", "claude-opus-5-5"
 READ = ["Read", "Glob", "Grep"]
 CODE = READ + ["Write", "Edit", f"Bash({PY_S}:*)", "Bash(python:*)", "Bash(ls:*)", "Bash(cat:*)", "Bash(head:*)", "Bash(tail:*)",
                "Bash(wc:*)", "Bash(mkdir:*)", "Bash(cp:*)", "Bash(diff:*)"] + ([f"PowerShell({PY_S}:*)"] if WIN else [])
@@ -141,10 +145,29 @@ class Run:
             return self.state["steps"][name]
         val = fn()
         self.state["steps"][name] = val
+        self.state.get("partial", {}).pop(name, None)
         self.save()
         self.checkpoint(f"完成 {name}")
         self.check_flags()
         return val
+
+    def sub(self, key, name, fn):
+        """步骤内部的小环节（2026-09-29 起）：做完就记进 state.json 的 partial[步骤][环节]，
+        中断后重跑这个步骤时直接复用，不再从头来（原来一个步骤没做完，已完成的智能体调用也要全部重做）。"""
+        part = self.state.setdefault("partial", {}).setdefault(key, {})
+        if name in part:
+            return part[name]
+        val = fn()
+        part[name] = val
+        self.save()
+        return val
+
+    def partial(self, key):
+        return self.state.get("partial", {}).get(key)
+
+    def save_partial(self, key, val):
+        self.state.setdefault("partial", {})[key] = val
+        self.save()
 
     def account_downtime(self):
         """上次停下（停机、暂停、关机）到这次启动之间的时间不计入 12 小时预算（原来要按 HANDOFF 手工补进 waited_s）。"""
@@ -264,22 +287,33 @@ class Run:
             raise ValueError(f"{role} 提示词有未填的占位符 {left}")
         Path(cwd).mkdir(parents=True, exist_ok=True)
         t0 = time.time()
+        # 在途会话：调用前先记下会话号。进程被停掉或崩溃后重跑到同一个角色、同一个目录时，续接那个会话，而不是重新开始
+        prev = self.state.get("inflight") or {}
+        resume = not self.dry and prev.get("role") == role and prev.get("cwd") == Path(cwd).as_posix() and prev.get("session_id")
+        sid = prev["session_id"] if resume else str(uuid.uuid4())
+        self.state["inflight"] = {"role": role, "cwd": Path(cwd).as_posix(), "session_id": sid, "model": model,
+                                  "started": prev.get("started") if resume else time.strftime("%Y-%m-%d %H:%M:%S")}
         self.state["calls"] += 1
         self.save()
+        if resume:
+            self.log(event="resume", role=role, msg=f"续接上次没做完的会话 {sid}（{prev.get('started')} 开始）")
         if self.dry:
             reply, meta = mock_agent(role, Path(cwd), vars_, self.state["calls"]), {"total_cost_usd": 0.0, "num_turns": 0}
         else:
-            reply, meta = call_claude(prompt, cwd, model, tools, CFG["agent_timeout"], waiter=self.wait_for_quota)
+            reply, meta = call_claude(prompt, cwd, model, tools, CFG["agent_timeout"], waiter=self.wait_for_quota,
+                                      session_id=sid, resume=bool(resume))
+        self.state["inflight"] = None
         self.state["cost_usd"] += meta.get("total_cost_usd") or 0.0
         self.integrity_check(role)
         parsed = parse_json(reply)
         self.log(event="agent", role=role, model=model, cwd=Path(cwd).as_posix(), secs=round(time.time() - t0),
                  cost=meta.get("total_cost_usd"), turns=meta.get("num_turns"), session=meta.get("session_id"),
-                 resumed=meta.get("resumed"), timed_out=meta.get("timed_out"), ok=parsed is not None,
-                 msg=(json.dumps(parsed, ensure_ascii=False)[:300] if parsed else reply[-300:]))
+                 models=sorted(meta.get("modelUsage") or {}), resumed=meta.get("resumed"), timed_out=meta.get("timed_out"),
+                 ok=parsed is not None, msg=(json.dumps(parsed, ensure_ascii=False)[:300] if parsed else reply[-300:]))
         (self.dir / "transcripts").mkdir(exist_ok=True)
+        note = f"（续接会话 {sid}）" if resume else ""
         wtext(self.dir / "transcripts" / f"{self.state['calls']:03d}_{role}.md",
-              gitsync.portable(f"# {role} ({model})\n\n## Prompt\n\n{prompt}\n\n## Reply\n\n{reply}\n"))
+              gitsync.portable(f"# {role} ({model}){note}\n\n## Prompt\n\n{prompt}\n\n## Reply\n\n{reply}\n"))
         if parsed is None:
             raise RuntimeError(f"{role} 没有返回可解析的 JSON：{reply[-500:]}")
         return parsed
@@ -377,7 +411,8 @@ def protocol_manifest():
 
 
 LIMIT_RE = re.compile(r"(hit your [\w ]{0,30}limit|usage limit|limit reached|rate.?limit|out of (?:extra )?usage)", re.I)
-RESUME_PROMPT = ("Your previous turn was cut off (usage limit or a temporary error) before you finished. Continue the same task "
+RESUME_PROMPT = ("Your previous turn was cut off (a usage limit, a temporary error or a restart of the pipeline) before you "
+                 "finished. Continue the same task "
                  "from where you stopped (your partial work is in the working directory), then finish with the JSON reply your "
                  "role asks for.")
 INTERRUPTED_NOTE = ("\n\nNote: a previous attempt at this exact task was cut off before it finished; its partial files may be in "
@@ -412,15 +447,18 @@ def claude_bin():
     return exe
 
 
-def call_claude(prompt, cwd, model, tools, timeout, waiter=None):
+def call_claude(prompt, cwd, model, tools, timeout, waiter=None, session_id=None, resume=False):
     """一次 `claude -p` 调用。提示词走标准输入（Windows 命令行最长 32767 个字符）。会话号事先指定，任何时候都能续接：
     - 撞到用量上限：waiter 负责存档和等待，之后用 --resume 接着原会话做；
     - 超过单次时限：原来直接算失败（整个步骤从写代码重来），现在续接一次、给 20 分钟收尾并如实交代没做完的部分，再超时才算失败；
     - 续接失败、API 临时错误、输出不是 JSON：最多再试 3 次；会话续不上就换新会话，带着"上次被打断"的说明重来。
     费用按所有尝试累加（原来被打断的那部分费用会丢；被强行结束的那次拿不到费用）。"""
     base = [claude_bin(), "-p", "--model", model, "--output-format", "json", "--allowedTools", *tools]
-    sid = str(uuid.uuid4())
-    cmd, stdin, resumed, limit = base + ["--session-id", sid], prompt, False, timeout
+    sid = session_id or str(uuid.uuid4())
+    if resume:  # 编排器重启后续接上次被打断的会话
+        cmd, stdin, resumed, limit = base + ["--resume", sid], RESUME_PROMPT, True, timeout
+    else:
+        cmd, stdin, resumed, limit = base + ["--session-id", sid], prompt, False, timeout
     cost, errors, waited, timeouts = 0.0, 0, 0.0, 0
     while True:
         try:
@@ -617,50 +655,63 @@ def stage_seed_ideas(run, lims):
 
 
 def implement_idea(run, idea, base_sub, base_full):
-    """论文 3.2 的 Idea Implementer：子集实现 → 子集审查/工程循环 → 全量验证 → 全量审查/工程循环。"""
+    """论文 3.2 的 Idea Implementer：子集实现 → 子集审查/工程循环 → 全量验证 → 全量审查/工程循环。
+    2026-09-29 起每做完一个环节（写代码、一次官方评测加审查、一次工程改进）就记进 state.json 的 partial，
+    中断后从断点接着做；原来要从写代码重新开始。"""
     iid = idea["id"]
     ws = new_workspace(run.dir / "ideas" / iid)
+    key = f"idea_{iid}"
 
     def go():
-        trace = {"idea": idea, "workspace": ws.as_posix(), "env": run.env, "history": []}
-        # 这个步骤从写代码重新开始，之前留下的官方评测结果（如果有）对应的是旧代码，不能复用
-        for f in sorted(ws.iterdir()):
-            if OFFICIAL_RE.fullmatch(f.name):
-                stale = f.with_name(f"{f.stem}.stale-{time.strftime('%Y%m%d%H%M%S')}{f.suffix}")
-                f.replace(stale)
-                run.log(event="stale", msg=f"{iid}：{f.name} 属于上次没做完的尝试，改名为 {stale.name}")
-        dirty = git(ws, "status", "--porcelain").strip()
-        last = git(ws, "log", "-1", "--format=%s")
-        dirty = dirty or any(w in last for w in ("interrupted", "stopped"))
-        prompt_idea = idea
-        if dirty:
-            commit(ws, "partial work from an interrupted coder call")
-            prompt_idea = {**idea, "note": "A previous implementation attempt of this idea was interrupted midway; its "
-                           "partial files are in the working directory (see `git log`). Review them, then complete or redo."}
-        run.agent("coder", ws, STRONG, CODE, IDEA=prompt_idea)
-        commit(ws, "coder")
+        trace = run.partial(key) or {"idea": idea, "workspace": ws.as_posix(), "env": run.env, "history": [], "coder_done": False}
+        if not trace.get("coder_done"):
+            # 从写代码开始：之前留下的官方评测结果（如果有）对应的是旧代码，不能复用
+            for f in sorted(ws.iterdir()):
+                if OFFICIAL_RE.fullmatch(f.name):
+                    stale = f.with_name(f"{f.stem}.stale-{time.strftime('%Y%m%d%H%M%S')}{f.suffix}")
+                    f.replace(stale)
+                    run.log(event="stale", msg=f"{iid}：{f.name} 属于上次没做完的尝试，改名为 {stale.name}")
+            dirty = git(ws, "status", "--porcelain").strip()
+            last = git(ws, "log", "-1", "--format=%s")
+            dirty = dirty or any(w in last for w in ("interrupted", "stopped"))
+            prompt_idea = idea
+            if dirty:
+                commit(ws, "partial work from an interrupted coder call")
+                prompt_idea = {**idea, "note": "A previous implementation attempt of this idea was interrupted midway; its "
+                               "partial files are in the working directory (see `git log`). Review them, then complete or redo."}
+            run.agent("coder", ws, STRONG, CODE, IDEA=prompt_idea)
+            commit(ws, "coder")
+            trace["coder_done"] = True
+            run.save_partial(key, trace)
         for phase, base, critic in (("subset", base_sub, "subset_critic"), ("full", base_full, "fullset_critic")):
             for e in range(CFG["n_eng"] + 1):
-                res = run.evaluate(ws / "method.py", phase, ws / f"{phase}_{e}.json")
-                table = compare_table(base, [(iid, res)])
-                v = run.agent(critic, ws, FAST, READ, IDEA=idea, TABLE=table)
-                trace["history"].append({"phase": phase, "iter": e, "result": (ws / f"{phase}_{e}.json").as_posix(),
-                                         "decision": v.get("decision"), "feedback": v.get("feedback")})
-                if v.get("decision") in ("good", "bad"):
+                h = next((x for x in trace["history"] if x["phase"] == phase and x["iter"] == e), None)
+                if h is None:  # 这一轮的官方评测和审查还没做
+                    res = run.evaluate(ws / "method.py", phase, ws / f"{phase}_{e}.json")
+                    v = run.agent(critic, ws, FAST, READ, IDEA=idea, TABLE=compare_table(base, [(iid, res)]))
+                    h = {"phase": phase, "iter": e, "result": (ws / f"{phase}_{e}.json").as_posix(),
+                         "decision": v.get("decision"), "feedback": v.get("feedback")}
+                    if h["decision"] not in ("good", "bad") and e == CFG["n_eng"]:
+                        h["decision"] = "bad"
+                        h["feedback"] = (h["feedback"] or "") + " [engineering budget exhausted → pruned]"
+                    trace["history"].append(h)
+                    run.save_partial(key, trace)
+                if h["decision"] in ("good", "bad"):
                     break
-                if e == CFG["n_eng"]:
-                    trace["history"][-1]["decision"] = "bad"
-                    trace["history"][-1]["feedback"] = (trace["history"][-1]["feedback"] or "") + " [engineering budget exhausted → pruned]"
-                    break
-                run.agent("engineer", ws, STRONG, CODE, IDEA=idea, TABLE=table, FEEDBACK=v.get("feedback", ""), MODE=phase)
-                commit(ws, f"engineer {phase} {e}")
-            if trace["history"][-1]["decision"] != "good":
+                if not h.get("engineered"):  # 这一轮的工程改进还没做完
+                    table = compare_table(base, [(iid, json.loads(rtext(h["result"])))])
+                    run.agent("engineer", ws, STRONG, CODE, IDEA=idea, TABLE=table, FEEDBACK=h.get("feedback") or "", MODE=phase)
+                    commit(ws, f"engineer {phase} {e}")
+                    h["engineered"] = True
+                    run.save_partial(key, trace)
+            if h["decision"] != "good":  # h：这个阶段最后一轮的审查结果
                 break
         last = trace["history"][-1]
         trace["decision"] = "good" if last["phase"] == "full" and last["decision"] == "good" else "bad"
         trace["full_result"] = last["result"] if last["phase"] == "full" else None
+        trace.pop("coder_done", None)
         return trace
-    return run.step(f"idea_{iid}", go)
+    return run.step(key, go)
 
 
 def trace_digest(traces):
@@ -699,11 +750,12 @@ def stage_select(run, good, base_full):
 def stage_ablation(run, trace, base_full, tag):
     ws = Path(trace["workspace"])
     idea = trace["idea"]
+    key = f"ablation_{tag}"
 
     def go():
-        plan = run.agent("ablation_planner", ws, FAST, READ, IDEA=idea)
-        run.agent("ablation_coder", ws, STRONG, CODE, PLAN=plan)
-        commit(ws, "ablations")
+        S = lambda name, fn: run.sub(key, name, fn)  # noqa: E731  环节做完即存断点
+        plan = S("plan", lambda: run.agent("ablation_planner", ws, FAST, READ, IDEA=idea))
+        S("code", lambda: [run.agent("ablation_coder", ws, STRONG, CODE, PLAN=plan), commit(ws, "ablations")][0])
         full = json.loads(rtext(run.full_result(trace)))
         cols = [("full_method", full)]
         todo = [a["name"] for a in plan.get("ablations", []) if (ws / "ablations" / f"method_{a['name']}.py").exists()]
@@ -715,9 +767,9 @@ def stage_ablation(run, trace, base_full, tag):
                 cols.append((f"w/o_{n}", futs[n].result()))
         table = compare_table(base_full, cols)
         wtext(ws / "ablation_table.md", table)
-        v = run.agent("ablation_critic", ws, FAST, READ, IDEA=idea, TABLE=table)
+        v = S("critic", lambda: run.agent("ablation_critic", ws, FAST, READ, IDEA=idea, TABLE=table))
         return {"plan": plan, "table": table, "verdict": v, "env": run.env}
-    return run.step(f"ablation_{tag}", go)
+    return run.step(key, go)
 
 
 def stage_ablation_refine(run, trace, base_full):
@@ -727,18 +779,21 @@ def stage_ablation_refine(run, trace, base_full):
         if abl["verdict"].get("decision") != "refine":
             break
         new_id = f"{trace['idea']['id']}r{i + 1}"
+        key = f"ablation_refine_{new_id}"
 
         def go():
+            S = lambda name, fn: run.sub(key, name, fn)  # noqa: E731
             ws2 = new_workspace(run.dir / "ideas" / new_id, from_ws=trace["workspace"])
             full = json.loads(rtext(run.full_result(trace)))
-            run.agent("engineer", ws2, STRONG, CODE, IDEA=trace["idea"], TABLE=abl["table"],
-                      FEEDBACK=abl["verdict"].get("feedback", ""), MODE="full")
-            commit(ws2, "ablation-driven refinement")
+            S("engineer", lambda: [run.agent("engineer", ws2, STRONG, CODE, IDEA=trace["idea"], TABLE=abl["table"],
+                                             FEEDBACK=abl["verdict"].get("feedback", ""), MODE="full"),
+                                   commit(ws2, "ablation-driven refinement")][0])
             res2 = run.evaluate(ws2 / "method.py", "full", ws2 / "full_0.json")
-            cmp = run.agent("result_comparator", run.dir / "work", FAST, READ,
-                            A=compare_table(base_full, [("A", full)]), B=compare_table(base_full, [("B", res2)]))
+            cmp = S("compare", lambda: run.agent("result_comparator", run.dir / "work", FAST, READ,
+                                                 A=compare_table(base_full, [("A", full)]),
+                                                 B=compare_table(base_full, [("B", res2)])))
             return {"ws": ws2.as_posix(), "result": (ws2 / "full_0.json").as_posix(), "prefer": cmp.get("prefer"), "env": run.env}
-        r = run.step(f"ablation_refine_{new_id}", go)
+        r = run.step(key, go)
         if r["prefer"] != "B":
             break
         trace = {**trace, "idea": {**trace["idea"], "id": new_id}, "workspace": r["ws"], "full_result": r["result"],
@@ -767,23 +822,25 @@ def build_paper_dir(run, trace, abl, base_full, tag):
 def stage_paper(run, trace, abl, base_full, tag):
     pdir = build_paper_dir(run, trace, abl, base_full, tag)
 
+    key = f"paper_{tag}"
+
     def go():
-        run.agent("drafter", pdir, FAST, CODE + WEB, )
-        commit(pdir, "initial draft")
+        S = lambda name, fn: run.sub(key, name, fn)  # noqa: E731  环节做完即存断点
+        S("draft", lambda: [run.agent("drafter", pdir, FAST, CODE + WEB), commit(pdir, "initial draft")][0])
         reviews = []
         for r in range(CFG["n_peer"] + 1):
-            rv = run.agent("reviewer", pdir, FAST, READ)
+            rv = S(f"review_{r}", lambda: run.agent("reviewer", pdir, FAST, READ))
             reviews.append(rv)
             wtext(pdir / f"review_{r}.json", json.dumps(rv, indent=1, ensure_ascii=False))
             if rv.get("score", 0) >= CFG["review_threshold"] or r == CFG["n_peer"]:
                 break
-            plan = run.agent("rebuttal_planner", pdir, FAST, READ, REVIEW=rv)
-            run.agent("rebuttal_coder", pdir, STRONG, CODE, TASKS=plan)
-            run.agent("enhancer", pdir, STRONG, CODE, REVIEW=rv)
-            commit(pdir, f"rebuttal round {r + 1}")
-        meta = run.agent("meta_reviewer", pdir, FAST, READ, REVIEWS=reviews)
+            plan = S(f"rebuttal_plan_{r}", lambda: run.agent("rebuttal_planner", pdir, FAST, READ, REVIEW=rv))
+            S(f"rebuttal_code_{r}", lambda: run.agent("rebuttal_coder", pdir, FAST, CODE, TASKS=plan))
+            S(f"enhance_{r}", lambda: [run.agent("enhancer", pdir, FAST, CODE, REVIEW=rv),
+                                       commit(pdir, f"rebuttal round {r + 1}")][0])
+        meta = S("meta", lambda: run.agent("meta_reviewer", pdir, FAST, READ, REVIEWS=reviews))
         return {"dir": pdir.as_posix(), "scores": [x.get("score") for x in reviews], "meta": meta}
-    return run.step(f"paper_{tag}", go)
+    return run.step(key, go)
 
 
 def stage_audit(run, paper, trace):
@@ -794,19 +851,21 @@ def stage_audit(run, paper, trace):
         orig = json.loads(rtext(run.full_result(trace)))
         drift = compare_table(orig, [("rerun", rerun)])
         wtext(pdir / "audit_rerun_vs_original.md", drift)
+        S = lambda name, fn: run.sub("audit", name, fn)  # noqa: E731  环节做完即存断点
         report = {}
         for attempt in range(2):
-            report["score"] = run.agent("claim_auditor", pdir, FAST, READ, RERUN=(pdir / "audit_rerun_full.json").as_posix())
-            report["spec"] = run.agent("spec_auditor", pdir, FAST, READ, INTEGRITY=run.state["integrity"] or "no changes")
-            report["refs"] = verify_refs(pdir)
-            report["method_code"] = run.agent("method_code_auditor", pdir, FAST, READ)
+            report["score"] = S(f"claim_{attempt}", lambda: run.agent("claim_auditor", pdir, FAST, READ,
+                                                                    RERUN=(pdir / "audit_rerun_full.json").as_posix()))
+            report["spec"] = S(f"spec_{attempt}", lambda: run.agent("spec_auditor", pdir, FAST, READ,
+                                                                  INTEGRITY=run.state["integrity"] or "no changes"))
+            report["refs"] = S(f"refs_{attempt}", lambda: verify_refs(pdir))
+            report["method_code"] = S(f"method_code_{attempt}", lambda: run.agent("method_code_auditor", pdir, FAST, READ))
             bad = (report["score"].get("mismatches") or report["spec"].get("violations") or report["refs"]["problems"]
                    or report["method_code"].get("discrepancies"))
             wtext(pdir / f"audit_{attempt}.json", json.dumps(report, indent=1, ensure_ascii=False))
             if not bad or attempt == 1:
                 break
-            run.agent("audit_fixer", pdir, STRONG, CODE, AUDIT=report)
-            commit(pdir, "audit fixes")
+            S(f"fix_{attempt}", lambda: [run.agent("audit_fixer", pdir, FAST, CODE, AUDIT=report), commit(pdir, "audit fixes")][0])
         return {"final": report, "passed": not bad}
     return run.step("audit", go)
 
@@ -927,14 +986,17 @@ def main():
             tag = f"{best['idea']['id']}m{m + 1}"
 
             def meta_refine():
+                S = lambda name, fn: run.sub(f"meta_refine_{tag}", name, fn)  # noqa: E731  环节做完即存断点
                 ws2 = new_workspace(run.dir / "ideas" / tag, from_ws=best["workspace"])
                 full = json.loads(rtext(run.full_result(best)))
-                run.agent("engineer", ws2, STRONG, CODE, IDEA=best["idea"], TABLE=compare_table(base_full, [("current", full)]),
-                          FEEDBACK=paper["meta"].get("method_change", ""), MODE="full")
-                commit(ws2, "meta-review refinement")
+                S("engineer", lambda: [run.agent("engineer", ws2, STRONG, CODE, IDEA=best["idea"],
+                                                 TABLE=compare_table(base_full, [("current", full)]),
+                                                 FEEDBACK=paper["meta"].get("method_change", ""), MODE="full"),
+                                       commit(ws2, "meta-review refinement")][0])
                 res2 = run.evaluate(ws2 / "method.py", "full", ws2 / "full_0.json")
-                cmp = run.agent("result_comparator", run.dir / "work", FAST, READ,
-                                A=compare_table(base_full, [("A", full)]), B=compare_table(base_full, [("B", res2)]))
+                cmp = S("compare", lambda: run.agent("result_comparator", run.dir / "work", FAST, READ,
+                                                     A=compare_table(base_full, [("A", full)]),
+                                                     B=compare_table(base_full, [("B", res2)])))
                 return {"ws": ws2.as_posix(), "result": (ws2 / "full_0.json").as_posix(), "prefer": cmp.get("prefer"), "env": run.env}
             r = run.step(f"meta_refine_{tag}", meta_refine)
             if r["prefer"] != "B":

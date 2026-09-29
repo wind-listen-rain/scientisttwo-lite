@@ -32,9 +32,9 @@
 | 3.3 选最优 | selector | Sonnet | — |
 | 3.4 消融规划 → 实现 → 审查 → 必要时改方法 → 结果比较 | ablation_planner, ablation_coder, ablation_critic, engineer, result_comparator | 混合 | 1 次 → 1 次 |
 | 3.5 起草论文（原版用 PaperOrchestra） | drafter | Sonnet | — |
-| 3.5 模拟审稿 → 补实验 → 改稿（原版用 ScholarPeer） | reviewer, rebuttal_planner, rebuttal_coder, enhancer | Sonnet / Opus | 2 轮、分数 ≥8 停 → 相同 |
+| 3.5 模拟审稿 → 补实验 → 改稿（原版用 ScholarPeer） | reviewer, rebuttal_planner, rebuttal_coder, enhancer | Sonnet（补实验、改稿 2026-09-29 前用 Opus） | 2 轮、分数 ≥8 停 → 相同 |
 | 3.6 元审稿 → 必要时回头改方法 | meta_reviewer, engineer, result_comparator | 混合 | 1 次 → 1 次 |
-| 4.2 CoE 诚信审计（重跑核分、协议合规、引用核验、方法-代码一致） | claim_auditor, spec_auditor, tools/verify_refs.py, method_code_auditor, audit_fixer | Sonnet / Opus | — |
+| 4.2 CoE 诚信审计（重跑核分、协议合规、引用核验、方法-代码一致） | claim_auditor, spec_auditor, tools/verify_refs.py, method_code_auditor, audit_fixer | Sonnet（审计修稿 2026-09-29 前用 Opus） | — |
 
 每个角色都是一次独立的 `claude -p` 调用。审查类角色只给只读工具（Read/Glob/Grep），总在干净上下文里运行，看不到写代码
 那个智能体的对话，只能看代码文件和官方评测表（"追溯而不重算"）。
@@ -58,7 +58,7 @@ ScientistTwo 批评 AutoSOTA 的核心是"单指标优化会去改评测"。所�
 
 ## 5. 与原版的差异（解读结果时要记住）
 
-1. **模型**：非代码角色用 Sonnet 而不是 Gemini；写代码和审查的是同一家族模型，可能有共同盲点（原版是 Gemini 审、Claude 写）。
+1. **模型**：非代码角色用 Sonnet 而不是 Gemini（2026-09-29 起固定为 claude-sonnet-5-5 / claude-opus-5-5；补实验、改稿、审计修稿三个角色从 Opus 改为 Sonnet 以省额度，见 JOURNAL）；写代码和审查的是同一家族模型，可能有共同盲点（原版是 Gemini 审、Claude 写）。
 2. **预算**：找局限、实验轮数、成功数都砍到原版的零头（见上表），每题可探索的想法少得多。
 3. **评测由人预先搭好**：原版由 Baseline Coding Agent 自己复现基线；这里为了防作弊，评测和基线由人搭好并锁定。
 4. **写稿与审稿工具**：没有用 PaperOrchestra 和 ScholarPeer（后者未开源），改为 Claude 按 ICLR 标准写 Markdown 论文、
