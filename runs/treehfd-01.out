@@ -153,3 +153,4 @@ tep 等步骤 idea_E1 完成后停下编排器并重启 autopilot（当前 autop
 [2026-09-30 10:16:19] downtime  上次心跳在 12.3 小时前（star-of-wind，crashed），这段时间不计入预算
 [2026-09-30 10:16:37] start  dry=False host=star-of-wind env=22b414443084 cfg={'lim_rounds': 3, 'n_seed': 4, 'max_rounds': 2, 'successes': 2, 'n_eng': 2, 'n_abl': 1, 'n_peer': 2, 'review_threshold': 8, 'n_meta': 1, 'max_hours': 20, 'max_calls': 110, 'agent_timeout': 3600}
 [2026-09-30 10:16:37] resume rebuttal_coder 续接上次没做完的会话 0523fd65-95b6-4dc3-bd55-e1e74eef453c（2026-09-29 19:51:21 开始）
+[checkpoint] 定时存档 → pushed

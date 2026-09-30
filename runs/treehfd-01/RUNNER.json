@@ -1,20 +1,11 @@
 {
  "host": "star-of-wind",
- "pid": 12152,
- "status": "running",
- "last_alive": 1790736410.379737,
- "last_alive_local": "2026-09-30 10:46:50",
+ "pid": null,
+ "status": "stopped",
+ "last_alive": 1790737716.8757868,
+ "last_alive_local": "2026-09-30 11:08:36",
  "env": "22b414443084",
- "usage": {
-  "five_hour": {
-   "pct": 21.0,
-   "resets_at": "2026-09-30T07:10:00.402088+00:00"
-  },
-  "seven_day": {
-   "pct": 3.0,
-   "resets_at": "2026-10-06T20:00:00.402109+00:00"
-  }
- },
- "budget_hours_used": 13.91,
- "calls": 46
+ "calls": 46,
+ "budget_hours_used": 12.4,
+ "note": "应用户要求暂停（2026-09-30 11:08，关机）：第一轮补实验做到一半，续跑时续接会话 0523fd65；停机时长自动扣出预算"
 }

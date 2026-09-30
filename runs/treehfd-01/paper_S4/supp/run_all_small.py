@@ -4,7 +4,7 @@ import sys
 import time
 from pathlib import Path
 
-PY = "D:/scientisttwo-lite/.conda/python.exe"
+PY = str(__import__("pathlib").Path(__file__).resolve().parents[4]) + "/.conda/python.exe"
 HERE = Path(__file__).resolve().parent
 W = int(sys.argv[1]) if len(sys.argv) > 1 else 3
 jobs = [("run_analytical.py", r, f"analytical__{r}") for r in range(10)] + \

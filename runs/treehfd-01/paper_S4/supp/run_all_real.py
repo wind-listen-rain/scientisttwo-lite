@@ -4,7 +4,7 @@ import sys
 import time
 from pathlib import Path
 
-PY = "D:/scientisttwo-lite/.conda/python.exe"
+PY = str(__import__("pathlib").Path(__file__).resolve().parents[4]) + "/.conda/python.exe"
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from run_real import CFGS  # noqa: E402

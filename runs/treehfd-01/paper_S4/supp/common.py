@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 import xgboost as xgb
 
-ROOT = Path("D:/scientisttwo-lite")
+ROOT = Path(str(__import__("pathlib").Path(__file__).resolve().parents[4]))
 S4 = ROOT / "runs/treehfd-01/paper_S4"
 SUPP = S4 / "supp"
 sys.path.insert(0, str(S4 / "method/lib"))
