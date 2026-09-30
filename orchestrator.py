@@ -256,7 +256,7 @@ class Run:
         self.log(event="wait", msg=f"订阅用量上限，等待 {secs / 60:.0f} 分钟后重试：{text.strip()[:120]}")
         self.status = "waiting_for_quota"
         self.checkpoint(f"撞到订阅用量上限，预计 {time.strftime('%m-%d %H:%M', time.localtime(time.time() + secs))} 重置")
-        end = time.time() + secs
+        end, last_save = time.time() + secs, time.time()
         while time.time() < end:
             if (self.dir / "STOP").exists():
                 break
@@ -264,6 +264,9 @@ class Run:
             time.sleep(min(60, max(0.0, end - time.time())))
             with self.lock:
                 self.state["waited_s"] = self.state.get("waited_s", 0) + (time.time() - t0)
+            if time.time() - last_save > 300:  # 每 5 分钟落盘一次：等待中被强行结束时，已等的时间也不算进预算（2026-09-29 漏算过 1.9 小时）
+                self.save()
+                last_save = time.time()
         self.status = "running"
         self.save()
         self.check_flags()
