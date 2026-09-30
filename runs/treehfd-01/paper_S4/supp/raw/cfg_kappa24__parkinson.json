@@ -1,0 +1,33 @@
+{
+ "dataset": "parkinson",
+ "job": "cfg:kappa24",
+ "n_train": 4700,
+ "n_test": 1175,
+ "sweep_fit_s": 49.46023939999577,
+ "default_sel": {
+  "resid_in": 0.007288915550555632,
+  "resid_out": 0.00953151219381615,
+  "ortho_in": 0.08273755545105947,
+  "ortho_out": 0.11826174801040414,
+  "cand": [
+   "common",
+   0,
+   3.0
+  ],
+  "risk_over_var": 0.01102500676793014,
+  "fid_over_var": 0.0072889167345343685
+ },
+ "scaled_shift_sel": {
+  "resid_in": 0.0072539796316775035,
+  "resid_out": 0.009546706268277395,
+  "ortho_in": 0.08201508396852338,
+  "ortho_out": 0.11723091705419053,
+  "cand": [
+   "shift",
+   0,
+   -7.0
+  ],
+  "risk_over_var": 0.011007574356876174,
+  "fid_over_var": 0.007253980793354291
+ }
+}

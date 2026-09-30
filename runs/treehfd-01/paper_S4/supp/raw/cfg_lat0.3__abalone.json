@@ -1,0 +1,20 @@
+{
+ "dataset": "abalone",
+ "job": "cfg:lat0.3",
+ "n_train": 3341,
+ "n_test": 836,
+ "sweep_fit_s": 16.27863950000028,
+ "default_sel": {
+  "resid_in": 0.006283945533008169,
+  "resid_out": 0.022665227541307374,
+  "ortho_in": 0.025322405779215084,
+  "ortho_out": 0.04423325968443032,
+  "cand": [
+   "shift",
+   3,
+   -3.0
+  ],
+  "risk_over_var": 0.046883984592805274,
+  "fid_over_var": 0.006283949219847899
+ }
+}

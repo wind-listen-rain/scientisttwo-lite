@@ -1,0 +1,20 @@
+{
+ "dataset": "parkinson",
+ "job": "cfg:main3",
+ "n_train": 4700,
+ "n_test": 1175,
+ "sweep_fit_s": 49.39298599999165,
+ "default_sel": {
+  "resid_in": 0.00728426319576543,
+  "resid_out": 0.00953874222502011,
+  "ortho_in": 0.08207183377079905,
+  "ortho_out": 0.11742704462372615,
+  "cand": [
+   "shift",
+   0,
+   -3.0
+  ],
+  "risk_over_var": 0.011020995259283621,
+  "fid_over_var": 0.007284264333192723
+ }
+}

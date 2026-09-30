@@ -1,0 +1,338 @@
+{
+ "B": 1000,
+ "per_dataset": {
+  "abalone": {
+   "n_test": 836,
+   "point": {
+    "resid_out_base": 0.039918718614258,
+    "resid_out_gt": 0.020935924383190113,
+    "ortho_out_base": 0.015725464219375346,
+    "ortho_out_gt": 0.0411777678491388
+   },
+   "resid_out": {
+    "ratio_point": 0.5244638382684035,
+    "ci95": [
+     0.42170466754787306,
+     0.6531746539945329
+    ],
+    "boot_mean": 0.5239722212999249,
+    "boot_sd": 0.06052065618060953,
+    "win_rate": 1.0,
+    "ci_includes_1": false
+   },
+   "ortho_out": {
+    "ratio_point": 2.6185406850122535,
+    "ci95": [
+     0.23276119531182815,
+     2.9648946611435716
+    ],
+    "boot_median": 1.0211304075686338,
+    "n_valid_resamples": 1000,
+    "win_rate": 0.479,
+    "ci_includes_1": true
+   }
+  },
+  "airfoil": {
+   "n_test": 301,
+   "point": {
+    "resid_out_base": 0.026613834211380947,
+    "resid_out_gt": 0.022472783904477794,
+    "ortho_out_base": 0.09879342693454074,
+    "ortho_out_gt": 0.11161246879005103
+   },
+   "resid_out": {
+    "ratio_point": 0.8444023407520775,
+    "ci95": [
+     0.704798195474118,
+     0.9828202081388528
+    ],
+    "boot_mean": 0.8537000972753617,
+    "boot_sd": 0.07314636787151578,
+    "win_rate": 0.991,
+    "ci_includes_1": false
+   },
+   "ortho_out": {
+    "ratio_point": 1.1297560197400989,
+    "ci95": [
+     0.8266977974261965,
+     1.2310715130970453
+    ],
+    "boot_median": 1.0331646129571954,
+    "n_valid_resamples": 1000,
+    "win_rate": 0.325,
+    "ci_includes_1": true
+   }
+  },
+  "bike": {
+   "n_test": 3476,
+   "point": {
+    "resid_out_base": 0.024644465316156702,
+    "resid_out_gt": 0.024597808712012816,
+    "ortho_out_base": 0.02120800256067133,
+    "ortho_out_gt": 0.0212095596876919
+   },
+   "resid_out": {
+    "ratio_point": 0.998106812075436,
+    "ci95": [
+     0.995461373349116,
+     1.0007617437818432
+    ],
+    "boot_mean": 0.9981496200343877,
+    "boot_sd": 0.001401868721326875,
+    "win_rate": 0.901,
+    "ci_includes_1": true
+   },
+   "ortho_out": {
+    "ratio_point": 1.0000734216726028,
+    "ci95": [
+     0.9782966142470039,
+     1.0120537970118428
+    ],
+    "boot_median": 0.9992618139007463,
+    "n_valid_resamples": 1000,
+    "win_rate": 0.615,
+    "ci_includes_1": true
+   }
+  },
+  "housing": {
+   "n_test": 4128,
+   "point": {
+    "resid_out_base": 0.015443379904903123,
+    "resid_out_gt": 0.014055261065411056,
+    "ortho_out_base": 0.04882728923397739,
+    "ortho_out_gt": 0.04828952581401473
+   },
+   "resid_out": {
+    "ratio_point": 0.9101156062960445,
+    "ci95": [
+     0.8582640347443252,
+     0.9667709782396812
+    ],
+    "boot_mean": 0.9113632896435958,
+    "boot_sd": 0.02892656649951191,
+    "win_rate": 0.998,
+    "ci_includes_1": false
+   },
+   "ortho_out": {
+    "ratio_point": 0.9889864166452959,
+    "ci95": [
+     0.8498181550869681,
+     1.1534647683241133
+    ],
+    "boot_median": 0.9876521609967761,
+    "n_valid_resamples": 1000,
+    "win_rate": 0.574,
+    "ci_includes_1": true
+   }
+  },
+  "concrete": {
+   "n_test": 206,
+   "point": {
+    "resid_out_base": 0.025074310404558604,
+    "resid_out_gt": 0.02104367754570891,
+    "ortho_out_base": 0.081815618975496,
+    "ortho_out_gt": 0.07163984338753085
+   },
+   "resid_out": {
+    "ratio_point": 0.8392524941337206,
+    "ci95": [
+     0.7576591007643279,
+     0.9253889373316423
+    ],
+    "boot_mean": 0.8381525546659375,
+    "boot_sd": 0.04343110021024431,
+    "win_rate": 1.0,
+    "ci_includes_1": false
+   },
+   "ortho_out": {
+    "ratio_point": 0.8756255136196816,
+    "ci95": [
+     0.23481440710362994,
+     1.2882089753916763
+    ],
+    "boot_median": 0.950084934086233,
+    "n_valid_resamples": 988,
+    "win_rate": 0.6406882591093117,
+    "ci_includes_1": true
+   }
+  },
+  "nutrition": {
+   "n_test": 456,
+   "point": {
+    "resid_out_base": 0.09628036066166633,
+    "resid_out_gt": 0.0725325694260995,
+    "ortho_out_base": 0.11044957098901337,
+    "ortho_out_gt": 0.08167676131479808
+   },
+   "resid_out": {
+    "ratio_point": 0.7533475043885879,
+    "ci95": [
+     0.6712015920004654,
+     0.8546143215066211
+    ],
+    "boot_mean": 0.7574930423252911,
+    "boot_sd": 0.04771521408339783,
+    "win_rate": 1.0,
+    "ci_includes_1": false
+   },
+   "ortho_out": {
+    "ratio_point": 0.7394936945741747,
+    "ci95": [
+     0.6180863635854448,
+     1.3183739876776053
+    ],
+    "boot_median": 0.8687828560914099,
+    "n_valid_resamples": 1000,
+    "win_rate": 0.802,
+    "ci_includes_1": true
+   }
+  },
+  "parkinson": {
+   "n_test": 1175,
+   "point": {
+    "resid_out_base": 0.009540935284574453,
+    "resid_out_gt": 0.009560983957195103,
+    "ortho_out_base": 0.1175595542466476,
+    "ortho_out_gt": 0.11737716351634182
+   },
+   "resid_out": {
+    "ratio_point": 1.0021013319997112,
+    "ci95": [
+     0.9755397037317017,
+     1.0347752145521123
+    ],
+    "boot_mean": 1.001720137805997,
+    "boot_sd": 0.015084478165698202,
+    "win_rate": 0.461,
+    "ci_includes_1": true
+   },
+   "ortho_out": {
+    "ratio_point": 0.9984485248223797,
+    "ci95": [
+     0.9809403229286668,
+     1.0059163385169334
+    ],
+    "boot_median": 0.9983986404972257,
+    "n_valid_resamples": 1000,
+    "win_rate": 0.716,
+    "ci_includes_1": true
+   }
+  },
+  "powerplant": {
+   "n_test": 1914,
+   "point": {
+    "resid_out_base": 0.0011047773668387208,
+    "resid_out_gt": 0.0010647888642659935,
+    "ortho_out_base": null,
+    "ortho_out_gt": null
+   },
+   "resid_out": {
+    "ratio_point": 0.9638040171956519,
+    "ci95": [
+     0.9377919750535157,
+     0.9890253809903392
+    ],
+    "boot_mean": 0.96414891853758,
+    "boot_sd": 0.013265029581290659,
+    "win_rate": 0.997,
+    "ci_includes_1": false
+   },
+   "ortho_out": null
+  },
+  "superconduct": {
+   "n_test": 4253,
+   "point": {
+    "resid_out_base": 0.00910566582765651,
+    "resid_out_gt": 0.009089734948561188,
+    "ortho_out_base": null,
+    "ortho_out_gt": null
+   },
+   "resid_out": {
+    "ratio_point": 0.9982504432518339,
+    "ci95": [
+     0.9856187905175081,
+     1.0101339464110417
+    ],
+    "boot_mean": 0.9984406112994614,
+    "boot_sd": 0.006257349555700945,
+    "win_rate": 0.587,
+    "ci_includes_1": true
+   },
+   "ortho_out": null
+  }
+ },
+ "geo_mean": {
+  "datasets": [
+   "abalone",
+   "airfoil",
+   "bike",
+   "housing",
+   "concrete",
+   "nutrition",
+   "parkinson",
+   "powerplant",
+   "superconduct"
+  ],
+  "resid_out": {
+   "point": 0.8554094593570157,
+   "n_datasets": 9,
+   "test_rows_only": {
+    "ci95": [
+     0.8246202985749488,
+     0.8876455779843478
+    ],
+    "win_rate": 1.0
+   },
+   "datasets_only": {
+    "ci95": [
+     0.7344581317059818,
+     0.9567806603988717
+    ],
+    "win_rate": 1.0
+   },
+   "both_levels": {
+    "ci95": [
+     0.7337082089220023,
+     0.9601325460227875
+    ],
+    "win_rate": 1.0
+   },
+   "excluding_abalone_airfoil": {
+    "point": 0.9190280774995494,
+    "test_rows_only_ci95": [
+     0.8966794027110035,
+     0.9430292353156876
+    ],
+    "datasets_only_ci95": [
+     0.8522941113895,
+     0.9843818155647925
+    ]
+   }
+  },
+  "ortho_out": {
+   "point": 1.0953407677817166,
+   "n_datasets": 7,
+   "test_rows_only": {
+    "ci95": [
+     0.7360896819650481,
+     1.1728916535353036
+    ],
+    "win_rate": 0.666
+   },
+   "datasets_only": {
+    "ci95": [
+     0.869954969489716,
+     1.4819867988857949
+    ],
+    "win_rate": 0.31
+   },
+   "both_levels": {
+    "ci95": [
+     0.7094147643541001,
+     1.2028979808133227
+    ],
+    "win_rate": 0.689
+   }
+  }
+ }
+}

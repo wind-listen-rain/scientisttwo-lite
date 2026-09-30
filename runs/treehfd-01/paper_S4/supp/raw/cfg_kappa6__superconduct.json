@@ -1,0 +1,33 @@
+{
+ "dataset": "superconduct",
+ "job": "cfg:kappa6",
+ "n_train": 17010,
+ "n_test": 4253,
+ "sweep_fit_s": 284.26067370000237,
+ "default_sel": {
+  "resid_in": 0.010266531822250013,
+  "resid_out": 0.009138556036314076,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "shift",
+   2,
+   -1.0
+  ],
+  "risk_over_var": 0.012217880222390216,
+  "fid_over_var": 0.010266522033536176
+ },
+ "scaled_shift_sel": {
+  "resid_in": 0.010266531822250013,
+  "resid_out": 0.009138556036314076,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "shift",
+   2,
+   -1.0
+  ],
+  "risk_over_var": 0.012217880222390216,
+  "fid_over_var": 0.010266522033536176
+ }
+}

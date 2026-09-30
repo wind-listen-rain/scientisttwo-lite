@@ -1,0 +1,20 @@
+{
+ "dataset": "housing",
+ "job": "cfg:lat0.3",
+ "n_train": 16512,
+ "n_test": 4128,
+ "sweep_fit_s": 183.29055399999197,
+ "default_sel": {
+  "resid_in": 0.011072515736379606,
+  "resid_out": 0.014060441948519872,
+  "ortho_in": 0.028371663013842127,
+  "ortho_out": 0.0485821039493365,
+  "cand": [
+   "shift",
+   3,
+   -2.0
+  ],
+  "risk_over_var": 0.01936719732466888,
+  "fid_over_var": 0.0110725130008619
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "dataset": "powerplant",
+ "job": "ridge",
+ "n_train": 7654,
+ "n_test": 1914,
+ "ridge_zero": {
+  "resid_in": 0.0006747658595271175,
+  "resid_out": 0.0010760936963635137,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "common",
+   0,
+   2.0
+  ],
+  "risk_over_var": 0.0016199783668729335,
+  "fid_over_var": 0.0006747612270439812
+ },
+ "ridge_harmonic": {
+  "resid_in": 0.0006747658595271175,
+  "resid_out": 0.0010681830736951649,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "common",
+   1,
+   2.0
+  ],
+  "risk_over_var": 0.0015961826162292179,
+  "fid_over_var": 0.0006747612270439812
+ },
+ "ridge_full_selection": {
+  "resid_in": 0.0006672595005235206,
+  "resid_out": 0.0010647888642659935,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "shift",
+   1,
+   -2.0
+  ],
+  "risk_over_var": 0.0015862377255783865,
+  "fid_over_var": 0.000667255567029708
+ }
+}

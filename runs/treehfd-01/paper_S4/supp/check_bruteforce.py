@@ -14,7 +14,7 @@ import sys
 import numpy as np
 import pandas as pd
 
-import gtloco
+from common import gtloco
 from common import SUPP, dump, real, set_config
 
 ds = sys.argv[1]

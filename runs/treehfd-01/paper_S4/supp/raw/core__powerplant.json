@@ -1,0 +1,266 @@
+{
+ "dataset": "powerplant",
+ "job": "core",
+ "n_train": 7654,
+ "n_test": 1914,
+ "baseline": {
+  "resid_in": 0.0006304836395883803,
+  "resid_out": 0.0011047773668387208,
+  "ortho_in": null,
+  "ortho_out": null,
+  "fit_s": 15.447199999995064
+ },
+ "baseline_redraws": [
+  {
+   "resid_in": 0.0006304836395883803,
+   "resid_out": 0.001104031671027229,
+   "ortho_in": null,
+   "ortho_out": null
+  },
+  {
+   "resid_in": 0.0006304836395883803,
+   "resid_out": 0.0011018357000656238,
+   "ortho_in": null,
+   "ortho_out": null
+  },
+  {
+   "resid_in": 0.0006304836395883803,
+   "resid_out": 0.001103456925078263,
+   "ortho_in": null,
+   "ortho_out": null
+  },
+  {
+   "resid_in": 0.0006304836395883803,
+   "resid_out": 0.001101091054044949,
+   "ortho_in": null,
+   "ortho_out": null
+  },
+  {
+   "resid_in": 0.0006304836395883803,
+   "resid_out": 0.0011066915397094377,
+   "ortho_in": null,
+   "ortho_out": null
+  }
+ ],
+ "purified_baseline": {
+  "resid_in": 0.0006304836395883809,
+  "resid_out": 0.0011047773668387212,
+  "ortho_in": null,
+  "ortho_out": null
+ },
+ "sweep_fit_s": 39.23609639999631,
+ "default": {
+  "resid_in": 0.0006672595005235206,
+  "resid_out": 0.0010647888642659935,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "shift",
+   1,
+   -2.0
+  ],
+  "risk_over_var": 0.0015862377255783865,
+  "fid_over_var": 0.000667255567029708
+ },
+ "lattice_common": {
+  "resid_in": 0.0006772450314017021,
+  "resid_out": 0.001059795483217778,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "common",
+   3,
+   1.0
+  ],
+  "risk_over_var": 0.0015946351092276285,
+  "fid_over_var": 0.0006772413734317087
+ },
+ "shift_range": {
+  "0..0": {
+   "resid_in": 0.0006772450314017021,
+   "resid_out": 0.001059795483217778,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "common",
+    3,
+    1.0
+   ],
+   "risk_over_var": 0.0015946351092276285,
+   "fid_over_var": 0.0006772413734317087
+  },
+  "-3..+1": {
+   "resid_in": 0.0006672595005235206,
+   "resid_out": 0.0010647888642659935,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    1,
+    -2.0
+   ],
+   "risk_over_var": 0.0015862377255783865,
+   "fid_over_var": 0.000667255567029708
+  },
+  "-5..+3": {
+   "resid_in": 0.0006672595005235206,
+   "resid_out": 0.0010647888642659935,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    1,
+    -2.0
+   ],
+   "risk_over_var": 0.0015862377255783865,
+   "fid_over_var": 0.000667255567029708
+  },
+  "-8..+5": {
+   "resid_in": 0.0006672595005235206,
+   "resid_out": 0.0010647888642659935,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    1,
+    -2.0
+   ],
+   "risk_over_var": 0.0015862377255783865,
+   "fid_over_var": 0.000667255567029708
+  }
+ },
+ "shift_sweep": {
+  "-5": {
+   "resid_in": 0.0006352562579801761,
+   "resid_out": 0.001087075614171124,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    1,
+    -5.0
+   ],
+   "risk_over_var": 0.0016130291346052622,
+   "fid_over_var": 0.0006352528193142907
+  },
+  "-4": {
+   "resid_in": 0.0006359858685139014,
+   "resid_out": 0.0010852396701115678,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    1,
+    -4.0
+   ],
+   "risk_over_var": 0.001609620605004064,
+   "fid_over_var": 0.0006359824288998371
+  },
+  "-3": {
+   "resid_in": 0.0006430082667298268,
+   "resid_out": 0.0010753901800793443,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    1,
+    -3.0
+   ],
+   "risk_over_var": 0.001597243381530201,
+   "fid_over_var": 0.0006430047547949236
+  },
+  "-2": {
+   "resid_in": 0.0006672595005235206,
+   "resid_out": 0.0010647888642659935,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    1,
+    -2.0
+   ],
+   "risk_over_var": 0.0015862377255783865,
+   "fid_over_var": 0.000667255567029708
+  },
+  "-1": {
+   "resid_in": 0.0007327422536569359,
+   "resid_out": 0.001070152924653116,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    1,
+    -1.0
+   ],
+   "risk_over_var": 0.0016044466661628057,
+   "fid_over_var": 0.0007327369313343377
+  },
+  "0": {
+   "resid_in": 0.0009096491738395828,
+   "resid_out": 0.0011383642119344956,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    1,
+    0.0
+   ],
+   "risk_over_var": 0.001723292039507457,
+   "fid_over_var": 0.0009096394096608009
+  },
+  "1": {
+   "resid_in": 0.001356161398599944,
+   "resid_out": 0.001408412318415234,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    1,
+    1.0
+   ],
+   "risk_over_var": 0.002113442043144211,
+   "fid_over_var": 0.0013561381964674872
+  },
+  "2": {
+   "resid_in": 0.0025371986718421124,
+   "resid_out": 0.0022979320419398907,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    1,
+    2.0
+   ],
+   "risk_over_var": 0.003241131567951704,
+   "fid_over_var": 0.0025371351928193757
+  },
+  "3": {
+   "resid_in": 0.005712900142946401,
+   "resid_out": 0.0050199311474428245,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    1,
+    3.0
+   ],
+   "risk_over_var": 0.006391803496641276,
+   "fid_over_var": 0.005712726485992037
+  }
+ },
+ "selected_variant": 1,
+ "kappas": [
+  0.01,
+  0.03,
+  0.1,
+  0.3,
+  1.0,
+  3.0,
+  10.0,
+  30.0,
+  100.0,
+  300.0,
+  1000.0,
+  10000.0
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "dataset": "airfoil",
+ "job": "cfg:main3",
+ "n_train": 1202,
+ "n_test": 301,
+ "sweep_fit_s": 4.192114200006472,
+ "default_sel": {
+  "resid_in": 0.012259386331250769,
+  "resid_out": 0.022424657896406422,
+  "ortho_in": 0.04146087377276353,
+  "ortho_out": 0.11319072840842309,
+  "cand": [
+   "shift",
+   3,
+   -1.0
+  ],
+  "risk_over_var": 0.027454060539235596,
+  "fid_over_var": 0.012259361753783924
+ }
+}

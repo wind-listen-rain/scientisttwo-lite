@@ -1,0 +1,266 @@
+{
+ "dataset": "superconduct",
+ "job": "core",
+ "n_train": 17010,
+ "n_test": 4253,
+ "baseline": {
+  "resid_in": 0.010092430569006976,
+  "resid_out": 0.00910566582765651,
+  "ortho_in": null,
+  "ortho_out": null,
+  "fit_s": 655.9387680000073
+ },
+ "baseline_redraws": [
+  {
+   "resid_in": 0.010092430569006976,
+   "resid_out": 0.00910566582765651,
+   "ortho_in": null,
+   "ortho_out": null
+  },
+  {
+   "resid_in": 0.010092430569006976,
+   "resid_out": 0.0091057903882186,
+   "ortho_in": null,
+   "ortho_out": null
+  },
+  {
+   "resid_in": 0.010092430569006976,
+   "resid_out": 0.00910566582765651,
+   "ortho_in": null,
+   "ortho_out": null
+  },
+  {
+   "resid_in": 0.010092430569006976,
+   "resid_out": 0.00910566582765651,
+   "ortho_in": null,
+   "ortho_out": null
+  },
+  {
+   "resid_in": 0.010092430569006976,
+   "resid_out": 0.00910566582765651,
+   "ortho_in": null,
+   "ortho_out": null
+  }
+ ],
+ "purified_baseline": {
+  "resid_in": 0.010092430569006976,
+  "resid_out": 0.009105665827656506,
+  "ortho_in": null,
+  "ortho_out": null
+ },
+ "sweep_fit_s": 210.06383959999948,
+ "default": {
+  "resid_in": 0.010176157551377837,
+  "resid_out": 0.009089734948561188,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "shift",
+   2,
+   -3.0
+  ],
+  "risk_over_var": 0.01220128620965226,
+  "fid_over_var": 0.010176147811537327
+ },
+ "lattice_common": {
+  "resid_in": 0.010125191782011092,
+  "resid_out": 0.009071553723411726,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "common",
+   2,
+   0.0
+  ],
+  "risk_over_var": 0.012233801984467399,
+  "fid_over_var": 0.01012518207994782
+ },
+ "shift_range": {
+  "0..0": {
+   "resid_in": 0.010125191782011092,
+   "resid_out": 0.009071553723411726,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "common",
+    2,
+    0.0
+   ],
+   "risk_over_var": 0.012233801984467399,
+   "fid_over_var": 0.01012518207994782
+  },
+  "-3..+1": {
+   "resid_in": 0.010176157551377837,
+   "resid_out": 0.009089734948561188,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    2,
+    -3.0
+   ],
+   "risk_over_var": 0.01220128620965226,
+   "fid_over_var": 0.010176147811537327
+  },
+  "-5..+3": {
+   "resid_in": 0.010176157551377837,
+   "resid_out": 0.009089734948561188,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    2,
+    -3.0
+   ],
+   "risk_over_var": 0.01220128620965226,
+   "fid_over_var": 0.010176147811537327
+  },
+  "-8..+5": {
+   "resid_in": 0.010176157551377837,
+   "resid_out": 0.009089734948561188,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    2,
+    -3.0
+   ],
+   "risk_over_var": 0.01220128620965226,
+   "fid_over_var": 0.010176147811537327
+  }
+ },
+ "shift_sweep": {
+  "-5": {
+   "resid_in": 0.010126402394408509,
+   "resid_out": 0.00907189284876878,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    2,
+    -5.0
+   ],
+   "risk_over_var": 0.012227943636621929,
+   "fid_over_var": 0.01012639269122274
+  },
+  "-4": {
+   "resid_in": 0.010132573482508624,
+   "resid_out": 0.009068103678124984,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    2,
+    -4.0
+   ],
+   "risk_over_var": 0.01221543089569653,
+   "fid_over_var": 0.01013256377816986
+  },
+  "-3": {
+   "resid_in": 0.010176157551377837,
+   "resid_out": 0.009089734948561188,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    2,
+    -3.0
+   ],
+   "risk_over_var": 0.01220128620965226,
+   "fid_over_var": 0.010176147811537327
+  },
+  "-2": {
+   "resid_in": 0.010303033786905044,
+   "resid_out": 0.009143968840228927,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    2,
+    -2.0
+   ],
+   "risk_over_var": 0.012246122141751524,
+   "fid_over_var": 0.010303023979990644
+  },
+  "-1": {
+   "resid_in": 0.010579282672072348,
+   "resid_out": 0.009283341049776456,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    2,
+    -1.0
+   ],
+   "risk_over_var": 0.012430479286981154,
+   "fid_over_var": 0.010579272710351565
+  },
+  "0": {
+   "resid_in": 0.011185616224243114,
+   "resid_out": 0.009648414374265135,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    2,
+    0.0
+   ],
+   "risk_over_var": 0.012908076255247605,
+   "fid_over_var": 0.011185605929862813
+  },
+  "1": {
+   "resid_in": 0.01235053331131079,
+   "resid_out": 0.010433968688969494,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    2,
+    1.0
+   ],
+   "risk_over_var": 0.01390204026064771,
+   "fid_over_var": 0.012350522277302057
+  },
+  "2": {
+   "resid_in": 0.014595333298034408,
+   "resid_out": 0.01206888195865884,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    2,
+    2.0
+   ],
+   "risk_over_var": 0.01593399822460981,
+   "fid_over_var": 0.01459532071837934
+  },
+  "3": {
+   "resid_in": 0.01853498181701777,
+   "resid_out": 0.015161369382047908,
+   "ortho_in": null,
+   "ortho_out": null,
+   "cand": [
+    "shift",
+    2,
+    3.0
+   ],
+   "risk_over_var": 0.019647806917180505,
+   "fid_over_var": 0.018534966449242806
+  }
+ },
+ "selected_variant": 2,
+ "kappas": [
+  0.01,
+  0.03,
+  0.1,
+  0.3,
+  1.0,
+  3.0,
+  10.0,
+  30.0,
+  100.0,
+  300.0,
+  1000.0,
+  10000.0
+ ]
+}

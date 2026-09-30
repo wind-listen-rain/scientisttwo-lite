@@ -1,0 +1,45 @@
+{
+ "dataset": "nutrition",
+ "job": "ridge",
+ "n_train": 1822,
+ "n_test": 456,
+ "ridge_zero": {
+  "resid_in": 0.026361087597829357,
+  "resid_out": 0.07140762585942355,
+  "ortho_in": 0.016260199636593038,
+  "ortho_out": 0.08222701516193771,
+  "cand": [
+   "common",
+   0,
+   3.0
+  ],
+  "risk_over_var": 0.14078901524546283,
+  "fid_over_var": 0.026361076956042787
+ },
+ "ridge_harmonic": {
+  "resid_in": 0.026361087597829357,
+  "resid_out": 0.07037689442231371,
+  "ortho_in": 0.016260199636593038,
+  "ortho_out": 0.07512885406850765,
+  "cand": [
+   "common",
+   1,
+   3.0
+  ],
+  "risk_over_var": 0.14113520803687268,
+  "fid_over_var": 0.026361076956042787
+ },
+ "ridge_full_selection": {
+  "resid_in": 0.02513560852076396,
+  "resid_out": 0.0727688345887734,
+  "ortho_in": 0.015653286208325557,
+  "ortho_out": 0.08810573276780485,
+  "cand": [
+   "shift",
+   0,
+   -2.0
+  ],
+  "risk_over_var": 0.13880577881888964,
+  "fid_over_var": 0.02513559872048122
+ }
+}

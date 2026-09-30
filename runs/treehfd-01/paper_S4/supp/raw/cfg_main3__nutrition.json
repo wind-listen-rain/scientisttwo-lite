@@ -1,0 +1,20 @@
+{
+ "dataset": "nutrition",
+ "job": "cfg:main3",
+ "n_train": 1822,
+ "n_test": 456,
+ "sweep_fit_s": 13.785379900000407,
+ "default_sel": {
+  "resid_in": 0.027491995437260903,
+  "resid_out": 0.07330249087519582,
+  "ortho_in": 0.014921086566577304,
+  "ortho_out": 0.07815502740265969,
+  "cand": [
+   "shift",
+   2,
+   -2.0
+  ],
+  "risk_over_var": 0.13755639974575892,
+  "fid_over_var": 0.02749198513587721
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "dataset": "powerplant",
+ "job": "cfg:kappa24",
+ "n_train": 7654,
+ "n_test": 1914,
+ "sweep_fit_s": 38.43362709999201,
+ "default_sel": {
+  "resid_in": 0.000675173893848101,
+  "resid_out": 0.0010584163647074337,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "shift",
+   3,
+   -4.0
+  ],
+  "risk_over_var": 0.0015870988662383474,
+  "fid_over_var": 0.0006751703540435359
+ },
+ "scaled_shift_sel": {
+  "resid_in": 0.000675173893848101,
+  "resid_out": 0.0010584163647074337,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "shift",
+   3,
+   -4.0
+  ],
+  "risk_over_var": 0.0015870988662383474,
+  "fid_over_var": 0.0006751703540435359
+ }
+}

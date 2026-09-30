@@ -1,0 +1,20 @@
+{
+ "dataset": "concrete",
+ "job": "cfg:main0.3",
+ "n_train": 824,
+ "n_test": 206,
+ "sweep_fit_s": 7.682659199999762,
+ "default_sel": {
+  "resid_in": 0.0024026047096045947,
+  "resid_out": 0.020895688936554583,
+  "ortho_in": 0.006671461279193273,
+  "ortho_out": 0.0751851316419425,
+  "cand": [
+   "shift",
+   3,
+   -2.0
+  ],
+  "risk_over_var": 0.019958676228281222,
+  "fid_over_var": 0.002402605957350159
+ }
+}

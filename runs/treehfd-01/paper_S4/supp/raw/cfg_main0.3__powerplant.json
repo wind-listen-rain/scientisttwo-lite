@@ -1,0 +1,20 @@
+{
+ "dataset": "powerplant",
+ "job": "cfg:main0.3",
+ "n_train": 7654,
+ "n_test": 1914,
+ "sweep_fit_s": 38.69897320000746,
+ "default_sel": {
+  "resid_in": 0.0006791030487907844,
+  "resid_out": 0.0010612778585157895,
+  "ortho_in": null,
+  "ortho_out": null,
+  "cand": [
+   "shift",
+   3,
+   -2.0
+  ],
+  "risk_over_var": 0.0015859350446249217,
+  "fid_over_var": 0.0006790996988080118
+ }
+}

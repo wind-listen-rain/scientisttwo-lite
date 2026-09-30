@@ -1,0 +1,33 @@
+{
+ "dataset": "nutrition",
+ "job": "cfg:kappa24",
+ "n_train": 1822,
+ "n_test": 456,
+ "sweep_fit_s": 13.912087500008056,
+ "default_sel": {
+  "resid_in": 0.028066288458581428,
+  "resid_out": 0.07361712047808183,
+  "ortho_in": 0.015214208946831089,
+  "ortho_out": 0.08045683156755647,
+  "cand": [
+   "shift",
+   2,
+   -4.0
+  ],
+  "risk_over_var": 0.136292172168886,
+  "fid_over_var": 0.02806627920648078
+ },
+ "scaled_shift_sel": {
+  "resid_in": 0.028066288458581428,
+  "resid_out": 0.07361712047808183,
+  "ortho_in": 0.015214208946831089,
+  "ortho_out": 0.08045683156755647,
+  "cand": [
+   "shift",
+   2,
+   -4.0
+  ],
+  "risk_over_var": 0.136292172168886,
+  "fid_over_var": 0.02806627920648078
+ }
+}
